@@ -20,6 +20,20 @@ DEFAULT_CPU_THREADS = 10
 SUPPORTED_PRECISION_LIST = ["fp32", "fp16"]
 DEFAULT_USE_CINN = False
 
+_DEPRECATED_PARAM_NAME_MAPPING = {
+    "det_model_dir": "text_detection_model_dir",
+    "det_limit_side_len": "text_det_limit_side_len",
+    "det_limit_type": "text_det_limit_type",
+    "det_db_thresh": "text_det_thresh",
+    "det_db_box_thresh": "text_det_box_thresh",
+    "det_db_unclip_ratio": "text_det_unclip_ratio",
+    "rec_model_dir": "text_recognition_model_dir",
+    "rec_batch_num": "text_recognition_batch_size",
+    "use_angle_cls": "use_textline_orientation",
+    "cls_model_dir": "textline_orientation_model_dir",
+    "cls_batch_num": "textline_orientation_batch_size",
+}
+
 
 def parse_common_args(kwargs, *, default_enable_hpi):
     default_vals = {
@@ -340,6 +354,15 @@ class PaddleOCR(PaddleXPipelineWrapper):
             "text_rec_input_shape": text_rec_input_shape,
         }
         base_params = {}
+        for name, val in kwargs.items():
+            if name in _DEPRECATED_PARAM_NAME_MAPPING:
+                new_name = _DEPRECATED_PARAM_NAME_MAPPING[name]
+                assert (new_name in params), f"{repr(new_name)} is not a valid parameter name."
+                if params[new_name] is not None:
+                    raise ValueError(f"`{name}` and `{new_name}` are mutually exclusive.")
+                params[new_name] = val
+            else:
+                base_params[name] = val
 
         self._params = params
 
