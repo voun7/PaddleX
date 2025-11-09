@@ -38,17 +38,17 @@ def npu_combining(x, combine_weights, scatter_index, hard_gate=False):
 
 
 def npu_cal_aux_loss_func(
-    gate_prob,
-    dispatch_mask,
-    tokens_mask,
-    dispatch_tokens_mask,
-    num_experts,
-    use_group,
-    moe_k,
-    global_aux_loss=False,
-    rank=None,
-    group=None,
-    clip_min=1e-6,
+        gate_prob,
+        dispatch_mask,
+        tokens_mask,
+        dispatch_tokens_mask,
+        num_experts,
+        use_group,
+        moe_k,
+        global_aux_loss=False,
+        rank=None,
+        group=None,
+        clip_min=1e-6,
 ):
     """cal_aux_loss_func"""
     if tokens_mask is not None and tokens_mask.dtype != gate_prob.dtype:
@@ -58,8 +58,8 @@ def npu_cal_aux_loss_func(
     if dispatch_tokens_mask is not None:
         seqlen_float = dispatch_tokens_mask.astype(gate_prob.dtype).sum()
         if (
-            tokens_mask is not None
-            and gate_prob.shape[0] != dispatch_tokens_mask.shape[0]
+                tokens_mask is not None
+                and gate_prob.shape[0] != dispatch_tokens_mask.shape[0]
         ):
             scale = seqlen_float / paddle.clip(tokens_mask.sum(), min=1e-6)
     elif tokens_mask is not None:

@@ -15,11 +15,11 @@
 import argparse
 import sys
 
-from ...utils import logging
-from ...utils.deps import is_genai_engine_plugin_available
 from .configs.utils import load_backend_config, update_backend_config
 from .constants import DEFAULT_BACKEND, SUPPORTED_BACKENDS
 from .models import get_chat_template_path, get_default_config, get_model_dir
+from ...utils import logging
+from ...utils.deps import is_genai_engine_plugin_available
 
 
 def get_arg_parser():
@@ -95,7 +95,7 @@ def run_genai_server(args):
     backend_config = default_config
 
     with get_chat_template_path(
-        args.model_name, args.backend, model_dir
+            args.model_name, args.backend, model_dir
     ) as chat_template_path:
         run_server_func(
             args.host,

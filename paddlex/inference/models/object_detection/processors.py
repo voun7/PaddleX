@@ -17,11 +17,11 @@ from typing import List, Optional, Sequence, Tuple, Union
 import numpy as np
 from numpy import ndarray
 
-from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
-from ...common.reader import ReadImage as CommonReadImage
-from ...utils.benchmark import benchmark
 from ..common import Normalize as CommonNormalize
 from ..common import Resize as CommonResize
+from ...common.reader import ReadImage as CommonReadImage
+from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -171,7 +171,7 @@ class ToBatch:
         self.ordered_required_keys = ordered_required_keys
 
     def apply(
-        self, datas: List[dict], key: str, dtype: np.dtype = np.float32
+            self, datas: List[dict], key: str, dtype: np.dtype = np.float32
     ) -> np.ndarray:
         """
         Apply batch processing to a list of data dictionaries.
@@ -216,9 +216,9 @@ class DetPad:
     """
 
     def __init__(
-        self,
-        size: List[int],
-        fill_value: List[Union[int, float]] = [114.0, 114.0, 114.0],
+            self,
+            size: List[int],
+            fill_value: List[Union[int, float]] = [114.0, 114.0, 114.0],
     ):
         super().__init__()
         if isinstance(size, int):
@@ -317,12 +317,12 @@ def _get_3rd_point(a: ndarray, b: ndarray) -> ndarray:
 
 @function_requires_deps("opencv-contrib-python")
 def get_affine_transform(
-    center: ndarray,
-    input_size: Union[Number, Tuple[Number, Number], ndarray],
-    rot: float,
-    output_size: ndarray,
-    shift: Tuple[float, float] = (0.0, 0.0),
-    inv: bool = False,
+        center: ndarray,
+        input_size: Union[Number, Tuple[Number, Number], ndarray],
+        rot: float,
+        output_size: ndarray,
+        shift: Tuple[float, float] = (0.0, 0.0),
+        inv: bool = False,
 ):
     """Get the affine transform matrix, given the center/scale/rot/output_size.
     Args:
@@ -388,14 +388,14 @@ class WarpAffine:
     """
 
     def __init__(
-        self,
-        keep_res=False,
-        pad=31,
-        input_h=512,
-        input_w=512,
-        scale=0.4,
-        shift=0.1,
-        down_ratio=4,
+            self,
+            keep_res=False,
+            pad=31,
+            input_h=512,
+            input_w=512,
+            scale=0.4,
+            shift=0.1,
+            down_ratio=4,
     ):
         super().__init__()
         self.keep_res = keep_res
@@ -452,7 +452,7 @@ class WarpAffine:
 
 
 def restructured_boxes(
-    boxes: ndarray, labels: List[str], img_size: Tuple[int, int]
+        boxes: ndarray, labels: List[str], img_size: Tuple[int, int]
 ) -> Boxes:
     """
     Restructure the given bounding boxes and labels based on the image size.
@@ -489,7 +489,7 @@ def restructured_boxes(
 
 
 def restructured_rotated_boxes(
-    boxes: ndarray, labels: List[str], img_size: Tuple[int, int]
+        boxes: ndarray, labels: List[str], img_size: Tuple[int, int]
 ) -> Boxes:
     """
     Restructure the given rotated bounding boxes and labels based on the image size.
@@ -710,13 +710,13 @@ class DetPostProcess:
         self.labels = labels
 
     def apply(
-        self,
-        boxes: ndarray,
-        img_size: Tuple[int, int],
-        threshold: Union[float, dict],
-        layout_nms: Optional[bool],
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]],
-        layout_merge_bboxes_mode: Optional[Union[str, dict]],
+            self,
+            boxes: ndarray,
+            img_size: Tuple[int, int],
+            threshold: Union[float, dict],
+            layout_nms: Optional[bool],
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]],
+            layout_merge_bboxes_mode: Optional[Union[str, dict]],
     ) -> Boxes:
         """Apply post-processing to the detection boxes.
 
@@ -736,7 +736,7 @@ class DetPostProcess:
                 category_boxes = boxes[boxes[:, 0] == cat_id]
                 category_threshold = threshold.get(int(cat_id), 0.5)
                 selected_indices = (category_boxes[:, 1] > category_threshold) & (
-                    category_boxes[:, 0] > -1
+                        category_boxes[:, 0] > -1
                 )
                 category_filtered_boxes.append(category_boxes[selected_indices])
             boxes = (
@@ -832,7 +832,7 @@ class DetPostProcess:
                             )
                             # Keep boxes that do not contain others or are contained by others
                             keep_mask &= (contains_other == 0) | (
-                                contained_by_other == 1
+                                    contained_by_other == 1
                             )
                 boxes = boxes[keep_mask]
 
@@ -850,7 +850,7 @@ class DetPostProcess:
                 layout_unclip_ratio = (layout_unclip_ratio, layout_unclip_ratio)
             elif isinstance(layout_unclip_ratio, (tuple, list)):
                 assert (
-                    len(layout_unclip_ratio) == 2
+                        len(layout_unclip_ratio) == 2
                 ), f"The length of `layout_unclip_ratio` should be 2."
             elif isinstance(layout_unclip_ratio, dict):
                 pass
@@ -874,13 +874,13 @@ class DetPostProcess:
         return boxes
 
     def __call__(
-        self,
-        batch_outputs: List[dict],
-        datas: List[dict],
-        threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float]]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
+            self,
+            batch_outputs: List[dict],
+            datas: List[dict],
+            threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float]]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
     ) -> List[Boxes]:
         """Apply the post-processing to a batch of outputs.
 

@@ -16,11 +16,11 @@ import math
 import time
 from typing import List
 
+from PIL import Image
 from openai.types.chat import ChatCompletion
 from openai.types.chat.chat_completion import Choice as ChatCompletionChoice
 from openai.types.chat.chat_completion_message import ChatCompletionMessage
 from paddlex_hps_server import BaseTritonPythonModel, logging, schemas, utils
-from PIL import Image
 
 
 class TritonPythonModel(BaseTritonPythonModel):
@@ -65,7 +65,7 @@ class TritonPythonModel(BaseTritonPythonModel):
                     if isinstance(msg.content, list):
                         for content in msg.content:
                             if isinstance(
-                                content, schemas.doc_understanding.TextContent
+                                    content, schemas.doc_understanding.TextContent
                             ):
                                 system_message = content.text
                                 break
@@ -79,15 +79,15 @@ class TritonPythonModel(BaseTritonPythonModel):
                                 user_message = content
                             else:
                                 if isinstance(
-                                    content, schemas.doc_understanding.TextContent
+                                        content, schemas.doc_understanding.TextContent
                                 ):
                                     user_message = content.text
                                 elif isinstance(
-                                    content, schemas.doc_understanding.ImageContent
+                                        content, schemas.doc_understanding.ImageContent
                                 ):
                                     image_url = content.image_url
                                     if isinstance(
-                                        image_url, schemas.doc_understanding.ImageUrl
+                                            image_url, schemas.doc_understanding.ImageUrl
                                     ):
                                         image_url = image_url.url
                     else:

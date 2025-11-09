@@ -18,7 +18,6 @@ pipeline = create_pipeline(pipeline="multilingual_speech_recognition")
 
 output = pipeline.predict("https://paddlespeech.bj.bcebos.com/PaddleAudio/zh.wav")
 
-
 for res in output:
     print(res)
     res.print()  ## 打印预测的结构化输出

@@ -13,8 +13,11 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import os.path as osp
+
 import numpy as np
+
 from . import fd_logging as logging
 from .util import is_pic, get_num_workers
 
@@ -33,13 +36,13 @@ class CocoDetection(object):
     """
 
     def __init__(
-        self,
-        data_dir,
-        ann_file,
-        num_workers="auto",
-        shuffle=False,
-        allow_empty=False,
-        empty_ratio=1.0,
+            self,
+            data_dir,
+            ann_file,
+            num_workers="auto",
+            shuffle=False,
+            allow_empty=False,
+            empty_ratio=1.0,
     ):
 
         from pycocotools.coco import COCO
@@ -122,8 +125,8 @@ class CocoDetection(object):
                     gt_poly[i] = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
                 elif "segmentation" in box and box["segmentation"]:
                     if (
-                        not np.array(box["segmentation"], dtype=object).size > 0
-                        and not self.allow_empty
+                            not np.array(box["segmentation"], dtype=object).size > 0
+                            and not self.allow_empty
                     ):
                         gt_poly.pop(i)
                         is_crowd = np.delete(is_crowd, i)

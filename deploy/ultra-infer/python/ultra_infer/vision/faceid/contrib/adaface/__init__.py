@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 from ..... import UltraInferModel, ModelFormat
 from ..... import c_lib_wrap as C
 
@@ -54,11 +55,11 @@ class AdaFacePostprocessor:
 
 class AdaFace(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a AdaFace model exported by PaddleClas.
 

@@ -321,7 +321,7 @@ def packages_and_package_data():
     pkgs = find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"])
     pkg_data = []
     for p in itertools.chain(
-        _recursively_find("paddlex/configs/*", exts=[".yml", ".yaml"]),
+            _recursively_find("paddlex/configs/*", exts=[".yml", ".yaml"]),
     ):
         pkg_data.append(Path(p).relative_to("paddlex").as_posix())
     pipeline_config = [

@@ -14,16 +14,16 @@
 
 import sys
 
-from ....utils.deps import require_genai_engine_plugin
 from ..configs.utils import (
     backend_config_to_args,
     set_config_defaults,
     update_backend_config,
 )
+from ....utils.deps import require_genai_engine_plugin
 
 
 def run_fastdeploy_server(
-    host, port, model_name, model_dir, config, chat_template_path
+        host, port, model_name, model_dir, config, chat_template_path
 ):
     require_genai_engine_plugin("fastdeploy-server")
 

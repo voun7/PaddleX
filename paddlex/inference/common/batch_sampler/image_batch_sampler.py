@@ -17,11 +17,11 @@ from pathlib import Path
 
 import numpy as np
 
+from .base_batch_sampler import BaseBatchSampler, Batch
+from ...utils.io import PDFReader
 from ....utils import logging
 from ....utils.cache import CACHE_DIR
 from ....utils.download import download
-from ...utils.io import PDFReader
-from .base_batch_sampler import BaseBatchSampler, Batch
 
 
 class ImgBatch(Batch):
@@ -39,7 +39,6 @@ class ImgBatch(Batch):
 
 
 class ImageBatchSampler(BaseBatchSampler):
-
     IMG_SUFFIX = ["jpg", "png", "jpeg", "bmp"]
     PDF_SUFFIX = ["pdf"]
 
@@ -65,8 +64,8 @@ class ImageBatchSampler(BaseBatchSampler):
             for root, dirs, files in os.walk(fp):
                 for single_file in files:
                     if (
-                        single_file.split(".")[-1].lower()
-                        in self.IMG_SUFFIX + self.PDF_SUFFIX
+                            single_file.split(".")[-1].lower()
+                            in self.IMG_SUFFIX + self.PDF_SUFFIX
                     ):
                         file_list.append(os.path.join(root, single_file))
         if len(file_list) == 0:
@@ -94,7 +93,7 @@ class ImageBatchSampler(BaseBatchSampler):
                         else input
                     )
                     for page_idx, page_img in enumerate(
-                        self.pdf_reader.read(file_path)
+                            self.pdf_reader.read(file_path)
                     ):
                         batch.append(page_img, file_path, page_idx)
                         if len(batch) == self.batch_size:

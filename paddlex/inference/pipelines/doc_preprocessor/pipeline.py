@@ -16,17 +16,17 @@ from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
+from .result import DocPreprocessorResult
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import rotate_image
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import rotate_image
-from .result import DocPreprocessorResult
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -34,12 +34,12 @@ class _DocPreprocessorPipeline(BasePipeline):
     """Doc Preprocessor Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: Optional[str] = None,
-        pp_option: Optional[PaddlePredictorOption] = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: Optional[str] = None,
+            pp_option: Optional[PaddlePredictorOption] = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the doc preprocessor pipeline.
 
@@ -91,8 +91,8 @@ class _DocPreprocessorPipeline(BasePipeline):
         """
 
         if (
-            model_settings["use_doc_orientation_classify"]
-            and not self.use_doc_orientation_classify
+                model_settings["use_doc_orientation_classify"]
+                and not self.use_doc_orientation_classify
         ):
             logging.error(
                 "Set use_doc_orientation_classify, but the model for doc orientation classify is not initialized."
@@ -108,7 +108,7 @@ class _DocPreprocessorPipeline(BasePipeline):
         return True
 
     def get_model_settings(
-        self, use_doc_orientation_classify, use_doc_unwarping
+            self, use_doc_orientation_classify, use_doc_unwarping
     ) -> dict:
         """
         Retrieve the model settings dictionary based on input parameters.
@@ -131,10 +131,10 @@ class _DocPreprocessorPipeline(BasePipeline):
         return model_settings
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
     ) -> DocPreprocessorResult:
         """
         Predict the preprocessing result for the input image or images.
@@ -180,12 +180,12 @@ class _DocPreprocessorPipeline(BasePipeline):
                 output_imgs = rot_imgs
 
             for input_path, page_index, image_array, angle, rot_img, output_img in zip(
-                batch_data.input_paths,
-                batch_data.page_indexes,
-                image_arrays,
-                angles,
-                rot_imgs,
-                output_imgs,
+                    batch_data.input_paths,
+                    batch_data.page_indexes,
+                    image_arrays,
+                    angles,
+                    rot_imgs,
+                    output_imgs,
             ):
                 single_img_res = {
                     "input_path": input_path,

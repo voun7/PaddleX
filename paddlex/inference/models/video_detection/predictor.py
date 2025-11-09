@@ -14,28 +14,27 @@
 
 from typing import Union
 
-from ....modules.video_detection.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import VideoBatchSampler
-from ...common.reader import ReadVideo
-from ..base import BasePredictor
 from .processors import DetVideoPostProcess, Image2Array, NormalizeVideo, ResizeVideo
 from .result import DetVideoResult
+from ..base import BasePredictor
+from ...common.batch_sampler import VideoBatchSampler
+from ...common.reader import ReadVideo
+from ....modules.video_detection.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class VideoDetPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
     register = FuncRegister(_FUNC_MAP)
 
     def __init__(
-        self,
-        nms_thresh: Union[float, None] = None,
-        score_thresh: Union[float, None] = None,
-        *args,
-        **kwargs
+            self,
+            nms_thresh: Union[float, None] = None,
+            score_thresh: Union[float, None] = None,
+            *args,
+            **kwargs
     ):
         super().__init__(*args, **kwargs)
         self.nms_thresh = nms_thresh
@@ -75,10 +74,10 @@ class VideoDetPredictor(BasePredictor):
         return pre_tfs, infer, post_op
 
     def process(
-        self,
-        batch_data,
-        nms_thresh: Union[float, None] = None,
-        score_thresh: Union[float, None] = None,
+            self,
+            batch_data,
+            nms_thresh: Union[float, None] = None,
+            score_thresh: Union[float, None] = None,
     ):
         batch_raw_videos = self.pre_tfs["ReadVideo"](videos=batch_data)
         batch_videos = self.pre_tfs["ResizeVideo"](videos=batch_raw_videos)
@@ -115,8 +114,8 @@ class VideoDetPredictor(BasePredictor):
 
     @register("NormalizeVideo")
     def build_normalize(
-        self,
-        scale=255.0,
+            self,
+            scale=255.0,
     ):
         return "NormalizeVideo", NormalizeVideo(scale=scale)
 

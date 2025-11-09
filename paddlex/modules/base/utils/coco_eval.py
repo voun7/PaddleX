@@ -48,13 +48,13 @@ def json_eval_results(args):
 
 @function_requires_deps("pycocotools")
 def cocoapi_eval(
-    jsonfile,
-    style,
-    coco_gt=None,
-    anno_file=None,
-    max_dets=(100, 300, 1000),
-    sigmas=None,
-    use_area=True,
+        jsonfile,
+        style,
+        coco_gt=None,
+        anno_file=None,
+        max_dets=(100, 300, 1000),
+        sigmas=None,
+        use_area=True,
 ):
     """
     Args:

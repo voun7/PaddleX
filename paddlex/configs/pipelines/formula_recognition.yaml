@@ -1,4 +1,3 @@
-
 pipeline_name: formula_recognition
 
 use_layout_detection: True

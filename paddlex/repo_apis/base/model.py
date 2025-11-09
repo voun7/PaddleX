@@ -20,17 +20,17 @@ import inspect
 import os
 import tempfile
 
-from ...utils import flags, logging
-from ...utils.cache import get_cache_dir
-from ...utils.device import parse_device
-from ...utils.errors import UnsupportedAPIError, UnsupportedParamError
-from ...utils.misc import CachedProperty as cached_property
 from .config import Config
 from .register import (
     build_model_from_model_info,
     build_runner_from_model_info,
     get_registered_model_info,
 )
+from ...utils import flags, logging
+from ...utils.cache import get_cache_dir
+from ...utils.device import parse_device
+from ...utils.errors import UnsupportedAPIError, UnsupportedParamError
+from ...utils.misc import CachedProperty as cached_property
 
 __all__ = ["PaddleModel", "BaseModel"]
 
@@ -100,19 +100,19 @@ configuration item, "
 
     @abc.abstractmethod
     def train(
-        self,
-        batch_size=None,
-        learning_rate=None,
-        epochs_iters=None,
-        ips=None,
-        device="gpu",
-        resume_path=None,
-        dy2st=False,
-        amp="OFF",
-        num_workers=None,
-        use_vdl=True,
-        save_dir=None,
-        **kwargs,
+            self,
+            batch_size=None,
+            learning_rate=None,
+            epochs_iters=None,
+            ips=None,
+            device="gpu",
+            resume_path=None,
+            dy2st=False,
+            amp="OFF",
+            num_workers=None,
+            use_vdl=True,
+            save_dir=None,
+            **kwargs,
     ):
         """
         Train a model.
@@ -151,14 +151,14 @@ configuration item, "
 
     @abc.abstractmethod
     def evaluate(
-        self,
-        weight_path,
-        batch_size=None,
-        ips=None,
-        device="gpu",
-        amp="OFF",
-        num_workers=None,
-        **kwargs,
+            self,
+            weight_path,
+            batch_size=None,
+            ips=None,
+            device="gpu",
+            amp="OFF",
+            num_workers=None,
+            **kwargs,
     ):
         """
         Evaluate a model.
@@ -235,15 +235,15 @@ configuration item, "
 
     @abc.abstractmethod
     def compression(
-        self,
-        weight_path,
-        batch_size=None,
-        learning_rate=None,
-        epochs_iters=None,
-        device="gpu",
-        use_vdl=True,
-        save_dir=None,
-        **kwargs,
+            self,
+            weight_path,
+            batch_size=None,
+            learning_rate=None,
+            epochs_iters=None,
+            device="gpu",
+            use_vdl=True,
+            save_dir=None,
+            **kwargs,
     ):
         """
         Perform quantization aware training (QAT) and export the quantized
@@ -506,9 +506,9 @@ class _CheckDevice(_APICallArgsChecker):
 
                     if len(dev_ids) <= 1:
                         if (
-                            n1c1_desc not in self.legal_vals
-                            and n1cx_desc not in self.legal_vals
-                            and nxcx_desc not in self.legal_vals
+                                n1c1_desc not in self.legal_vals
+                                and n1cx_desc not in self.legal_vals
+                                and nxcx_desc not in self.legal_vals
                         ):
                             raise _CheckFailed("device", device, self.legal_vals)
                     else:
@@ -520,8 +520,8 @@ class _CheckDevice(_APICallArgsChecker):
                         else:
                             # Single-machine multi-device
                             if (
-                                n1cx_desc not in self.legal_vals
-                                and nxcx_desc not in self.legal_vals
+                                    n1cx_desc not in self.legal_vals
+                                    and nxcx_desc not in self.legal_vals
                             ):
                                 raise _CheckFailed("device", device, self.legal_vals)
         else:

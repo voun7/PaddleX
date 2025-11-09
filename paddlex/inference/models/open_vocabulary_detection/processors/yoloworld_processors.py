@@ -17,20 +17,20 @@ from typing import List, Tuple, Union
 
 import numpy as np
 
-from ...common.tokenizer.clip_tokenizer import CLIPTokenizer
 from .common import LetterResize
+from ...common.tokenizer.clip_tokenizer import CLIPTokenizer
 
 
 class YOLOWorldProcessor(object):
     """Image and Text Processors for YOLO-World"""
 
     def __init__(
-        self,
-        model_dir,
-        image_target_size: Union[Tuple[int], int] = (640, 640),
-        image_mean: Union[float, List[float]] = [0.0, 0.0, 0.0],
-        image_std: Union[float, List[float]] = [1.0, 1.0, 1.0],
-        **kwargs,
+            self,
+            model_dir,
+            image_target_size: Union[Tuple[int], int] = (640, 640),
+            image_mean: Union[float, List[float]] = [0.0, 0.0, 0.0],
+            image_std: Union[float, List[float]] = [1.0, 1.0, 1.0],
+            **kwargs,
     ):
 
         if isinstance(image_target_size, int):
@@ -61,10 +61,10 @@ class YOLOWorldProcessor(object):
             self.image_std = self.image_std.reshape(1, -1, 1, 1)
 
     def __call__(
-        self,
-        images: List[np.ndarray],
-        text: str,
-        **kwargs,
+            self,
+            images: List[np.ndarray],
+            text: str,
+            **kwargs,
     ):
         preprocess_results = self.process_image(images)
         preprocess_results.update(self.process_text(text))
@@ -125,9 +125,9 @@ class YOLOWorldPostProcessor(object):
     """PostProcessors for YOLO-World"""
 
     def __init__(
-        self,
-        threshold: float = 0.05,
-        **kwargs,
+            self,
+            threshold: float = 0.05,
+            **kwargs,
     ):
         """Init Function for YOLO-World PostProcessor
 
@@ -137,13 +137,13 @@ class YOLOWorldPostProcessor(object):
         self.threshold = threshold
 
     def __call__(
-        self,
-        pred_boxes,
-        pred_nums,
-        prompt,
-        src_images,
-        threshold=None,
-        **kwargs,
+            self,
+            pred_boxes,
+            pred_nums,
+            prompt,
+            src_images,
+            threshold=None,
+            **kwargs,
     ):
 
         threshold = self.threshold if threshold is None else threshold
@@ -168,11 +168,11 @@ class YOLOWorldPostProcessor(object):
         return rst_boxes
 
     def postprocess(
-        self,
-        pred_boxes,
-        classnames,
-        src_image,
-        threshold,
+            self,
+            pred_boxes,
+            classnames,
+            src_image,
+            threshold,
     ):
         """Post Process for prediction result of single image."""
 
@@ -188,7 +188,7 @@ class YOLOWorldPostProcessor(object):
 
         rst_bboxes = []
         for pred_label, pred_score, pred_bbox in zip(
-            pred_labels, pred_scores, pred_bboxes
+                pred_labels, pred_scores, pred_bboxes
         ):
             rst_bboxes.append(
                 {

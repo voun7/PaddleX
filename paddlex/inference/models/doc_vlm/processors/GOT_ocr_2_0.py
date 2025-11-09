@@ -17,8 +17,8 @@ from typing import Dict, List, Union
 import numpy as np
 import paddle
 import requests
-from paddle.vision import transforms
 from PIL import Image
+from paddle.vision import transforms
 
 from ....utils.benchmark import benchmark
 
@@ -28,7 +28,6 @@ STD = (0.26862954, 0.26130258, 0.27577711)
 
 class GOTImageProcessor(object):
     def __init__(self, image_size=1024):
-
         self.transform = transforms.Compose(
             [
                 transforms.Resize((image_size, image_size), interpolation="bicubic"),
@@ -48,10 +47,10 @@ class PPChart2TableProcessor(object):
         self.dtype = dtype
 
         prompt = (
-            "<|im_start|>system\n"
-            "You should follow the instructions carefully and explain your answers in detail.<|im_end|><|im_start|>user\n"
-            "<img>" + "<imgpad>" * 256 + "</img>\n"
-            "Chart to table<|im_end|><|im_start|>assistant\n"
+                "<|im_start|>system\n"
+                "You should follow the instructions carefully and explain your answers in detail.<|im_end|><|im_start|>user\n"
+                "<img>" + "<imgpad>" * 256 + "</img>\n"
+                                             "Chart to table<|im_end|><|im_start|>assistant\n"
         )
         self.input_ids = paddle.to_tensor(self.tokenizer([prompt]).input_ids)
 

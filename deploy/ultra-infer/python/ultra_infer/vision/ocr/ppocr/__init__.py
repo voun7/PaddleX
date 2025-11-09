@@ -15,23 +15,21 @@
 from __future__ import absolute_import
 
 import logging
-import math
 import os
 import re
 import tempfile
 from dataclasses import dataclass
 
-
+from .utils.ser_vi_layoutxlm.operators import *
+from .utils.ser_vi_layoutxlm.transforms import *
+from .utils.ser_vi_layoutxlm.vqa_utils import *
+from ...common import ProcessorManager
 from .... import ModelFormat, UltraInferModel
 from .... import c_lib_wrap as C
 from ....py_only import PyOnlyProcessorChain
 from ....py_only.vision import PyOnlyVisionModel
 from ....py_only.vision import processors as P
 from ....utils.misc import load_config
-from ...common import ProcessorManager
-from .utils.ser_vi_layoutxlm.transforms import *
-from .utils.ser_vi_layoutxlm.vqa_utils import *
-from .utils.ser_vi_layoutxlm.operators import *
 
 
 def sort_boxes(boxes):
@@ -82,11 +80,11 @@ class UVDocPostprocessor:
 
 class UVDocWarpper(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load OCR recognition model provided by PaddleOCR
 
@@ -463,11 +461,11 @@ class DBCURVEDetectorPostprocessor:
 
 class DBDetector(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load OCR detection model provided by PaddleOCR.
 
@@ -609,11 +607,11 @@ class DBDetector(UltraInferModel):
 
 class DBCURVEDetector(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load OCR detection model provided by PaddleOCR.
 
@@ -826,11 +824,11 @@ class ClassifierPostprocessor:
 
 class Classifier(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load OCR classification model provided by PaddleOCR.
 
@@ -989,12 +987,12 @@ class RecognizerPostprocessor:
 
 class Recognizer(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        label_path="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            label_path="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load OCR recognition model provided by PaddleOCR
 
@@ -1113,13 +1111,13 @@ class StructureV2TablePostprocessor:
 
 class StructureV2Table(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        table_char_dict_path="",
-        box_shape="ori",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            table_char_dict_path="",
+            box_shape="ori",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load StructureV2Table model provided by PP-StructureV2.
 
@@ -1221,11 +1219,11 @@ class StructureV2LayoutPostprocessor:
 
 class StructureV2Layout(UltraInferModel):
     def __init__(
-        self,
-        model_file="",
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file="",
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load StructureV2Layout model provided by PP-StructureV2.
 
@@ -1302,7 +1300,7 @@ class PPOCRv4(UltraInferModel):
         :param rec_model: (UltraInferModel) The recognition model object created by ultra_infer.vision.ocr.Recognizer.
         """
         assert (
-            det_model is not None and rec_model is not None
+                det_model is not None and rec_model is not None
         ), "The det_model and rec_model cannot be None."
 
         self.det_model = det_model
@@ -1386,7 +1384,7 @@ class PPOCRv3(UltraInferModel):
         :param rec_model: (UltraInferModel) The recognition model object created by ultra_infer.vision.ocr.Recognizer.
         """
         assert (
-            det_model is not None and rec_model is not None
+                det_model is not None and rec_model is not None
         ), "The det_model and rec_model cannot be None."
         if cls_model is None:
             self.system_ = C.vision.ocr.PPOCRv3(det_model._model, rec_model._model)
@@ -1465,7 +1463,7 @@ class PPOCRv2(UltraInferModel):
         :param rec_model: (UltraInferModel) The recognition model object created by ultra_infer.vision.ocr.Recognizer.
         """
         assert (
-            det_model is not None and rec_model is not None
+                det_model is not None and rec_model is not None
         ), "The det_model and rec_model cannot be None."
         if cls_model is None:
             self.system_ = C.vision.ocr.PPOCRv2(det_model._model, rec_model._model)
@@ -1546,7 +1544,7 @@ class PPStructureV2Table(UltraInferModel):
         :param table_model: (UltraInferModel) The table recognition model object created by ultra_infer.vision.ocr.Table.
         """
         assert (
-            det_model is not None and rec_model is not None and table_model is not None
+                det_model is not None and rec_model is not None and table_model is not None
         ), "The det_model, rec_model and table_model cannot be None."
         self.system_ = C.vision.ocr.PPStructureV2Table(
             det_model._model,
@@ -1697,14 +1695,14 @@ class StructureV2SERViLayoutXLMModelPostprocessor:
 
 class StructureV2SERViLayoutXLMModel(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        ser_dict_path,
-        class_path,
-        config_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            ser_dict_path,
+            class_path,
+            config_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load SERViLayoutXLM model provided by PP-StructureV2.
 
@@ -1718,7 +1716,7 @@ class StructureV2SERViLayoutXLMModel(UltraInferModel):
         super(StructureV2SERViLayoutXLMModel, self).__init__(runtime_option)
 
         assert (
-            self._runtime_option.backend != 0
+                self._runtime_option.backend != 0
         ), "Runtime Option required backend setting."
         self._model = C.vision.ocr.StructureV2SERViLayoutXLMModel(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -1795,12 +1793,12 @@ class StructureV2SERViLayoutXLMModel(UltraInferModel):
 
 class PyOnlyFormulaRecognitionModel(PyOnlyVisionModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         self._model_file = model_file
         self._params_file = params_file

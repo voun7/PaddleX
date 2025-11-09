@@ -88,7 +88,7 @@ def convert_labelme_dataset(root_dir):
             continue
 
         end = start + round(image_num * rate / 100)
-        if sum(rate_list[i + 1 :]) == 0:
+        if sum(rate_list[i + 1:]) == 0:
             end = image_num
 
         txt_file = os.path.abspath(os.path.join(root_dir, tag + ".txt"))

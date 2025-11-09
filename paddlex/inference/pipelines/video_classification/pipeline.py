@@ -16,12 +16,12 @@ from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 
-from ....utils.deps import pipeline_requires_extra
+from ..base import BasePipeline
 from ...models.video_classification.result import TopkVideoResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from ..base import BasePipeline
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -32,12 +32,12 @@ class VideoClassificationPipeline(BasePipeline):
     entities = "video_classification"
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """
         Initializes the class with given configurations and options.
@@ -62,10 +62,10 @@ class VideoClassificationPipeline(BasePipeline):
         )
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        topk: Union[int, None] = 1,
-        **kwargs
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            topk: Union[int, None] = 1,
+            **kwargs
     ) -> TopkVideoResult:
         """Predicts video classification results for the given input.
 

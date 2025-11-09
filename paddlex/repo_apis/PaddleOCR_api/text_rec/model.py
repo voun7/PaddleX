@@ -14,12 +14,12 @@
 
 import os
 
-from ....utils import logging
-from ....utils.device import parse_device
-from ....utils.misc import abspath
 from ...base import BaseModel
 from ...base.utils.arg import CLIArgument
 from ...base.utils.subprocess import CompletedProcess
+from ....utils import logging
+from ....utils.device import parse_device
+from ....utils.misc import abspath
 
 
 class TextRecModel(BaseModel):
@@ -36,19 +36,19 @@ class TextRecModel(BaseModel):
     ]
 
     def train(
-        self,
-        batch_size: int = None,
-        learning_rate: float = None,
-        epochs_iters: int = None,
-        ips: str = None,
-        device: str = "gpu",
-        resume_path: str = None,
-        dy2st: bool = False,
-        amp: str = "OFF",
-        num_workers: int = None,
-        use_vdl: bool = True,
-        save_dir: str = None,
-        **kwargs,
+            self,
+            batch_size: int = None,
+            learning_rate: float = None,
+            epochs_iters: int = None,
+            ips: str = None,
+            device: str = "gpu",
+            resume_path: str = None,
+            dy2st: bool = False,
+            amp: str = "OFF",
+            num_workers: int = None,
+            use_vdl: bool = True,
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """train self
 
@@ -149,14 +149,14 @@ class TextRecModel(BaseModel):
             )
 
     def evaluate(
-        self,
-        weight_path: str,
-        batch_size: int = None,
-        ips: str = None,
-        device: str = "gpu",
-        amp: str = "OFF",
-        num_workers: int = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            batch_size: int = None,
+            ips: str = None,
+            device: str = "gpu",
+            amp: str = "OFF",
+            num_workers: int = None,
+            **kwargs,
     ) -> CompletedProcess:
         """evaluate self using specified weight
 
@@ -196,12 +196,12 @@ class TextRecModel(BaseModel):
             return cp
 
     def predict(
-        self,
-        weight_path: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """predict using specified weight
 
@@ -281,12 +281,12 @@ class TextRecModel(BaseModel):
             return self.runner.export(config_path, [], None, save_dir)
 
     def infer(
-        self,
-        model_dir: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs,
+            self,
+            model_dir: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """predict image using infernece model
 
@@ -334,15 +334,15 @@ class TextRecModel(BaseModel):
             return self.runner.infer(config_path, cli_args, device)
 
     def compression(
-        self,
-        weight_path: str,
-        batch_size: int = None,
-        learning_rate: float = None,
-        epochs_iters: int = None,
-        device: str = "gpu",
-        use_vdl: bool = True,
-        save_dir: str = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            batch_size: int = None,
+            learning_rate: float = None,
+            epochs_iters: int = None,
+            device: str = "gpu",
+            use_vdl: bool = True,
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """compression model
 

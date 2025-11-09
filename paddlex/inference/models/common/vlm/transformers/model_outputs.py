@@ -72,7 +72,7 @@ def layer_init_wrapper(func):
 
 @paddle.jit.not_to_static
 def _transformer_encoder_layer_fwd(
-    self, src, src_mask=None, cache=None, output_attentions=False
+        self, src, src_mask=None, cache=None, output_attentions=False
 ):
     self.self_attn.need_weights = output_attentions
     src_mask = _convert_attention_mask(src_mask, src.dtype)
@@ -108,13 +108,13 @@ def _transformer_encoder_layer_fwd(
 
 @paddle.jit.not_to_static
 def _transformer_decoder_layer_fwd(
-    self,
-    tgt,
-    memory,
-    tgt_mask=None,
-    memory_mask=None,
-    cache=None,
-    output_attentions=False,
+        self,
+        tgt,
+        memory,
+        tgt_mask=None,
+        memory_mask=None,
+        cache=None,
+        output_attentions=False,
 ):
     residual = tgt
 
@@ -195,15 +195,15 @@ def _transformer_decoder_layer_fwd(
 
 @paddle.jit.not_to_static
 def _transformer_decoder_fwd(
-    self,
-    tgt,
-    memory=None,
-    tgt_mask=None,
-    memory_mask=None,
-    cache=None,
-    output_attentions=False,
-    output_hidden_states=False,
-    return_dict=False,
+        self,
+        tgt,
+        memory=None,
+        tgt_mask=None,
+        memory_mask=None,
+        cache=None,
+        output_attentions=False,
+        output_hidden_states=False,
+        return_dict=False,
 ):
     tgt_mask = _convert_attention_mask(tgt_mask, tgt.dtype)
     if memory is not None:
@@ -282,13 +282,13 @@ def _transformer_decoder_fwd(
 
 @paddle.jit.not_to_static
 def _transformer_encoder_fwd(
-    self,
-    src,
-    src_mask=None,
-    cache=None,
-    output_attentions=False,
-    output_hidden_states=False,
-    return_dict=False,
+        self,
+        src,
+        src_mask=None,
+        cache=None,
+        output_attentions=False,
+        output_hidden_states=False,
+        return_dict=False,
 ):
     src_mask = _convert_attention_mask(src_mask, src.dtype)
 
@@ -482,9 +482,9 @@ class ModelOutput(OrderedDict):
             if first_field_iterator:
                 for element in iterator:
                     if (
-                        not isinstance(element, (list, tuple))
-                        or not len(element) == 2
-                        or not isinstance(element[0], str)
+                            not isinstance(element, (list, tuple))
+                            or not len(element) == 2
+                            or not isinstance(element[0], str)
                     ):
                         break
                     setattr(self, element[0], element[1])

@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ....utils.deps import is_genai_engine_plugin_available, require_genai_engine_plugin
 from ..configs.utils import (
     backend_config_to_args,
     set_config_defaults,
     update_backend_config,
 )
 from ..models import ALL_MODEL_NAMES, get_model_components
+from ....utils.deps import is_genai_engine_plugin_available, require_genai_engine_plugin
 
 
 def register_models():

@@ -20,7 +20,6 @@ from typing import Dict, Optional, Union
 
 import numpy as np
 
-from .....utils.deps import class_requires_deps
 from .tokenizer_utils import PretrainedTokenizer
 from .tokenizer_utils_base import (
     AddedToken,
@@ -28,6 +27,7 @@ from .tokenizer_utils_base import (
     EncodedInput,
     PaddingStrategy,
 )
+from .....utils.deps import class_requires_deps
 
 __all__ = [
     "GPTTokenizer",
@@ -47,16 +47,16 @@ def bytes_to_unicode():
     """
     _chr = chr
     bs = (
-        list(range(ord("!"), ord("~") + 1))
-        + list(range(ord("¡"), ord("¬") + 1))
-        + list(range(ord("®"), ord("ÿ") + 1))
+            list(range(ord("!"), ord("~") + 1))
+            + list(range(ord("¡"), ord("¬") + 1))
+            + list(range(ord("®"), ord("ÿ") + 1))
     )
     cs = bs[:]
     n = 0
-    for b in range(2**8):
+    for b in range(2 ** 8):
         if b not in bs:
             bs.append(b)
-            cs.append(2**8 + n)
+            cs.append(2 ** 8 + n)
             n += 1
     cs = [_chr(n) for n in cs]
     return dict(zip(bs, cs))
@@ -164,18 +164,18 @@ class GPTTokenizer(PretrainedTokenizer):
     }
 
     def __init__(
-        self,
-        vocab_file,
-        merges_file,
-        errors="replace",
-        max_len=None,
-        pad_token="<|endoftext|>",
-        eos_token="<|endoftext|>",
-        unk_token="<|endoftext|>",
-        eol_token="\u010a",
-        add_prefix_space=False,
-        add_bos_token=False,
-        **kwargs  # The token of newline.
+            self,
+            vocab_file,
+            merges_file,
+            errors="replace",
+            max_len=None,
+            pad_token="<|endoftext|>",
+            eos_token="<|endoftext|>",
+            unk_token="<|endoftext|>",
+            eol_token="\u010a",
+            add_prefix_space=False,
+            add_bos_token=False,
+            **kwargs  # The token of newline.
     ):
         import regex as re
 
@@ -385,12 +385,12 @@ class GPTTokenizer(PretrainedTokenizer):
         return output + bos_token_ids + token_ids_1
 
     def _pad(
-        self,
-        encoded_inputs: Union[Dict[str, EncodedInput], BatchEncoding],
-        max_length: Optional[int] = None,
-        padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
-        pad_to_multiple_of: Optional[int] = None,
-        return_attention_mask: Optional[bool] = None,
+            self,
+            encoded_inputs: Union[Dict[str, EncodedInput], BatchEncoding],
+            max_length: Optional[int] = None,
+            padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
+            pad_to_multiple_of: Optional[int] = None,
+            return_attention_mask: Optional[bool] = None,
     ) -> dict:
         """
         Pad encoded inputs (on left/right and up to predefined length or max length in the batch)
@@ -419,8 +419,8 @@ class GPTTokenizer(PretrainedTokenizer):
 
         # attention_mask shape [1,seq_len,seq_len]
         if (
-            "attention_mask" in encoded_inputs
-            and len(np.shape(encoded_inputs["attention_mask"])) > 2
+                "attention_mask" in encoded_inputs
+                and len(np.shape(encoded_inputs["attention_mask"])) > 2
         ):
             attention_mask = encoded_inputs["attention_mask"]
             encoded_inputs.pop("attention_mask")
@@ -438,8 +438,8 @@ class GPTTokenizer(PretrainedTokenizer):
         if attention_mask is not None and len(np.shape(attention_mask)) > 2:
             encoded_inputs["attention_mask"] = attention_mask
             needs_to_be_padded = (
-                padding_strategy != PaddingStrategy.DO_NOT_PAD
-                and len(required_input) != max_length
+                    padding_strategy != PaddingStrategy.DO_NOT_PAD
+                    and len(required_input) != max_length
             )
             if needs_to_be_padded:
                 difference = max_length - len(required_input)

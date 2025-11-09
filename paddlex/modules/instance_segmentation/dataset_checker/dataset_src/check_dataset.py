@@ -20,10 +20,10 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+from .utils.visualizer import draw_bbox, draw_mask
 from .....utils.deps import function_requires_deps
 from .....utils.errors import DatasetFileNotFoundError
 from .....utils.logging import info
-from .utils.visualizer import draw_bbox, draw_mask
 
 
 @function_requires_deps("pycocotools")

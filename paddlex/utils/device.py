@@ -136,23 +136,23 @@ def check_supported_device_type(device_type, model_name):
     tips = "You could set env `PADDLE_PDX_DISABLE_DEV_MODEL_WL` to `true` to disable this checking."
     if device_type == "dcu":
         assert model_name in DCU_WHITELIST, (
-            f"The DCU device does not yet support `{model_name}` model!" + tips
+                f"The DCU device does not yet support `{model_name}` model!" + tips
         )
     elif device_type == "mlu":
         assert model_name in MLU_WHITELIST, (
-            f"The MLU device does not yet support `{model_name}` model!" + tips
+                f"The MLU device does not yet support `{model_name}` model!" + tips
         )
     elif device_type == "npu":
         assert model_name not in NPU_BLACKLIST, (
-            f"The NPU device does not yet support `{model_name}` model!" + tips
+                f"The NPU device does not yet support `{model_name}` model!" + tips
         )
     elif device_type == "xpu":
         assert model_name in XPU_WHITELIST, (
-            f"The XPU device does not yet support `{model_name}` model!" + tips
+                f"The XPU device does not yet support `{model_name}` model!" + tips
         )
     elif device_type == "gcu":
         assert model_name in GCU_WHITELIST, (
-            f"The GCU device does not yet support `{model_name}` model!" + tips
+                f"The GCU device does not yet support `{model_name}` model!" + tips
         )
 
 

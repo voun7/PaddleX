@@ -14,14 +14,15 @@
 
 import json
 import os
-import unicodedata
 from functools import lru_cache
 from typing import List, Optional, Tuple
 
-from .....utils import logging
-from .....utils.deps import is_dep_available
+import unicodedata
+
 from .tokenizer_utils import PretrainedTokenizer
 from .tokenizer_utils_base import AddedToken, TextInput
+from .....utils import logging
+from .....utils.deps import is_dep_available
 
 if is_dep_available("regex"):
     import regex as re
@@ -50,16 +51,16 @@ def bytes_to_unicode():
     tables between utf-8 bytes and unicode strings.
     """
     bs = (
-        list(range(ord("!"), ord("~") + 1))
-        + list(range(ord("¡"), ord("¬") + 1))
-        + list(range(ord("®"), ord("ÿ") + 1))
+            list(range(ord("!"), ord("~") + 1))
+            + list(range(ord("¡"), ord("¬") + 1))
+            + list(range(ord("®"), ord("ÿ") + 1))
     )
     cs = bs[:]
     n = 0
-    for b in range(2**8):
+    for b in range(2 ** 8):
         if b not in bs:
             bs.append(b)
-            cs.append(2**8 + n)
+            cs.append(2 ** 8 + n)
             n += 1
     cs = [chr(n) for n in cs]
     return dict(zip(bs, cs))
@@ -135,17 +136,17 @@ class Qwen2Tokenizer(PretrainedTokenizer):
     max_model_input_sizes = MAX_MODEL_INPUT_SIZES
 
     def __init__(
-        self,
-        vocab_file,
-        merges_file,
-        errors="replace",
-        unk_token="<|endoftext|>",
-        bos_token=None,
-        eos_token="<|endoftext|>",
-        pad_token="<|endoftext|>",
-        clean_up_tokenization_spaces=False,
-        split_special_tokens=False,
-        **kwargs,
+            self,
+            vocab_file,
+            merges_file,
+            errors="replace",
+            unk_token="<|endoftext|>",
+            bos_token=None,
+            eos_token="<|endoftext|>",
+            pad_token="<|endoftext|>",
+            clean_up_tokenization_spaces=False,
+            split_special_tokens=False,
+            **kwargs,
     ):
         if unk_token is None:
             logging.info(
@@ -301,12 +302,12 @@ class Qwen2Tokenizer(PretrainedTokenizer):
         return text
 
     def _decode(
-        self,
-        token_ids,
-        skip_special_tokens: bool = False,
-        clean_up_tokenization_spaces: Optional[bool] = False,
-        spaces_between_special_tokens: bool = False,
-        **kwargs,
+            self,
+            token_ids,
+            skip_special_tokens: bool = False,
+            clean_up_tokenization_spaces: Optional[bool] = False,
+            spaces_between_special_tokens: bool = False,
+            **kwargs,
     ) -> str:
         # `spaces_between_special_tokens` defaults to True for _decode in slow tokenizers
         # and cannot be configured elsewhere, but it should default to False for Qwen2Tokenizer
@@ -319,7 +320,7 @@ class Qwen2Tokenizer(PretrainedTokenizer):
         )
 
     def save_vocabulary(
-        self, save_directory: str, filename_prefix: Optional[str] = None
+            self, save_directory: str, filename_prefix: Optional[str] = None
     ) -> Tuple[str]:
         vocab_file = os.path.join(
             save_directory,
@@ -342,7 +343,7 @@ class Qwen2Tokenizer(PretrainedTokenizer):
         with open(merge_file, "w", encoding="utf-8") as writer:
             writer.write("#version: 0.2\n")
             for bpe_tokens, token_index in sorted(
-                self.bpe_ranks.items(), key=lambda kv: kv[1]
+                    self.bpe_ranks.items(), key=lambda kv: kv[1]
             ):
                 if index != token_index:
                     index = token_index

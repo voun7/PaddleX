@@ -13,13 +13,13 @@
 # limitations under the License.
 
 
-from ....utils.misc import abspath
 from ..pp3d_config import PP3DConfig
+from ....utils.misc import abspath
 
 
 class BEVFusionConfig(PP3DConfig):
     def update_dataset(
-        self, dataset_dir, datart_prefix=True, dataset_type=None, *, version=None
+            self, dataset_dir, datart_prefix=True, dataset_type=None, *, version=None
     ):
         dataset_dir = abspath(dataset_dir)
         if dataset_type is None:
@@ -41,7 +41,7 @@ class BEVFusionConfig(PP3DConfig):
         self.update(ds_cfg)
 
     def _make_nuscenes_mm_dataset_config(
-        self, dataset_root_path, datart_prefix, version
+            self, dataset_root_path, datart_prefix, version
     ):
         if version is None:
             # Default version

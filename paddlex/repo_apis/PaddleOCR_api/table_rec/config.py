@@ -15,8 +15,8 @@
 
 import os
 
-from ....utils.misc import abspath
 from ..text_rec.config import TextRecConfig
+from ....utils.misc import abspath
 
 
 class TableRecConfig(TextRecConfig):

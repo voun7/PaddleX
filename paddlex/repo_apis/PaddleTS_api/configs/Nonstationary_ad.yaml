@@ -2,13 +2,13 @@ batch_size: 32
 seq_len: 100
 do_eval: True
 epoch: 5
-training: True 
+training: True
 task: anomaly
 to_static_train: False
 use_amp: False
 amp_level: O2
 
-dataset: 
+dataset:
   name: TSADDataset
   dataset_root: ./data/
   train_path: ./data/train.csv
@@ -22,12 +22,12 @@ info_params:
   time_col: "timestamp"
   feature_cols: "feature_0,feature_1"
 
-model: 
+model:
   name: NonStationary_AD
   model_cfg:
     c_in: 5
     factor: 3
-    p_hidden_dims: [32, 32]
+    p_hidden_dims: [ 32, 32 ]
     d_model: 64
     d_ff: 64
     optimizer_params:

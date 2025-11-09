@@ -13,11 +13,10 @@
 # limitations under the License.
 
 import pickle
-from pathlib import Path
 
-from ...base import BaseDatasetChecker
-from ..model_list import MODELS
 from .dataset_src import check, deep_analyse
+from ..model_list import MODELS
+from ...base import BaseDatasetChecker
 
 
 class BEVFusionDatasetChecker(BaseDatasetChecker):

@@ -20,7 +20,7 @@ TrainDataset:
   image_dir: train2017
   anno_path: annotations/instances_train2017.json
   dataset_dir: dataset/coco
-  data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd']
+  data_fields: [ 'image', 'gt_bbox', 'gt_class', 'is_crowd' ]
 
 EvalDataset:
   name: COCODataSet
@@ -39,19 +39,19 @@ TestDataset:
 worker_num: 6
 eval_height: &eval_height 416
 eval_width: &eval_width 416
-eval_size: &eval_size [*eval_height, *eval_width]
+eval_size: &eval_size [ *eval_height, *eval_width ]
 
 TrainReader:
   sample_transforms:
-  - Decode: {}
-  - RandomCrop: {}
-  - RandomFlip: {prob: 0.5}
-  - RandomDistort: {}
+    - Decode: { }
+    - RandomCrop: { }
+    - RandomFlip: { prob: 0.5 }
+    - RandomDistort: { }
   batch_transforms:
-  - BatchRandomResize: {target_size: [352, 384, 416, 448, 480], random_size: True, random_interp: True, keep_ratio: False}
-  - NormalizeImage: {is_scale: true, mean: [0.485,0.456,0.406], std: [0.229, 0.224,0.225]}
-  - Permute: {}
-  - PadGT: {}
+    - BatchRandomResize: { target_size: [ 352, 384, 416, 448, 480 ], random_size: True, random_interp: True, keep_ratio: False }
+    - NormalizeImage: { is_scale: true, mean: [ 0.485,0.456,0.406 ], std: [ 0.229, 0.224,0.225 ] }
+    - Permute: { }
+    - PadGT: { }
   batch_size: 56
   shuffle: true
   drop_last: true
@@ -59,24 +59,24 @@ TrainReader:
 
 EvalReader:
   sample_transforms:
-  - Decode: {}
-  - Resize: {interp: 2, target_size: *eval_size, keep_ratio: False}
-  - NormalizeImage: {is_scale: true, mean: [0.485,0.456,0.406], std: [0.229, 0.224,0.225]}
-  - Permute: {}
+    - Decode: { }
+    - Resize: { interp: 2, target_size: *eval_size, keep_ratio: False }
+    - NormalizeImage: { is_scale: true, mean: [ 0.485,0.456,0.406 ], std: [ 0.229, 0.224,0.225 ] }
+    - Permute: { }
   batch_transforms:
-  - PadBatch: {pad_to_stride: 32}
+    - PadBatch: { pad_to_stride: 32 }
   batch_size: 8
   shuffle: false
 
 
 TestReader:
   inputs_def:
-    image_shape: [3, *eval_height, *eval_width]
+    image_shape: [ 3, *eval_height, *eval_width ]
   sample_transforms:
-  - Decode: {}
-  - Resize: {interp: 2, target_size: *eval_size, keep_ratio: False}
-  - NormalizeImage: {is_scale: true, mean: [0.485,0.456,0.406], std: [0.229, 0.224,0.225]}
-  - Permute: {}
+    - Decode: { }
+    - Resize: { interp: 2, target_size: *eval_size, keep_ratio: False }
+    - NormalizeImage: { is_scale: true, mean: [ 0.485,0.456,0.406 ], std: [ 0.229, 0.224,0.225 ] }
+    - Permute: { }
   batch_size: 1
 
 # Model
@@ -90,7 +90,7 @@ PicoDet:
 
 LCNet:
   scale: 0.35
-  feature_maps: [3, 4, 5]
+  feature_maps: [ 3, 4, 5 ]
 
 LCPAN:
   out_channels: 96
@@ -107,7 +107,7 @@ PicoHeadV2:
     norm_type: bn
     share_cls_reg: True
     use_se: True
-  fpn_stride: [8, 16, 32, 64]
+  fpn_stride: [ 8, 16, 32, 64 ]
   feat_in_chan: 96
   prior_prob: 0.01
   reg_max: 7
@@ -148,11 +148,11 @@ epoch: 300
 LearningRate:
   base_lr: 0.28
   schedulers:
-  - name: CosineDecay
-    max_epochs: 300
-  - name: LinearWarmup
-    start_factor: 0.1
-    steps: 300
+    - name: CosineDecay
+      max_epochs: 300
+    - name: LinearWarmup
+      start_factor: 0.1
+      steps: 300
 
 OptimizerBuilder:
   optimizer:

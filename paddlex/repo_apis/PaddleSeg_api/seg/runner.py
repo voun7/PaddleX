@@ -24,13 +24,13 @@ class SegRunner(BaseRunner):
     """Semantic Segmentation Runner"""
 
     def train(
-        self,
-        config_path: str,
-        cli_args: list,
-        device: str,
-        ips: str,
-        save_dir: str,
-        do_eval=True,
+            self,
+            config_path: str,
+            cli_args: list,
+            device: str,
+            ips: str,
+            save_dir: str,
+            do_eval=True,
     ) -> CompletedProcess:
         """train model
 
@@ -62,7 +62,7 @@ class SegRunner(BaseRunner):
         )
 
     def evaluate(
-        self, config_path: str, cli_args: list, device: str, ips: str
+            self, config_path: str, cli_args: list, device: str, ips: str
     ) -> CompletedProcess:
         """run model evaluating
 
@@ -88,7 +88,7 @@ class SegRunner(BaseRunner):
         return cp
 
     def predict(
-        self, config_path: str, cli_args: list, device: str
+            self, config_path: str, cli_args: list, device: str
     ) -> CompletedProcess:
         """run predicting using dynamic mode
 
@@ -165,12 +165,12 @@ class SegRunner(BaseRunner):
         return self.run_cmd(cmd, switch_wdir=True, echo=True, silent=False)
 
     def compression(
-        self,
-        config_path: str,
-        train_cli_args: list,
-        export_cli_args: list,
-        device: str,
-        train_save_dir: str,
+            self,
+            config_path: str,
+            train_cli_args: list,
+            export_cli_args: list,
+            device: str,
+            train_save_dir: str,
     ) -> CompletedProcess:
         """run compression model
 

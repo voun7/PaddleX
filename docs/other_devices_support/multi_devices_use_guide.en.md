@@ -4,11 +4,15 @@ comments: true
 
 # PaddleX Multi-Devices Usage Guide
 
-This document focuses on the usage guide of PaddleX for Huawei Ascend NPU, Cambricon MLU, Kunlun XPU, and Hygon DCU hardware platforms.
+This document focuses on the usage guide of PaddleX for Huawei Ascend NPU, Cambricon MLU, Kunlun XPU, and Hygon DCU
+hardware platforms.
 
 ## 1. Installation
+
 ### 1.1 PaddlePaddle Installation
-First, please complete the installation of PaddlePaddle according to your hardware platform. The installation tutorials for each hardware are as follows:
+
+First, please complete the installation of PaddlePaddle according to your hardware platform. The installation tutorials
+for each hardware are as follows:
 
 Ascend NPU: [Ascend NPU PaddlePaddle Installation Guide](./paddlepaddle_install_NPU.en.md)
 
@@ -21,25 +25,35 @@ Hygon DCU: [Hygon DCU PaddlePaddle Installation Guide](./paddlepaddle_install_DC
 Enflame GCU: [Enflame GCU PaddlePaddle Installation Guide](./paddlepaddle_install_GCU.en.md)
 
 ### 1.2 PaddleX Installation
-Welcome to use PaddlePaddle's low-code development tool, PaddleX. Before we officially start the local installation, please clarify your development needs and choose the appropriate installation mode based on your requirements.
 
-PaddleX offers two installation modes: Wheel Package Installation and Plugin Installation. The following details the application scenarios and installation methods for these two modes.
+Welcome to use PaddlePaddle's low-code development tool, PaddleX. Before we officially start the local installation,
+please clarify your development needs and choose the appropriate installation mode based on your requirements.
+
+PaddleX offers two installation modes: Wheel Package Installation and Plugin Installation. The following details the
+application scenarios and installation methods for these two modes.
 
 #### 1.2.1 Wheel Package Installation Mode
-If your application scenario for PaddleX is <b>model inference and integration</b>, we recommend using the more <b>convenient</b> and <b>lightweight</b> Wheel Package Installation Mode.
 
-After installing PaddlePaddle, you can directly execute the following commands to quickly install the PaddleX Wheel package:
+If your application scenario for PaddleX is <b>model inference and integration</b>, we recommend using the more <b>
+convenient</b> and <b>lightweight</b> Wheel Package Installation Mode.
+
+After installing PaddlePaddle, you can directly execute the following commands to quickly install the PaddleX Wheel
+package:
 
 ```bash
 pip install https://paddle-model-ecology.bj.bcebos.com/paddlex/whl/paddlex-3.0.0b1-py3-none-any.whl
 ```
 
 #### 1.2.2 Plugin Installation Mode
-If your application scenario for PaddleX is <b>secondary development</b>, we recommend using the more <b>powerful</b> Plugin Installation Mode.
 
-After installing the PaddleX plugins you need, you can not only perform inference and integration on the models supported by the plugins but also conduct more advanced operations such as model training for secondary development.
+If your application scenario for PaddleX is <b>secondary development</b>, we recommend using the more <b>powerful</b>
+Plugin Installation Mode.
 
-The plugins supported by PaddleX are as follows. Please determine the name(s) of the plugin(s) you need based on your development requirements:
+After installing the PaddleX plugins you need, you can not only perform inference and integration on the models
+supported by the plugins but also conduct more advanced operations such as model training for secondary development.
+
+The plugins supported by PaddleX are as follows. Please determine the name(s) of the plugin(s) you need based on your
+development requirements:
 
 <details><summary>👉 <b>Plugin and Pipeline Correspondence (Click to Expand)</b></summary>
 
@@ -121,7 +135,8 @@ The plugins supported by PaddleX are as follows. Please determine the name(s) of
 </table></details>
 
 
-If the plugin(s) you need to install is/are PaddleXXX (can be multiple), after installing PaddlePaddle, you can directly execute the following commands to quickly install the corresponding PaddleX plugin(s):
+If the plugin(s) you need to install is/are PaddleXXX (can be multiple), after installing PaddlePaddle, you can directly
+execute the following commands to quickly install the corresponding PaddleX plugin(s):
 
 ```bash
 # obtain PaddleX source code
@@ -135,6 +150,7 @@ pip install -e .
 # Install PaddleX Plugins
 paddlex --install PaddleXXX
 ```
+
 For example, if you need to install the PaddleOCR and PaddleClas plugins, you can execute the following command:
 
 ```bash
@@ -149,9 +165,11 @@ If you wish to install all plugins, you do not need to specify the plugin names.
 paddlex --install
 ```
 
-The default clone source for plugins is github.com, but it also supports gitee.com. You can specify the clone source using `--platform`.
+The default clone source for plugins is github.com, but it also supports gitee.com. You can specify the clone source
+using `--platform`.
 
-For instance, if you want to install all PaddleX plugins using the gitee.com clone source, execute the following command:
+For instance, if you want to install all PaddleX plugins using the gitee.com clone source, execute the following
+command:
 
 ```bash
 # Install PaddleX Plugins using gitee.com
@@ -166,13 +184,21 @@ All packages are installed.
 
 ## 2. Usage
 
-The usage of PaddleX model pipeline development tool on hardware platforms such as Ascend NPU, Cambricon MLU, Kunlun XPU, Hygon DCU and Enflame GCU is identical to that on GPU. You only need to modify the device configuration parameters according to your hardware platform.
-Taking the general OCR pipeline as an example to introduce the pipeline development tools.The General OCR Pipeline is designed to solve text recognition tasks, extracting text information from images and outputting it in text form. PP-OCRv4 is an end-to-end OCR system that achieves millisecond-level text content prediction on CPUs, reaching state-of-the-art (SOTA) performance in open-source projects for general scenarios.You can directly use the pre-trained models provided by OCR pipeline for inference.
+The usage of PaddleX model pipeline development tool on hardware platforms such as Ascend NPU, Cambricon MLU, Kunlun
+XPU, Hygon DCU and Enflame GCU is identical to that on GPU. You only need to modify the device configuration parameters
+according to your hardware platform.
+Taking the general OCR pipeline as an example to introduce the pipeline development tools.The General OCR Pipeline is
+designed to solve text recognition tasks, extracting text information from images and outputting it in text form.
+PP-OCRv4 is an end-to-end OCR system that achieves millisecond-level text content prediction on CPUs, reaching
+state-of-the-art (SOTA) performance in open-source projects for general scenarios.You can directly use the pre-trained
+models provided by OCR pipeline for inference.
+
 * Command line
 
 ```bash
 paddlex --pipeline OCR --input general_ocr_002.png --device npu:0 # change the device name to npu, mlu, xpu, dcu or gcu
 ```
+
 * Python Script
 
 ```python
@@ -185,7 +211,9 @@ for res in output:
     res.print()
     res.save_to_img("./output/")
 ```
-If you are not satisfied with the performance of the pre-trained model, you can fine-tune it. For example, let's discuss single model development using the PP-OCRv4 mobile text detection model (PP-OCRv4_mobile_det).
+
+If you are not satisfied with the performance of the pre-trained model, you can fine-tune it. For example, let's discuss
+single model development using the PP-OCRv4 mobile text detection model (PP-OCRv4_mobile_det).
 
 ```bash
 # train
@@ -201,4 +229,6 @@ python main.py -c paddlex/configs/text_detection/PP-OCRv4_mobile_det.yaml \
     -o Predict.input="general_ocr_001.png"
     -o Global.device=npu # change the device name to npu, mlu, xpu, dcu or gcu
 ```
-For more detailed usage tutorials, please refer to [PaddleX Pipeline Development Tool Local Usage Guide](../pipeline_usage/pipeline_develop_guide.en.md).
+
+For more detailed usage tutorials, please refer
+to [PaddleX Pipeline Development Tool Local Usage Guide](../pipeline_usage/pipeline_develop_guide.en.md).

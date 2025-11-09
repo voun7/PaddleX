@@ -21,8 +21,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 from PIL import Image, ImageOps
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -37,10 +37,10 @@ class MinMaxResize:
     """Class for resizing images to be within specified minimum and maximum dimensions, with padding and normalization."""
 
     def __init__(
-        self,
-        min_dimensions: Optional[List[int]] = [32, 32],
-        max_dimensions: Optional[List[int]] = [672, 192],
-        **kwargs,
+            self,
+            min_dimensions: Optional[List[int]] = [32, 32],
+            max_dimensions: Optional[List[int]] = [672, 192],
+            **kwargs,
     ) -> None:
         """Initializes the MinMaxResize class with minimum and maximum dimensions.
 
@@ -78,7 +78,7 @@ class MinMaxResize:
 
         coords = cv2.findNonZero(gray)  # Find all non-zero points (text)
         a, b, w, h = cv2.boundingRect(coords)  # Find minimum spanning bounding box
-        rect = data[b : b + h, a : a + w]
+        rect = data[b: b + h, a: a + w]
         im = Image.fromarray(rect).convert("L")
         dims = []
         for x in [w, h]:
@@ -89,10 +89,10 @@ class MinMaxResize:
         return padded
 
     def minmax_size_(
-        self,
-        img: Image.Image,
-        max_dimensions: Optional[List[int]],
-        min_dimensions: Optional[List[int]],
+            self,
+            img: Image.Image,
+            max_dimensions: Optional[List[int]],
+            min_dimensions: Optional[List[int]],
     ) -> Image.Image:
         """Resizes the image to be within the specified minimum and maximum dimensions.
 
@@ -132,8 +132,8 @@ class MinMaxResize:
         """
         h, w = img.shape[:2]
         if (
-            self.min_dimensions[0] <= w <= self.max_dimensions[0]
-            and self.min_dimensions[1] <= h <= self.max_dimensions[1]
+                self.min_dimensions[0] <= w <= self.max_dimensions[0]
+                and self.min_dimensions[1] <= h <= self.max_dimensions[1]
         ):
             return img
         else:
@@ -256,12 +256,12 @@ class NormalizeImage(object):
     """
 
     def __init__(
-        self,
-        scale: Optional[Union[float, str]] = None,
-        mean: Optional[List[float]] = None,
-        std: Optional[List[float]] = None,
-        order: str = "chw",
-        **kwargs,
+            self,
+            scale: Optional[Union[float, str]] = None,
+            mean: Optional[List[float]] = None,
+            std: Optional[List[float]] = None,
+            order: str = "chw",
+            **kwargs,
     ) -> None:
         if isinstance(scale, str):
             scale = eval(scale)
@@ -375,12 +375,12 @@ class LaTeXOCRDecode(object):
         return [self.post_process(dec_str) for dec_str in dec_str_list]
 
     def __call__(
-        self,
-        preds: np.ndarray,
-        label: Optional[np.ndarray] = None,
-        mode: str = "eval",
-        *args,
-        **kwargs,
+            self,
+            preds: np.ndarray,
+            label: Optional[np.ndarray] = None,
+            mode: str = "eval",
+            *args,
+            **kwargs,
     ) -> Tuple[List[str], List[str]]:
         """Calls the object with the provided predictions and label.
 
@@ -411,7 +411,7 @@ class UniMERNetImgDecode(object):
     """Class for decoding images for UniMERNet, including cropping margins, resizing, and padding."""
 
     def __init__(
-        self, input_size: Tuple[int, int], random_padding: bool = False, **kwargs
+            self, input_size: Tuple[int, int], random_padding: bool = False, **kwargs
     ) -> None:
         """Initializes the UniMERNetImgDecode class with input size and random padding options.
 
@@ -458,10 +458,10 @@ class UniMERNetImgDecode(object):
         return [channels, height, width]
 
     def _compute_resized_output_size(
-        self,
-        image_size: Tuple[int, int],
-        size: Union[int, Tuple[int, int]],
-        max_size: Optional[int] = None,
+            self,
+            image_size: Tuple[int, int],
+            size: Union[int, Tuple[int, int]],
+            max_size: Optional[int] = None,
     ) -> List[int]:
         """Computes the resized output size of the image.
 
@@ -496,7 +496,7 @@ class UniMERNetImgDecode(object):
         return [new_h, new_w]
 
     def resize(
-        self, img: Image.Image, size: Union[int, Tuple[int, int]]
+            self, img: Image.Image, size: Union[int, Tuple[int, int]]
     ) -> Image.Image:
         """Resizes the image to the specified size.
 
@@ -594,9 +594,9 @@ class UniMERNetDecode(object):
     ]
 
     def __init__(
-        self,
-        character_list: Dict[str, Any],
-        **kwargs,
+            self,
+            character_list: Dict[str, Any],
+            **kwargs,
     ) -> None:
         """Initializes the UniMERNetDecode class.
 
@@ -685,7 +685,7 @@ class UniMERNetDecode(object):
                     self._add_tokens(tokens, special_tokens=is_last_special)
 
     def _add_tokens(
-        self, new_tokens: "List[Union[AddedToken, str]]", special_tokens: bool = False
+            self, new_tokens: "List[Union[AddedToken, str]]", special_tokens: bool = False
     ) -> "List[Union[AddedToken, str]]":
         """Adds new tokens to the tokenizer.
 
@@ -702,7 +702,7 @@ class UniMERNetDecode(object):
         return self.tokenizer.add_tokens(new_tokens)
 
     def added_tokens_encoder(
-        self, added_tokens_decoder: "Dict[int, AddedToken]"
+            self, added_tokens_decoder: "Dict[int, AddedToken]"
     ) -> Dict[str, int]:
         """Creates an encoder dictionary from added tokens.
 
@@ -760,7 +760,7 @@ class UniMERNetDecode(object):
         return set_attr
 
     def convert_ids_to_tokens(
-        self, ids: Union[int, List[int]], skip_special_tokens: bool = False
+            self, ids: Union[int, List[int]], skip_special_tokens: bool = False
     ) -> Union[str, List[str]]:
         """Converts token IDs to token strings.
 
@@ -800,11 +800,11 @@ class UniMERNetDecode(object):
                     toks[b][i] = ""
                 toks[b][i] = toks[b][i].replace("Ġ", " ").strip()
                 if toks[b][i] in (
-                    [
-                        self.tokenizer.bos_token,
-                        self.tokenizer.eos_token,
-                        self.tokenizer.pad_token,
-                    ]
+                        [
+                            self.tokenizer.bos_token,
+                            self.tokenizer.eos_token,
+                            self.tokenizer.pad_token,
+                        ]
                 ):
                     del toks[b][i]
         return toks
@@ -849,14 +849,14 @@ class UniMERNetDecode(object):
             matches = re.findall(pattern, x[0])
             for m in matches:
                 if (
-                    m
-                    not in [
-                        "\\operatorname",
-                        "\\mathrm",
-                        "\\text",
-                        "\\mathbf",
-                    ]
-                    and m.strip() != ""
+                        m
+                        not in [
+                    "\\operatorname",
+                    "\\mathrm",
+                    "\\text",
+                    "\\mathbf",
+                ]
+                        and m.strip() != ""
                 ):
                     s = s.replace(m, m + "XXXXXXX")
                     s = s.replace(" ", "")
@@ -899,12 +899,12 @@ class UniMERNetDecode(object):
         return text
 
     def __call__(
-        self,
-        preds: np.ndarray,
-        label: Optional[np.ndarray] = None,
-        mode: str = "eval",
-        *args,
-        **kwargs,
+            self,
+            preds: np.ndarray,
+            label: Optional[np.ndarray] = None,
+            mode: str = "eval",
+            *args,
+            **kwargs,
     ) -> Union[List[str], tuple]:
         """Processes predictions and optionally labels, returning the decoded text.
 

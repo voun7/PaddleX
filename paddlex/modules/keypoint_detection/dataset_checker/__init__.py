@@ -13,9 +13,9 @@
 # limitations under the License.
 
 
-from ...object_detection.dataset_checker import COCODatasetChecker
-from ..model_list import MODELS
 from .dataset_src import check
+from ..model_list import MODELS
+from ...object_detection.dataset_checker import COCODatasetChecker
 
 
 class KeypointDatasetChecker(COCODatasetChecker):

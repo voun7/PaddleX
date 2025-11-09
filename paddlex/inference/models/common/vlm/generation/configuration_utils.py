@@ -20,9 +20,9 @@ from typing import Any, Dict, Optional, Union
 
 from paddle.common_ops_import import convert_dtype
 
-from ......utils import logging
 from ..transformers.configuration_utils import PretrainedConfig
 from ..utils import GENERATION_CONFIG_NAME, resolve_file_path
+from ......utils import logging
 
 DEFAULT_MAX_NEW_TOKENS = 20
 
@@ -216,9 +216,9 @@ class GenerationConfig:
         # 1. detect sampling-only parameterization when not in sampling mode
         if self.decode_strategy == "greedy_search":
             greedy_wrong_parameter_msg = (
-                "using greedy search strategy. However, `{flag_name}` is set to `{flag_value}` -- this flag is only "
-                'used in sample-based generation modes. You should set `decode_strategy="greedy_search" ` or unset `{flag_name}`.'
-                + fix_location
+                    "using greedy search strategy. However, `{flag_name}` is set to `{flag_value}` -- this flag is only "
+                    'used in sample-based generation modes. You should set `decode_strategy="greedy_search" ` or unset `{flag_name}`.'
+                    + fix_location
             )
             if self.temperature != 1.0:
                 warnings.warn(
@@ -238,9 +238,9 @@ class GenerationConfig:
         # 2. detect beam-only parameterization when not in beam mode
         if self.decode_strategy != "beam_search":
             single_beam_wrong_parameter_msg = (
-                "`num_beams` is set to 1. However, `{flag_name}` is set to `{flag_value}` -- this flag is only used "
-                "in beam-based generation modes. You should set `num_beams>1` or unset `{flag_name}`."
-                + fix_location
+                    "`num_beams` is set to 1. However, `{flag_name}` is set to `{flag_value}` -- this flag is only used "
+                    "in beam-based generation modes. You should set `num_beams>1` or unset `{flag_name}`."
+                    + fix_location
             )
             if self.early_stopping is not False:
                 warnings.warn(
@@ -274,14 +274,14 @@ class GenerationConfig:
 
     @classmethod
     def from_pretrained(
-        cls,
-        pretrained_model_name_or_path: Union[str, os.PathLike],
-        from_hf_hub: bool = False,
-        from_aistudio: bool = False,
-        config_file_name: Optional[Union[str, os.PathLike]] = None,
-        cache_dir: Optional[Union[str, os.PathLike]] = None,
-        force_download: bool = False,
-        **kwargs,
+            cls,
+            pretrained_model_name_or_path: Union[str, os.PathLike],
+            from_hf_hub: bool = False,
+            from_aistudio: bool = False,
+            config_file_name: Optional[Union[str, os.PathLike]] = None,
+            cache_dir: Optional[Union[str, os.PathLike]] = None,
+            force_download: bool = False,
+            **kwargs,
     ) -> "GenerationConfig":
         r"""
         Instantiate a [`GenerationConfig`] from a generation configuration file.
@@ -362,7 +362,7 @@ class GenerationConfig:
             from_hf_hub=from_hf_hub,
         )
         assert (
-            resolved_config_file is not None
+                resolved_config_file is not None
         ), f"please make sure {config_file_name} under {pretrained_model_name_or_path}"
         try:
             logging.info(f"Loading configuration file {resolved_config_file}")
@@ -436,9 +436,9 @@ class GenerationConfig:
         # only serialize values that differ from the default config
         for key, value in config_dict.items():
             if (
-                key not in default_config_dict
-                or key == "transformers_version"
-                or value != default_config_dict[key]
+                    key not in default_config_dict
+                    or key == "transformers_version"
+                    or value != default_config_dict[key]
             ):
                 serializable_config_dict[key] = value
 
@@ -464,7 +464,7 @@ class GenerationConfig:
         return json.dumps(config_dict, indent=2, sort_keys=True) + "\n"
 
     def to_json_file(
-        self, json_file_path: Union[str, os.PathLike], use_diff: bool = True
+            self, json_file_path: Union[str, os.PathLike], use_diff: bool = True
     ):
         """
         Save this instance to a JSON file.
@@ -506,7 +506,7 @@ class GenerationConfig:
                 decoder_config = config_dict[decoder_name]
                 for attr in config.to_dict().keys():
                     if attr in decoder_config and getattr(config, attr) == getattr(
-                        default_generation_config, attr
+                            default_generation_config, attr
                     ):
                         setattr(config, attr, decoder_config[attr])
 

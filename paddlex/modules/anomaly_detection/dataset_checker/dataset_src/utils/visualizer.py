@@ -42,7 +42,7 @@ def get_color_map_list(length):
 def visualize(image, result, weight=0.6, use_multilabel=False):
     """Convert predict result to color image, and save added image."""
     color_map = get_color_map_list(256)
-    color_map = [color_map[i : i + 3] for i in range(0, len(color_map), 3)]
+    color_map = [color_map[i: i + 3] for i in range(0, len(color_map), 3)]
     color_map = np.array(color_map).astype("uint8")
 
     if not use_multilabel:

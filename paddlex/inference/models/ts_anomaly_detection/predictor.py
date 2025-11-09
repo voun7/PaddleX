@@ -17,9 +17,8 @@ from typing import Any, Dict, List, Tuple, Union
 
 import pandas as pd
 
-from ....modules.ts_anomaly_detection.model_list import MODELS
-from ...common.batch_sampler import TSBatchSampler
-from ...common.reader import ReadTS
+from .processors import GetAnomaly
+from .result import TSAdResult
 from ..base import BasePredictor
 from ..common import (
     BuildTSDataset,
@@ -29,8 +28,9 @@ from ..common import (
     TStoArray,
     TStoBatch,
 )
-from .processors import GetAnomaly
-from .result import TSAdResult
+from ...common.batch_sampler import TSBatchSampler
+from ...common.reader import ReadTS
+from ....modules.ts_anomaly_detection.model_list import MODELS
 
 
 class TSAdPredictor(BasePredictor):

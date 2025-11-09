@@ -31,7 +31,6 @@ except ImportError:
             x, y = paddle.chunk(x, chunks=2, axis=-1)
         return F.silu(x) * y
 
-
 from paddle.utils import try_import
 
 
@@ -77,14 +76,14 @@ except:
 
 
 def fusion_rope(
-    query_states,
-    key_states,
-    value_states,
-    hidden_states,
-    position_ids,
-    past_key_value,
-    rotary_emb,
-    context_parallel_degree=-1,
+        query_states,
+        key_states,
+        value_states,
+        hidden_states,
+        position_ids,
+        past_key_value,
+        rotary_emb,
+        context_parallel_degree=-1,
 ):
     if get_env_device() not in ["gcu", "intel_hpu", "iluvatar_gpu"]:
         assert past_key_value is None, "fuse rotary not support cache kv for now"
@@ -92,7 +91,7 @@ def fusion_rope(
     _, kv_seq_len, num_key_value_heads, _ = key_states.shape
     if context_parallel_degree > 1:
         assert (
-            get_env_device() == "gpu"
+                get_env_device() == "gpu"
         ), "context parallel only support cuda device for now"
         kv_seq_len *= context_parallel_degree
     if get_env_device() not in ["gcu", "intel_hpu", "iluvatar_gpu"]:
@@ -144,7 +143,7 @@ def fusion_rope(
         # paddle version > 2.6 or develop support q and k/v with different num_heads
         paddle_version = float(paddle.__version__[:3])
         if ((paddle_version != 0.0) and (paddle_version <= 2.6)) and (
-            num_heads != num_key_value_heads
+                num_heads != num_key_value_heads
         ):
             query_states, _, _ = fused_rotary_position_embedding(
                 query_states,

@@ -5,7 +5,13 @@ comments: true
 # Table Classification Module Tutorial
 
 ## I. Overview
-The table classification module is a key component of a computer vision system, responsible for classifying input table images. The performance of this module directly affects the accuracy and efficiency of the entire table recognition process. The table classification module typically receives table images as input and then, through deep learning algorithms, classifies them into predefined categories based on the characteristics and content of the images, such as wired tables and wireless tables. The classification results of the table classification module are provided as output for use in table recognition-related pipelines.
+
+The table classification module is a key component of a computer vision system, responsible for classifying input table
+images. The performance of this module directly affects the accuracy and efficiency of the entire table recognition
+process. The table classification module typically receives table images as input and then, through deep learning
+algorithms, classifies them into predefined categories based on the characteristics and content of the images, such as
+wired tables and wireless tables. The classification results of the table classification module are provided as output
+for use in table recognition-related pipelines.
 
 ## II. Supported Model List
 
@@ -79,9 +85,15 @@ The table classification module is a key component of a computer vision system, 
 </table>
 
 ## III. Quick Integration
-> ❗ Before quick integration, please install the PaddleX wheel package first. For details, please refer to the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
 
-After installing the wheel package, you can complete the inference of the table classification module with just a few lines of code. You can switch between models under this module at will, and you can also integrate the model inference of the table classification module into your project. Before running the following code, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine.
+> ❗ Before quick integration, please install the PaddleX wheel package first. For details, please refer to
+> the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
+
+After installing the wheel package, you can complete the inference of the table classification module with just a few
+lines of code. You can switch between models under this module at will, and you can also integrate the model inference
+of the table classification module into your project. Before running the following code, please download
+the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your
+local machine.
 
 ```python
 from paddlex import create_model
@@ -92,7 +104,10 @@ for res in output:
     res.save_to_json("./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE="BOS"`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE="BOS"`. The supported values are
+`huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set:
+`PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 After running the code, the result obtained is:
 
@@ -103,6 +118,7 @@ After running the code, the result obtained is:
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/refs/heads/main/images/modules/table_classification/01.jpg">
 
 The meanings of the parameters in the running results are as follows:
+
 - `input_path`: Indicates the path of the input image.
 - `page_index`：If the input is a PDF file, this indicates the current page number of the PDF. Otherwise, it is `None`
 - `class_ids`: Indicates the class ID of the prediction result.
@@ -111,7 +127,9 @@ The meanings of the parameters in the running results are as follows:
 
 The descriptions of the related methods and parameters are as follows:
 
-* `create_model` instantiates a table classification model (here we use `PP-LCNet_x1_0_table_cls` as an example), and the specific descriptions are as follows:
+* `create_model` instantiates a table classification model (here we use `PP-LCNet_x1_0_table_cls` as an example), and
+  the specific descriptions are as follows:
+
 <table>
 <thead>
 <tr>
@@ -159,9 +177,11 @@ The descriptions of the related methods and parameters are as follows:
 </tr>
 </table>
 
-* The `model_name` must be specified. After specifying the `model_name`, the default model parameters in PaddleX will be used. On this basis, if `model_dir` is specified, the user-defined model will be used.
+* The `model_name` must be specified. After specifying the `model_name`, the default model parameters in PaddleX will be
+  used. On this basis, if `model_dir` is specified, the user-defined model will be used.
 
-* Call the `predict()` method of the table classification model to perform inference prediction. The `predict()` method has parameters `input` and `batch_size`, and the specific descriptions are as follows:
+* Call the `predict()` method of the table classification model to perform inference prediction. The `predict()` method
+  has parameters `input` and `batch_size`, and the specific descriptions are as follows:
 
 <table>
 <thead>
@@ -197,7 +217,8 @@ The descriptions of the related methods and parameters are as follows:
 </tr>
 </table>
 
-* Process the prediction results. Each sample's prediction result is a corresponding Result object, and it supports operations such as printing, saving as an image, and saving as a `json` file:
+* Process the prediction results. Each sample's prediction result is a corresponding Result object, and it supports
+  operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -252,7 +273,8 @@ The descriptions of the related methods and parameters are as follows:
 </tr>
 </table>
 
-* In addition, it also supports obtaining visual images with results and prediction results through attributes, as follows:
+* In addition, it also supports obtaining visual images with results and prediction results through attributes, as
+  follows:
 
 <table>
 <thead>
@@ -271,15 +293,26 @@ The descriptions of the related methods and parameters are as follows:
 </tr>
 </table>
 
-For more information on the usage of PaddleX's single-model inference API, please refer to [PaddleX Single-Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on the usage of PaddleX's single-model inference API, please refer
+to [PaddleX Single-Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Secondary Development
-If you aim to improve the accuracy of existing models, you can leverage PaddleX's secondary development capabilities to develop a better table classification model. Before using PaddleX to develop a table classification model, please ensure that you have installed the table classification part of PaddleX according to the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
+
+If you aim to improve the accuracy of existing models, you can leverage PaddleX's secondary development capabilities to
+develop a better table classification model. Before using PaddleX to develop a table classification model, please ensure
+that you have installed the table classification part of PaddleX according to
+the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
 
 ### 4.1 Data Preparation
-Before training the model, you need to prepare the dataset for the corresponding task module. PaddleX provides a data validation function for each module, and <b>only data that passes the validation can be used for model training</b>. In addition, PaddleX provides a demo dataset for each module, and you can complete subsequent development based on the official demo data. If you want to use your private dataset for model training, please refer to the [PaddleX Image Classification Task Module Data Annotation Guide](../../../data_annotations/cv_modules/image_classification.en.md).
+
+Before training the model, you need to prepare the dataset for the corresponding task module. PaddleX provides a data
+validation function for each module, and <b>only data that passes the validation can be used for model training</b>. In
+addition, PaddleX provides a demo dataset for each module, and you can complete subsequent development based on the
+official demo data. If you want to use your private dataset for model training, please refer to
+the [PaddleX Image Classification Task Module Data Annotation Guide](../../../data_annotations/cv_modules/image_classification.en.md).
 
 #### 4.1.1 Downloading Demo Data
+
 You can use the following command to download the demo dataset to a specified folder:
 
 ```bash
@@ -289,6 +322,7 @@ tar -xf ./dataset/table_cls_examples.tar -C ./dataset/
 ```
 
 #### 4.1.2 Data Validation
+
 Data validation can be completed with a single line of command:
 
 ```bash
@@ -297,7 +331,11 @@ python main.py -c paddlex/configs/modules/table_classification/PP-LCNet_x1_0_tab
     -o Global.dataset_dir=./dataset/table_cls_examples
 ```
 
-After executing the above command, PaddleX will verify the dataset and collect basic information about it. If the command runs successfully, it will print the message `Check dataset passed !` in the log. The verification result file is saved at `./output/check_dataset_result.json`, and related outputs will be stored in the `./output/check_dataset` directory under the current directory. This output directory includes visualized example sample images and sample distribution histograms.
+After executing the above command, PaddleX will verify the dataset and collect basic information about it. If the
+command runs successfully, it will print the message `Check dataset passed !` in the log. The verification result file
+is saved at `./output/check_dataset_result.json`, and related outputs will be stored in the `./output/check_dataset`
+directory under the current directory. This output directory includes visualized example sample images and sample
+distribution histograms.
 
 <details><summary>👉 <b>Verification Result Details (Click to Expand)</b></summary>
 
@@ -354,7 +392,9 @@ After executing the above command, PaddleX will verify the dataset and collect b
 <p><img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/modules/table_classification/02.png"></p></details>
 
 #### 4.1.3 Dataset Format Conversion/Dataset Splitting (Optional)
-After you complete the data verification, you can convert the dataset format by <b>modifying the configuration file</b> or <b>adding hyperparameters</b>. You can also re-split the training/validation ratio of the dataset.
+
+After you complete the data verification, you can convert the dataset format by <b>modifying the configuration file</b>
+or <b>adding hyperparameters</b>. You can also re-split the training/validation ratio of the dataset.
 
 <details><summary>👉 <b>Details of Format Conversion/Dataset Splitting (Click to Expand)</b></summary>
 
@@ -394,7 +434,9 @@ CheckDataset:
 </code></pre></details>
 
 ### 4.2 Model Training
-Training a model can be done with a single command. For example, to train the table classification model PP-LCNet_x1_0_table_cls:
+
+Training a model can be done with a single command. For example, to train the table classification model
+PP-LCNet_x1_0_table_cls:
 
 ```bash
 python main.py -c paddlex/configs/modules/table_classification/PP-LCNet_x1_0_table_cls.yaml  \
@@ -402,11 +444,19 @@ python main.py -c paddlex/configs/modules/table_classification/PP-LCNet_x1_0_tab
     -o Global.dataset_dir=./dataset/table_cls_examples
 ```
 
-* Specify the `.yaml` configuration file path for the model (here it is `PP-LCNet_x1_0_table_cls.yaml`. When training other models, the corresponding configuration file needs to be specified. The correspondence between models and configurations can be found in [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
+* Specify the `.yaml` configuration file path for the model (here it is `PP-LCNet_x1_0_table_cls.yaml`. When training
+  other models, the corresponding configuration file needs to be specified. The correspondence between models and
+  configurations can be found in [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
 * Set the mode to model training: `-o Global.mode=train`
 * Specify the training dataset path: `-o Global.dataset_dir`
-* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration file, or by appending parameters in the command line. For example, to specify training on the first 2 GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the configuration file description of the corresponding model task module [PaddleX General Model Configuration Parameters](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration
+  file, or by appending parameters in the command line. For example, to specify training on the first 2 GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to the configuration file description of the
+  corresponding model task
+  module [PaddleX General Model Configuration Parameters](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 
@@ -426,7 +476,9 @@ python main.py -c paddlex/configs/modules/table_classification/PP-LCNet_x1_0_tab
 </ul></details>
 
 ## <b>4.3 Model Evaluation</b>
-After completing model training, you can evaluate the specified model weight file on the validation set to verify the model's accuracy. With PaddleX, model evaluation can be completed with a single command:
+
+After completing model training, you can evaluate the specified model weight file on the validation set to verify the
+model's accuracy. With PaddleX, model evaluation can be completed with a single command:
 
 ```bash
 python main.py -c  paddlex/configs/modules/table_classification/PP-LCNet_x1_0_table_cls.yaml  \
@@ -439,7 +491,9 @@ Similar to model training, the following steps are required:
 * Specify the path of the model's `.yaml` configuration file (here it is `PP-LCNet_x1_0_table_cls.yaml`)
 * Specify the mode as model evaluation: `-o Global.mode=evaluate`
 * Specify the validation dataset path: `-o Global.dataset_dir`
-Other related parameters can be set by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration file. For details, please refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration
+  file. For details, please refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 <b>More Information (Click to Expand)</b></summary>
 
@@ -448,10 +502,16 @@ Other related parameters can be set by modifying the fields under `Global` and `
 
 ### <b>4.4 Model Inference and Model Integration</b>
 
-After completing the training and evaluation of the model, you can use the trained model weights for inference prediction or integrate them into Python.
+After completing the training and evaluation of the model, you can use the trained model weights for inference
+prediction or integrate them into Python.
 
 #### 4.4.1 Model Inference
-Inference prediction can be performed via the command line with just one command. Before running the following code, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine. Note that due to network issues, the link may not be accessible. If you encounter any problems, please check the validity of the link and try again.
+
+Inference prediction can be performed via the command line with just one command. Before running the following code,
+please download
+the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your
+local machine. Note that due to network issues, the link may not be accessible. If you encounter any problems, please
+check the validity of the link and try again.
 
 ```bash
 python main.py -c paddlex/configs/modules/table_classification/PP-LCNet_x1_0_table_cls.yaml \
@@ -467,17 +527,27 @@ Similar to model training and evaluation, the following steps are required:
 * Specify the model weight path: `-o Predict.model_dir="./output/best_model/inference"`
 * Specify the input data path: `-o Predict.input="..."`
 
-Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration file. For details, please refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration
+file. For details, please refer
+to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 #### 4.4.2 Model Integration
+
 The model can be directly integrated into the PaddleX pipeline or directly integrated into your own project.
 
 1.<b>Pipeline Integration</b>
 
-The table classification module can be integrated into the PaddleX pipeline such as [General Table Classification Pipeline v2](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.en.md). You just need to replace the model path to update the table classification module in the related pipeline. In pipeline integration, you can deploy the model you obtained using high-performance deployment and serving deployment.
+The table classification module can be integrated into the PaddleX pipeline such
+as [General Table Classification Pipeline v2](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.en.md).
+You just need to replace the model path to update the table classification module in the related pipeline. In pipeline
+integration, you can deploy the model you obtained using high-performance deployment and serving deployment.
 
 2.<b>Module Integration</b>
 
-The weights you generate can be directly integrated into the table classification module. You can refer to the Python example code in [Quick Integration](#Three-Quick-Integration). Just replace the model with the path of the model you have trained.
+The weights you generate can be directly integrated into the table classification module. You can refer to the Python
+example code in [Quick Integration](#Three-Quick-Integration). Just replace the model with the path of the model you
+have trained.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

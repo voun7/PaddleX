@@ -48,16 +48,16 @@ class LlamaTokenizer(PretrainedTokenizer):
     padding_side = "left"
 
     def __init__(
-        self,
-        vocab_file,
-        unk_token="<unk>",
-        bos_token="<s>",
-        eos_token="</s>",
-        add_bos_token=True,
-        add_eos_token=False,
-        sp_model_kwargs=None,
-        decode_with_prefix_space=False,
-        **kwargs,
+            self,
+            vocab_file,
+            unk_token="<unk>",
+            bos_token="<s>",
+            eos_token="</s>",
+            add_bos_token=True,
+            add_eos_token=False,
+            sp_model_kwargs=None,
+            decode_with_prefix_space=False,
+            **kwargs,
     ):
         self.sp_model_kwargs = {} if sp_model_kwargs is None else sp_model_kwargs
         super().__init__(
@@ -153,7 +153,7 @@ class LlamaTokenizer(PretrainedTokenizer):
         return out_string
 
     def save_vocabulary(
-        self, save_directory, filename_prefix: Optional[str] = None
+            self, save_directory, filename_prefix: Optional[str] = None
     ) -> Tuple[str]:
         """
         Save the vocabulary and special tokens file to a directory.
@@ -175,7 +175,7 @@ class LlamaTokenizer(PretrainedTokenizer):
         )
 
         if os.path.abspath(self.vocab_file) != os.path.abspath(
-            out_vocab_file
+                out_vocab_file
         ) and os.path.isfile(self.vocab_file):
             copyfile(self.vocab_file, out_vocab_file)
         elif not os.path.isfile(self.vocab_file):
@@ -202,10 +202,10 @@ class LlamaTokenizer(PretrainedTokenizer):
         return output
 
     def get_special_tokens_mask(
-        self,
-        token_ids_0: List[int],
-        token_ids_1: Optional[List[int]] = None,
-        already_has_special_tokens: bool = False,
+            self,
+            token_ids_0: List[int],
+            token_ids_1: Optional[List[int]] = None,
+            already_has_special_tokens: bool = False,
     ) -> List[int]:
         """
         Retrieve sequence ids from a token list that has no special tokens added. This method is called when adding
@@ -232,7 +232,7 @@ class LlamaTokenizer(PretrainedTokenizer):
         return [1] + ([0] * len(token_ids_0)) + [1, 1] + ([0] * len(token_ids_1)) + [1]
 
     def create_token_type_ids_from_sequences(
-        self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
+            self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
     ) -> List[int]:
         """
         Create a mask from the two sequences passed to be used in a sequence-pair classification task. T5 does not make

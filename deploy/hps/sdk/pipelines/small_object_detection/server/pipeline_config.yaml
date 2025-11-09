@@ -1,4 +1,3 @@
-
 pipeline_name: small_object_detection
 
 SubModules:

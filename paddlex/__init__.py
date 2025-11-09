@@ -40,11 +40,9 @@ def _initialize():
 
 _initialize()
 
-
 from . import version
 
 __version__ = version.get_pdx_version()
-
 
 from .inference import create_pipeline, create_predictor
 from .model import create_model

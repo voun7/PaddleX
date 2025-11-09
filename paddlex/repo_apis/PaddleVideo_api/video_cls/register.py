@@ -15,10 +15,10 @@
 import os
 import os.path as osp
 
-from ...base.register import register_model_info, register_suite_info
 from .config import VideoClsConfig
 from .model import VideoClsModel
 from .runner import VideoClsRunner
+from ...base.register import register_model_info, register_suite_info
 
 REPO_ROOT_PATH = os.environ.get("PADDLE_PDX_PADDLEVIDEO_PATH")
 PDX_CONFIG_DIR = osp.abspath(osp.join(osp.dirname(__file__), "..", "configs"))
@@ -55,7 +55,6 @@ register_model_info(
         "infer_config": "deploy/configs/inference_cls.yaml",
     }
 )
-
 
 register_model_info(
     {

@@ -26,7 +26,6 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-from ....utils import logging
 from ...utils.io import (
     CSVWriter,
     HtmlWriter,
@@ -37,6 +36,7 @@ from ...utils.io import (
     VideoWriter,
     XlsxWriter,
 )
+from ....utils import logging
 
 
 class WordMixin:
@@ -184,17 +184,17 @@ class WordMixin:
 
                 # --- other content ---
                 elif (
-                    label
-                    not in [
-                        "header",
-                        "footer",
-                        "table",
-                        "chart",
-                        "image",
-                        "seal",
-                        "vision_footnote",
-                    ]
-                    and content
+                        label
+                        not in [
+                            "header",
+                            "footer",
+                            "table",
+                            "chart",
+                            "image",
+                            "seal",
+                            "vision_footnote",
+                        ]
+                        and content
                 ):
                     if label == "vision_footnote":
                         content = f"[footnote] {content}"
@@ -306,7 +306,7 @@ class LatexMixin:
 
                 def _hold(m):
                     placeholders.append(m.group(0))
-                    return f"@@FORMULA{len(placeholders)-1}@@"
+                    return f"@@FORMULA{len(placeholders) - 1}@@"
 
                 temp = re.sub(
                     r"(\$\$.*?\$\$|\$.*?\$|\\\[.*?\\\])", _hold, p, flags=re.DOTALL
@@ -401,10 +401,10 @@ class LatexMixin:
             if label == "content":
                 lines = [line.rstrip() for line in content.splitlines()]
                 return (
-                    "\n".join(
-                        [escape_latex(line) + " \\\\" for line in lines if line.strip()]
-                    )
-                    + "\n\n"
+                        "\n".join(
+                            [escape_latex(line) + " \\\\" for line in lines if line.strip()]
+                        )
+                        + "\n\n"
                 )
             if label == "formula":
                 return f"\\[\n{content.strip()}\n\\]\n\n"
@@ -518,7 +518,7 @@ class StrMixin:
         return self._to_str()
 
     def _to_str(
-        self,
+            self,
     ):
         """Convert the given result data to a string representation.
 
@@ -589,12 +589,12 @@ class JsonMixin:
         return self._to_json()
 
     def save_to_json(
-        self,
-        save_path: str,
-        indent: int = 4,
-        ensure_ascii: bool = False,
-        *args: List,
-        **kwargs: Dict,
+            self,
+            save_path: str,
+            indent: int = 4,
+            ensure_ascii: bool = False,
+            *args: List,
+            **kwargs: Dict,
     ) -> None:
         """Save the JSON representation of the object to a file.
 
@@ -640,10 +640,10 @@ class JsonMixin:
             )
 
     def _to_str(
-        self,
-        json_format: bool = False,
-        indent: int = 4,
-        ensure_ascii: bool = False,
+            self,
+            json_format: bool = False,
+            indent: int = 4,
+            ensure_ascii: bool = False,
     ):
         """Convert the given result data to a string representation.
         Args:
@@ -662,7 +662,7 @@ class JsonMixin:
             return {"res": self}
 
     def print(
-        self, json_format: bool = False, indent: int = 4, ensure_ascii: bool = False
+            self, json_format: bool = False, indent: int = 4, ensure_ascii: bool = False
     ) -> None:
         """Print the string representation of the result.
 
@@ -973,9 +973,9 @@ class XlsxMixin:
         def _is_xlsx_file(file_path):
             mime_type, _ = mimetypes.guess_type(file_path)
             return (
-                mime_type is not None
-                and mime_type
-                == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    mime_type is not None
+                    and mime_type
+                    == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
         xlsx = self._to_xlsx()
@@ -1079,7 +1079,7 @@ class MarkdownMixin:
 
     @abstractmethod
     def _to_markdown(
-        self, pretty=True, show_formula_number=False
+            self, pretty=True, show_formula_number=False
     ) -> Dict[str, Union[str, Dict[str, Any]]]:
         """
         Convert the result to markdown format.
@@ -1102,7 +1102,7 @@ class MarkdownMixin:
         return self._to_markdown()
 
     def save_to_markdown(
-        self, save_path, pretty=True, show_formula_number=False, *args, **kwargs
+            self, save_path, pretty=True, show_formula_number=False, *args, **kwargs
     ) -> None:
         """Save the markdown data to a file.
 
@@ -1147,13 +1147,13 @@ class MarkdownMixin:
         )
 
     def _save_data(
-        self,
-        save_mkd_func: Callable,
-        save_img_func: Callable,
-        save_path: Union[str, Path],
-        data: Optional[Dict[str, Union[str, Dict[str, Any]]]],
-        *args,
-        **kwargs,
+            self,
+            save_mkd_func: Callable,
+            save_img_func: Callable,
+            save_path: Union[str, Path],
+            data: Optional[Dict[str, Union[str, Dict[str, Any]]]],
+            *args,
+            **kwargs,
     ) -> None:
         """Internal method to save markdown and image data.
 

@@ -38,7 +38,7 @@ def split_dataset(dataset_root, train_rate, val_rate):
     sum_rate = train_rate + val_rate
     assert sum_rate == 100, f"训练集、验证集比例之和需要等于100，请修改后重试"
     assert (
-        train_rate > 0 and val_rate > 0
+            train_rate > 0 and val_rate > 0
     ), f"The train_rate({train_rate}) and val_rate({val_rate}) should be greater than 0!"
 
     image_dir = os.path.join(dataset_root, "images")
@@ -59,7 +59,7 @@ def split_dataset(dataset_root, train_rate, val_rate):
     label_num = len(label_files)
     assert image_num != 0, f"原始图像数量({image_num})为0, 请检查后重试"
     assert (
-        image_num == label_num
+            image_num == label_num
     ), f"原始图像数量({image_num})和标注图像数量({label_num})不相等，请检查后重试"
 
     image_files = np.array(image_files)
@@ -83,7 +83,7 @@ def split_dataset(dataset_root, train_rate, val_rate):
             continue
 
         end = start + round(image_num * rate / 100)
-        if sum(rate_list[i + 1 :]) == 0:
+        if sum(rate_list[i + 1:]) == 0:
             end = image_num
 
         txt_file = os.path.join(dataset_root, name + ".txt")

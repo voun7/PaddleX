@@ -34,10 +34,10 @@ def split_dataset(root_dir, train_rate, gallery_rate, query_rate):
     """
     sum_rate = train_rate + gallery_rate + query_rate
     assert (
-        sum_rate == 100
+            sum_rate == 100
     ), f"The sum of train_rate({train_rate}), gallery_rate({gallery_rate}), query_rate({query_rate}) should equal 100!"
     assert (
-        train_rate > 0 and gallery_rate > 0 and query_rate > 0
+            train_rate > 0 and gallery_rate > 0 and query_rate > 0
     ), f"The train_rate({train_rate}) and gallery_rate({gallery_rate}) and query_rate({query_rate}) should be greater than 0!"
     tags = ["train", "gallery", "query"]
     valid_path = False
@@ -68,7 +68,7 @@ def split_dataset(root_dir, train_rate, gallery_rate, query_rate):
             continue
 
         end = start + round(image_num * rate / 100)
-        if sum(rate_list[i + 1 :]) == 0:
+        if sum(rate_list[i + 1:]) == 0:
             end = image_num
 
         txt_file = os.path.abspath(os.path.join(root_dir, tag + ".txt"))

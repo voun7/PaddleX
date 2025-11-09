@@ -16,8 +16,7 @@ import math
 import time
 from typing import Any, List
 
-from .....utils import logging
-from .....utils.deps import function_requires_deps, is_dep_available
+from .._app import create_app, primary_operation
 from ...infra import utils as serving_utils
 from ...infra.config import AppConfig
 from ...schemas.doc_understanding import (
@@ -29,7 +28,8 @@ from ...schemas.doc_understanding import (
     RoleType,
     TextContent,
 )
-from .._app import create_app, primary_operation
+from .....utils import logging
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI

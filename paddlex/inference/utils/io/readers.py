@@ -153,12 +153,12 @@ class VideoReader(_GenerativeReader):
     """VideoReader"""
 
     def __init__(
-        self,
-        backend="opencv",
-        st_frame_id=0,
-        max_num_frames=None,
-        auto_close=True,
-        **bk_args,
+            self,
+            backend="opencv",
+            st_frame_id=0,
+            max_num_frames=None,
+            auto_close=True,
+            **bk_args,
     ):
         super().__init__(backend=backend, **bk_args)
         self.st_frame_id = st_frame_id
@@ -355,7 +355,7 @@ class OpenCVVideoReaderBackend(_VideoReaderBackend):
                     break
                 queue = []
                 if (
-                    len(queue) <= 0
+                        len(queue) <= 0
                 ):  # At initialization, populate queue with initial frame
                     for i in range(self.num_seg):
                         queue.append(frame)

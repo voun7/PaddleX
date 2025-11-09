@@ -3,17 +3,27 @@ comments: true
 ---
 
 # PaddleX Local Installation Tutorial
-> ❗Before installing PaddleX, please ensure you have a basic <b>Python environment</b> (Note: Currently supports Python 3.8 to Python 3.12, with more Python versions being adapted).
 
-> ❗In most cases, you need to first install the PaddlePaddle framework by referring to the [PaddlePaddle Local Installation Tutorial](paddlepaddle_install.en.md) before proceeding with PaddleX's installation steps. [4 PaddleX's Dependency on PaddlePaddle Framework](#4-paddlexs-dependency-on-paddlepaddle-framework) lists scenarios where installing the PaddlePaddle framework is not required.
+> ❗Before installing PaddleX, please ensure you have a basic <b>Python environment</b> (Note: Currently supports Python
+> 3.8 to Python 3.12, with more Python versions being adapted).
+
+> ❗In most cases, you need to first install the PaddlePaddle framework by referring to
+> the [PaddlePaddle Local Installation Tutorial](paddlepaddle_install.en.md) before proceeding with PaddleX's installation
+> steps. [4 PaddleX's Dependency on PaddlePaddle Framework](#4-paddlexs-dependency-on-paddlepaddle-framework) lists
+> scenarios where installing the PaddlePaddle framework is not required.
 
 ## 1. Quick Installation
-Welcome to PaddleX, Baidu's low-code development tool for AI. Before we dive into the local installation process, please clarify your development needs and choose the appropriate installation mode.
 
-PaddleX offers two installation modes: <b>Wheel Package Installation</b> and <b>Plugin Installation</b>. Below, we introduce their respective application scenarios:
+Welcome to PaddleX, Baidu's low-code development tool for AI. Before we dive into the local installation process, please
+clarify your development needs and choose the appropriate installation mode.
+
+PaddleX offers two installation modes: <b>Wheel Package Installation</b> and <b>Plugin Installation</b>. Below, we
+introduce their respective application scenarios:
 
 ### 1.1 Wheel Package Installation Mode
-If your use case for PaddleX involves <b>model inference and integration</b>, we recommend the more <b>convenient</b> and <b>lightweight</b> Wheel package installation mode.
+
+If your use case for PaddleX involves <b>model inference and integration</b>, we recommend the more <b>convenient</b>
+and <b>lightweight</b> Wheel package installation mode.
 
 You can quickly install the PaddleX Wheel package by executing the following commands:
 
@@ -22,7 +32,8 @@ You can quickly install the PaddleX Wheel package by executing the following com
 pip install paddlex
 ```
 
-You can install the optional dependencies as needed using the following method (For more details, please refer to [3 Selective Installation of Dependencies](#3-selective-installation-of-dependencies)):
+You can install the optional dependencies as needed using the following method (For more details, please refer
+to [3 Selective Installation of Dependencies](#3-selective-installation-of-dependencies)):
 
 Install all dependencies required for PaddleX "basic features":
 
@@ -37,11 +48,15 @@ pip install "paddlex[ocr]"
 ```
 
 ### 1.2 Plugin Installation Mode
-If your use case for PaddleX involves <b>custom development</b> (e.g. retraining models, fine-tuning models, customizing model structures, customizing inference codes, etc.), we recommend the more <b>powerful</b> plugin installation mode.
 
-After installing the PaddleX plugins you need, you can not only perform inference and integration with the supported models but also conduct advanced operations such as model training for custom development.
+If your use case for PaddleX involves <b>custom development</b> (e.g. retraining models, fine-tuning models, customizing
+model structures, customizing inference codes, etc.), we recommend the more <b>powerful</b> plugin installation mode.
 
-The model training related plugins supported by PaddleX are listed below. Please determine the name(s) of the plugin(s) you need based on your development requirements:
+After installing the PaddleX plugins you need, you can not only perform inference and integration with the supported
+models but also conduct advanced operations such as model training for custom development.
+
+The model training related plugins supported by PaddleX are listed below. Please determine the name(s) of the plugin(s)
+you need based on your development requirements:
 
 <details><summary>👉 <b>Plugin and Pipeline Correspondence (Click to Expand)</b></summary>
 
@@ -122,7 +137,8 @@ The model training related plugins supported by PaddleX are listed below. Please
 </tbody>
 </table></details>
 
-If the plugin you need to install is `PaddleXXX`, you can quickly install the corresponding PaddleX plugin by executing the following commands:
+If the plugin you need to install is `PaddleXXX`, you can quickly install the corresponding PaddleX plugin by executing
+the following commands:
 
 ```bash
 git clone https://github.com/PaddlePaddle/PaddleX.git
@@ -133,16 +149,27 @@ paddlex --install PaddleXXX
 
 > ❗ Note: The two installation methods are not mutually exclusive, and you can install both simultaneously.
 
-Next, we provide detailed installation tutorials for your reference. If you are using a Linux operating system, please refer to [2. Detailed Tutorial for Installing PaddleX on Linux](#2-detailed-tutorial-for-installing-paddlex-on-linux).
+Next, we provide detailed installation tutorials for your reference. If you are using a Linux operating system, please
+refer to [2. Detailed Tutorial for Installing PaddleX on Linux](#2-detailed-tutorial-for-installing-paddlex-on-linux).
 
 ## 2. Detailed Tutorial for Installing PaddleX on Linux
-When installing PaddleX on Linux, we <b>strongly recommend using the official PaddleX Docker image</b>. Alternatively, you can use other custom installation methods.
 
-When using the official Docker image, <b>PaddlePaddle, PaddleX (including the wheel package and all plugins), and the corresponding CUDA environment are already pre-installed</b>. You can simply obtain the Docker image and start the container to begin using it. <b>Please note that the official Docker image of PaddleX is different from the official Docker image of the PaddlePaddle framework, as the latter does not come with PaddleX pre-installed.</b>
+When installing PaddleX on Linux, we <b>strongly recommend using the official PaddleX Docker image</b>. Alternatively,
+you can use other custom installation methods.
 
-When using custom installation methods, you need to first install the PaddlePaddle framework (except for [a few cases](#4-paddlexs-dependency-on-paddlepaddle-framework)), then obtain the PaddleX source code, and finally choose the PaddleX installation mode.
+When using the official Docker image, <b>PaddlePaddle, PaddleX (including the wheel package and all plugins), and the
+corresponding CUDA environment are already pre-installed</b>. You can simply obtain the Docker image and start the
+container to begin using it. <b>Please note that the official Docker image of PaddleX is different from the official
+Docker image of the PaddlePaddle framework, as the latter does not come with PaddleX pre-installed.</b>
+
+When using custom installation methods, you need to first install the PaddlePaddle framework (except
+for [a few cases](#4-paddlexs-dependency-on-paddlepaddle-framework)), then obtain the PaddleX source code, and finally
+choose the PaddleX installation mode.
+
 ### 2.1 Get PaddleX based on Docker
-Using the PaddleX official Docker image, create a container called 'paddlex' and map the current working directory to the '/paddle' directory inside the container by following the command.
+
+Using the PaddleX official Docker image, create a container called 'paddlex' and map the current working directory to
+the '/paddle' directory inside the container by following the command.
 
 If your Docker version >= 19.03, please use:
 
@@ -181,16 +208,20 @@ nvidia-docker run --name paddlex -v $PWD:/paddle --shm-size=8g --network=host -i
 
 * If your Docker version <= 17.06, please update your Docker.
 
-* If you want to delve deeper into the principles or usage of Docker, please refer to the [Docker Official Website](https://www.docker.com/) or the [Docker Official Tutorial](https://docs.docker.com/get-started/).
+* If you want to delve deeper into the principles or usage of Docker, please refer to
+  the [Docker Official Website](https://www.docker.com/) or
+  the [Docker Official Tutorial](https://docs.docker.com/get-started/).
 
 ### 2.2 Custom Installation of PaddleX
 
 #### 2.2.1 Obtain PaddleX Source Code
+
 Next, use the following command to obtain the latest PaddleX source code from GitHub:
 
 ```bash
 git clone https://github.com/PaddlePaddle/PaddleX.git
 ```
+
 If accessing GitHub is slow, you can download from Gitee instead, using the following command:
 
 ```bash
@@ -198,7 +229,9 @@ git clone https://gitee.com/paddlepaddle/PaddleX.git
 ```
 
 #### 2.2.2 Install PaddleX
-After obtaining the latest PaddleX source code, you can choose between Wheel package installation mode or plugin installation mode.
+
+After obtaining the latest PaddleX source code, you can choose between Wheel package installation mode or plugin
+installation mode.
 
 * <b>If you choose Wheel package installation mode</b>, execute the following commands:
 
@@ -210,7 +243,8 @@ cd PaddleX
 pip install -e ".[base]"
 ```
 
-* <b>If you choose plugin installation mode</b> and the plugin you need is named PaddleXXX (there can be multiple), execute the following commands:
+* <b>If you choose plugin installation mode</b> and the plugin you need is named PaddleXXX (there can be multiple),
+  execute the following commands:
 
 ```bash
 cd PaddleX
@@ -223,7 +257,8 @@ pip install -e ".[base]"
 paddlex --install PaddleXXX
 ```
 
-For example, if you need to install the PaddleOCR and PaddleClas plugins, execute the following commands to install the plugins:
+For example, if you need to install the PaddleOCR and PaddleClas plugins, execute the following commands to install the
+plugins:
 
 ```bash
 # Install PaddleOCR and PaddleClas plugins
@@ -237,9 +272,11 @@ If you need to install all plugins, you do not need to specify the plugin names,
 paddlex --install
 ```
 
-The default clone source for plugins is github.com, but it also supports gitee.com as a clone source. You can specify the clone source using `--platform`.
+The default clone source for plugins is github.com, but it also supports gitee.com as a clone source. You can specify
+the clone source using `--platform`.
 
-For example, if you need to use gitee.com as the clone source to install all PaddleX plugins, just execute the following command:
+For example, if you need to use gitee.com as the clone source to install all PaddleX plugins, just execute the following
+command:
 
 ```bash
 # Install PaddleX plugins
@@ -252,13 +289,18 @@ After installation, you will see the following prompt:
 All packages are installed.
 ```
 
-For PaddleX installation on more hardware environments, please refer to the [PaddleX Multi-hardware Usage Guide](../other_devices_support/multi_devices_use_guide.en.md)
+For PaddleX installation on more hardware environments, please refer to
+the [PaddleX Multi-hardware Usage Guide](../other_devices_support/multi_devices_use_guide.en.md)
 
 ## 3 Selective Installation of Dependencies
 
-PaddleX offers a wide range of features, and different features require different dependencies. The features in PaddleX that can be used without installing plugins are categorized as "basic features." The official PaddleX Docker images have all dependencies required for these basic features preinstalled. Similarly, using the installation method introduced earlier—`pip install "...[base]"`—will install all dependencies needed for the basic features.
+PaddleX offers a wide range of features, and different features require different dependencies. The features in PaddleX
+that can be used without installing plugins are categorized as "basic features." The official PaddleX Docker images have
+all dependencies required for these basic features preinstalled. Similarly, using the installation method introduced
+earlier—`pip install "...[base]"`—will install all dependencies needed for the basic features.
 
-If you are only focused on a specific feature of PaddleX and want to minimize the size of the installed dependencies, you can selectively install them by specifying a "dependency group":
+If you are only focused on a specific feature of PaddleX and want to minimize the size of the installed dependencies,
+you can selectively install them by specifying a "dependency group":
 
 ```bash
 # For example, to install only the basic OCR features
@@ -274,28 +316,34 @@ pip install -e ".[ocr,cv]"
 
 PaddleX currently provides the following dependency groups:
 
-| Dependency Group | Corresponding Features |
-| - | - |
-| `base` | All basic features of PaddleX. |
-| `cv` | Basic features of computer vision pipelines. |
-| `multimodal` | Basic features of multimodal pipelines. |
-| `ie` | Basic features of information extraction pipelines. |
-| `ocr` | Basic features of OCR-related pipelines. |
-| `speech` | Basic features of speech pipeline.s |
-| `ts` | Basic features of time series pipelines. |
-| `video` | Basic features of video pipelines. |
-| `trans` | Basic features of translation pipelines. |
-| `genai-client` | The generative AI client feature. Installing this group is equivalent to installing the generative AI client plugin; the plugin can also be installed via the PaddleX CLI. |
-| `genai-sglang-server` | The serving feature. Installing this group is equivalent to installing the PaddleX serving plugin; the plugin can also be installed via the PaddleX CLI. |
-| `genai-vllm-server` | The serving feature. Installing this group is equivalent to installing the PaddleX serving plugin; the plugin can also be installed via the PaddleX CLI. |
-| `serving` | The serving feature. Installing this group is equivalent to installing the PaddleX serving plugin; the plugin can also be installed via the PaddleX CLI. |
-| `paddle2onnx` | The Paddle2ONNX feature. Installing this group is equivalent to installing the PaddleX Paddle2ONNX plugin; the plugin can also be installed via the PaddleX CLI. |
+| Dependency Group      | Corresponding Features                                                                                                                                                     |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `base`                | All basic features of PaddleX.                                                                                                                                             |
+| `cv`                  | Basic features of computer vision pipelines.                                                                                                                               |
+| `multimodal`          | Basic features of multimodal pipelines.                                                                                                                                    |
+| `ie`                  | Basic features of information extraction pipelines.                                                                                                                        |
+| `ocr`                 | Basic features of OCR-related pipelines.                                                                                                                                   |
+| `speech`              | Basic features of speech pipeline.s                                                                                                                                        |
+| `ts`                  | Basic features of time series pipelines.                                                                                                                                   |
+| `video`               | Basic features of video pipelines.                                                                                                                                         |
+| `trans`               | Basic features of translation pipelines.                                                                                                                                   |
+| `genai-client`        | The generative AI client feature. Installing this group is equivalent to installing the generative AI client plugin; the plugin can also be installed via the PaddleX CLI. |
+| `genai-sglang-server` | The serving feature. Installing this group is equivalent to installing the PaddleX serving plugin; the plugin can also be installed via the PaddleX CLI.                   |
+| `genai-vllm-server`   | The serving feature. Installing this group is equivalent to installing the PaddleX serving plugin; the plugin can also be installed via the PaddleX CLI.                   |
+| `serving`             | The serving feature. Installing this group is equivalent to installing the PaddleX serving plugin; the plugin can also be installed via the PaddleX CLI.                   |
+| `paddle2onnx`         | The Paddle2ONNX feature. Installing this group is equivalent to installing the PaddleX Paddle2ONNX plugin; the plugin can also be installed via the PaddleX CLI.           |
 
-Each pipeline belongs to exactly one dependency group. You can refer to the tutorial of each pipeline to find out which dependency group it belongs to. For modules, you can access the related basic features by installing any dependency group that includes the module.
+Each pipeline belongs to exactly one dependency group. You can refer to the tutorial of each pipeline to find out which
+dependency group it belongs to. For modules, you can access the related basic features by installing any dependency
+group that includes the module.
 
 ## 4 PaddleX's Dependency on PaddlePaddle Framework
 
-The vast majority of PaddleX's functionalities rely on the PaddlePaddle framework. Therefore, in most cases, you need to install the PaddlePaddle framework before using PaddleX by referring to the [PaddlePaddle Local Installation Tutorial](paddlepaddle_install.en.md). However, for the following scenarios, you can use the corresponding features without installing the PaddlePaddle framework:
+The vast majority of PaddleX's functionalities rely on the PaddlePaddle framework. Therefore, in most cases, you need to
+install the PaddlePaddle framework before using PaddleX by referring to
+the [PaddlePaddle Local Installation Tutorial](paddlepaddle_install.en.md). However, for the following scenarios, you
+can use the corresponding features without installing the PaddlePaddle framework:
 
-- Using the capabilities provided by PaddleX's `genai-vllm-server` or `genai-sglang-server` plugins to deploy model inference services.
+- Using the capabilities provided by PaddleX's `genai-vllm-server` or `genai-sglang-server` plugins to deploy model
+  inference services.
 - Using PaddleX's `genai-client` plugin to call generative AI inference services.

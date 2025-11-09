@@ -55,7 +55,7 @@ class Visualizer3D:
         return open3d.geometry.LineSet.create_from_oriented_bounding_box(box3d)
 
     def draw_results(
-        self, points: np.ndarray, result: dict, score_threshold: float
+            self, points: np.ndarray, result: dict, score_threshold: float
     ) -> None:
         scores = result["scores"]
         bbox3d = result["bbox3d"]

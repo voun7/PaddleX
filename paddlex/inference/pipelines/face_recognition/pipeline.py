@@ -14,10 +14,10 @@
 
 import numpy as np
 
-from ....utils.deps import pipeline_requires_extra
-from ...utils.benchmark import benchmark
-from ..pp_shitu_v2 import ShiTuV2Pipeline
 from .result import FaceRecResult
+from ..pp_shitu_v2 import ShiTuV2Pipeline
+from ...utils.benchmark import benchmark
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -28,7 +28,7 @@ class FaceRecPipeline(ShiTuV2Pipeline):
     entities = "face_recognition"
 
     def get_rec_result(
-        self, raw_img, det_res, indexer, rec_threshold, hamming_radius, topk
+            self, raw_img, det_res, indexer, rec_threshold, hamming_radius, topk
     ):
         if len(det_res["boxes"]) == 0:
             return {"label": [], "score": []}

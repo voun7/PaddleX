@@ -16,14 +16,14 @@ from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 
-from ....modules.general_recognition.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import Normalize, Resize, ResizeByShort, ToBatch, ToCHWImage
 from .processors import NormalizeFeatures
 from .result import IdentityResult
+from ..base import BasePredictor
+from ..common import Normalize, Resize, ResizeByShort, ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.general_recognition.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class ImageFeaturePredictor(BasePredictor):
@@ -114,7 +114,7 @@ class ImageFeaturePredictor(BasePredictor):
     @register("ResizeImage")
     # TODO(gaotingquan): backend & interpolation
     def build_resize(
-        self, resize_short=None, size=None, backend="cv2", interpolation="LINEAR"
+            self, resize_short=None, size=None, backend="cv2", interpolation="LINEAR"
     ):
         assert resize_short or size
         if resize_short:
@@ -127,12 +127,12 @@ class ImageFeaturePredictor(BasePredictor):
 
     @register("NormalizeImage")
     def build_normalize(
-        self,
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
-        scale=1 / 255,
-        order="",
-        channel_num=3,
+            self,
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+            scale=1 / 255,
+            order="",
+            channel_num=3,
     ):
         assert channel_num == 3
         return "Normalize", Normalize(scale=scale, mean=mean, std=std)

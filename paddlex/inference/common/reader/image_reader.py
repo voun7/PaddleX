@@ -14,9 +14,9 @@
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...utils.benchmark import benchmark
 from ...utils.io import ImageReader
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2

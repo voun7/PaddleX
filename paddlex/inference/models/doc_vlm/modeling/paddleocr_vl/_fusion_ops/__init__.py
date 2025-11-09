@@ -38,17 +38,17 @@ __all__ = [
 
 
 def fusion_flash_attention(
-    q,
-    k,
-    v,
-    training_mode,
-    attention_probs_dropout_prob,
-    use_sparse_flash_attn,
-    attention_mask=None,
-    attn_mask_start_row_indices=None,
-    seq_length=None,
-    use_var_len_flash_attn=False,
-    rr_flash_attn=None,
+        q,
+        k,
+        v,
+        training_mode,
+        attention_probs_dropout_prob,
+        use_sparse_flash_attn,
+        attention_mask=None,
+        attn_mask_start_row_indices=None,
+        seq_length=None,
+        use_var_len_flash_attn=False,
+        rr_flash_attn=None,
 ):
     """
     Args:

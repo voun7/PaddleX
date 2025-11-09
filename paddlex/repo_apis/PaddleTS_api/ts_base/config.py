@@ -17,8 +17,8 @@ from urllib.parse import urlparse
 
 import ruamel.yaml
 
-from ....utils.misc import abspath, convert_and_remove_types
 from ...base import BaseConfig
+from ....utils.misc import abspath, convert_and_remove_types
 
 
 class BaseTSConfig(BaseConfig):

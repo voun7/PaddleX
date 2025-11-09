@@ -21,7 +21,7 @@ from .....utils.errors import CheckFailedError, DatasetFileNotFoundError
 
 
 def check(
-    dataset_dir, output, dataset_type=" FormulaRecDataset", mode="fast", sample_num=10
+        dataset_dir, output, dataset_type=" FormulaRecDataset", mode="fast", sample_num=10
 ):
     """check dataset"""
     if dataset_type == "FormulaRecDataset":

@@ -9,7 +9,7 @@ use_amp: False
 amp_level: O2
 
 
-dataset: 
+dataset:
   name: TSDataset
   dataset_root: /data/
   train_path: /data/train.csv
@@ -20,7 +20,7 @@ dataset:
 info_params:
   time_col: date
 
-model: 
+model:
   name: NLinearModel
   model_cfg:
     c_in: 321

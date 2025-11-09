@@ -4,18 +4,38 @@ comments: true
 
 # PaddleX 3.0 Layout Detection Model Pipeline Tutorial — Large Model Training Data Construction Tutorial
 
-PaddleX offers a rich set of model pipelines, each consisting of one or more models combined to address specific scenario tasks. These pipelines support quick experimentation, and if the results are not as expected, they also support model fine-tuning using private data. Additionally, PaddleX provides a Python API for easily integrating the pipelines into personal projects. Before using PaddleX, you need to install it. Please refer to the [PaddleX Local Installation Guide](../installation/installation.en.md) for installation instructions. This section uses the layout detection task as an example to introduce the usage process of this model pipeline in providing structured textual corpora for large models in practical scenarios.
+PaddleX offers a rich set of model pipelines, each consisting of one or more models combined to address specific
+scenario tasks. These pipelines support quick experimentation, and if the results are not as expected, they also support
+model fine-tuning using private data. Additionally, PaddleX provides a Python API for easily integrating the pipelines
+into personal projects. Before using PaddleX, you need to install it. Please refer to
+the [PaddleX Local Installation Guide](../installation/installation.en.md) for installation instructions. This section
+uses the layout detection task as an example to introduce the usage process of this model pipeline in providing
+structured textual corpora for large models in practical scenarios.
 
 ## 1. Choosing a Model Pipeline
 
-Document layout detection technology accurately identifies and locates elements such as titles, text blocks, and tables in a document, along with their spatial layout relationships. This serves as a core preliminary step in the intelligent document processing workflow, helping to build structured context for subsequent text analysis. In the context of rapid advancements in large language models, multimodal document understanding, and RAG (Retrieval-Augmented Generation) technology, high-quality structured data has become a crucial requirement for model training and knowledge base construction. With layout detection technology, we can automatically extract key information from document images, such as titles, authors, abstracts, keywords, publication years, journal names, and citation information, and combine it with OCR to recognize editable text. This information can be stored in a structured format, providing rich corpora for large model training data and offering strong support for the deep development of academic research.
+Document layout detection technology accurately identifies and locates elements such as titles, text blocks, and tables
+in a document, along with their spatial layout relationships. This serves as a core preliminary step in the intelligent
+document processing workflow, helping to build structured context for subsequent text analysis. In the context of rapid
+advancements in large language models, multimodal document understanding, and RAG (Retrieval-Augmented Generation)
+technology, high-quality structured data has become a crucial requirement for model training and knowledge base
+construction. With layout detection technology, we can automatically extract key information from document images, such
+as titles, authors, abstracts, keywords, publication years, journal names, and citation information, and combine it with
+OCR to recognize editable text. This information can be stored in a structured format, providing rich corpora for large
+model training data and offering strong support for the deep development of academic research.
 
-First, you need to choose the corresponding PaddleX pipeline based on the task scenario. This section takes the post-processing optimization of layout detection results and regional text recognition with OCR as an example, aiming to obtain rich corpora information from document images. The corresponding PaddleX layout detection module can be used in the object detection pipeline. If you're unsure about the correspondence between tasks and pipelines, you can learn about the capabilities of related pipelines from the [Model Pipeline List](../support_list/pipelines_list.en.md) supported by PaddleX.
-
+First, you need to choose the corresponding PaddleX pipeline based on the task scenario. This section takes the
+post-processing optimization of layout detection results and regional text recognition with OCR as an example, aiming to
+obtain rich corpora information from document images. The corresponding PaddleX layout detection module can be used in
+the object detection pipeline. If you're unsure about the correspondence between tasks and pipelines, you can learn
+about the capabilities of related pipelines from the [Model Pipeline List](../support_list/pipelines_list.en.md)
+supported by PaddleX.
 
 ## 2. Supported Model List
 
-* <b>The layout detection model includes 23 common categories: document title, paragraph title, text, page number, abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, figure caption, table, table caption, seal, figure title, figure, header image, footer image, and sidebar text</b>
+* <b>The layout detection model includes 23 common categories: document title, paragraph title, text, page number,
+  abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, figure
+  caption, table, table caption, seal, figure title, figure, header image, footer image, and sidebar text</b>
 
 <table>
 <thead>
@@ -59,9 +79,14 @@ First, you need to choose the corresponding PaddleX pipeline based on the task s
 </tbody>
 </table>
 
-<b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 500 common document-type images of Chinese and English papers, magazines, contracts, books, exams, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
+<b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by
+PaddleOCR, containing 500 common document-type images of Chinese and English papers, magazines, contracts, books, exams,
+and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed
+is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
-> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The complete model list is as follows:
+> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module
+> actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The
+> complete model list is as follows:
 
 <details><summary> 👉 Details of Model List</summary>
 
@@ -90,7 +115,10 @@ First, you need to choose the corresponding PaddleX pipeline based on the task s
 </tr>
 </table>
 
-<b>Note: The evaluation dataset for the above precision metrics is a self-built layout table area detection dataset by PaddleOCR, containing 7835 Chinese and English document images with tables. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
+<b>Note: The evaluation dataset for the above precision metrics is a self-built layout table area detection dataset by
+PaddleOCR, containing 7835 Chinese and English document images with tables. GPU inference time is based on an NVIDIA
+Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8
+threads and FP32 precision.</b>
 
 * <b>3-Class Layout Detection Model, including Table, Image, and Stamp</b>
 
@@ -135,7 +163,10 @@ First, you need to choose the corresponding PaddleX pipeline based on the task s
 </tr>
 </table>
 
-<b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 1154 common document images of Chinese and English papers, magazines, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
+<b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by
+PaddleOCR, containing 1154 common document images of Chinese and English papers, magazines, and research reports. GPU
+inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R)
+Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
 * <b>5-Class English Document Area Detection Model, including Text, Title, Table, Image, and List</b>
 
@@ -163,9 +194,14 @@ First, you need to choose the corresponding PaddleX pipeline based on the task s
 </tr>
 </table>
 
-<b>Note: The evaluation dataset for the above precision metrics is the [PubLayNet](https://developer.ibm.com/exchanges/data/all/publaynet/) dataset, containing 11245 English document images. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
+<b>Note: The evaluation dataset for the above precision metrics is
+the [PubLayNet](https://developer.ibm.com/exchanges/data/all/publaynet/) dataset, containing 11245 English document
+images. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on
+an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
-* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number, Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header, Algorithm, Footer, and Stamp</b>
+* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number,
+  Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header,
+  Algorithm, Footer, and Stamp</b>
 
 <table>
 <thead>
@@ -211,21 +247,26 @@ First, you need to choose the corresponding PaddleX pipeline based on the task s
 </tbody>
 </table>
 
-<b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 892 common document images of Chinese and English papers, magazines, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
+<b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by
+PaddleOCR, containing 892 common document images of Chinese and English papers, magazines, and research reports. GPU
+inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R)
+Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 </details>
-
 
 ## 3. Quick Integration
 
-> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to [PaddleX Local Installation Tutorial](../installation/installation.en.md)
+> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer
+> to [PaddleX Local Installation Tutorial](../installation/installation.en.md)
 
-First, obtain the default configuration file for the production line. Since the layout detection task is part of the object detection production line, you can execute the following command to obtain the default configuration file:
+First, obtain the default configuration file for the production line. Since the layout detection task is part of the
+object detection production line, you can execute the following command to obtain the default configuration file:
 
 ```bash
 paddlex --get_pipeline_config object_detection --save_path ./my_path
 ```
 
-Save it in `./my_path/object_detection.yaml`. By modifying the configuration file, you can customize various settings for the production line.
+Save it in `./my_path/object_detection.yaml`. By modifying the configuration file, you can customize various settings
+for the production line.
 
 ```yaml
 pipeline_name: object_detection
@@ -240,12 +281,14 @@ SubModules:
     threshold: null
 ```
 
-Subsequently, load the custom configuration file `./my_path/object_detection.yaml`, and refer to the command-line method or Python script method in the local experience below for an online experience.
-
+Subsequently, load the custom configuration file `./my_path/object_detection.yaml`, and refer to the command-line method
+or Python script method in the local experience below for an online experience.
 
 ### 2.1 Local Experience — Command Line Method
 
-Before running the following code, please download the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_test_0.jpg) to your local machine. If the custom configuration file is saved in `./my_path/object_detection.yaml`, you only need to execute:
+Before running the following code, please download
+the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_test_0.jpg) to your local
+machine. If the custom configuration file is saved in `./my_path/object_detection.yaml`, you only need to execute:
 
 ```bash
 paddlex --pipeline ./my_path/object_detection.yaml \
@@ -262,12 +305,15 @@ paddlex --pipeline ./my_path/object_detection.yaml \
 ```
 
 The meanings of the parameters are as follows:
+
 - `input_path`: The path to the input image for prediction.
-- `boxes`: Information about the predicted bounding boxes, a list of dictionaries. Each dictionary represents a detected object and contains the following information:
-  - `cls_id`: Class ID, an integer.
-  - `label`: Class label, a string.
-  - `score`: Confidence score of the bounding box, a float.
-  - `coordinate`: Coordinates of the bounding box, a list of floats in the format <code>[xmin, ymin, xmax, ymax]</code>.
+- `boxes`: Information about the predicted bounding boxes, a list of dictionaries. Each dictionary represents a detected
+  object and contains the following information:
+    - `cls_id`: Class ID, an integer.
+    - `label`: Class label, a string.
+    - `score`: Confidence score of the bounding box, a float.
+    - `coordinate`: Coordinates of the bounding box, a list of floats in the
+      format <code>[xmin, ymin, xmax, ymax]</code>.
 
 </details>
 
@@ -275,11 +321,10 @@ The visualized image is as follows:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/practical_tutorials/layout_detection/layout_test_0_res.jpg">
 
-
 ### 2.2 2.2 Local Experience — Python Method
 
-The above command-line method allows you to quickly experience and check the results. In projects, code integration is often required. You can achieve quick inference in production with the following lines of code:
-
+The above command-line method allows you to quickly experience and check the results. In projects, code integration is
+often required. You can achieve quick inference in production with the following lines of code:
 
 ```python
 from paddlex import create_pipeline
@@ -297,20 +342,28 @@ The output printed by the code will be consistent with the results from the comm
 
 ## 4. Production Post-processing Optimization.
 
-The production pipeline for layout detection models offers various post-processing optimization techniques to help you further improve prediction results. For the post-processing parameters that can be passed into the `predict` method, please refer to the [Layout Area Detection Usage Tutorial](../module_usage/tutorials/ocr_modules/layout_detection.en.md). Below, we will introduce how to use these optimization techniques based on the layout detection model production pipeline.
-
+The production pipeline for layout detection models offers various post-processing optimization techniques to help you
+further improve prediction results. For the post-processing parameters that can be passed into the `predict` method,
+please refer to
+the [Layout Area Detection Usage Tutorial](../module_usage/tutorials/ocr_modules/layout_detection.en.md). Below, we will
+introduce how to use these optimization techniques based on the layout detection model production pipeline.
 
 ### 4.1 Dynamic Threshold Optimization — Can Optimize Missed and False Detections
 
-The layout detection model supports dynamic threshold adjustment. You can pass the `threshold` parameter, which supports either a float or a dictionary of custom thresholds for each category, allowing you to set a specific detection score threshold for each category. This means you can flexibly adjust for missed or false detections based on your own data, ensuring more accurate detections each time. The category-to-ID mapping for the `PP-DocLayout` series models is as follows:
+The layout detection model supports dynamic threshold adjustment. You can pass the `threshold` parameter, which supports
+either a float or a dictionary of custom thresholds for each category, allowing you to set a specific detection score
+threshold for each category. This means you can flexibly adjust for missed or false detections based on your own data,
+ensuring more accurate detections each time. The category-to-ID mapping for the `PP-DocLayout` series models is as
+follows:
 
 ```yaml
 {'paragraph_title': 0, 'image': 1, 'text': 2, 'number': 3, 'abstract': 4, 'content': 5,
 'figure_title': 6, 'formula': 7, 'table': 8, 'table_title': 9, 'reference': 10, 'doc_title': 11, 'footnote': 12, 'header': 13, 'algorithm': 14, 'footer': 15, 'seal': 16, 'chart_title': 17, 'chart': 18, 'formula_number': 19, 'header_image': 20, 'footer_image': 21, 'aside_text': 22}
 ```
 
-Before running the following code, please download the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_test_2.jpg) to your local machine.
-
+Before running the following code, please download
+the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_test_2.jpg) to your local
+machine.
 
 ```python
 from paddlex import create_pipeline
@@ -323,9 +376,12 @@ for res in output:
     res.save_to_json("./output/")
 ```
 
-You may notice that in the image on the left, there is an incorrect `text` category box identified in the upper right corner.
+You may notice that in the image on the left, there is an incorrect `text` category box identified in the upper right
+corner.
 
-In this case, you can enable `threshold={2: 0.6}` to set the detection score threshold to 0.6 specifically for the `text` category, whose category ID is 2. This adjustment can filter out the incorrect text box, while the default threshold of 0.5 is retained for other categories. Execute the following code:
+In this case, you can enable `threshold={2: 0.6}` to set the detection score threshold to 0.6 specifically for the
+`text` category, whose category ID is 2. This adjustment can filter out the incorrect text box, while the default
+threshold of 0.5 is retained for other categories. Execute the following code:
 
 ```python
 from paddlex import create_pipeline
@@ -338,7 +394,9 @@ for res in output:
     res.save_to_json("./output/")
 ```
 
-In the save directory, you can view the visualization results as follows. You will notice that the extra box in the upper right corner of the image below has been filtered out by the threshold, leaving only the optimal detection results:
+In the save directory, you can view the visualization results as follows. You will notice that the extra box in the
+upper right corner of the image below has been filtered out by the threshold, leaving only the optimal detection
+results:
 
 <div style="display: flex; justify-content: space-around;">
   <div style="text-align: center;">
@@ -351,13 +409,20 @@ In the save directory, you can view the visualization results as follows. You wi
   </div>
 </div>
 
-
-
 ### 4.2 Overlapping Box Filtering — Eliminating Redundant Box Interference
 
-The `layout_nms` parameter is used for overlapping box filtering. It is a boolean type used to specify whether to use NMS (Non-Maximum Suppression) to filter overlapping boxes. Enabling this feature allows for the automatic selection of the optimal detection results and eliminates redundant interfering boxes. By default, the overlapping box filtering feature is turned off. To enable this feature, you need to pass the parameter `layout_nms=True` in the `predict` method. Execute the following code with `layout_nms=False` to disable the overlapping box filtering feature and view the results.
+The `layout_nms` parameter is used for overlapping box filtering. It is a boolean type used to specify whether to use
+NMS (Non-Maximum Suppression) to filter overlapping boxes. Enabling this feature allows for the automatic selection of
+the optimal detection results and eliminates redundant interfering boxes. By default, the overlapping box filtering
+feature is turned off. To enable this feature, you need to pass the parameter `layout_nms=True` in the `predict` method.
+Execute the following code with `layout_nms=False` to disable the overlapping box filtering feature and view the
+results.
 
-When the overlapping box filtering feature is not enabled, you may notice overlapping box interference in the upper right corner of the image on the left. In this case, you can enable `layout_nms=True` to filter out the redundant boxes and see that the extra box in the upper right corner of the image on the right has been filtered out, leaving only the optimal detection results. Execute the code for both disabling and enabling the filtering feature to view and compare the results:
+When the overlapping box filtering feature is not enabled, you may notice overlapping box interference in the upper
+right corner of the image on the left. In this case, you can enable `layout_nms=True` to filter out the redundant boxes
+and see that the extra box in the upper right corner of the image on the right has been filtered out, leaving only the
+optimal detection results. Execute the code for both disabling and enabling the filtering feature to view and compare
+the results:
 
 ```python
 from paddlex import create_pipeline
@@ -387,7 +452,9 @@ The visual comparison of the results is as follows:
 
 ### 4.3 Adjustable Box Side Length — Obtaining Complete Blocks
 
-The `layout_unclip_ratio` parameter allows you to adjust the side length of the box, no longer restricted to a fixed box size. By adjusting the scaling factor of the detection box, you can freely expand or contract the side length of the box while keeping the center point unchanged. This helps in outputting the correct and complete content of the layout area.
+The `layout_unclip_ratio` parameter allows you to adjust the side length of the box, no longer restricted to a fixed box
+size. By adjusting the scaling factor of the detection box, you can freely expand or contract the side length of the box
+while keeping the center point unchanged. This helps in outputting the correct and complete content of the layout area.
 
 ```python
 from paddlex import create_pipeline
@@ -401,7 +468,8 @@ for res in output:
     res.save_to_json("./output/")
 ```
 
-The visualization results in the saved directory are as follows. It can be observed that by adjusting the scaling factor of the detection box to `layout_unclip_ratio=(1.0, 1.05)`, a taller area can be obtained.
+The visualization results in the saved directory are as follows. It can be observed that by adjusting the scaling factor
+of the detection box to `layout_unclip_ratio=(1.0, 1.05)`, a taller area can be obtained.
 
 <div style="display: flex; justify-content: space-around;">
   <div style="text-align: center;">
@@ -414,11 +482,18 @@ The visualization results in the saved directory are as follows. It can be obser
   </div>
 </div>
 
-
 ### 4.4 Box Merging Mode — Focusing on the Whole or Details
 
-`layout_merge_bboxes_mode`: This parameter defines the box merging mode for the detection boxes output by the model. You can choose "large" to retain the outer box or "small" to retain the inner box, with the default setting retaining all boxes if not specified. For example, if there are multiple subplots within a chart area, selecting the "large" mode will retain one large box for the entire chart, facilitating an overall understanding of the chart area and restoring its position on the layout. On the other hand, selecting "small" will retain multiple boxes for each subplot, allowing for individual understanding or processing of each subplot. Execute the code below to experience the differences in results when the `layout_merge_bboxes_mode` parameter is not set, set to 'large', and set to 'small'. Execute the code below to view the results. Download the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/PMC4836298_00004.jpg) to your local machine.
-
+`layout_merge_bboxes_mode`: This parameter defines the box merging mode for the detection boxes output by the model. You
+can choose "large" to retain the outer box or "small" to retain the inner box, with the default setting retaining all
+boxes if not specified. For example, if there are multiple subplots within a chart area, selecting the "large" mode will
+retain one large box for the entire chart, facilitating an overall understanding of the chart area and restoring its
+position on the layout. On the other hand, selecting "small" will retain multiple boxes for each subplot, allowing for
+individual understanding or processing of each subplot. Execute the code below to experience the differences in results
+when the `layout_merge_bboxes_mode` parameter is not set, set to 'large', and set to 'small'. Execute the code below to
+view the results. Download
+the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/PMC4836298_00004.jpg) to your
+local machine.
 
 ```python
 from paddlex import create_pipeline
@@ -433,7 +508,11 @@ for res in output:
     res.save_to_json("./output/")
 ```
 
-In the saved directory, the comparison of visualization results is as follows. By observing the prediction differences for the `chart` category, you can see that when the `layout_merge_bboxes_mode` parameter is not set, all boxes are retained. When set to the "large" mode, the boxes are merged into one large chart box, which facilitates an overall understanding of the chart area and the restoration of the chart's position on the layout. When set to the "small" mode, multiple boxes for each subplot are retained, allowing for individual understanding or processing of each subplot.
+In the saved directory, the comparison of visualization results is as follows. By observing the prediction differences
+for the `chart` category, you can see that when the `layout_merge_bboxes_mode` parameter is not set, all boxes are
+retained. When set to the "large" mode, the boxes are merged into one large chart box, which facilitates an overall
+understanding of the chart area and the restoration of the chart's position on the layout. When set to the "small" mode,
+multiple boxes for each subplot are retained, allowing for individual understanding or processing of each subplot.
 
 
 <div style="display: flex; justify-content: space-around;">
@@ -451,10 +530,15 @@ In the saved directory, the comparison of visualization results is as follows. B
   </div>
 </div>
 
-
 ## 5. Layout Detection and OCR Combination
 
-PaddleX offers a wide variety of models and model pipelines tailored for different tasks. Additionally, PaddleX supports the combination of multiple models to tackle complex and specific tasks. On top of the layout area detection pipeline, you can further integrate OCR recognition components to extract text content from layout areas. This provides corpus data for subsequent tasks such as large model text content understanding and summary generation. Before running the code below, please download the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_test_0.jpg) to your local machine. Execute the following code to view the results.
+PaddleX offers a wide variety of models and model pipelines tailored for different tasks. Additionally, PaddleX supports
+the combination of multiple models to tackle complex and specific tasks. On top of the layout area detection pipeline,
+you can further integrate OCR recognition components to extract text content from layout areas. This provides corpus
+data for subsequent tasks such as large model text content understanding and summary generation. Before running the code
+below, please download
+the [sample image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_test_0.jpg) to your local
+machine. Execute the following code to view the results.
 
 ```python
 
@@ -508,14 +592,18 @@ The output is as follows:
 {'paragraph_title': [['柔性执法', '好事办在群众心坎上'], ['缓解“停车难”', '加强精细化治理'], ['“潮汐”摊位', '聚拢文旅城市烟火气'], ['普法宣传“零距离”']]}
 ```
 
-It is evident that the text content of paragraph titles has been correctly extracted, forming structured data that can be provided as training data for large models to be used in tasks such as text content understanding and summary generation.
+It is evident that the text content of paragraph titles has been correctly extracted, forming structured data that can
+be provided as training data for large models to be used in tasks such as text content understanding and summary
+generation.
 
-
-**Note: This section mainly demonstrates how to combine layout detection and OCR recognition. In practice, PaddleX has already provided a variety of feature-rich pipelines. You can refer to the [PaddleX Pipeline List](../support_list/pipelines_list.en.md) for more information.**
+**Note: This section mainly demonstrates how to combine layout detection and OCR recognition. In practice, PaddleX has
+already provided a variety of feature-rich pipelines. You can refer to
+the [PaddleX Pipeline List](../support_list/pipelines_list.en.md) for more information.**
 
 ## 6. Development Integration/Deployment
 
-If the layout detection performance meets your requirements for inference speed and accuracy in production, you can proceed directly with development integration/deployment.
+If the layout detection performance meets your requirements for inference speed and accuracy in production, you can
+proceed directly with development integration/deployment.
 
 ### 6.1 Directly apply the adjusted post-processing pipeline in your Python project. You can refer to the following sample code:
 
@@ -529,7 +617,9 @@ for res in output:
     res.save_to_img("./output/")
     res.save_to_json("./output/")
 ```
-For more parameters, please refer to the [Object Detection Pipeline Usage Tutorial](../pipeline_usage/tutorials/cv_pipelines/object_detection.en.md).
+
+For more parameters, please refer to
+the [Object Detection Pipeline Usage Tutorial](../pipeline_usage/tutorials/cv_pipelines/object_detection.en.md).
 
 ### 6.2 Deploying with High Stability as a Service is the practical content of this tutorial. You can refer to the [PaddleX Service Deployment Guide](../pipeline_deploy/serving.en.md) for implementation.
 
@@ -537,7 +627,9 @@ For more parameters, please refer to the [Object Detection Pipeline Usage Tutori
 
 #### 6.2.1 Obtaining the SDK
 
-Download the Object Detection High Stability Service Deployment SDK from <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/PaddleX3.0/deploy/paddlex_hps/public/sdks/v3.0.0rc0/paddlex_hps_object_detection_sdk.tar.gz">paddlex_hps_object_detection_sdk.tar.gz</a>, extract the SDK, and run the deployment script as follows:
+Download the Object Detection High Stability Service Deployment SDK
+from <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/PaddleX3.0/deploy/paddlex_hps/public/sdks/v3.0.0rc0/paddlex_hps_object_detection_sdk.tar.gz">
+paddlex_hps_object_detection_sdk.tar.gz</a>, extract the SDK, and run the deployment script as follows:
 
 ```bash
 tar -xvf paddlex_hps_object_detection_sdk.tar.gz
@@ -545,21 +637,27 @@ tar -xvf paddlex_hps_object_detection_sdk.tar.gz
 
 #### 6.2.2 Obtaining the Serial Number
 
-- In the "Open Source Model Pipeline Deployment Serial Number Consultation and Acquisition" section of the [PaddlePaddle AI Studio Galaxy Community - AI Learning and Training Community](https://aistudio.baidu.com/paddlex/commercialization), select "Get Now," as shown in the image below:
+- In the "Open Source Model Pipeline Deployment Serial Number Consultation and Acquisition" section of
+  the [PaddlePaddle AI Studio Galaxy Community - AI Learning and Training Community](https://aistudio.baidu.com/paddlex/commercialization),
+  select "Get Now," as shown in the image below:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipeline_deploy/image-1.png">
 
-Select the target detection pipeline and click "Get." Then, you can find the acquired serial number in the "Open Source Pipeline Deployment SDK Serial Number Management" section at the bottom of the page:
+Select the target detection pipeline and click "Get." Then, you can find the acquired serial number in the "Open Source
+Pipeline Deployment SDK Serial Number Management" section at the bottom of the page:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipeline_deploy/image-2.png">
 
-**Please Note**: Each serial number can only be bound to a unique device fingerprint and can only be bound once. This means that if you are deploying pipelines using different machines, you must prepare a separate serial number for each machine.
+**Please Note**: Each serial number can only be bound to a unique device fingerprint and can only be bound once. This
+means that if you are deploying pipelines using different machines, you must prepare a separate serial number for each
+machine.
 
 #### 6.2.3 Running the Service
 
 To run the service:
 
-- For images that support deployment using NVIDIA GPUs (the machine needs to have an NVIDIA driver installed that supports CUDA 11.8):
+- For images that support deployment using NVIDIA GPUs (the machine needs to have an NVIDIA driver installed that
+  supports CUDA 11.8):
 
     ```bash
     docker pull ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlex/hps:paddlex3.0.0rc0-gpu
@@ -594,15 +692,29 @@ docker run \
 
 - The deployment device type can be either `cpu` or `gpu`. The CPU-only image only supports `cpu`.
 - If you wish to deploy using the CPU, you do not need to specify `--gpus`.
-- The above commands can only be executed successfully after activation. PaddleX provides two activation methods: offline activation and online activation. The details are as follows:
+- The above commands can only be executed successfully after activation. PaddleX provides two activation methods:
+  offline activation and online activation. The details are as follows:
 
-    - Online Activation: Set `PADDLEX_HPS_UPDATE_LICENSE` to `1` during the first execution to allow the program to automatically update the certificate and complete activation. For subsequent executions, you can set `PADDLEX_HPS_UPDATE_LICENSE` to `0` to avoid updating the certificate online.
-    - Offline Activation: Follow the instructions in the serial number management section to obtain the machine's device fingerprint and bind the serial number with the device fingerprint to obtain the certificate and complete activation. For this activation method, you need to manually place the certificate in the `${HOME}/.baidu/paddlex/licenses` directory on the machine (create the directory if it does not exist). When using this method, set `PADDLEX_HPS_UPDATE_LICENSE` to `0` to avoid updating the certificate online.
+    - Online Activation: Set `PADDLEX_HPS_UPDATE_LICENSE` to `1` during the first execution to allow the program to
+      automatically update the certificate and complete activation. For subsequent executions, you can set
+      `PADDLEX_HPS_UPDATE_LICENSE` to `0` to avoid updating the certificate online.
+    - Offline Activation: Follow the instructions in the serial number management section to obtain the machine's device
+      fingerprint and bind the serial number with the device fingerprint to obtain the certificate and complete
+      activation. For this activation method, you need to manually place the certificate in the
+      `${HOME}/.baidu/paddlex/licenses` directory on the machine (create the directory if it does not exist). When using
+      this method, set `PADDLEX_HPS_UPDATE_LICENSE` to `0` to avoid updating the certificate online.
 
-- Ensure that `/dev/disk/by-uuid` on the host machine exists and is not empty, and that the directory is mounted correctly to execute the activation successfully.
-- If you need to enter the container for debugging, you can replace `/bin/bash server.sh` in the command with `/bin/bash`, and then execute `/bin/bash server.sh` inside the container.
-- If you want the server to run in the background, you can replace `-it` with `-d` in the command. After the container starts, you can view the container logs using `docker logs -f {container ID}`.
-- Add `-e PADDLEX_USE_HPIP=1` in the command to use the PaddleX High-Performance Inference Plugin to accelerate the inference process. However, please note that not all pipelines support the use of the high-performance inference plugin. Please refer to the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md) for more information.
+- Ensure that `/dev/disk/by-uuid` on the host machine exists and is not empty, and that the directory is mounted
+  correctly to execute the activation successfully.
+- If you need to enter the container for debugging, you can replace `/bin/bash server.sh` in the command with
+  `/bin/bash`, and then execute `/bin/bash server.sh` inside the container.
+- If you want the server to run in the background, you can replace `-it` with `-d` in the command. After the container
+  starts, you can view the container logs using `docker logs -f {container ID}`.
+- Add `-e PADDLEX_USE_HPIP=1` in the command to use the PaddleX High-Performance Inference Plugin to accelerate the
+  inference process. However, please note that not all pipelines support the use of the high-performance inference
+  plugin. Please refer to
+  the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md) for more
+  information.
 
 You may observe output similar to the following:
 
@@ -616,7 +728,8 @@ I1216 11:37:21.643494 35 http_server.cc:167] Started Metrics Service at 0.0.0.0:
 
 Currently, only the Python client is supported for calling the service. The supported Python versions are 3.8 to 3.12.
 
-Switch to the `client` directory of the high-stability service deployment SDK and run the following command to install the dependencies:
+Switch to the `client` directory of the high-stability service deployment SDK and run the following command to install
+the dependencies:
 
 ```bash
 # 建议在虚拟环境中安装
@@ -624,13 +737,26 @@ python -m pip install -r requirements.txt
 python -m pip install paddlex_hps_client-*.whl
 ```
 
-The `client.py` script in the `client` directory contains examples of service calls and provides a command-line interface.
-
+The `client.py` script in the `client` directory contains examples of service calls and provides a command-line
+interface.
 
 ### 6.3 In addition, PaddleX offers three other deployment methods, as described below:
 
-* high-performance inference: In actual production environments, many applications have stringent standards for deployment strategy performance metrics (especially response speed) to ensure efficient system operation and smooth user experience. To this end, PaddleX provides high-performance inference plugins aimed at deeply optimizing model inference and pre/post-processing for significant end-to-end process acceleration. For detailed high-performance inference procedures, please refer to the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md).
-* Service-Oriented Deployment: Service-oriented deployment is a common deployment form in actual production environments. By encapsulating inference functions as services, clients can access these services through network requests to obtain inference results. PaddleX supports users in achieving cost-effective service-oriented deployment of production lines. For detailed service-oriented deployment procedures, please refer to the [PaddleX Service-Oriented Deployment Guide](../pipeline_deploy/serving.en.md).
-* On-Device Deployment: Edge deployment is a method that places computing and data processing capabilities directly on user devices, allowing devices to process data without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to the [PaddleX On-Device Deployment Guide](../pipeline_deploy/on_device_deployment.en.md).
+* high-performance inference: In actual production environments, many applications have stringent standards for
+  deployment strategy performance metrics (especially response speed) to ensure efficient system operation and smooth
+  user experience. To this end, PaddleX provides high-performance inference plugins aimed at deeply optimizing model
+  inference and pre/post-processing for significant end-to-end process acceleration. For detailed high-performance
+  inference procedures, please refer to
+  the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md).
+* Service-Oriented Deployment: Service-oriented deployment is a common deployment form in actual production
+  environments. By encapsulating inference functions as services, clients can access these services through network
+  requests to obtain inference results. PaddleX supports users in achieving cost-effective service-oriented deployment
+  of production lines. For detailed service-oriented deployment procedures, please refer to
+  the [PaddleX Service-Oriented Deployment Guide](../pipeline_deploy/serving.en.md).
+* On-Device Deployment: Edge deployment is a method that places computing and data processing capabilities directly on
+  user devices, allowing devices to process data without relying on remote servers. PaddleX supports deploying models on
+  edge devices such as Android. For detailed edge deployment procedures, please refer to
+  the [PaddleX On-Device Deployment Guide](../pipeline_deploy/on_device_deployment.en.md).
 
-You can choose the appropriate method to deploy the model pipeline based on your needs, and then proceed with the subsequent integration of AI applications.
+You can choose the appropriate method to deploy the model pipeline based on your needs, and then proceed with the
+subsequent integration of AI applications.

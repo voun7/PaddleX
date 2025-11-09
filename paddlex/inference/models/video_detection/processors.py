@@ -17,8 +17,8 @@ from typing import List
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps
 
 
 @benchmark.timeit
@@ -207,23 +207,23 @@ def convert2cpu_long(gpu_matrix):
 
 
 def get_region_boxes(
-    output,
-    conf_thresh=0.005,
-    num_classes=24,
-    anchors=[
-        0.70458,
-        1.18803,
-        1.26654,
-        2.55121,
-        1.59382,
-        4.08321,
-        2.30548,
-        4.94180,
-        3.52332,
-        5.91979,
-    ],
-    num_anchors=5,
-    only_objectness=1,
+        output,
+        conf_thresh=0.005,
+        num_classes=24,
+        anchors=[
+            0.70458,
+            1.18803,
+            1.26654,
+            2.55121,
+            1.59382,
+            4.08321,
+            2.30548,
+            4.94180,
+            3.52332,
+            5.91979,
+        ],
+        num_anchors=5,
+        only_objectness=1,
 ):
     """
     Processes the output of a neural network to extract bounding box predictions.
@@ -292,7 +292,7 @@ def get_region_boxes(
 
     det_confs = sigmoid(output[4])
 
-    cls_confs = paddle.to_tensor(output[5 : 5 + num_classes], stop_gradient=True)
+    cls_confs = paddle.to_tensor(output[5: 5 + num_classes], stop_gradient=True)
     cls_confs = paddle.transpose(cls_confs, [1, 0])
     s = paddle.nn.Softmax()
     cls_confs = paddle.to_tensor(s(cls_confs))
@@ -417,8 +417,8 @@ class DetVideoPostProcess:
     """
 
     def __init__(
-        self,
-        label_list: List[str] = [],
+            self,
+            label_list: List[str] = [],
     ) -> None:
         """
         Args:

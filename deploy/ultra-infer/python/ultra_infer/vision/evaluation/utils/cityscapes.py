@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import glob
+import os
+
 from . import fd_logging as logging
+
 
 # import fd_logging as logging
 
@@ -53,10 +55,10 @@ class Cityscapes(object):
         img_dir = os.path.join(self.dataset_root, "leftImg8bit")
         label_dir = os.path.join(self.dataset_root, "gtFine")
         if (
-            self.dataset_root is None
-            or not os.path.isdir(self.dataset_root)
-            or not os.path.isdir(img_dir)
-            or not os.path.isdir(label_dir)
+                self.dataset_root is None
+                or not os.path.isdir(self.dataset_root)
+                or not os.path.isdir(img_dir)
+                or not os.path.isdir(label_dir)
         ):
             raise ValueError(
                 "The dataset is not Found or the folder structure is nonconfoumance."

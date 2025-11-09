@@ -17,12 +17,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import copy
-import numpy as np
 import json
-import copy
+from collections import defaultdict
 from copy import deepcopy
 
-from collections import defaultdict
+import numpy as np
 
 
 def order_by_tbyx(ocr_info):
@@ -30,7 +29,7 @@ def order_by_tbyx(ocr_info):
     for i in range(len(res) - 1):
         for j in range(i, 0, -1):
             if abs(res[j + 1]["bbox"][1] - res[j]["bbox"][1]) < 20 and (
-                res[j + 1]["bbox"][0] < res[j]["bbox"][0]
+                    res[j + 1]["bbox"][0] < res[j]["bbox"][0]
             ):
                 tmp = deepcopy(res[j])
                 res[j] = deepcopy(res[j + 1])
@@ -65,16 +64,16 @@ class VQATokenLabelEncode(object):
     """
 
     def __init__(
-        self,
-        class_path,
-        contains_re=False,
-        add_special_ids=False,
-        algorithm="LayoutXLM",
-        use_textline_bbox_info=True,
-        order_method=None,
-        infer_mode=False,
-        ocr_engine=None,
-        **kwargs
+            self,
+            class_path,
+            contains_re=False,
+            add_special_ids=False,
+            algorithm="LayoutXLM",
+            use_textline_bbox_info=True,
+            order_method=None,
+            infer_mode=False,
+            ocr_engine=None,
+            **kwargs
     ):
         super(VQATokenLabelEncode, self).__init__()
         from paddlenlp.transformers import (
@@ -322,16 +321,16 @@ class VQATokenLabelEncode(object):
 
 class VQATokenPad(object):
     def __init__(
-        self,
-        max_seq_len=512,
-        pad_to_max_seq_len=True,
-        return_attention_mask=True,
-        return_token_type_ids=True,
-        truncation_strategy="longest_first",
-        return_overflowing_tokens=False,
-        return_special_tokens_mask=False,
-        infer_mode=False,
-        **kwargs
+            self,
+            max_seq_len=512,
+            pad_to_max_seq_len=True,
+            return_attention_mask=True,
+            return_token_type_ids=True,
+            truncation_strategy="longest_first",
+            return_overflowing_tokens=False,
+            return_special_tokens_mask=False,
+            infer_mode=False,
+            **kwargs
     ):
 
         self.max_seq_len = max_seq_len
@@ -348,7 +347,7 @@ class VQATokenPad(object):
 
         self.pad_token_label_id = paddle.nn.CrossEntropyLoss().ignore_index
         needs_to_be_padded = (
-            self.pad_to_max_seq_len and len(data["input_ids"]) < self.max_seq_len
+                self.pad_to_max_seq_len and len(data["input_ids"]) < self.max_seq_len
         )
 
         if needs_to_be_padded:
@@ -367,19 +366,19 @@ class VQATokenPad(object):
                     ] * difference
                 if self.return_token_type_ids:
                     data["token_type_ids"] = (
-                        data["token_type_ids"]
-                        + [tokenizer_params["pad_token_type_id"]] * difference
+                            data["token_type_ids"]
+                            + [tokenizer_params["pad_token_type_id"]] * difference
                     )
                 if self.return_special_tokens_mask:
                     data["special_tokens_mask"] = (
-                        data["special_tokens_mask"] + [1] * difference
+                            data["special_tokens_mask"] + [1] * difference
                     )
                 data["input_ids"] = (
-                    data["input_ids"] + [tokenizer_params["pad_token_id"]] * difference
+                        data["input_ids"] + [tokenizer_params["pad_token_id"]] * difference
                 )
                 if not self.infer_mode:
                     data["labels"] = (
-                        data["labels"] + [self.pad_token_label_id] * difference
+                            data["labels"] + [self.pad_token_label_id] * difference
                     )
                 data["bbox"] = data["bbox"] + [[0, 0, 0, 0]] * difference
             elif tokenizer_params["padding_side"] == "left":
@@ -389,15 +388,15 @@ class VQATokenPad(object):
                     )
                 if self.return_token_type_ids:
                     data["token_type_ids"] = [
-                        tokenizer_params["pad_token_type_id"]
-                    ] * difference + data["token_type_ids"]
+                                                 tokenizer_params["pad_token_type_id"]
+                                             ] * difference + data["token_type_ids"]
                 if self.return_special_tokens_mask:
                     data["special_tokens_mask"] = [1] * difference + data[
                         "special_tokens_mask"
                     ]
                 data["input_ids"] = [
-                    tokenizer_params["pad_token_id"]
-                ] * difference + data["input_ids"]
+                                        tokenizer_params["pad_token_id"]
+                                    ] * difference + data["input_ids"]
                 if not self.infer_mode:
                     data["labels"] = [self.pad_token_label_id] * difference + data[
                         "labels"
@@ -461,7 +460,7 @@ class VQASerTokenChunk(object):
 
 class VQAReTokenChunk(object):
     def __init__(
-        self, max_seq_len=512, entities_labels=None, infer_mode=False, **kwargs
+            self, max_seq_len=512, entities_labels=None, infer_mode=False, **kwargs
     ):
         self.max_seq_len = max_seq_len
         self.entities_labels = (
@@ -490,7 +489,7 @@ class VQAReTokenChunk(object):
                     if self.infer_mode and key == "labels":
                         item[key] = data[key]
                     else:
-                        item[key] = data[key][index : index + self.max_seq_len]
+                        item[key] = data[key][index: index + self.max_seq_len]
                 else:
                     item[key] = data[key]
             # select entity in current chunk
@@ -498,8 +497,8 @@ class VQAReTokenChunk(object):
             global_to_local_map = {}  #
             for entity_id, entity in enumerate(entities):
                 if (
-                    index <= entity["start"] < index + self.max_seq_len
-                    and index <= entity["end"] < index + self.max_seq_len
+                        index <= entity["start"] < index + self.max_seq_len
+                        and index <= entity["end"] < index + self.max_seq_len
                 ):
                     entity["start"] = entity["start"] - index
                     entity["end"] = entity["end"] - index
@@ -510,8 +509,8 @@ class VQAReTokenChunk(object):
             relations_in_this_span = []
             for relation in relations:
                 if (
-                    index <= relation["start_index"] < index + self.max_seq_len
-                    and index <= relation["end_index"] < index + self.max_seq_len
+                        index <= relation["start_index"] < index + self.max_seq_len
+                        and index <= relation["end_index"] < index + self.max_seq_len
                 ):
                     relations_in_this_span.append(
                         {
@@ -597,7 +596,7 @@ class VQASerTokenLayoutLMPostProcess(object):
         results = []
 
         for pred, segment_offset_id, ocr_info in zip(
-            preds, segment_offset_ids, ocr_infos
+                preds, segment_offset_ids, ocr_infos
         ):
             pred = np.argmax(pred, axis=1)
             pred = [self.id2label_map[idx] for idx in pred]

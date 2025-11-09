@@ -70,9 +70,9 @@ class Projector(nn.Layer):
         self.merge_kernel_size = (2, 2)
 
         self.hidden_size = (
-            self.vision_config.hidden_size
-            * self.merge_kernel_size[0]
-            * self.merge_kernel_size[1]
+                self.vision_config.hidden_size
+                * self.merge_kernel_size[0]
+                * self.merge_kernel_size[1]
         )
 
         self.pre_norm = nn.LayerNorm(self.vision_config.hidden_size, epsilon=1e-05)

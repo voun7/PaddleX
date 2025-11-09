@@ -17,8 +17,8 @@ from typing import List, Optional, Sequence, Tuple, Union
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -30,11 +30,11 @@ class Scale:
     """Scale images."""
 
     def __init__(
-        self,
-        short_size: int,
-        fixed_ratio: bool = True,
-        keep_ratio: Union[bool, None] = None,
-        do_round: bool = False,
+            self,
+            short_size: int,
+            fixed_ratio: bool = True,
+            keep_ratio: Union[bool, None] = None,
+            do_round: bool = False,
     ) -> None:
         """
         Initializes the Scale class.
@@ -167,13 +167,13 @@ class CenterCrop:
         for img in imgs:
             h, w, _ = img.shape
             assert (w >= self.target_size) and (
-                h >= self.target_size
+                    h >= self.target_size
             ), "image width({}) and height({}) should be larger than crop size".format(
                 w, h, self.target_size
             )
             x1 = int(round((w - tw) / 2.0)) if self.do_round else (w - tw) // 2
             y1 = int(round((h - th) / 2.0)) if self.do_round else (h - th) // 2
-            crop_imgs.append(img[y1 : y1 + th, x1 : x1 + tw])
+            crop_imgs.append(img[y1: y1 + th, x1: x1 + tw])
         return crop_imgs
 
     def __call__(self, videos: List[np.ndarray]) -> List[np.ndarray]:
@@ -251,11 +251,11 @@ class NormalizeVideo:
     """
 
     def __init__(
-        self,
-        mean: Sequence[float],
-        std: Sequence[float],
-        tensor_shape: Sequence[int] = [3, 1, 1],
-        inplace: bool = False,
+            self,
+            mean: Sequence[float],
+            std: Sequence[float],
+            tensor_shape: Sequence[int] = [3, 1, 1],
+            inplace: bool = False,
     ) -> None:
         """
         Initializes the NormalizeVideo class.
@@ -351,7 +351,7 @@ class VideoClasTopk:
         return e_x / np.sum(e_x, axis=-1, keepdims=True)
 
     def _parse_class_id_map(
-        self, class_ids: Optional[Sequence[Union[str, int]]]
+            self, class_ids: Optional[Sequence[Union[str, int]]]
     ) -> Optional[dict]:
         """
         Parses a list of class IDs into a mapping from class index to class label.
@@ -368,7 +368,7 @@ class VideoClasTopk:
         return class_id_map
 
     def __call__(
-        self, preds: np.ndarray, topk: int = 5
+            self, preds: np.ndarray, topk: int = 5
     ) -> Tuple[np.ndarray, List[np.ndarray], List[List[str]]]:
         """
         Selects the top-k predictions from the classification output.

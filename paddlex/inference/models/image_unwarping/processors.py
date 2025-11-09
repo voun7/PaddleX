@@ -49,7 +49,7 @@ class DocTrPostProcess:
         )
 
     def __call__(
-        self, imgs: List[Union[np.ndarray, Tuple[np.ndarray, ...]]]
+            self, imgs: List[Union[np.ndarray, Tuple[np.ndarray, ...]]]
     ) -> List[np.ndarray]:
         """
         Processes a list of images using the `doctr` method.

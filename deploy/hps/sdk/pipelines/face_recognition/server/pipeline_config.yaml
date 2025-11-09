@@ -10,7 +10,7 @@ SubModules:
     module_name: face_detection
     model_name: PP-YOLOE_plus-S_face
     model_dir: null
-    batch_size: 1 
+    batch_size: 1
   Recognition:
     module_name: face_feature
     model_name: ResNet50_face

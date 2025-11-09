@@ -75,93 +75,93 @@ HOLIDAYS = [
 
 
 def _cal_year(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.year
 
 
 def _cal_month(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.month
 
 
 def _cal_day(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.day
 
 
 def _cal_hour(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.hour
 
 
 def _cal_weekday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.dayofweek
 
 
 def _cal_quarter(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.quarter
 
 
 def _cal_hourofday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.hour / 23.0 - 0.5
 
 
 def _cal_dayofweek(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.dayofweek / 6.0 - 0.5
 
 
 def _cal_dayofmonth(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.day / 30.0 - 0.5
 
 
 def _cal_dayofyear(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.dayofyear / 364.0 - 0.5
 
 
 def _cal_weekofyear(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.weekofyear / 51.0 - 0.5
 
 
 @function_requires_deps("chinese-calendar")
 def _cal_holiday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return float(chinese_calendar.is_holiday(x))
 
 
 @function_requires_deps("chinese-calendar")
 def _cal_workday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return float(chinese_calendar.is_workday(x))
 
 
 def _cal_minuteofhour(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.minute / 59 - 0.5
 
 
 def _cal_monthofyear(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.month / 11.0 - 0.5
 
@@ -186,12 +186,12 @@ CAL_DATE_METHOD = {
 
 
 def load_from_one_dataframe(
-    data: Union[pd.DataFrame, pd.Series],
-    time_col: Optional[str] = None,
-    value_cols: Optional[Union[List[str], str]] = None,
-    freq: Optional[Union[str, int]] = None,
-    drop_tail_nan: bool = False,
-    dtype: Optional[Union[type, Dict[str, type]]] = None,
+        data: Union[pd.DataFrame, pd.Series],
+        time_col: Optional[str] = None,
+        value_cols: Optional[Union[List[str], str]] = None,
+        freq: Optional[Union[str, int]] = None,
+        drop_tail_nan: bool = False,
+        dtype: Optional[Union[type, Dict[str, type]]] = None,
 ) -> pd.DataFrame:
     """Transforms a DataFrame or Series into a time-indexed DataFrame.
 
@@ -250,7 +250,7 @@ def load_from_one_dataframe(
 
     # Process datetime-like time column values
     elif np.issubdtype(time_col_vals.dtype, np.object_) or np.issubdtype(
-        time_col_vals.dtype, np.datetime64
+            time_col_vals.dtype, np.datetime64
     ):
         time_col_vals = pd.to_datetime(time_col_vals, infer_datetime_format=True)
         time_index = pd.DatetimeIndex(time_col_vals)
@@ -284,20 +284,20 @@ def load_from_one_dataframe(
 
 
 def load_from_dataframe(
-    df: pd.DataFrame,
-    group_id: Optional[str] = None,
-    time_col: Optional[str] = None,
-    target_cols: Optional[Union[List[str], str]] = None,
-    label_col: Optional[Union[List[str], str]] = None,
-    observed_cov_cols: Optional[Union[List[str], str]] = None,
-    feature_cols: Optional[Union[List[str], str]] = None,
-    known_cov_cols: Optional[Union[List[str], str]] = None,
-    static_cov_cols: Optional[Union[List[str], str]] = None,
-    freq: Optional[Union[str, int]] = None,
-    fill_missing_dates: bool = False,
-    fillna_method: str = "pre",
-    fillna_window_size: int = 10,
-    **kwargs,
+        df: pd.DataFrame,
+        group_id: Optional[str] = None,
+        time_col: Optional[str] = None,
+        target_cols: Optional[Union[List[str], str]] = None,
+        label_col: Optional[Union[List[str], str]] = None,
+        observed_cov_cols: Optional[Union[List[str], str]] = None,
+        feature_cols: Optional[Union[List[str], str]] = None,
+        known_cov_cols: Optional[Union[List[str], str]] = None,
+        static_cov_cols: Optional[Union[List[str], str]] = None,
+        freq: Optional[Union[str, int]] = None,
+        fill_missing_dates: bool = False,
+        fillna_method: str = "pre",
+        fillna_window_size: int = 10,
+        **kwargs,
 ) -> Dict[str, Optional[Union[pd.DataFrame, Dict[str, any]]]]:
     """Loads and processes time series data from a DataFrame.
 
@@ -442,7 +442,7 @@ def _distance_to_holiday(holiday) -> Callable[[pd.Timestamp], float]:
             index + pd.Timedelta(days=MAX_WINDOW),
         )
         assert (
-            len(holiday_date) != 0
+                len(holiday_date) != 0
         ), f"No closest holiday for the date index {index} found."
         # It sometimes returns two dates if it is exactly half a year after the
         # holiday. In this case, the smaller distance (182 days) is returned.
@@ -453,11 +453,11 @@ def _distance_to_holiday(holiday) -> Callable[[pd.Timestamp], float]:
 
 @function_requires_deps("scikit-learn")
 def time_feature(
-    dataset: Dict,
-    freq: Optional[Union[str, int]],
-    feature_cols: List[str],
-    extend_points: int,
-    inplace: bool = False,
+        dataset: Dict,
+        freq: Optional[Union[str, int]],
+        feature_cols: List[str],
+        extend_points: int,
+        inplace: bool = False,
 ) -> Dict:
     """Transforms the time column of a dataset into time features.
 

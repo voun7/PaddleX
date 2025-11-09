@@ -20,15 +20,15 @@ import subprocess
 import tempfile
 from typing import List, Optional
 
-import numpy as np
 import PIL
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from ...common.result import BaseCVResult, JsonMixin
 from ....utils import logging
 from ....utils.deps import function_requires_deps, is_dep_available
 from ....utils.file_interface import custom_open
 from ....utils.fonts import PINGFANG_FONT
-from ...common.result import BaseCVResult, JsonMixin
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -50,7 +50,7 @@ class FormulaRecResult(BaseCVResult):
         return JsonMixin._to_json(data, *args, **kwargs)
 
     def _to_img(
-        self,
+            self,
     ) -> Image.Image:
         """
         Draws a recognized formula on an image.
@@ -77,7 +77,7 @@ class FormulaRecResult(BaseCVResult):
         xywh = crop_white_area(image)
         if xywh is not None:
             x, y, w, h = xywh
-            image = image[y : y + h, x : x + w]
+            image = image[y: y + h, x: x + w]
         image = Image.fromarray(image)
         image_width, image_height = image.size
         box = [[0, 0], [image_width, 0], [image_width, image_height], [0, image_height]]
@@ -129,13 +129,13 @@ def get_align_equation(equation: str) -> str:
             break
     if not is_align:
         equation = (
-            r"\begin{equation}"
-            + "\n"
-            + equation.strip()
-            + r"\nonumber"
-            + "\n"
-            + r"\end{equation}"
-            + "\n"
+                r"\begin{equation}"
+                + "\n"
+                + equation.strip()
+                + r"\nonumber"
+                + "\n"
+                + r"\end{equation}"
+                + "\n"
         )
     return equation
 
@@ -206,7 +206,7 @@ def generate_tex_file(tex_file_path: str, equation: str) -> None:
 
 
 def generate_pdf_file(
-    tex_path: str, pdf_dir: str, is_debug: bool = False
+        tex_path: str, pdf_dir: str, is_debug: bool = False
 ) -> Optional[bool]:
     """
     Generates a PDF file from a LaTeX file using pdflatex.
@@ -288,7 +288,7 @@ def pdf2img(pdf_path: str, img_path: str, is_padding: bool = False):
 
             if xywh is not None:
                 x, y, w, h = xywh
-                img = img[y : y + h, x : x + w]
+                img = img[y: y + h, x: x + w]
                 if is_padding:
                     img = cv2.copyMakeBorder(
                         img, 30, 30, 30, 30, cv2.BORDER_CONSTANT, value=(255, 255, 255)
@@ -300,7 +300,7 @@ def pdf2img(pdf_path: str, img_path: str, is_padding: bool = False):
 
 
 def draw_formula_module(
-    img_size: tuple, box: list, formula: str, is_debug: bool = False
+        img_size: tuple, box: list, formula: str, is_debug: bool = False
 ):
     """
     Draw box formula for module.

@@ -16,12 +16,12 @@ from typing import Any, Dict, List, Optional, Union
 
 import pandas as pd
 
-from ....utils.deps import pipeline_requires_extra
+from ..base import BasePipeline
 from ...models.ts_classification.result import TSClsResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from ..base import BasePipeline
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -32,12 +32,12 @@ class TSClsPipeline(BasePipeline):
     entities = "ts_classification"
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the Time Series classification pipeline.
 
@@ -60,7 +60,7 @@ class TSClsPipeline(BasePipeline):
         self.ts_classification_model = self.create_model(ts_classification_model_config)
 
     def predict(
-        self, input: Union[str, List[str], pd.DataFrame, List[pd.DataFrame]], **kwargs
+            self, input: Union[str, List[str], pd.DataFrame, List[pd.DataFrame]], **kwargs
     ) -> TSClsResult:
         """Predicts time series classification results for the given input.
 

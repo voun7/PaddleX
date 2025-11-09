@@ -16,13 +16,6 @@ import shutil
 import tempfile
 from typing import Any, Dict, Iterator, List, Tuple
 
-from ....modules.m_3d_bev_detection.model_list import MODELS
-from ....utils import logging
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import Det3DBatchSampler
-from ...common.reader import ReadNuscenesData
-from ..base import BasePredictor
-from ..base.predictor.base_predictor import PredictionWrap
 from .processors import (
     GetInferInput,
     LoadMultiViewImageFromFiles,
@@ -34,6 +27,13 @@ from .processors import (
     SampleFilterByKey,
 )
 from .result import BEV3DDetResult
+from ..base import BasePredictor
+from ..base.predictor.base_predictor import PredictionWrap
+from ...common.batch_sampler import Det3DBatchSampler
+from ...common.reader import ReadNuscenesData
+from ....modules.m_3d_bev_detection.model_list import MODELS
+from ....utils import logging
+from ....utils.func_register import FuncRegister
 
 
 class BEVDet3DPredictor(BasePredictor):
@@ -103,7 +103,7 @@ class BEVDet3DPredictor(BasePredictor):
         return pre_tfs, infer
 
     def _format_output(
-        self, infer_input: List[Any], outs: List[Any], img_metas: Dict[str, Any]
+            self, infer_input: List[Any], outs: List[Any], img_metas: Dict[str, Any]
     ) -> Dict[str, Any]:
         """format inference input and output into predict result
 
@@ -170,7 +170,7 @@ class BEVDet3DPredictor(BasePredictor):
 
     @register("LoadPointsFromFile")
     def build_load_img_from_file(
-        self, load_dim=6, use_dim=[0, 1, 2], shift_height=False, use_color=False
+            self, load_dim=6, use_dim=[0, 1, 2], shift_height=False, use_color=False
     ):
         return "LoadPointsFromFile", LoadPointsFromFile(
             load_dim=load_dim,
@@ -181,14 +181,14 @@ class BEVDet3DPredictor(BasePredictor):
 
     @register("LoadPointsFromMultiSweeps")
     def build_load_points_from_multi_sweeps(
-        self,
-        sweeps_num=10,
-        load_dim=5,
-        use_dim=[0, 1, 2, 4],
-        pad_empty_sweeps=False,
-        remove_close=False,
-        test_mode=False,
-        point_cloud_angle_range=None,
+            self,
+            sweeps_num=10,
+            load_dim=5,
+            use_dim=[0, 1, 2, 4],
+            pad_empty_sweeps=False,
+            remove_close=False,
+            test_mode=False,
+            point_cloud_angle_range=None,
     ):
         return "LoadPointsFromMultiSweeps", LoadPointsFromMultiSweeps(
             sweeps_num=sweeps_num,
@@ -202,12 +202,12 @@ class BEVDet3DPredictor(BasePredictor):
 
     @register("LoadMultiViewImageFromFiles")
     def build_load_multi_view_image_from_files(
-        self,
-        to_float32=False,
-        project_pts_to_img_depth=False,
-        cam_depth_range=[4.0, 45.0, 1.0],
-        constant_std=0.5,
-        imread_flag=-1,
+            self,
+            to_float32=False,
+            project_pts_to_img_depth=False,
+            cam_depth_range=[4.0, 45.0, 1.0],
+            constant_std=0.5,
+            imread_flag=-1,
     ):
         return "LoadMultiViewImageFromFiles", LoadMultiViewImageFromFiles(
             to_float32=to_float32,
@@ -219,14 +219,14 @@ class BEVDet3DPredictor(BasePredictor):
 
     @register("ResizeImage")
     def build_resize_image(
-        self,
-        img_scale=None,
-        multiscale_mode="range",
-        ratio_range=None,
-        keep_ratio=True,
-        bbox_clip_border=True,
-        backend="cv2",
-        override=False,
+            self,
+            img_scale=None,
+            multiscale_mode="range",
+            ratio_range=None,
+            keep_ratio=True,
+            bbox_clip_border=True,
+            backend="cv2",
+            override=False,
     ):
         return "ResizeImage", ResizeImage(
             img_scale=img_scale,
@@ -250,29 +250,29 @@ class BEVDet3DPredictor(BasePredictor):
 
     @register("SampleFilterByKey")
     def build_sample_filter_by_key(
-        self,
-        keys,
-        meta_keys=(
-            "filename",
-            "ori_shape",
-            "img_shape",
-            "lidar2img",
-            "depth2img",
-            "cam2img",
-            "pad_shape",
-            "scale_factor",
-            "flip",
-            "pcd_horizontal_flip",
-            "pcd_vertical_flip",
-            "box_type_3d",
-            "img_norm_cfg",
-            "pcd_trans",
-            "sample_idx",
-            "pcd_scale_factor",
-            "pcd_rotation",
-            "pts_filename",
-            "transformation_3d_flow",
-        ),
+            self,
+            keys,
+            meta_keys=(
+                    "filename",
+                    "ori_shape",
+                    "img_shape",
+                    "lidar2img",
+                    "depth2img",
+                    "cam2img",
+                    "pad_shape",
+                    "scale_factor",
+                    "flip",
+                    "pcd_horizontal_flip",
+                    "pcd_vertical_flip",
+                    "box_type_3d",
+                    "img_norm_cfg",
+                    "pcd_trans",
+                    "sample_idx",
+                    "pcd_scale_factor",
+                    "pcd_rotation",
+                    "pts_filename",
+                    "transformation_3d_flow",
+            ),
     ):
         return "SampleFilterByKey", SampleFilterByKey(keys=keys, meta_keys=meta_keys)
 

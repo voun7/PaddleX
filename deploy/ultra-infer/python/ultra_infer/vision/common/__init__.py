@@ -13,6 +13,3 @@
 # limitations under the License.
 from __future__ import absolute_import
 
-from .manager import ProcessorManager
-from .manager import PyProcessorManager
-from .processors import *

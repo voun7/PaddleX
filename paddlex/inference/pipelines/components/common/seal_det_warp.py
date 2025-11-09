@@ -27,18 +27,19 @@ from .....utils.deps import (
 if is_dep_available("opencv-contrib-python"):
     import cv2
 
+
 #### [TODO] need sunting to add explanatory notes
 
 
 @function_requires_deps("opencv-contrib-python")
 def Homography(
-    image,
-    img_points,
-    world_width,
-    world_height,
-    interpolation=None,
-    ratio_width=1.0,
-    ratio_height=1.0,
+        image,
+        img_points,
+        world_width,
+        world_height,
+        interpolation=None,
+        ratio_width=1.0,
+        ratio_height=1.0,
 ):
     if interpolation is None:
         interpolation = cv2.INTER_CUBIC
@@ -74,15 +75,15 @@ def Homography(
 @class_requires_deps("opencv-contrib-python")
 class PlanB:
     def __call__(
-        self,
-        image,
-        points,
-        curveTextRectifier,
-        interpolation=None,
-        ratio_width=1.0,
-        ratio_height=1.0,
-        loss_thresh=5.0,
-        square=False,
+            self,
+            image,
+            points,
+            curveTextRectifier,
+            interpolation=None,
+            ratio_width=1.0,
+            ratio_height=1.0,
+            loss_thresh=5.0,
+            square=False,
     ):
         """
         Plan B using sub-image when it failed in original image
@@ -178,20 +179,20 @@ class CurveTextRectifier:
             angle_y
         )
         matT[0, 1] = cos(angle_z) * sin(angle_y) * sin(angle_x2) - sin(angle_z) * (
-            cos(angle_x1) * cos(angle_x2) - sin(angle_x1) * cos(angle_y) * sin(angle_x2)
+                cos(angle_x1) * cos(angle_x2) - sin(angle_x1) * cos(angle_y) * sin(angle_x2)
         )
         matT[0, 2] = cos(angle_z) * sin(angle_y) * cos(angle_x2) + sin(angle_z) * (
-            cos(angle_x1) * sin(angle_x2) + sin(angle_x1) * cos(angle_y) * cos(angle_x2)
+                cos(angle_x1) * sin(angle_x2) + sin(angle_x1) * cos(angle_y) * cos(angle_x2)
         )
         matT[0, 3] = optic_x
         matT[1, 0] = sin(angle_z) * cos(angle_y) + cos(angle_z) * sin(angle_x1) * sin(
             angle_y
         )
         matT[1, 1] = sin(angle_z) * sin(angle_y) * sin(angle_x2) + cos(angle_z) * (
-            cos(angle_x1) * cos(angle_x2) - sin(angle_x1) * cos(angle_y) * sin(angle_x2)
+                cos(angle_x1) * cos(angle_x2) - sin(angle_x1) * cos(angle_y) * sin(angle_x2)
         )
         matT[1, 2] = sin(angle_z) * sin(angle_y) * cos(angle_x2) - cos(angle_z) * (
-            cos(angle_x1) * sin(angle_x2) + sin(angle_x1) * cos(angle_y) * cos(angle_x2)
+                cos(angle_x1) * sin(angle_x2) + sin(angle_x1) * cos(angle_y) * cos(angle_x2)
         )
         matT[1, 3] = optic_y
         matT[2, 0] = -cos(angle_x1) * sin(angle_y)
@@ -262,13 +263,13 @@ class CurveTextRectifier:
         for i in range(1, len(poly) // 2):
             xdx = poly[i * 2] - poly[(i - 1) * 2]
             xdy = poly[i * 2 + 1] - poly[(i - 1) * 2 + 1]
-            d = sqrt(xdx**2 + xdy**2)
+            d = sqrt(xdx ** 2 + xdy ** 2)
             dx_list.append(d)
 
         for i in range(0, len(poly) // 4):
             ydx = poly[i * 2] - poly[len(poly) - 1 - (i * 2 + 1)]
             ydy = poly[i * 2 + 1] - poly[len(poly) - 1 - (i * 2)]
-            d = sqrt(ydx**2 + ydy**2)
+            d = sqrt(ydx ** 2 + ydy ** 2)
             dy_list.append(d)
 
         dx_list = [
@@ -359,17 +360,17 @@ class CurveTextRectifier:
         D1[xp <= 0] = -D1[xp <= 0]
 
         ratio_a = (
-            K[0, 0] * D0 * D0
-            + K[1, 1] * D1 * D1
-            + K[2, 2] * D2 * D2
-            + (K[0, 1] + K[1, 0]) * D0 * D1
-            + (K[0, 2] + K[2, 0]) * D0 * D2
-            + (K[1, 2] + K[2, 1]) * D1 * D2
+                K[0, 0] * D0 * D0
+                + K[1, 1] * D1 * D1
+                + K[2, 2] * D2 * D2
+                + (K[0, 1] + K[1, 0]) * D0 * D1
+                + (K[0, 2] + K[2, 0]) * D0 * D2
+                + (K[1, 2] + K[2, 1]) * D1 * D2
         )
         ratio_b = (
-            (K[0, 3] + K[3, 0]) * D0
-            + (K[1, 3] + K[3, 1]) * D1
-            + (K[2, 3] + K[3, 2]) * D2
+                (K[0, 3] + K[3, 0]) * D0
+                + (K[1, 3] + K[3, 1]) * D1
+                + (K[2, 3] + K[3, 2]) * D2
         )
         ratio_c = K[3, 3] * np.ones(ratio_b.shape)
 
@@ -377,18 +378,18 @@ class CurveTextRectifier:
         t = np.zeros(delta.shape)
         t[ratio_a == 0] = -ratio_c[ratio_a == 0] / ratio_b[ratio_a == 0]
         t[ratio_a != 0] = (-ratio_b[ratio_a != 0] + sqrt(delta[ratio_a != 0])) / (
-            2 * ratio_a[ratio_a != 0]
+                2 * ratio_a[ratio_a != 0]
         )
         t[delta < 0] = 0
 
         P[:, :, 0] = matT[0, 3] + t * (
-            matT[0, 0] * D0 + matT[0, 1] * D1 + matT[0, 2] * D2
+                matT[0, 0] * D0 + matT[0, 1] * D1 + matT[0, 2] * D2
         )
         P[:, :, 1] = matT[1, 3] + t * (
-            matT[1, 0] * D0 + matT[1, 1] * D1 + matT[1, 2] * D2
+                matT[1, 0] * D0 + matT[1, 1] * D1 + matT[1, 2] * D2
         )
         P[:, :, 2] = matT[2, 3] + t * (
-            matT[2, 0] * D0 + matT[2, 1] * D1 + matT[2, 2] * D2
+                matT[2, 0] * D0 + matT[2, 1] * D1 + matT[2, 2] * D2
         )
 
         return P
@@ -464,13 +465,13 @@ class CurveTextRectifier:
         r6 = r2 * r4
 
         radial_distortion = (1 + k1 * r2 + k2 * r4 + k3 * r6) / (
-            1 + k4 * r2 + k5 * r4 + k6 * r6
+                1 + k4 * r2 + k5 * r4 + k6 * r6
         )
         x2 = (
-            x1 * radial_distortion + p1 * x1y1 + p2 * (r2 + 2 * x12) + s1 * r2 + s2 * r4
+                x1 * radial_distortion + p1 * x1y1 + p2 * (r2 + 2 * x12) + s1 * r2 + s2 * r4
         )
         y2 = (
-            y1 * radial_distortion + p2 * x1y1 + p1 * (r2 + 2 * y12) + s3 * r2 + s4 * r4
+                y1 * radial_distortion + p2 * x1y1 + p1 * (r2 + 2 * y12) + s3 * r2 + s4 * r4
         )
 
         x3 = tao11 * x2 + tao12 * y2 + tao13
@@ -483,7 +484,7 @@ class CurveTextRectifier:
         return P
 
     def spatial_transform(
-        self, image_data, new_image_size, mtx, dist, rvecs, tvecs, interpolation
+            self, image_data, new_image_size, mtx, dist, rvecs, tvecs, interpolation
     ):
         rotation, _ = cv2.Rodrigues(rvecs)
         world_map = self.virtual_camera_to_world(new_image_size)
@@ -509,14 +510,14 @@ class CurveTextRectifier:
         flag2 = cv2.CALIB_RATIONAL_MODEL | cv2.CALIB_TILTED_MODEL
         flag3 = cv2.CALIB_RATIONAL_MODEL | cv2.CALIB_THIN_PRISM_MODEL
         flag4 = (
-            cv2.CALIB_RATIONAL_MODEL
-            | cv2.CALIB_ZERO_TANGENT_DIST
-            | cv2.CALIB_FIX_ASPECT_RATIO
+                cv2.CALIB_RATIONAL_MODEL
+                | cv2.CALIB_ZERO_TANGENT_DIST
+                | cv2.CALIB_FIX_ASPECT_RATIO
         )
         flag5 = (
-            cv2.CALIB_RATIONAL_MODEL
-            | cv2.CALIB_TILTED_MODEL
-            | cv2.CALIB_ZERO_TANGENT_DIST
+                cv2.CALIB_RATIONAL_MODEL
+                | cv2.CALIB_TILTED_MODEL
+                | cv2.CALIB_ZERO_TANGENT_DIST
         )
         flag6 = cv2.CALIB_RATIONAL_MODEL | cv2.CALIB_FIX_ASPECT_RATIO
         flag_list = [flag2, flag3, flag4, flag5, flag6]
@@ -548,14 +549,14 @@ class CurveTextRectifier:
         return ret, mtx, dist, rvecs, tvecs
 
     def dc_homo(
-        self,
-        img,
-        img_points,
-        obj_points,
-        is_horizontal_text,
-        interpolation=None,
-        ratio_width=1.0,
-        ratio_height=1.0,
+            self,
+            img,
+            img_points,
+            obj_points,
+            is_horizontal_text,
+            interpolation=None,
+            ratio_width=1.0,
+            ratio_height=1.0,
     ):
         """
         divide and conquer: homography
@@ -575,11 +576,11 @@ class CurveTextRectifier:
             new_img_points = np.zeros((4, 2)).astype(np.float32)
             new_obj_points = np.zeros((4, 2)).astype(np.float32)
 
-            new_img_points[0:2, :] = _img_points[i : (i + 2), :2]
-            new_img_points[2:4, :] = _img_points[::-1, :][i : (i + 2), :2][::-1, :]
+            new_img_points[0:2, :] = _img_points[i: (i + 2), :2]
+            new_img_points[2:4, :] = _img_points[::-1, :][i: (i + 2), :2][::-1, :]
 
-            new_obj_points[0:2, :] = _obj_points[i : (i + 2), :2]
-            new_obj_points[2:4, :] = _obj_points[::-1, :][i : (i + 2), :2][::-1, :]
+            new_obj_points[0:2, :] = _obj_points[i: (i + 2), :2]
+            new_obj_points[2:4, :] = _obj_points[::-1, :][i: (i + 2), :2][::-1, :]
 
             if is_horizontal_text:
                 world_width = np.abs(new_obj_points[1, 0] - new_obj_points[0, 0])
@@ -610,7 +611,7 @@ class CurveTextRectifier:
 
         st = 0
         for homo_img, w, h in zip(homo_img_list, width_list, height_list):
-            rectified_image[:h, st : st + w, :] = homo_img
+            rectified_image[:h, st: st + w, :] = homo_img
             st += w
 
         if not is_horizontal_text:
@@ -620,14 +621,14 @@ class CurveTextRectifier:
         return rectified_image
 
     def Homography(
-        self,
-        image,
-        img_points,
-        world_width,
-        world_height,
-        interpolation=None,
-        ratio_width=1.0,
-        ratio_height=1.0,
+            self,
+            image,
+            img_points,
+            world_width,
+            world_height,
+            interpolation=None,
+            ratio_width=1.0,
+            ratio_height=1.0,
     ):
         if interpolation is None:
             interpolation = cv2.INTER_CUBIC
@@ -660,13 +661,13 @@ class CurveTextRectifier:
         return dst_img
 
     def __call__(
-        self,
-        image_data,
-        points,
-        interpolation=None,
-        ratio_width=1.0,
-        ratio_height=1.0,
-        mode="calibration",
+            self,
+            image_data,
+            points,
+            interpolation=None,
+            ratio_width=1.0,
+            ratio_height=1.0,
+            mode="calibration",
     ):
         """
         spatial transform for a poly text
@@ -735,7 +736,7 @@ class AutoRectifier:
 
     @staticmethod
     def get_rotate_crop_image(
-        img, points, interpolation=None, ratio_width=1.0, ratio_height=1.0
+            img, points, interpolation=None, ratio_width=1.0, ratio_height=1.0
     ):
         """
         crop or homography
@@ -820,14 +821,14 @@ class AutoRectifier:
         return visualization
 
     def __call__(
-        self,
-        image_data,
-        points,
-        interpolation=None,
-        ratio_width=1.0,
-        ratio_height=1.0,
-        loss_thresh=5.0,
-        mode="calibration",
+            self,
+            image_data,
+            points,
+            interpolation=None,
+            ratio_width=1.0,
+            ratio_height=1.0,
+            loss_thresh=5.0,
+            mode="calibration",
     ):
         """
         rectification in strategies for a poly text
@@ -905,14 +906,14 @@ class AutoRectifier:
         return dst_img
 
     def run(
-        self,
-        image_data,
-        points_list,
-        interpolation=None,
-        ratio_width=1.0,
-        ratio_height=1.0,
-        loss_thresh=5.0,
-        mode="calibration",
+            self,
+            image_data,
+            points_list,
+            interpolation=None,
+            ratio_width=1.0,
+            ratio_height=1.0,
+            loss_thresh=5.0,
+            mode="calibration",
     ):
         """
         run for texts in an image

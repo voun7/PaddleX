@@ -15,14 +15,14 @@
 import base64
 import importlib.util
 import os
-import unicodedata
 from typing import Collection, Dict, List, Set, Tuple, Union
+
+import unicodedata
 
 from .tokenizer_utils import PretrainedTokenizer
 from .tokenizer_utils_base import AddedToken
 
 __all__ = ["QWenTokenizer"]
-
 
 VOCAB_FILES_NAMES = {"vocab_file": "qwen.tiktoken"}
 
@@ -35,10 +35,10 @@ IMEND = "<|im_end|>"
 # as different as possible to minimize the impact
 EXTRAS = tuple((f"<|extra_{i}|>" for i in range(205)))
 SPECIAL_TOKENS = (
-    ENDOFTEXT,
-    IMSTART,
-    IMEND,
-) + EXTRAS
+                     ENDOFTEXT,
+                     IMSTART,
+                     IMEND,
+                 ) + EXTRAS
 
 tiktoken = None
 
@@ -63,11 +63,11 @@ class QWenTokenizer(PretrainedTokenizer):
     resource_files_names = VOCAB_FILES_NAMES
 
     def __init__(
-        self,
-        vocab_file,
-        errors="replace",
-        padding_side="left",
-        **kwargs,
+            self,
+            vocab_file,
+            errors="replace",
+            padding_side="left",
+            **kwargs,
     ):
         super().__init__(**kwargs)
         if not is_tiktoken_available():
@@ -96,7 +96,7 @@ class QWenTokenizer(PretrainedTokenizer):
             special_tokens=self.special_tokens,
         )
         assert (
-            len(self.mergeable_ranks) + len(self.special_tokens) == enc.n_vocab
+                len(self.mergeable_ranks) + len(self.special_tokens) == enc.n_vocab
         ), f"{len(self.mergeable_ranks) + len(self.special_tokens)} != {enc.n_vocab} in encoding"
 
         self.decoder = {
@@ -122,7 +122,7 @@ class QWenTokenizer(PretrainedTokenizer):
         return self.mergeable_ranks
 
     def convert_tokens_to_ids(
-        self, tokens: Union[bytes, str, List[Union[bytes, str]]]
+            self, tokens: Union[bytes, str, List[Union[bytes, str]]]
     ) -> List[int]:
         ids = []
         if isinstance(tokens, (str, bytes)):
@@ -164,9 +164,9 @@ class QWenTokenizer(PretrainedTokenizer):
             raise ValueError("Adding regular tokens is not supported")
 
     def _add_tokens(
-        self,
-        new_tokens: Union[List[str], List[AddedToken]],
-        special_tokens: bool = False,
+            self,
+            new_tokens: Union[List[str], List[AddedToken]],
+            special_tokens: bool = False,
     ) -> int:
         if not special_tokens and new_tokens:
             raise ValueError("Adding regular tokens is not supported")
@@ -192,11 +192,11 @@ class QWenTokenizer(PretrainedTokenizer):
         return (file_path,)
 
     def tokenize(
-        self,
-        text: str,
-        allowed_special: Union[Set, str] = "all",
-        disallowed_special: Union[Collection, str] = (),
-        **kwargs,
+            self,
+            text: str,
+            allowed_special: Union[Set, str] = "all",
+            disallowed_special: Union[Collection, str] = (),
+            **kwargs,
     ) -> List[Union[bytes, str]]:
         """
         Converts a string in a sequence of tokens.
@@ -222,7 +222,7 @@ class QWenTokenizer(PretrainedTokenizer):
 
         # this implementation takes a detour: text -> token id -> token surface forms
         for t in self.tokenizer.encode(
-            text, allowed_special=allowed_special, disallowed_special=disallowed_special
+                text, allowed_special=allowed_special, disallowed_special=disallowed_special
         ):
             tokens.append(self.decoder[t])
         return tokens
@@ -275,11 +275,11 @@ class QWenTokenizer(PretrainedTokenizer):
         raise NotImplementedError
 
     def _decode(
-        self,
-        token_ids: Union[int, List[int]],
-        skip_special_tokens: bool = False,
-        errors: str = None,
-        **kwargs,
+            self,
+            token_ids: Union[int, List[int]],
+            skip_special_tokens: bool = False,
+            errors: str = None,
+            **kwargs,
     ) -> str:
         if isinstance(token_ids, int):
             token_ids = [token_ids]

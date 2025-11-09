@@ -3,11 +3,11 @@ iters: 80000
 
 model:
   type: SeaFormerSeg
-  backbone: 
+  backbone:
     type: SeaFormer_tiny
     pretrained: https://bj.bcebos.com/paddleseg/dygraph/ade20k/backbone/seaformer_tiny_imagenet_pretrained.pdparams
   head_channels: 96
-  embed_dims: [64, 96]
+  embed_dims: [ 64, 96 ]
   is_dw: True
   dropout_ratio: 0.1
   align_corners: False
@@ -24,7 +24,7 @@ train_dataset:
       max_scale_factor: 2.0
       scale_step_size: 0.25
     - type: RandomPaddingCrop
-      crop_size: [512, 512]
+      crop_size: [ 512, 512 ]
     - type: RandomHorizontalFlip
     - type: RandomDistort
       brightness_range: 0.4
@@ -40,7 +40,7 @@ val_dataset:
   num_classes: 150
   transforms:
     - type: Resize
-      target_size: [2048, 512]
+      target_size: [ 2048, 512 ]
       keep_ratio: True
       size_divisor: 32
     - type: Normalize
@@ -70,13 +70,13 @@ lr_scheduler:
 loss:
   types:
     - type: CrossEntropyLoss
-  coef: [1]
+  coef: [ 1 ]
 
 test_config:
   crop_size:
-  - 512
-  - 512
+    - 512
+    - 512
   is_slide: true
   stride:
-  - 512
-  - 512
+    - 512
+    - 512

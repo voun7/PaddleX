@@ -16,14 +16,14 @@ from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 
-from ....modules.semantic_segmentation.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import Normalize, ToBatch, ToCHWImage
 from .processors import Resize, SegPostProcess
 from .result import SegResult
+from ..base import BasePredictor
+from ..common import Normalize, ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.semantic_segmentation.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class SegPredictor(BasePredictor):
@@ -35,10 +35,10 @@ class SegPredictor(BasePredictor):
     register = FuncRegister(_FUNC_MAP)
 
     def __init__(
-        self,
-        target_size: Union[int, Tuple[int], None] = None,
-        *args: List,
-        **kwargs: Dict,
+            self,
+            target_size: Union[int, Tuple[int], None] = None,
+            *args: List,
+            **kwargs: Dict,
     ) -> None:
         """Initializes SegPredictor.
 
@@ -97,9 +97,9 @@ class SegPredictor(BasePredictor):
         return preprocessors, infer, postprocessers
 
     def process(
-        self,
-        batch_data: List[Union[str, np.ndarray]],
-        target_size: Union[int, Tuple[int], None] = None,
+            self,
+            batch_data: List[Union[str, np.ndarray]],
+            target_size: Union[int, Tuple[int], None] = None,
     ) -> Dict[str, Any]:
         """
         Process a batch of data through the preprocessing, inference, and postprocessing.
@@ -134,20 +134,20 @@ class SegPredictor(BasePredictor):
 
     @register("Normalize")
     def build_normalize(
-        self,
-        mean=0.5,
-        std=0.5,
+            self,
+            mean=0.5,
+            std=0.5,
     ):
         op = Normalize(mean=mean, std=std)
         return "Normalize", op
 
     @register("Resize")
     def build_resize(
-        self,
-        target_size=-1,
-        keep_ratio=True,
-        size_divisor=32,
-        interp="LINEAR",
+            self,
+            target_size=-1,
+            keep_ratio=True,
+            size_divisor=32,
+            interp="LINEAR",
     ):
         op = Resize(
             target_size=target_size,

@@ -14,14 +14,14 @@
 
 from typing import Any, Dict, List
 
-from .....utils.deps import function_requires_deps, is_dep_available
+from ._common import common
+from ._common import ocr as ocr_common
+from .._app import create_app, primary_operation
 from ...infra import utils as serving_utils
 from ...infra.config import AppConfig
 from ...infra.models import AIStudioResultResponse
 from ...schemas import pp_chatocrv4_doc as schema
-from .._app import create_app, primary_operation
-from ._common import common
-from ._common import ocr as ocr_common
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI
@@ -41,7 +41,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "analyzeImages",
     )
     async def _analyze_images(
-        request: schema.AnalyzeImagesRequest,
+            request: schema.AnalyzeImagesRequest,
     ) -> AIStudioResultResponse[schema.AnalyzeImagesResult]:
         pipeline = ctx.pipeline
 
@@ -125,7 +125,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "buildVectorStore",
     )
     async def _build_vector_store(
-        request: schema.BuildVectorStoreRequest,
+            request: schema.BuildVectorStoreRequest,
     ) -> AIStudioResultResponse[schema.BuildVectorStoreResult]:
         pipeline = ctx.pipeline
 
@@ -149,7 +149,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "invokeMllm",
     )
     async def _invoke_mllm(
-        request: schema.InvokeMLLMRequest,
+            request: schema.InvokeMLLMRequest,
     ) -> AIStudioResultResponse[schema.InvokeMLLMResult]:
         pipeline = ctx.pipeline
         aiohttp_session = ctx.aiohttp_session
@@ -177,7 +177,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "chat",
     )
     async def _chat(
-        request: schema.ChatRequest,
+            request: schema.ChatRequest,
     ) -> AIStudioResultResponse[schema.ChatResult]:
         pipeline = ctx.pipeline
 

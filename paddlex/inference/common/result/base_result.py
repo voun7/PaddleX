@@ -19,8 +19,8 @@ from pathlib import Path
 
 import numpy as np
 
-from ....utils import logging
 from .mixin import JsonMixin, StrMixin
+from ....utils import logging
 
 
 class BaseResult(dict, JsonMixin, StrMixin):

@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ....utils.misc import abspath
 from ..cls import ClsConfig
+from ....utils.misc import abspath
 
 
 class ShiTuRecConfig(ClsConfig):
     """ShiTu Recognition Config"""
 
     def update_dataset(
-        self,
-        dataset_path: str,
-        dataset_type: str = None,
-        *,
-        train_list_path: str = None,
+            self,
+            dataset_path: str,
+            dataset_type: str = None,
+            *,
+            train_list_path: str = None,
     ):
         """update dataset settings
 

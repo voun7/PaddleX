@@ -13,5 +13,3 @@
 # limitations under the License.
 
 from __future__ import absolute_import
-from .insightface import *
-from .adaface import *

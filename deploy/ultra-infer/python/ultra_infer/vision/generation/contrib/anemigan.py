@@ -48,11 +48,11 @@ class AnimeGANPostprocessor:
 
 class AnimeGAN(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a AnimeGAN model.
 

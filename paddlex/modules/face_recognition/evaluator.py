@@ -13,9 +13,9 @@
 # limitations under the License.
 import os
 
-from ...utils.misc import abspath
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
+from ...utils.misc import abspath
 
 
 class FaceRecEvaluator(BaseEvaluator):

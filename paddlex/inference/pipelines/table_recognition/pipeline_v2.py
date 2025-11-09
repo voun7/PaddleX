@@ -18,30 +18,30 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import (
-    function_requires_deps,
-    is_dep_available,
-    pipeline_requires_extra,
-)
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ...models.object_detection.result import DetResult
-from ...utils.benchmark import benchmark
-from ...utils.hpi import HPIConfig
-from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from ..doc_preprocessor.result import DocPreprocessorResult
-from ..layout_parsing.utils import get_sub_regions_ocr_res
-from ..ocr.result import OCRResult
 from .result import SingleTableRecognitionResult, TableRecognitionResult
 from .table_recognition_post_processing import (
     get_table_recognition_res as get_table_recognition_res_e2e,
 )
 from .table_recognition_post_processing_v2 import get_table_recognition_res
 from .utils import get_neighbor_boxes_idx
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
+from ..doc_preprocessor.result import DocPreprocessorResult
+from ..layout_parsing.utils import get_sub_regions_ocr_res
+from ..ocr.result import OCRResult
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ...models.object_detection.result import DetResult
+from ...utils.benchmark import benchmark
+from ...utils.hpi import HPIConfig
+from ...utils.pp_option import PaddlePredictorOption
+from ....utils import logging
+from ....utils.deps import (
+    function_requires_deps,
+    is_dep_available,
+    pipeline_requires_extra,
+)
 
 if is_dep_available("scikit-learn"):
     from sklearn.cluster import KMeans
@@ -52,12 +52,12 @@ class _TableRecognitionPipelineV2(BasePipeline):
     """Table Recognition Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the layout parsing pipeline.
 
@@ -157,11 +157,11 @@ class _TableRecognitionPipelineV2(BasePipeline):
         self.img_reader = ReadImage(format="BGR")
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Optional[bool],
-        use_doc_unwarping: Optional[bool],
-        use_layout_detection: Optional[bool],
-        use_ocr_model: Optional[bool],
+            self,
+            use_doc_orientation_classify: Optional[bool],
+            use_doc_unwarping: Optional[bool],
+            use_layout_detection: Optional[bool],
+            use_ocr_model: Optional[bool],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -196,10 +196,10 @@ class _TableRecognitionPipelineV2(BasePipeline):
         )
 
     def check_model_settings_valid(
-        self,
-        model_settings: Dict,
-        overall_ocr_res: OCRResult,
-        layout_det_res: DetResult,
+            self,
+            model_settings: Dict,
+            overall_ocr_res: OCRResult,
+            layout_det_res: DetResult,
     ) -> bool:
         """
         Check if the input parameters are valid based on the initialized models.
@@ -251,7 +251,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
         return True
 
     def predict_doc_preprocessor_res(
-        self, image_array: np.ndarray, input_params: dict
+            self, image_array: np.ndarray, input_params: dict
     ) -> Tuple[DocPreprocessorResult, np.ndarray]:
         """
         Preprocess the document image based on input parameters.
@@ -302,7 +302,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
             return None
 
     def cells_det_results_nms(
-        self, cells_det_results, cells_det_scores, cells_det_threshold=0.3
+            self, cells_det_results, cells_det_scores, cells_det_threshold=0.3
     ):
         """
         Apply Non-Maximum Suppression (NMS) on detection results to remove redundant overlapping bounding boxes.
@@ -352,7 +352,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
             # Update order, only keep boxes with IoU less than threshold
             order = order[
                 inds + 1
-            ]  # inds shifted by 1 because order[0] is the current box
+                ]  # inds shifted by 1 because order[0] is the current box
         # Select the boxes and scores based on picked indices
         final_boxes = boxes[picked_indices].tolist()
         final_scores = scores[picked_indices].tolist()
@@ -376,10 +376,10 @@ class _TableRecognitionPipelineV2(BasePipeline):
             x_min_b, y_min_b, x_max_b, y_max_b = box
             # Check if the box is fully inside table_box
             if (
-                x_min_b + tol >= x_min_t
-                and y_min_b + tol >= y_min_t
-                and x_max_b - tol <= x_max_t
-                and y_max_b - tol <= y_max_t
+                    x_min_b + tol >= x_min_t
+                    and y_min_b + tol >= y_min_t
+                    and x_max_b - tol <= x_max_t
+                    and y_max_b - tol <= y_max_t
             ):
                 # Adjust the coordinates to be relative to table_box
                 adjusted_box = [
@@ -393,7 +393,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
         return adjusted_boxes
 
     def cells_det_results_reprocessing(
-        self, cells_det_results, cells_det_scores, ocr_det_results, html_pred_boxes_nums
+            self, cells_det_results, cells_det_scores, ocr_det_results, html_pred_boxes_nums
     ):
         """
         Process and filter cells_det_results based on ocr_det_results and html_pred_boxes_nums.
@@ -547,7 +547,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
         return final_results
 
     def split_ocr_bboxes_by_table_cells(
-        self, cells_det_results, overall_ocr_res, ori_img, k=2
+            self, cells_det_results, overall_ocr_res, ori_img, k=2
     ):
         """
         Split OCR bounding boxes based on table cell boundaries when they span multiple cells horizontally.
@@ -745,7 +745,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
         return texts_list
 
     def map_cells_to_original_image(
-        self, detections, table_angle, img_width, img_height
+            self, detections, table_angle, img_width, img_height
     ):
         """
         Map bounding boxes from the rotated image back to the original image.
@@ -950,16 +950,16 @@ class _TableRecognitionPipelineV2(BasePipeline):
         return html
 
     def predict_single_table_recognition_res(
-        self,
-        image_array: np.ndarray,
-        overall_ocr_res: OCRResult,
-        table_box: list,
-        use_e2e_wired_table_rec_model: bool = False,
-        use_e2e_wireless_table_rec_model: bool = False,
-        use_wired_table_cells_trans_to_html: bool = False,
-        use_wireless_table_cells_trans_to_html: bool = False,
-        use_ocr_results_with_table_cells: bool = True,
-        flag_find_nei_text: bool = True,
+            self,
+            image_array: np.ndarray,
+            overall_ocr_res: OCRResult,
+            table_box: list,
+            use_e2e_wired_table_rec_model: bool = False,
+            use_e2e_wireless_table_rec_model: bool = False,
+            use_wired_table_cells_trans_to_html: bool = False,
+            use_wireless_table_cells_trans_to_html: bool = False,
+            use_ocr_results_with_table_cells: bool = True,
+            flag_find_nei_text: bool = True,
     ) -> SingleTableRecognitionResult:
         """
         Predict table recognition results from an image array, layout detection results, and OCR results.
@@ -1108,27 +1108,27 @@ class _TableRecognitionPipelineV2(BasePipeline):
         return single_table_recognition_res
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_layout_detection: Optional[bool] = None,
-        use_ocr_model: Optional[bool] = None,
-        overall_ocr_res: Optional[OCRResult] = None,
-        layout_det_res: Optional[DetResult] = None,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
-        use_e2e_wired_table_rec_model: bool = False,
-        use_e2e_wireless_table_rec_model: bool = False,
-        use_wired_table_cells_trans_to_html: bool = False,
-        use_wireless_table_cells_trans_to_html: bool = False,
-        use_table_orientation_classify: bool = True,
-        use_ocr_results_with_table_cells: bool = True,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_layout_detection: Optional[bool] = None,
+            use_ocr_model: Optional[bool] = None,
+            overall_ocr_res: Optional[OCRResult] = None,
+            layout_det_res: Optional[DetResult] = None,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
+            use_e2e_wired_table_rec_model: bool = False,
+            use_e2e_wireless_table_rec_model: bool = False,
+            use_wired_table_cells_trans_to_html: bool = False,
+            use_wireless_table_cells_trans_to_html: bool = False,
+            use_table_orientation_classify: bool = True,
+            use_ocr_results_with_table_cells: bool = True,
+            **kwargs,
     ) -> TableRecognitionResult:
         """
         This function predicts the layout parsing result for the given input.
@@ -1157,7 +1157,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
         self.cells_split_ocr = True
 
         if use_table_orientation_classify == True and (
-            self.table_orientation_classify_model is None
+                self.table_orientation_classify_model is None
         ):
             assert self.table_orientation_classify_config != None
             self.table_orientation_classify_model = self.create_model(
@@ -1172,7 +1172,7 @@ class _TableRecognitionPipelineV2(BasePipeline):
         )
 
         if not self.check_model_settings_valid(
-            model_settings, overall_ocr_res, layout_det_res
+                model_settings, overall_ocr_res, layout_det_res
         ):
             yield {"error": "the input params for model settings are invalid!"}
 
@@ -1205,11 +1205,11 @@ class _TableRecognitionPipelineV2(BasePipeline):
                     )
                 )[0]
             elif self.general_ocr_pipeline is None and (
-                (
-                    use_ocr_results_with_table_cells == True
-                    and self.cells_split_ocr == False
-                )
-                or use_table_orientation_classify == True
+                    (
+                            use_ocr_results_with_table_cells == True
+                            and self.cells_split_ocr == False
+                    )
+                    or use_table_orientation_classify == True
             ):
                 assert self.general_ocr_config_bak != None
                 self.general_ocr_pipeline = self.create_pipeline(
@@ -1364,8 +1364,8 @@ class _TableRecognitionPipelineV2(BasePipeline):
                         )
                         single_table_rec_res["table_region_id"] = table_region_id
                         if (
-                            use_table_orientation_classify == True
-                            and table_angle != "0"
+                                use_table_orientation_classify == True
+                                and table_angle != "0"
                         ):
                             img_height_copy, img_width_copy = (
                                 doc_preprocessor_image_copy.shape[:2]

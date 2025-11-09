@@ -15,8 +15,8 @@
 
 from pathlib import Path
 
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
 
 
 class TextRecEvaluator(BaseEvaluator):
@@ -45,7 +45,7 @@ class TextRecEvaluator(BaseEvaluator):
             label_dict_path = self.eval_config.label_dict_path
         else:
             label_dict_path = (
-                Path(self.eval_config.weight_path).parent / "label_dict.txt"
+                    Path(self.eval_config.weight_path).parent / "label_dict.txt"
             )
             if not label_dict_path.exists():
                 label_dict_path = None

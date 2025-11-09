@@ -5,7 +5,10 @@ comments: true
 # Text Image Unwarping Module Tutorial
 
 ## I. Overview
-The primary purpose of Text Image Unwarping is to perform geometric transformations on images in order to correct issues such as document distortion, tilt, perspective deformation, etc., enabling more accurate recognition by subsequent text recognition modules.
+
+The primary purpose of Text Image Unwarping is to perform geometric transformations on images in order to correct issues
+such as document distortion, tilt, perspective deformation, etc., enabling more accurate recognition by subsequent text
+recognition modules.
 
 ## II. Supported Model List
 
@@ -86,12 +89,17 @@ The primary purpose of Text Image Unwarping is to perform geometric transformati
 </table>
 
 ## III. Quick Integration
-> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+
+> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to
+> the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
 
-Just a few lines of code can complete the inference of the Text Image Unwarping module, allowing you to easily switch between models under this module. You can also integrate the model inference of the the Text Image Unwarping module into your project.
+Just a few lines of code can complete the inference of the Text Image Unwarping module, allowing you to easily switch
+between models under this module. You can also integrate the model inference of the the Text Image Unwarping module into
+your project.
 
-Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/doc_test.jpg) to your local machine.
+Before running the following code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/doc_test.jpg) to your local machine.
 
 ```python
 from paddlex import create_model
@@ -103,7 +111,9 @@ for res in output:
     res.save_to_json(save_path="./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 After running, the result obtained is:
 
@@ -112,18 +122,25 @@ After running, the result obtained is:
 ```
 
 The meanings of the running result parameters are as follows:
+
 - `input_path`: Indicates the path of the input image to be corrected.
-- `doctr_img`: Indicates the result of the corrected image. Since there is too much data to print directly, `...` is used here as a placeholder. The prediction result can be saved as an image through `res.save_to_img()` and as a JSON file through `res.save_to_json()`.
+- `doctr_img`: Indicates the result of the corrected image. Since there is too much data to print directly, `...` is
+  used here as a placeholder. The prediction result can be saved as an image through `res.save_to_img()` and as a JSON
+  file through `res.save_to_json()`.
 
 The visualization image is as follows:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/refs/heads/main/images/modules/image_unwarp/doc_test_res.jpg">
 
-Note: Due to network issues, the above URL may not be successfully parsed. If you need the content of this webpage, please check the validity of the link and try again. Alternatively, if parsing this link is not necessary for your question, please proceed with other questions.
+Note: Due to network issues, the above URL may not be successfully parsed. If you need the content of this webpage,
+please check the validity of the link and try again. Alternatively, if parsing this link is not necessary for your
+question, please proceed with other questions.
 
 Relevant methods, parameters, and explanations are as follows:
 
-* `create_model` instantiates an image correction model (here using `UVDoc` as an example). The specific explanation is as follows:
+* `create_model` instantiates an image correction model (here using `UVDoc` as an example). The specific explanation is
+  as follows:
+
 <table>
 <thead>
 <tr>
@@ -171,9 +188,11 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX will be used. If `model_dir` is specified, the user-defined model will be used.
+* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX
+  will be used. If `model_dir` is specified, the user-defined model will be used.
 
-* The `predict()` method of the image correction model is called for inference prediction. The parameters of the `predict()` method are `input` and `batch_size`, with specific explanations as follows:
+* The `predict()` method of the image correction model is called for inference prediction. The parameters of the
+  `predict()` method are `input` and `batch_size`, with specific explanations as follows:
 
 <table>
 <thead>
@@ -208,7 +227,8 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-* The prediction results are processed, with each sample's prediction result being of type `dict`, and supporting operations such as printing, saving as an image, and saving as a `json` file:
+* The prediction results are processed, with each sample's prediction result being of type `dict`, and supporting
+  operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -271,7 +291,8 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-* Additionally, it also supports obtaining visualized images with results and prediction results through attributes, as follows:
+* Additionally, it also supports obtaining visualized images with results and prediction results through attributes, as
+  follows:
 
 <table>
 <thead>
@@ -290,9 +311,14 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-For more information on using PaddleX's single-model inference API, refer to the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using PaddleX's single-model inference API, refer to
+the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
-The current module temporarily does not support fine-tuning training and only supports inference integration. Fine-tuning training for this module is planned to be supported in the future.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+The current module temporarily does not support fine-tuning training and only supports inference integration.
+Fine-tuning training for this module is planned to be supported in the future.
+
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

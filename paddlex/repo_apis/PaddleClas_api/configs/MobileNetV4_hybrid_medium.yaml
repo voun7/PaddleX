@@ -11,7 +11,7 @@ Global:
   print_batch_step: 10
   use_visualdl: False
   # used for static mode and model export
-  image_shape: [3, 256, 256]
+  image_shape: [ 3, 256, 256 ]
   save_inference_dir: ./inference
 
 # mixed precision
@@ -31,8 +31,8 @@ Arch:
   drop_rate: 0.2
   drop_path_rate: 0.1
   class_num: 1000
- 
- 
+
+
 # loss function config for traing/eval process
 Loss:
   Train:
@@ -62,7 +62,7 @@ Optimizer:
     warmup_start_lr: 0
 
 EMA:
-  decay: 0.9998 
+  decay: 0.9998
 
 # data loader for train and eval
 DataLoader:
@@ -87,8 +87,8 @@ DataLoader:
             img_size: 224
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.485, 0.456, 0.406]
-            std: [0.229, 0.224, 0.225]
+            mean: [ 0.485, 0.456, 0.406 ]
+            std: [ 0.229, 0.224, 0.225 ]
             order: ''
         - RandomErasing:
             EPSILON: 0.25
@@ -116,7 +116,7 @@ DataLoader:
       use_shared_memory: True
 
   Eval:
-    dataset: 
+    dataset:
       name: ImageNetDataset
       image_root: ./dataset/ILSVRC2012/
       cls_label_path: ./dataset/ILSVRC2012/val_list_test.txt
@@ -132,8 +132,8 @@ DataLoader:
             size: 256
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.485, 0.456, 0.406]
-            std: [0.229, 0.224, 0.225]
+            mean: [ 0.485, 0.456, 0.406 ]
+            std: [ 0.229, 0.224, 0.225 ]
             order: ''
     sampler:
       name: DistributedBatchSampler
@@ -159,8 +159,8 @@ Infer:
         size: 256
     - NormalizeImage:
         scale: 1.0/255.0
-        mean: [0.485, 0.456, 0.406]
-        std: [0.229, 0.224, 0.225]
+        mean: [ 0.485, 0.456, 0.406 ]
+        std: [ 0.229, 0.224, 0.225 ]
         order: ''
     - ToCHWImage:
   PostProcess:
@@ -171,7 +171,7 @@ Infer:
 Metric:
   Train:
     - TopkAcc:
-        topk: [1, 5]
+        topk: [ 1, 5 ]
   Eval:
     - TopkAcc:
-        topk: [1, 5]
+        topk: [ 1, 5 ]

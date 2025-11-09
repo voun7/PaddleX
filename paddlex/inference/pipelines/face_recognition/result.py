@@ -14,8 +14,8 @@
 
 import copy
 
-from ...common.result import BaseCVResult, JsonMixin
 from ..pp_shitu_v2.result import draw_box
+from ...common.result import BaseCVResult, JsonMixin
 
 
 class FaceRecResult(BaseCVResult):

@@ -16,8 +16,8 @@ import copy
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...common.result import BaseCVResult, JsonMixin
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2

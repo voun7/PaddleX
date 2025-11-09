@@ -16,6 +16,7 @@ __all__ = ["cal_ocr_word_box"]
 
 import numpy as np
 
+
 # from .convert_points_and_boxes import convert_points_to_boxes
 
 
@@ -63,8 +64,8 @@ def cal_ocr_word_box(rec_str, box, rec_word_info):
             center_x = (center_idx + 0.5) * cell_width
             cell_x_start = max(int(center_x - avg_char_width / 2), 0) + bbox_x_start
             cell_x_end = (
-                min(int(center_x + avg_char_width / 2), bbox_x_end - bbox_x_start)
-                + bbox_x_start
+                    min(int(center_x + avg_char_width / 2), bbox_x_end - bbox_x_start)
+                    + bbox_x_start
             )
             cell = (
                 (cell_x_start, bbox_y_start),
@@ -78,7 +79,6 @@ def cal_ocr_word_box(rec_str, box, rec_word_info):
 
 
 def sort_boxes(boxes, y_thresh=10):
-
     box_centers = [np.mean(box, axis=0) for box in boxes]
     items = list(zip(boxes, box_centers))
     items.sort(key=lambda x: x[1][1])

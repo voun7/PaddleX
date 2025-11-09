@@ -18,8 +18,8 @@ import random
 
 from PIL import Image, ImageOps
 
-from .....utils.errors import CheckFailedError, DatasetFileNotFoundError
 from .utils.visualizer import draw_label
+from .....utils.errors import CheckFailedError, DatasetFileNotFoundError
 
 
 def check_train(dataset_dir, output, sample_num=10):

@@ -18,9 +18,9 @@ from typing import List
 import PIL
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.fonts import PINGFANG_FONT
 from ...common.result import BaseCVResult, JsonMixin
 from ...utils.color_map import font_colormap, get_colormap
+from ....utils.fonts import PINGFANG_FONT
 
 
 def draw_box(img: Image.Image, boxes: List[dict]) -> Image.Image:

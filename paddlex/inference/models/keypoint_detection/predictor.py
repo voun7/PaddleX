@@ -16,13 +16,13 @@ from typing import Any, List, Optional, Sequence
 
 import numpy as np
 
-from ....modules.keypoint_detection.model_list import MODELS
-from ....utils import logging
-from ...common.batch_sampler import ImageBatchSampler
-from ..common import ToBatch
-from ..object_detection import DetPredictor
 from .processors import KptPostProcess, TopDownAffine
 from .result import KptResult
+from ..common import ToBatch
+from ..object_detection import DetPredictor
+from ...common.batch_sampler import ImageBatchSampler
+from ....modules.keypoint_detection.model_list import MODELS
+from ....utils import logging
 
 
 class KptBatchSampler(ImageBatchSampler):
@@ -61,7 +61,6 @@ class KptBatchSampler(ImageBatchSampler):
 
 
 class KptPredictor(DetPredictor):
-
     entities = MODELS
 
     flip_perm = [  # The left-right joints exchange order list
@@ -76,11 +75,11 @@ class KptPredictor(DetPredictor):
     ]
 
     def __init__(
-        self,
-        *args,
-        flip: bool = False,
-        use_udp: Optional[bool] = None,
-        **kwargs,
+            self,
+            *args,
+            flip: bool = False,
+            use_udp: Optional[bool] = None,
+            **kwargs,
     ):
         """Keypoint Predictor
 
@@ -120,7 +119,7 @@ class KptPredictor(DetPredictor):
 
     def flip_back(self, output_flipped, matched_parts):
         assert (
-            output_flipped.ndim == 4
+                output_flipped.ndim == 4
         ), "output_flipped should be [batch_size, num_joints, height, width]"
 
         output_flipped = output_flipped[:, :, :, ::-1]

@@ -6,10 +6,10 @@ Global:
   output: "output"
 
 CheckDataset:
-  convert: 
+  convert:
     enable: False
     src_dataset_type: null
-  split: 
+  split:
     enable: False
     train_percent: null
     val_percent: null
@@ -31,7 +31,7 @@ Evaluate:
 
 Export:
   weight_path: https://paddle-model-ecology.bj.bcebos.com/paddlex/official_pretrained_model/MaskRCNN-ResNet101-vd-FPN_pretrained.pdparams
-  
+
 Predict:
   batch_size: 1
   model_dir: "output/best_model/inference"

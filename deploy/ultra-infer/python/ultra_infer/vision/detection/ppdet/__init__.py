@@ -13,11 +13,10 @@
 # limitations under the License.
 
 from __future__ import absolute_import
-from typing import Union, List
-import logging
+
+from ...common import ProcessorManager
 from .... import UltraInferModel, ModelFormat
 from .... import c_lib_wrap as C
-from ...common import ProcessorManager
 
 
 class PaddleDetPreprocessor(ProcessorManager):
@@ -92,12 +91,12 @@ class PaddleDetPostprocessor:
 
 class PPYOLOE(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PPYOLOE model exported by PaddleDetection.
 
@@ -165,12 +164,12 @@ class PPYOLOE(UltraInferModel):
 
 class PPYOLO(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PPYOLO model exported by PaddleDetection.
 
@@ -183,7 +182,7 @@ class PPYOLO(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PPYOLO model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PPYOLO(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -206,12 +205,12 @@ class PPYOLO(PPYOLOE):
 
 class PaddleYOLOX(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a YOLOX model exported by PaddleDetection.
 
@@ -225,7 +224,7 @@ class PaddleYOLOX(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PaddleYOLOX model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PaddleYOLOX(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -248,12 +247,12 @@ class PaddleYOLOX(PPYOLOE):
 
 class PicoDet(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PicoDet model exported by PaddleDetection.
 
@@ -287,12 +286,12 @@ class PicoDet(PPYOLOE):
 
 class FasterRCNN(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a FasterRCNN model exported by PaddleDetection.
 
@@ -306,7 +305,7 @@ class FasterRCNN(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "FasterRCNN model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.FasterRCNN(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -329,12 +328,12 @@ class FasterRCNN(PPYOLOE):
 
 class YOLOv3(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a YOLOv3 model exported by PaddleDetection.
 
@@ -348,7 +347,7 @@ class YOLOv3(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "YOLOv3 model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.YOLOv3(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -371,12 +370,12 @@ class YOLOv3(PPYOLOE):
 
 class SOLOv2(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a SOLOv2 model exported by PaddleDetection.
 
@@ -390,7 +389,7 @@ class SOLOv2(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "SOLOv2 model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.SOLOv2(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -413,12 +412,12 @@ class SOLOv2(PPYOLOE):
 
 class MaskRCNN(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a MaskRCNN model exported by PaddleDetection.
 
@@ -432,7 +431,7 @@ class MaskRCNN(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "MaskRCNN model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.MaskRCNN(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -464,12 +463,12 @@ class MaskRCNN(PPYOLOE):
 
 class SSD(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a SSD model exported by PaddleDetection.
 
@@ -483,7 +482,7 @@ class SSD(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "SSD model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.SSD(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -506,12 +505,12 @@ class SSD(PPYOLOE):
 
 class PaddleYOLOv5(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a YOLOv5 model exported by PaddleDetection.
 
@@ -525,7 +524,7 @@ class PaddleYOLOv5(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PaddleYOLOv5 model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PaddleYOLOv5(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -535,12 +534,12 @@ class PaddleYOLOv5(PPYOLOE):
 
 class PaddleYOLOv6(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a YOLOv6 model exported by PaddleDetection.
 
@@ -554,7 +553,7 @@ class PaddleYOLOv6(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PaddleYOLOv6 model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PaddleYOLOv6(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -564,12 +563,12 @@ class PaddleYOLOv6(PPYOLOE):
 
 class PaddleYOLOv7(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a YOLOv7 model exported by PaddleDetection.
 
@@ -583,7 +582,7 @@ class PaddleYOLOv7(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PaddleYOLOv7 model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PaddleYOLOv7(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -593,12 +592,12 @@ class PaddleYOLOv7(PPYOLOE):
 
 class PaddleYOLOv8(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a YOLOv8 model exported by PaddleDetection.
 
@@ -619,12 +618,12 @@ class PaddleYOLOv8(PPYOLOE):
 
 class RTMDet(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a RTMDet model exported by PaddleDetection.
 
@@ -638,7 +637,7 @@ class RTMDet(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "RTMDet model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.RTMDet(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -648,12 +647,12 @@ class RTMDet(PPYOLOE):
 
 class CascadeRCNN(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a CascadeRCNN model exported by PaddleDetection.
 
@@ -667,7 +666,7 @@ class CascadeRCNN(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "CascadeRCNN model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.CascadeRCNN(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -677,12 +676,12 @@ class CascadeRCNN(PPYOLOE):
 
 class PSSDet(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PSSDet model exported by PaddleDetection.
 
@@ -696,7 +695,7 @@ class PSSDet(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PSSDet model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PSSDet(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -706,12 +705,12 @@ class PSSDet(PPYOLOE):
 
 class RetinaNet(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a RetinaNet model exported by PaddleDetection.
 
@@ -725,7 +724,7 @@ class RetinaNet(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "RetinaNet model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.RetinaNet(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -735,12 +734,12 @@ class RetinaNet(PPYOLOE):
 
 class PPYOLOESOD(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PPYOLOESOD model exported by PaddleDetection.
 
@@ -754,7 +753,7 @@ class PPYOLOESOD(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PPYOLOESOD model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.PPYOLOESOD(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -764,12 +763,12 @@ class PPYOLOESOD(PPYOLOE):
 
 class FCOS(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a FCOS model exported by PaddleDetection.
 
@@ -783,7 +782,7 @@ class FCOS(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "FCOS model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.FCOS(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -793,12 +792,12 @@ class FCOS(PPYOLOE):
 
 class TTFNet(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a TTFNet model exported by PaddleDetection.
 
@@ -812,7 +811,7 @@ class TTFNet(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "TTFNet model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.TTFNet(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -822,12 +821,12 @@ class TTFNet(PPYOLOE):
 
 class TOOD(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a TOOD model exported by PaddleDetection.
 
@@ -841,7 +840,7 @@ class TOOD(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "TOOD model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.TOOD(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -851,12 +850,12 @@ class TOOD(PPYOLOE):
 
 class GFL(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a GFL model exported by PaddleDetection.
 
@@ -870,7 +869,7 @@ class GFL(PPYOLOE):
         super(PPYOLOE, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "GFL model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.detection.GFL(
             model_file, params_file, config_file, self._runtime_option, model_format
@@ -880,12 +879,12 @@ class GFL(PPYOLOE):
 
 class PaddleDetectionModel(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PaddleDetectionModel model exported by PaddleDetection.
 
@@ -953,12 +952,12 @@ class PaddleDetectionModel(UltraInferModel):
 
 class PPYOLOER(PPYOLOE):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PPYOLOER model exported by PaddleDetection.
 

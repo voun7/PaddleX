@@ -31,7 +31,7 @@ def process_paddle_lite(paddle_lite_so_path):
                 )
                 if platform.machine() != "sw_64" and platform.machine() != "mips64":
                     assert (
-                        os.system(command) == 0
+                            os.system(command) == 0
                     ), "patchelf {} failed, the command: {}".format(
                         paddle_lite_so_file, command
                     )

@@ -129,8 +129,8 @@ if wheel_name == "ultra-infer-python":
         wheel_name = f"ultra-infer-{device_type.lower()}-python"
     else:
         if (
-            setup_configs["WITH_GPU"] == "ON"
-            or setup_configs["BUILD_ON_JETSON"] == "ON"
+                setup_configs["WITH_GPU"] == "ON"
+                or setup_configs["BUILD_ON_JETSON"] == "ON"
         ):
             wheel_name = "ultra-infer-gpu-python"
         elif setup_configs["WITH_IPU"] == "ON":
@@ -201,6 +201,7 @@ with open(os.path.join(TOP_DIR, "VERSION_NUMBER")) as version_file:
 ################################################################################
 
 assert CMAKE, 'Could not find "cmake" executable!'
+
 
 ################################################################################
 # Utilities
@@ -462,7 +463,7 @@ if sys.argv[1] == "install" or sys.argv[1] == "bdist_wheel":
         os.path.join(TOP_DIR, "LICENSE"), os.path.join(TOP_DIR, "python", PACKAGE_NAME)
     )
     if not os.path.exists(
-        os.path.join(TOP_DIR, "python", PACKAGE_NAME, "libs", "third_libs")
+            os.path.join(TOP_DIR, "python", PACKAGE_NAME, "libs", "third_libs")
     ):
         print(
             f"Didn't detect path: {PACKAGE_NAME}/libs/third_libs exist, please execute `python setup.py build` first"

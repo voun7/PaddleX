@@ -14,6 +14,11 @@
 
 import numpy as np
 
+from .processors import CTCLabelDecode, OCRReisizeNormImg, ToBatch
+from .result import TextRecResult
+from ..base import BasePredictor
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
 from ....modules.text_recognition.model_list import MODELS
 from ....utils.deps import class_requires_deps, is_dep_available
 from ....utils.fonts import (
@@ -30,11 +35,6 @@ from ....utils.fonts import (
     TH_FONT,
 )
 from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from .processors import CTCLabelDecode, OCRReisizeNormImg, ToBatch
-from .result import TextRecResult
 
 if is_dep_available("python-bidi"):
     from bidi.algorithm import get_display
@@ -42,7 +42,6 @@ if is_dep_available("python-bidi"):
 
 @class_requires_deps("python-bidi")
 class TextRecPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
@@ -110,8 +109,8 @@ class TextRecPredictor(BasePredictor):
             max_wh_ratio=max_wh_ratio,
         )
         if self.model_name in (
-            "arabic_PP-OCRv3_mobile_rec",
-            "arabic_PP-OCRv5_mobile_rec",
+                "arabic_PP-OCRv3_mobile_rec",
+                "arabic_PP-OCRv5_mobile_rec",
         ):
             texts = [get_display(s) for s in texts]
         return {
@@ -155,21 +154,21 @@ class TextRecPredictor(BasePredictor):
             return SIMFANG_FONT
 
         if self.model_name in (
-            "latin_PP-OCRv3_mobile_rec",
-            "latin_PP-OCRv5_mobile_rec",
+                "latin_PP-OCRv3_mobile_rec",
+                "latin_PP-OCRv5_mobile_rec",
         ):
             return LATIN_FONT
 
         if self.model_name in (
-            "cyrillic_PP-OCRv3_mobile_rec",
-            "cyrillic_PP-OCRv5_mobile_rec",
-            "eslav_PP-OCRv5_mobile_rec",
+                "cyrillic_PP-OCRv3_mobile_rec",
+                "cyrillic_PP-OCRv5_mobile_rec",
+                "eslav_PP-OCRv5_mobile_rec",
         ):
             return CYRILLIC_FONT
 
         if self.model_name in (
-            "korean_PP-OCRv3_mobile_rec",
-            "korean_PP-OCRv5_mobile_rec",
+                "korean_PP-OCRv3_mobile_rec",
+                "korean_PP-OCRv5_mobile_rec",
         ):
             return KOREAN_FONT
 
@@ -180,8 +179,8 @@ class TextRecPredictor(BasePredictor):
             return EL_FONT
 
         if self.model_name in (
-            "arabic_PP-OCRv3_mobile_rec",
-            "arabic_PP-OCRv5_mobile_rec",
+                "arabic_PP-OCRv3_mobile_rec",
+                "arabic_PP-OCRv5_mobile_rec",
         ):
             return ARABIC_FONT
 
@@ -195,7 +194,7 @@ class TextRecPredictor(BasePredictor):
             return TAMIL_FONT
 
         if self.model_name in (
-            "devanagari_PP-OCRv3_mobile_rec",
-            "devanagari_PP-OCRv5_mobile_rec",
+                "devanagari_PP-OCRv3_mobile_rec",
+                "devanagari_PP-OCRv5_mobile_rec",
         ):
             return DEVANAGARI_FONT

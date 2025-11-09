@@ -15,8 +15,8 @@
 import shutil
 from pathlib import Path
 
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
 
 
 class MLClsTrainer(BaseTrainer):
@@ -46,8 +46,8 @@ class MLClsTrainer(BaseTrainer):
         if self.train_config.num_classes is not None:
             self.pdx_config.update_num_classes(self.train_config.num_classes)
         if (
-            self.train_config.pretrain_weight_path
-            and self.train_config.pretrain_weight_path != ""
+                self.train_config.pretrain_weight_path
+                and self.train_config.pretrain_weight_path != ""
         ):
             self.pdx_config.update_pretrained_weights(
                 self.train_config.pretrain_weight_path
@@ -75,8 +75,8 @@ class MLClsTrainer(BaseTrainer):
         """
         train_args = {"device": self.get_device()}
         if (
-            self.train_config.resume_path is not None
-            and self.train_config.resume_path != ""
+                self.train_config.resume_path is not None
+                and self.train_config.resume_path != ""
         ):
             train_args["resume_path"] = self.train_config.resume_path
         train_args["dy2st"] = self.train_config.get("dy2st", False)

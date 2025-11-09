@@ -13,28 +13,28 @@ train_dataset:
   dataset_root: /mv_dataset/hazelnut
   transforms:
     - type: Resize
-      target_size: [256, 256]
+      target_size: [ 256, 256 ]
     - type: Normalize
-      mean: [0.485, 0.456, 0.406]
-      std: [0.229, 0.224, 0.225]
+      mean: [ 0.485, 0.456, 0.406 ]
+      std: [ 0.229, 0.224, 0.225 ]
   mode: train
 
 val_dataset:
-  type: Dataset 
+  type: Dataset
   num_classes: 1
   dataset_root: /mv_dataset/hazelnut
   transforms:
     - type: Resize
-      target_size: [256, 256]
+      target_size: [ 256, 256 ]
     - type: Normalize
-      mean: [0.485, 0.456, 0.406]
-      std: [0.229, 0.224, 0.225]
+      mean: [ 0.485, 0.456, 0.406 ]
+      std: [ 0.229, 0.224, 0.225 ]
   mode: val
 
 loss:
   types:
     - type: DistillationLoss
-  coef: [1]
+  coef: [ 1 ]
 
 optimizer:
   type: SGD

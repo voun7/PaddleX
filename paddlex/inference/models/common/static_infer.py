@@ -20,15 +20,6 @@ from typing import List, Sequence, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import class_requires_deps
-from ....utils.device import check_supported_device_type
-from ....utils.flags import (
-    DEBUG,
-    DISABLE_MKLDNN_MODEL_BL,
-    DISABLE_TRT_MODEL_BL,
-    USE_PIR_TRT,
-)
 from ...utils.benchmark import benchmark, set_inference_operations
 from ...utils.hpi import (
     HPIConfig,
@@ -43,6 +34,15 @@ from ...utils.model_paths import get_model_paths
 from ...utils.pp_option import PaddlePredictorOption, get_default_run_mode
 from ...utils.trt_blocklist import TRT_BLOCKLIST
 from ...utils.trt_config import DISABLE_TRT_HALF_OPS_CONFIG
+from ....utils import logging
+from ....utils.deps import class_requires_deps
+from ....utils.device import check_supported_device_type
+from ....utils.flags import (
+    DEBUG,
+    DISABLE_MKLDNN_MODEL_BL,
+    DISABLE_TRT_MODEL_BL,
+    USE_PIR_TRT,
+)
 
 CACHE_DIR = ".cache"
 
@@ -75,12 +75,12 @@ def _pd_dtype_to_np_dtype(pd_dtype):
 
 # old trt
 def _collect_trt_shape_range_info(
-    model_file,
-    model_params,
-    gpu_id,
-    shape_range_info_path,
-    dynamic_shapes,
-    dynamic_shape_input_data,
+        model_file,
+        model_params,
+        gpu_id,
+        shape_range_info_path,
+        dynamic_shapes,
+        dynamic_shape_input_data,
 ):
     import paddle.inference
 
@@ -151,13 +151,13 @@ def _collect_trt_shape_range_info(
 
 # pir trt
 def _convert_trt(
-    trt_cfg_setting,
-    pp_model_file,
-    pp_params_file,
-    trt_save_path,
-    device_id,
-    dynamic_shapes,
-    dynamic_shape_input_data,
+        trt_cfg_setting,
+        pp_model_file,
+        pp_params_file,
+        trt_save_path,
+        device_id,
+        dynamic_shapes,
+        dynamic_shape_input_data,
 ):
     import paddle.inference
     from paddle.tensorrt.export import Input, TensorRTConfig, convert
@@ -270,11 +270,11 @@ class StaticInfer(metaclass=abc.ABCMeta):
 
 class PaddleInfer(StaticInfer):
     def __init__(
-        self,
-        model_name: str,
-        model_dir: Union[str, PathLike],
-        model_file_prefix: str,
-        option: PaddlePredictorOption,
+            self,
+            model_name: str,
+            model_dir: Union[str, PathLike],
+            model_file_prefix: str,
+            option: PaddlePredictorOption,
     ) -> None:
         super().__init__()
         self._model_name = model_name
@@ -301,10 +301,10 @@ class PaddleInfer(StaticInfer):
         # TODO: Check if trt is available
         # check avaliable for trt
         if (
-            not DISABLE_TRT_MODEL_BL
-            and self._option.run_mode.startswith("trt")
-            and self._model_name in TRT_BLOCKLIST
-            and self._option.device_type == "gpu"
+                not DISABLE_TRT_MODEL_BL
+                and self._option.run_mode.startswith("trt")
+                and self._model_name in TRT_BLOCKLIST
+                and self._option.device_type == "gpu"
         ):
             logging.warning(
                 f"The model({self._model_name}) is not supported to run in trt mode! Using `paddle` instead!"
@@ -313,10 +313,10 @@ class PaddleInfer(StaticInfer):
 
         # check avaliable for mkldnn
         elif (
-            not DISABLE_MKLDNN_MODEL_BL
-            and self._option.run_mode.startswith("mkldnn")
-            and self._model_name in MKLDNN_BLOCKLIST
-            and self._option.device_type == "cpu"
+                not DISABLE_MKLDNN_MODEL_BL
+                and self._option.run_mode.startswith("mkldnn")
+                and self._model_name in MKLDNN_BLOCKLIST
+                and self._option.device_type == "cpu"
         ):
             logging.warning(
                 f"The model({self._model_name}) is not supported to run in MKLDNN mode! Using `paddle` instead!"
@@ -329,8 +329,8 @@ class PaddleInfer(StaticInfer):
             import cpuinfo
 
             if (
-                "GenuineIntel" in cpuinfo.get_cpu_info().get("vendor_id_raw", "")
-                and self._option.run_mode != "mkldnn"
+                    "GenuineIntel" in cpuinfo.get_cpu_info().get("vendor_id_raw", "")
+                    and self._option.run_mode != "mkldnn"
             ):
                 logging.warning(
                     "Now, the `LaTeX_OCR_rec` model only support `mkldnn` mode when running on Intel CPU devices. So using `mkldnn` instead."
@@ -338,10 +338,9 @@ class PaddleInfer(StaticInfer):
             self._option.run_mode = "mkldnn"
 
     def _create(
-        self,
+            self,
     ):
         """_create"""
-        import paddle
         import paddle.inference
 
         model_paths = get_model_paths(self.model_dir, self.model_file_prefix)
@@ -358,8 +357,8 @@ class PaddleInfer(StaticInfer):
             logging.debug("`device_id` has been set to None")
 
         if (
-            self._option.device_type in ("gpu", "dcu", "npu", "mlu", "gcu", "xpu", "iluvatar_gpu")
-            and self._option.device_id is None
+                self._option.device_type in ("gpu", "dcu", "npu", "mlu", "gcu", "xpu", "iluvatar_gpu")
+                and self._option.device_id is None
         ):
             self._option.device_id = 0
             logging.debug("`device_id` has been set to 0")
@@ -563,8 +562,8 @@ class PaddleInfer(StaticInfer):
                             self._option.trt_dynamic_shape_input_data,
                         )
                     if (
-                        self._option.model_name in DISABLE_TRT_HALF_OPS_CONFIG
-                        and self._option.run_mode == "trt_fp16"
+                            self._option.model_name in DISABLE_TRT_HALF_OPS_CONFIG
+                            and self._option.run_mode == "trt_fp16"
                     ):
                         paddle.inference.InternalUtils.disable_tensorrt_half_ops(
                             config, DISABLE_TRT_HALF_OPS_CONFIG[self._option.model_name]
@@ -576,8 +575,8 @@ class PaddleInfer(StaticInfer):
                 else:
                     min_shapes, opt_shapes, max_shapes = {}, {}, {}
                     for (
-                        key,
-                        shapes,
+                            key,
+                            shapes,
                     ) in self._option.trt_dynamic_shapes.items():
                         min_shapes[key] = shapes[0]
                         opt_shapes[key] = shapes[1]
@@ -608,10 +607,10 @@ class MultiBackendInfer(object):
 @class_requires_deps("ultra-infer")
 class HPInfer(StaticInfer):
     def __init__(
-        self,
-        model_dir: Union[str, PathLike],
-        model_file_prefix: str,
-        config: HPIConfig,
+            self,
+            model_dir: Union[str, PathLike],
+            model_file_prefix: str,
+            config: HPIConfig,
     ) -> None:
         super().__init__()
         self._model_dir = Path(model_dir)
@@ -715,15 +714,15 @@ class HPInfer(StaticInfer):
                 paddle_info = hpi_info.backend_configs.paddle_infer
         if paddle_info is not None:
             if (
-                kwargs.get("trt_dynamic_shapes") is None
-                and paddle_info.trt_dynamic_shapes is not None
+                    kwargs.get("trt_dynamic_shapes") is None
+                    and paddle_info.trt_dynamic_shapes is not None
             ):
                 trt_dynamic_shapes = paddle_info.trt_dynamic_shapes
                 logging.debug("TensorRT dynamic shapes set to %s", trt_dynamic_shapes)
                 kwargs["trt_dynamic_shapes"] = trt_dynamic_shapes
             if (
-                kwargs.get("trt_dynamic_shape_input_data") is None
-                and paddle_info.trt_dynamic_shape_input_data is not None
+                    kwargs.get("trt_dynamic_shape_input_data") is None
+                    and paddle_info.trt_dynamic_shape_input_data is not None
             ):
                 trt_dynamic_shape_input_data = paddle_info.trt_dynamic_shape_input_data
                 logging.debug(
@@ -814,8 +813,8 @@ class HPInfer(StaticInfer):
             ui_option.set_cpu_thread_num(backend_config.cpu_num_threads)
         elif backend == "tensorrt":
             if (
-                backend_config.get("use_dynamic_shapes", True)
-                and backend_config.get("dynamic_shapes") is None
+                    backend_config.get("use_dynamic_shapes", True)
+                    and backend_config.get("dynamic_shapes") is None
             ):
                 trt_info = None
                 if self._config.hpi_info:

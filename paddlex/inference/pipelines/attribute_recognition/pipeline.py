@@ -16,16 +16,16 @@ from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 
-from ....utils.deps import pipeline_requires_extra
+from .result import AttributeRecResult
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from .result import AttributeRecResult
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -33,12 +33,12 @@ class _AttributeRecPipeline(BasePipeline):
     """Attribute Rec Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ):
         super().__init__(
             device=device, pp_option=pp_option, use_hpip=use_hpip, hpi_config=hpi_config
@@ -60,11 +60,11 @@ class _AttributeRecPipeline(BasePipeline):
         self.img_reader = ReadImage(format="BGR")
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        det_threshold: float = None,
-        cls_threshold: Union[float, dict, list, None] = None,
-        **kwargs
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            det_threshold: float = None,
+            cls_threshold: Union[float, dict, list, None] = None,
+            **kwargs
     ):
         det_threshold = self.det_threshold if det_threshold is None else det_threshold
         cls_threshold = self.cls_threshold if cls_threshold is None else cls_threshold
@@ -72,7 +72,7 @@ class _AttributeRecPipeline(BasePipeline):
             raw_imgs = self.img_reader(batch_data.instances)
             all_det_res = list(self.det_model(raw_imgs, threshold=det_threshold))
             for input_path, input_data, raw_img, det_res in zip(
-                batch_data.input_paths, batch_data.instances, raw_imgs, all_det_res
+                    batch_data.input_paths, batch_data.instances, raw_imgs, all_det_res
             ):
                 cls_res = self.get_cls_result(raw_img, det_res, cls_threshold)
                 yield self.get_final_result(input_path, raw_img, det_res, cls_res)

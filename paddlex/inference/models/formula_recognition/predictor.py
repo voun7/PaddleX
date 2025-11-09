@@ -14,12 +14,6 @@
 
 import numpy as np
 
-from ....modules.formula_recognition.model_list import MODELS
-from ....utils import logging
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
 from .processors import (
     LatexImageFormat,
     LaTeXOCRDecode,
@@ -33,6 +27,12 @@ from .processors import (
     UniMERNetTestTransform,
 )
 from .result import FormulaRecResult
+from ..base import BasePredictor
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.formula_recognition.model_list import MODELS
+from ....utils import logging
+from ....utils.func_register import FuncRegister
 
 
 class FormulaRecPredictor(BasePredictor):
@@ -98,11 +98,11 @@ class FormulaRecPredictor(BasePredictor):
             batch_imgs = self.pre_tfs["UniMERNetTestTransform"](imgs=batch_imgs)
             batch_imgs = self.pre_tfs["UniMERNetImageFormat"](imgs=batch_imgs)
         elif self.model_name in (
-            "PP-FormulaNet-S",
-            "PP-FormulaNet-L",
-            "PP-FormulaNet_plus-S",
-            "PP-FormulaNet_plus-M",
-            "PP-FormulaNet_plus-L",
+                "PP-FormulaNet-S",
+                "PP-FormulaNet-L",
+                "PP-FormulaNet_plus-S",
+                "PP-FormulaNet_plus-M",
+                "PP-FormulaNet_plus-L",
         ):
             batch_imgs = self.pre_tfs["UniMERNetImgDecode"](imgs=batch_raw_imgs)
             batch_imgs = self.pre_tfs["UniMERNetTestTransform"](imgs=batch_imgs)
@@ -148,7 +148,7 @@ class FormulaRecPredictor(BasePredictor):
 
     @register("LatexTestTransform")
     def build_latex_test_transform(
-        self,
+            self,
     ):
         return "LatexTestTransform", LatexTestTransform()
 

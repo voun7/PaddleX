@@ -16,9 +16,9 @@
 import os
 from typing import Union
 
+from ..base_seg_config import BaseSegConfig
 from ....utils import logging
 from ....utils.misc import abspath
-from ..base_seg_config import BaseSegConfig
 
 
 class SegConfig(BaseSegConfig):

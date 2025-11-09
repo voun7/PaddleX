@@ -18,9 +18,9 @@ from typing import List, Optional, Sequence, Tuple, Union
 import numpy as np
 from numpy import ndarray
 
-from ....utils.deps import class_requires_deps, is_dep_available
-from ...utils.benchmark import benchmark
 from ..object_detection.processors import get_affine_transform
+from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -30,7 +30,7 @@ Kpts = List[dict]
 
 
 def get_warp_matrix(
-    theta: float, size_input: ndarray, size_dst: ndarray, size_target: ndarray
+        theta: float, size_input: ndarray, size_dst: ndarray, size_target: ndarray
 ) -> ndarray:
     """This code is based on
         https://github.com/open-mmlab/mmpose/blob/master/mmpose/core/post_processing/post_transforms.py
@@ -54,16 +54,16 @@ def get_warp_matrix(
     matrix[0, 0] = np.cos(theta) * scale_x
     matrix[0, 1] = -np.sin(theta) * scale_x
     matrix[0, 2] = scale_x * (
-        -0.5 * size_input[0] * np.cos(theta)
-        + 0.5 * size_input[1] * np.sin(theta)
-        + 0.5 * size_target[0]
+            -0.5 * size_input[0] * np.cos(theta)
+            + 0.5 * size_input[1] * np.sin(theta)
+            + 0.5 * size_target[0]
     )
     matrix[1, 0] = np.sin(theta) * scale_y
     matrix[1, 1] = np.cos(theta) * scale_y
     matrix[1, 2] = scale_y * (
-        -0.5 * size_input[0] * np.sin(theta)
-        - 0.5 * size_input[1] * np.cos(theta)
-        + 0.5 * size_target[1]
+            -0.5 * size_input[0] * np.sin(theta)
+            - 0.5 * size_input[1] * np.cos(theta)
+            + 0.5 * size_target[1]
     )
 
     return matrix
@@ -86,16 +86,16 @@ class TopDownAffine:
 
     def __init__(self, input_size: Tuple[int, int], use_udp: bool = False):
         assert (
-            all([isinstance(i, int) for i in input_size]) and len(input_size) == 2
+                all([isinstance(i, int) for i in input_size]) and len(input_size) == 2
         ), f"Invalid input_size {input_size}"
         self.input_size = input_size
         self.use_udp = use_udp
 
     def apply(
-        self,
-        img: ndarray,
-        center: Optional[Union[Tuple[Number, Number], ndarray]] = None,
-        scale: Optional[Union[Tuple[Number, Number], ndarray]] = None,
+            self,
+            img: ndarray,
+            center: Optional[Union[Tuple[Number, Number], ndarray]] = None,
+            scale: Optional[Union[Tuple[Number, Number], ndarray]] = None,
     ) -> Tuple[ndarray, ndarray, ndarray]:
         """Applies a wrapaffine to the input image based on the specified center, scale.
 
@@ -179,10 +179,10 @@ def affine_transform(pt: ndarray, t: ndarray):
 
 
 def transform_preds(
-    coords: ndarray,
-    center: Tuple[float, float],
-    scale: Tuple[float, float],
-    output_size: Tuple[int, int],
+        coords: ndarray,
+        center: Tuple[float, float],
+        scale: Tuple[float, float],
+        output_size: Tuple[int, int],
 ) -> ndarray:
     """Transform coordinates to the target space using an affine transformation.
 
@@ -240,7 +240,7 @@ class KptPostProcess:
         ]
 
     def get_final_preds(
-        self, heatmaps: ndarray, center: ndarray, scale: ndarray, kernelsize: int = 3
+            self, heatmaps: ndarray, center: ndarray, scale: ndarray, kernelsize: int = 3
     ):
         """the highest heatvalue location with a quarter offset in the
         direction from the highest response to the second highest response.
@@ -335,15 +335,15 @@ class KptPostProcess:
             dy = 0.5 * (hm[py + 1][px] - hm[py - 1][px])
             dxx = 0.25 * (hm[py][px + 2] - 2 * hm[py][px] + hm[py][px - 2])
             dxy = 0.25 * (
-                hm[py + 1][px + 1]
-                - hm[py - 1][px + 1]
-                - hm[py + 1][px - 1]
-                + hm[py - 1][px - 1]
+                    hm[py + 1][px + 1]
+                    - hm[py - 1][px + 1]
+                    - hm[py + 1][px - 1]
+                    + hm[py - 1][px - 1]
             )
             dyy = 0.25 * (hm[py + 2 * 1][px] - 2 * hm[py][px] + hm[py - 2 * 1][px])
             derivative = np.matrix([[dx], [dy]])
             hessian = np.matrix([[dxx, dxy], [dxy, dyy]])
-            if dxx * dyy - dxy**2 != 0:
+            if dxx * dyy - dxy ** 2 != 0:
                 hessianinv = hessian.I
                 offset = -hessianinv * derivative
                 offset = np.squeeze(np.array(offset.T), axis=0)
@@ -352,7 +352,7 @@ class KptPostProcess:
         return coord
 
     def dark_postprocess(
-        self, hm: ndarray, coords: ndarray, kernelsize: int
+            self, hm: ndarray, coords: ndarray, kernelsize: int
     ) -> ndarray:
         """
         refer to https://github.com/ilovepose/DarkPose/lib/core/inference.py

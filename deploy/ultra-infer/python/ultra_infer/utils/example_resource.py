@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .. import download
 from . import hub_env
+from .. import download
 
 
 def get_detection_test_image(path=None):

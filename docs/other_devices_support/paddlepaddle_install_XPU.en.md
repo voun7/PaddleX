@@ -4,16 +4,22 @@ comments: true
 
 # Kunlun XPU PaddlePaddle Installation Tutorial
 
-Currently, PaddleX supports Kunlun R200/R300/P800 and other chips. Considering environmental differences, we recommend using the <b>Kunlun XPU development image officially released by PaddlePaddle</b>, which is pre-installed with the Kunlun basic runtime environment library (XRE).
-If you are using the P800 chip, please refer to the PaddlePaddle official documentation for installation: [P800 Installation Guide](https://www.paddlepaddle.org.cn/documentation/docs/zh/hardware_support/xpu/xpu-p800_install_cn.html).
+Currently, PaddleX supports Kunlun R200/R300/P800 and other chips. Considering environmental differences, we recommend
+using the <b>Kunlun XPU development image officially released by PaddlePaddle</b>, which is pre-installed with the
+Kunlun basic runtime environment library (XRE).
+If you are using the P800 chip, please refer to the PaddlePaddle official documentation for
+installation: [P800 Installation Guide](https://www.paddlepaddle.org.cn/documentation/docs/zh/hardware_support/xpu/xpu-p800_install_cn.html).
 
 ## 1. Docker Environment Preparation
-Pull the image. This image is only for the development environment and does not include a pre-compiled PaddlePaddle installation package.
+
+Pull the image. This image is only for the development environment and does not include a pre-compiled PaddlePaddle
+installation package.
 
 ```bash
 docker pull registry.baidubce.com/device/paddle-xpu:ubuntu20-x86_64-gcc84-py310 # For X86 architecture
 docker pull registry.baidubce.com/device/paddle-xpu:kylinv10-aarch64-gcc82-py310 # For ARM architecture
 ```
+
 Refer to the following command to start the container:
 
 ```bash
@@ -24,7 +30,10 @@ docker run -it --name=xxx -m 81920M --memory-swap=81920M \
 ```
 
 ## 2. Install Paddle Package
-Currently, Python3.10 wheel installation packages are provided. If you have a need for other Python versions, you can refer to the [PaddlePaddle official documentation](https://www.paddlepaddle.org.cn/en/install/quick) to compile and install them yourself.
+
+Currently, Python3.10 wheel installation packages are provided. If you have a need for other Python versions, you can
+refer to the [PaddlePaddle official documentation](https://www.paddlepaddle.org.cn/en/install/quick) to compile and
+install them yourself.
 
 Install the Python3.10 wheel installation package:
 

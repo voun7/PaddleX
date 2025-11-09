@@ -1,74 +1,74 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-    -   id: check-added-large-files
-        args: ['--maxkb=512']
-    -   id: check-case-conflict
-    -   id: check-merge-conflict
-    -   id: check-symlinks
-    -   id: detect-private-key
-    -   id: end-of-file-fixer
+      - id: check-added-large-files
+        args: [ '--maxkb=512' ]
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
         exclude: |
-            (?x)^(
-              deploy/hps/server_env/requirements/.*\.txt
-            )$
-    -   id: trailing-whitespace
+          (?x)^(
+            deploy/hps/server_env/requirements/.*\.txt
+          )$
+      - id: trailing-whitespace
         files: \.(md|c|cc|cxx|cpp|cu|h|hpp|hxx|py)$
--   repo: https://github.com/Lucas-C/pre-commit-hooks
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.1
     hooks:
-    -   id: remove-crlf
-    -   id: remove-tabs
+      - id: remove-crlf
+      - id: remove-tabs
         files: \.(md|c|cc|cxx|cpp|cu|h|hpp|hxx|py)$
--   repo: local
+  - repo: local
     hooks:
-    -   id: clang-format
+      - id: clang-format
         name: clang-format
         description: Format files with ClangFormat
         entry: bash .precommit/clang_format.hook -i
         language: system
         files: \.(c|cc|cxx|cpp|cu|h|hpp|hxx|cuh|proto)$
-# For Python files
--   repo: https://github.com/psf/black.git
+  # For Python files
+  - repo: https://github.com/psf/black.git
     rev: 24.4.2
     hooks:
-    -   id: black
+      - id: black
         files: (.*\.(py|pyi|bzl)|BUILD|.*\.BUILD|WORKSPACE)$
 
-# Flake8
--   repo: https://github.com/pycqa/flake8
+  # Flake8
+  - repo: https://github.com/pycqa/flake8
     rev: 7.0.0
     hooks:
-    -   id: flake8
+      - id: flake8
         args:
-            - --count
-            - --select=E9,F63,F7,F82,E721,F401
-            - --per-file-ignores=__init__.py:F401
-            - --show-source
-            - --statistics
+          - --count
+          - --select=E9,F63,F7,F82,E721,F401
+          - --per-file-ignores=__init__.py:F401
+          - --show-source
+          - --statistics
 
-# isort
--   repo: https://github.com/pycqa/isort
+  # isort
+  - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
-    -   id: isort
+      - id: isort
         args:
-            - --profile=black
+          - --profile=black
         files: ^paddlex/
 
-# check license
--   repo: local
+  # check license
+  - repo: local
     hooks:
-    -   id: check-license-headers
+      - id: check-license-headers
         name: Check License Headers
         entry: python .precommit/check_license_headers.py
         language: python
         files: .*\.py$
-    -   id: check-imports
+      - id: check-imports
         name: Check Imports
         entry: python .precommit/check_imports.py
         language: python
         files: ^paddlex/.*\.py$
         additional_dependencies:
-            - stdlib-list==0.10.0
+          - stdlib-list==0.10.0

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
 
 
 class BEVFusionTrainer(BaseTrainer):

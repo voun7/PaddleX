@@ -60,12 +60,12 @@ class MultiLabelThreshOutput:
                         f"Invalid value type of threshold: {type(v)}, it must be float"
                     )
                 assert (
-                    k < num_classes
+                        k < num_classes
                 ), f"Invalid key of threshold: {k}, it must be less than the number of classes({num_classes})"
                 threshold_list[k] = v
         elif isinstance(threshold, list):
             assert (
-                len(threshold) == num_classes
+                    len(threshold) == num_classes
             ), f"The length of threshold({len(threshold)}) should be equal to the number of classes({num_classes})."
             threshold_list = threshold
         else:

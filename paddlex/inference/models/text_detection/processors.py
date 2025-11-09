@@ -17,9 +17,9 @@ from typing import Union
 
 import numpy as np
 
+from ...utils.benchmark import benchmark
 from ....utils import logging
 from ....utils.deps import class_requires_deps, is_dep_available
-from ...utils.benchmark import benchmark
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -56,11 +56,11 @@ class DetResizeForTest:
         self.max_side_limit = max_side_limit
 
     def __call__(
-        self,
-        imgs,
-        limit_side_len: Union[int, None] = None,
-        limit_type: Union[str, None] = None,
-        max_side_limit: Union[int, None] = None,
+            self,
+            imgs,
+            limit_side_len: Union[int, None] = None,
+            limit_type: Union[str, None] = None,
+            max_side_limit: Union[int, None] = None,
     ):
         """apply"""
         max_side_limit = (
@@ -76,11 +76,11 @@ class DetResizeForTest:
         return resize_imgs, img_shapes
 
     def resize(
-        self,
-        img,
-        limit_side_len: Union[int, None],
-        limit_type: Union[str, None],
-        max_side_limit: Union[int, None] = None,
+            self,
+            img,
+            limit_side_len: Union[int, None],
+            limit_type: Union[str, None],
+            max_side_limit: Union[int, None] = None,
     ):
         src_h, src_w, _ = img.shape
         if sum([src_h, src_w]) < 64:
@@ -124,11 +124,11 @@ class DetResizeForTest:
         return img, [ratio_h, ratio_w]
 
     def resize_image_type0(
-        self,
-        img,
-        limit_side_len: Union[int, None],
-        limit_type: Union[str, None],
-        max_side_limit: Union[int, None] = None,
+            self,
+            img,
+            limit_side_len: Union[int, None],
+            limit_type: Union[str, None],
+            max_side_limit: Union[int, None] = None,
     ):
         """
         resize image to a size multiple of 32 which is required by the network
@@ -279,15 +279,15 @@ class DBPostProcess:
     """
 
     def __init__(
-        self,
-        thresh=0.3,
-        box_thresh=0.7,
-        max_candidates=1000,
-        unclip_ratio=2.0,
-        use_dilation=False,
-        score_mode="fast",
-        box_type="quad",
-        **kwargs,
+            self,
+            thresh=0.3,
+            box_thresh=0.7,
+            max_candidates=1000,
+            unclip_ratio=2.0,
+            use_dilation=False,
+            score_mode="fast",
+            box_type="quad",
+            **kwargs,
     ):
         super().__init__()
         self.thresh = thresh
@@ -304,13 +304,13 @@ class DBPostProcess:
         self.use_dilation = use_dilation
 
     def polygons_from_bitmap(
-        self,
-        pred,
-        _bitmap,
-        dest_width,
-        dest_height,
-        box_thresh,
-        unclip_ratio,
+            self,
+            pred,
+            _bitmap,
+            dest_width,
+            dest_height,
+            box_thresh,
+            unclip_ratio,
     ):
         """_bitmap: single map with shape (1, H, W), whose values are binarized as {0, 1}"""
 
@@ -361,13 +361,13 @@ class DBPostProcess:
         return boxes, scores
 
     def boxes_from_bitmap(
-        self,
-        pred,
-        _bitmap,
-        dest_width,
-        dest_height,
-        box_thresh,
-        unclip_ratio,
+            self,
+            pred,
+            _bitmap,
+            dest_width,
+            dest_height,
+            box_thresh,
+            unclip_ratio,
     ):
         """_bitmap: single map with shape (1, H, W), whose values are binarized as {0, 1}"""
 
@@ -463,7 +463,7 @@ class DBPostProcess:
         box[:, 0] = box[:, 0] - xmin
         box[:, 1] = box[:, 1] - ymin
         cv2.fillPoly(mask, box.reshape(1, -1, 2).astype(np.int32), 1)
-        return cv2.mean(bitmap[ymin : ymax + 1, xmin : xmax + 1], mask)[0]
+        return cv2.mean(bitmap[ymin: ymax + 1, xmin: xmax + 1], mask)[0]
 
     def box_score_slow(self, bitmap, contour):
         """box_score_slow: use polygon mean score as the mean score"""
@@ -482,15 +482,15 @@ class DBPostProcess:
         contour[:, 1] = contour[:, 1] - ymin
 
         cv2.fillPoly(mask, contour.reshape(1, -1, 2).astype(np.int32), 1)
-        return cv2.mean(bitmap[ymin : ymax + 1, xmin : xmax + 1], mask)[0]
+        return cv2.mean(bitmap[ymin: ymax + 1, xmin: xmax + 1], mask)[0]
 
     def __call__(
-        self,
-        preds,
-        img_shapes,
-        thresh: Union[float, None] = None,
-        box_thresh: Union[float, None] = None,
-        unclip_ratio: Union[float, None] = None,
+            self,
+            preds,
+            img_shapes,
+            thresh: Union[float, None] = None,
+            box_thresh: Union[float, None] = None,
+            unclip_ratio: Union[float, None] = None,
     ):
         """apply"""
         boxes, scores = [], []
@@ -507,12 +507,12 @@ class DBPostProcess:
         return boxes, scores
 
     def process(
-        self,
-        pred,
-        img_shape,
-        thresh,
-        box_thresh,
-        unclip_ratio,
+            self,
+            pred,
+            img_shape,
+            thresh,
+            box_thresh,
+            unclip_ratio,
     ):
         pred = pred[0, :, :]
         segmentation = pred > thresh

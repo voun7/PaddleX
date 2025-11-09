@@ -16,8 +16,8 @@ import os
 
 import numpy as np
 
-from ...common.result import BaseResult
 from .visualizer_3d import Visualizer3D
+from ...common.result import BaseResult
 
 
 class BEV3DDetResult(BaseResult):

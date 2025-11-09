@@ -5,13 +5,20 @@ comments: true
 # Layout Detection Module Tutorial
 
 ## I. Overview
-The core task of structure analysis is to parse and segment the content of input document images. By identifying different elements in the image (such as text, charts, images, etc.), they are classified into predefined categories (e.g., pure text area, title area, table area, image area, list area, etc.), and the position and size of these regions in the document are determined.
+
+The core task of structure analysis is to parse and segment the content of input document images. By identifying
+different elements in the image (such as text, charts, images, etc.), they are classified into predefined categories (
+e.g., pure text area, title area, table area, image area, list area, etc.), and the position and size of these regions
+in the document are determined.
 
 ## II. Supported Model List
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
-* <b>The layout detection model includes 20 common categories: document title, paragraph title, text, page number, abstract, table, references, footnotes, header, footer, algorithm, formula, formula number, image, table, seal, figure_table title, chart, and sidebar text and lists of references</b>
+* <b>The layout detection model includes 20 common categories: document title, paragraph title, text, page number,
+  abstract, table, references, footnotes, header, footer, algorithm, formula, formula number, image, table, seal,
+  figure_table title, chart, and sidebar text and lists of references</b>
+
 <table>
 <thead>
 <tr>
@@ -37,8 +44,8 @@ The core task of structure analysis is to parse and segment the content of input
 </tbody>
 </table>
 
-
 * <b>The layout detection model includes 1 category: Block:</b>
+
 <table>
 <thead>
 <tr>
@@ -64,8 +71,10 @@ The core task of structure analysis is to parse and segment the content of input
 </tbody>
 </table>
 
+* <b>The layout detection model includes 23 common categories: document title, paragraph title, text, page number,
+  abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, figure
+  title, table, table title, seal, chart title, chart, header image, footer image, and sidebar text</b>
 
-* <b>The layout detection model includes 23 common categories: document title, paragraph title, text, page number, abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, figure title, table, table title, seal, chart title, chart, header image, footer image, and sidebar text</b>
 <table>
 <thead>
 <tr>
@@ -108,11 +117,14 @@ The core task of structure analysis is to parse and segment the content of input
 </tbody>
 </table>
 
-> ❗ The above list includes the <b>4 core models</b> that are key supported by the text recognition module. The module actually supports a total of <b>12 full models</b>, including several predefined models with different categories. The complete model list is as follows:
+> ❗ The above list includes the <b>4 core models</b> that are key supported by the text recognition module. The module
+> actually supports a total of <b>12 full models</b>, including several predefined models with different categories. The
+> complete model list is as follows:
 
 <details><summary> 👉 Details of Model List</summary>
 
 * <b>Table Layout Detection Model</b>
+
 <table>
 <thead>
 <tr>
@@ -137,6 +149,7 @@ The core task of structure analysis is to parse and segment the content of input
 </tbody></table>
 
 * <b>3-Class Layout Detection Model, including Table, Image, and Stamp</b>
+
 <table>
 <thead>
 <tr>
@@ -179,6 +192,7 @@ The core task of structure analysis is to parse and segment the content of input
 </tbody></table>
 
 * <b>5-Class English Document Area Detection Model, including Text, Title, Table, Image, and List</b>
+
 <table>
 <thead>
 <tr>
@@ -202,7 +216,10 @@ The core task of structure analysis is to parse and segment the content of input
 </tr>
 </tbody></table>
 
-* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number, Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header, Algorithm, Footer, and Stamp</b>
+* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number,
+  Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header,
+  Algorithm, Footer, and Stamp</b>
+
 <table>
 <thead>
 <tr>
@@ -304,11 +321,15 @@ The core task of structure analysis is to parse and segment the content of input
 
 </details>
 
-
 ## III. Quick Integration  <a id="quick"> </a>
-> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to [PaddleX Local Installation Tutorial](../../../installation/installation.en.md)
 
-After installing the wheel package, a few lines of code can complete the inference of the structure analysis module. You can switch models under this module freely, and you can also integrate the model inference of the structure analysis module into your project. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout.jpg) to your local machine.
+> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer
+> to [PaddleX Local Installation Tutorial](../../../installation/installation.en.md)
+
+After installing the wheel package, a few lines of code can complete the inference of the structure analysis module. You
+can switch models under this module freely, and you can also integrate the model inference of the structure analysis
+module into your project. Before running the following code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout.jpg) to your local machine.
 
 ```python
 from paddlex import create_model
@@ -324,21 +345,27 @@ for res in output:
 
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 <details><summary>👉 <b>After running, the result is: (Click to expand)</b></summary>
 
 ```bash
 {'res': {'input_path': 'layout.jpg', 'page_index': None, 'boxes': [{'cls_id': 2, 'label': 'text', 'score': 0.9870226979255676, 'coordinate': [34.101906, 349.85275, 358.59213, 611.0772]}, {'cls_id': 2, 'label': 'text', 'score': 0.9866003394126892, 'coordinate': [34.500324, 647.1585, 358.29367, 848.66797]}, {'cls_id': 2, 'label': 'text', 'score': 0.9846674203872681, 'coordinate': [385.71445, 497.40973, 711.2261, 697.84265]}, {'cls_id': 8, 'label': 'table', 'score': 0.984126091003418, 'coordinate': [73.76879, 105.94899, 321.95303, 298.84888]}, {'cls_id': 8, 'label': 'table', 'score': 0.9834211468696594, 'coordinate': [436.95642, 105.81531, 662.7168, 313.48462]}, {'cls_id': 2, 'label': 'text', 'score': 0.9832247495651245, 'coordinate': [385.62787, 346.2288, 710.10095, 458.77127]}, {'cls_id': 2, 'label': 'text', 'score': 0.9816061854362488, 'coordinate': [385.7802, 735.1931, 710.56134, 849.9764]}, {'cls_id': 6, 'label': 'figure_title', 'score': 0.9577341079711914, 'coordinate': [34.421448, 20.055151, 358.71283, 76.53663]}, {'cls_id': 6, 'label': 'figure_title', 'score': 0.9505634307861328, 'coordinate': [385.72278, 20.053688, 711.29333, 74.92744]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.9001723527908325, 'coordinate': [386.46344, 477.03488, 699.4023, 490.07474]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.8845751285552979, 'coordinate': [35.413048, 627.73596, 185.58383, 640.52264]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.8837394118309021, 'coordinate': [387.17603, 716.3423, 524.7841, 729.258]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.8508939743041992, 'coordinate': [35.50064, 331.18445, 141.6444, 344.81097]}]}}
 ```
+
 The meanings of the parameters are as follows:
+
 - `input_path`: The path to the input image for prediction.
 - `page_index`: If the input is a PDF file, it indicates which page of the PDF it is; otherwise, it is `None`.
-- `boxes`: Information about the predicted bounding boxes, a list of dictionaries. Each dictionary represents a detected object and contains the following information:
-  - `cls_id`: Class ID, an integer.
-  - `label`: Class label, a string.
-  - `score`: Confidence score of the bounding box, a float.
-  - `coordinate`: Coordinates of the bounding box, a list of floats in the format <code>[xmin, ymin, xmax, ymax]</code>.
+- `boxes`: Information about the predicted bounding boxes, a list of dictionaries. Each dictionary represents a detected
+  object and contains the following information:
+    - `cls_id`: Class ID, an integer.
+    - `label`: Class label, a string.
+    - `score`: Confidence score of the bounding box, a float.
+    - `coordinate`: Coordinates of the bounding box, a list of floats in the
+      format <code>[xmin, ymin, xmax, ymax]</code>.
 
 </details>
 
@@ -347,7 +374,9 @@ The visualized image is as follows:
 
 Relevant methods, parameters, and explanations are as follows:
 
-* `create_model` instantiates a target detection model (here, `PP-DocLayout_plus-L` is used as an example). The detailed explanation is as follows:
+* `create_model` instantiates a target detection model (here, `PP-DocLayout_plus-L` is used as an example). The detailed
+  explanation is as follows:
+
 <table>
 <thead>
 <tr>
@@ -460,9 +489,11 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-* Note that `model_name` must be specified. After specifying `model_name`, the default PaddleX built-in model parameters will be used. If `model_dir` is specified, the user-defined model will be used.
+* Note that `model_name` must be specified. After specifying `model_name`, the default PaddleX built-in model parameters
+  will be used. If `model_dir` is specified, the user-defined model will be used.
 
-* The `predict()` method of the target detection model is called for inference prediction. The parameters of the `predict()` method are `input`, `batch_size`, and `threshold`, which are explained as follows:
+* The `predict()` method of the target detection model is called for inference prediction. The parameters of the
+  `predict()` method are `input`, `batch_size`, and `threshold`, which are explained as follows:
 
 <table>
 <thead>
@@ -549,7 +580,8 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </tr></table>
 
-* Additionally, it also supports obtaining the visualized image with results and the prediction results via attributes, as follows:
+* Additionally, it also supports obtaining the visualized image with results and the prediction results via attributes,
+  as follows:
 
 <table>
 <thead>
@@ -568,15 +600,26 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-For more information on using PaddleX's single-model inference API, refer to [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using PaddleX's single-model inference API, refer
+to [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
-If you seek higher accuracy from existing models, you can use PaddleX's custom development capabilities to develop better structure analysis models. Before developing a structure analysis model with PaddleX, ensure you have installed PaddleX's Detection-related model training capabilities. The installation process can be found in [PaddleX Local Installation Tutorial](../../../installation/installation.en.md).
+
+If you seek higher accuracy from existing models, you can use PaddleX's custom development capabilities to develop
+better structure analysis models. Before developing a structure analysis model with PaddleX, ensure you have installed
+PaddleX's Detection-related model training capabilities. The installation process can be found
+in [PaddleX Local Installation Tutorial](../../../installation/installation.en.md).
 
 ### 4.1 Data Preparation
-Before model training, you need to prepare the corresponding dataset for the task module. PaddleX provides a data validation function for each module, and <b>only data that passes the validation can be used for model training</b>. Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development based on the official demos. If you wish to use private datasets for subsequent model training, refer to the [PaddleX Object Detection Task Module Data Annotation Tutorial](../../../data_annotations/cv_modules/object_detection.en.md).
+
+Before model training, you need to prepare the corresponding dataset for the task module. PaddleX provides a data
+validation function for each module, and <b>only data that passes the validation can be used for model training</b>.
+Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development based
+on the official demos. If you wish to use private datasets for subsequent model training, refer to
+the [PaddleX Object Detection Task Module Data Annotation Tutorial](../../../data_annotations/cv_modules/object_detection.en.md).
 
 #### 4.1.1 Demo Data Download
+
 You can use the following commands to download the demo dataset to a specified folder:
 
 ```bash
@@ -586,6 +629,7 @@ tar -xf ./dataset/det_layout_examples.tar -C ./dataset/
 ```
 
 #### 4.1.2 Data Validation
+
 A single command can complete data validation:
 
 ```bash
@@ -594,7 +638,10 @@ python main.py -c paddlex/configs/modules/layout_detection/PP-DocLayout-L.yaml \
     -o Global.dataset_dir=./dataset/det_layout_examples
 ```
 
-After executing the above command, PaddleX will validate the dataset and collect its basic information. Upon successful execution, the log will print the message `Check dataset passed !`. The validation result file will be saved in `./output/check_dataset_result.json`, and related outputs will be saved in the `./output/check_dataset` directory of the current directory. The output directory includes visualized example images and histograms of sample distributions.
+After executing the above command, PaddleX will validate the dataset and collect its basic information. Upon successful
+execution, the log will print the message `Check dataset passed !`. The validation result file will be saved in
+`./output/check_dataset_result.json`, and related outputs will be saved in the `./output/check_dataset` directory of the
+current directory. The output directory includes visualized example images and histograms of sample distributions.
 
 <details><summary>👉 <b>Validation Result Details (Click to Expand)</b></summary>
 <p>The specific content of the validation result file is:</p>
@@ -637,7 +684,8 @@ After executing the above command, PaddleX will validate the dataset and collect
 
 #### 4.1.3 Dataset Format Conversion/Dataset Splitting (Optional)
 
-After completing dataset verification, you can convert the dataset format or re-split the training/validation ratio by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
+After completing dataset verification, you can convert the dataset format or re-split the training/validation ratio
+by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
 
 <details><summary>👉 <b>Details on Format Conversion/Dataset Splitting (Click to Expand)</b></summary>
 <p><b>(1) Dataset Format Conversion</b></p>
@@ -684,13 +732,21 @@ python main.py -c paddlex/configs/modules/layout_detection/PP-DocLayout-L.yaml \
     -o Global.mode=train \
     -o Global.dataset_dir=./dataset/det_layout_examples
 ```
+
 The steps required are:
 
-* Specify the path to the `.yaml` configuration file of the model (here it is `PP-DocLayout-L.yaml`,When training other models, you need to specify the corresponding configuration files. The relationship between the model and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
+* Specify the path to the `.yaml` configuration file of the model (here it is `PP-DocLayout-L.yaml`,When training other
+  models, you need to specify the corresponding configuration files. The relationship between the model and
+  configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
 * Specify the mode as model training: `-o Global.mode=train`
 * Specify the path to the training dataset: `-o Global.dataset_dir`
-* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file, or adjusted by appending parameters in the command line. For example, to specify training on the first two GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the [PaddleX Common Configuration Parameters for Model Tasks](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file, or
+  adjusted by appending parameters in the command line. For example, to specify training on the first two GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to
+  the [PaddleX Common Configuration Parameters for Model Tasks](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 <ul>
@@ -709,52 +765,78 @@ The steps required are:
 </ul></details>
 
 ### <b>4.3 Model Evaluation</b>
-After completing model training, you can evaluate the specified model weight file on the validation set to verify the model's accuracy. Using PaddleX for model evaluation, you can complete the evaluation with a single command:
+
+After completing model training, you can evaluate the specified model weight file on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation, you can complete the evaluation with a single command:
 
 ```bash
 python main.py -c paddlex/configs/modules/layout_detection/PP-DocLayout-L.yaml \
     -o Global.mode=evaluate \
     -o Global.dataset_dir=./dataset/det_layout_examples
 ```
+
 Similar to model training, the process involves the following steps:
 
 * Specify the path to the `.yaml` configuration file for the model（here it's `PP-DocLayout-L.yaml`）
 * Set the mode to model evaluation: `-o Global.mode=evaluate`
 * Specify the path to the validation dataset: `-o Global.dataset_dir`
-Other related parameters can be configured by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration file. For detailed information, please refer to [PaddleX Common Configuration Parameters for Models](../../instructions/config_parameters_common.en.md)。
+  Other related parameters can be configured by modifying the fields under `Global` and `Evaluate` in the `.yaml`
+  configuration file. For detailed information, please refer
+  to [PaddleX Common Configuration Parameters for Models](../../instructions/config_parameters_common.en.md)。
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 <p>When evaluating the model, you need to specify the model weights file path. Each configuration file has a default weight save path built-in. If you need to change it, simply set it by appending a command line parameter, such as <code>-o Evaluate.weight_path=./output/best_model/best_model/model.pdparams</code>.</p>
 <p>After completing the model evaluation, an <code>evaluate_result.json</code> file will be generated, which records the evaluation results, specifically whether the evaluation task was completed successfully, and the model's evaluation metrics, including AP.</p></details>
 
 ### <b>4.4 Model Inference</b>
-After completing model training and evaluation, you can use the trained model weights for inference predictions. In PaddleX, model inference predictions can be achieved through two methods: command line and wheel package.
+
+After completing model training and evaluation, you can use the trained model weights for inference predictions. In
+PaddleX, model inference predictions can be achieved through two methods: command line and wheel package.
 
 #### 4.4.1 Model Inference
-* To perform inference predictions through the command line, simply use the following command. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout.jpg) to your local machine.
+
+* To perform inference predictions through the command line, simply use the following command. Before running the
+  following code, please download
+  the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout.jpg) to your local machine.
+
 ```bash
 python main.py -c paddlex/configs/modules/layout_detection/PP-DocLayout-L.yaml \
     -o Global.mode=predict \
     -o Predict.model_dir="./output/best_model/inference" \
     -o Predict.input="layout.jpg"
 ```
+
 Similar to model training and evaluation, the following steps are required:
 
 * Specify the `.yaml` configuration file path of the model (here it is `PP-DocLayout-L.yaml`)
 * Set the mode to model inference prediction: `-o Global.mode=predict`
 * Specify the model weights path: `-o Predict.model_dir="./output/best_model/inference"`
 * Specify the input data path: `-o Predict.input="..."`
-Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration file. For details, please refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration
+  file. For details, please refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
-* Alternatively, you can use the PaddleX wheel package for inference, easily integrating the model into your own project. To integrate, simply add the `model_dir="/output/best_model/inference"` parameter to the `create_model(model_name=model_name, kernel_option=kernel_option)` function in the quick integration method from Step 3.
+* Alternatively, you can use the PaddleX wheel package for inference, easily integrating the model into your own
+  project. To integrate, simply add the `model_dir="/output/best_model/inference"` parameter to the
+  `create_model(model_name=model_name, kernel_option=kernel_option)` function in the quick integration method from Step
+  3.
 
 #### 4.4.2 Model Integration
+
 The model can be directly integrated into PaddleX pipelines or into your own projects.
 
 1. <b>Pipeline Integration</b>
-The structure analysis module can be integrated into PaddleX pipelines such as the [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md) and the [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../..//pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md). Simply replace the model path to update the layout area localization module. In pipeline integration, you can use high-performance inference and serving deployment to deploy your model.
+   The structure analysis module can be integrated into PaddleX pipelines such as
+   the [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md) and
+   the [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../..//pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md).
+   Simply replace the model path to update the layout area localization module. In pipeline integration, you can use
+   high-performance inference and serving deployment to deploy your model.
 
 1. <b>Module Integration</b>
-The weights you produce can be directly integrated into the layout area localization module. You can refer to the Python example code in the [Quick Integration](#quick) section, simply replacing the model with the path to your trained model.
+   The weights you produce can be directly integrated into the layout area localization module. You can refer to the
+   Python example code in the [Quick Integration](#quick) section, simply replacing the model with the path to your
+   trained model.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

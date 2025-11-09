@@ -15,8 +15,8 @@
 
 import numpy as np
 
-from ...utils.benchmark import benchmark
 from ..common.vision import funcs as F
+from ...utils.benchmark import benchmark
 
 
 @benchmark.timeit
@@ -131,9 +131,9 @@ class TableLabelDecode:
         )
         structure_str_list = [
             (
-                ["<html>", "<body>", "<table>"]
-                + structure
-                + ["</table>", "</body>", "</html>"]
+                    ["<html>", "<body>", "<table>"]
+                    + structure
+                    + ["</table>", "</body>", "</html>"]
             )
             for structure in structure_str_list
         ]

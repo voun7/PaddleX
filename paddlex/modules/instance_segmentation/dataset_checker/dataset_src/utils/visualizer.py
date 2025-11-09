@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
 import PIL
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 from ......utils import logging
@@ -141,7 +141,7 @@ def draw_bbox(image, coco_info: "COCO", img_id):
         catid = ann["category_id"]
         catid_num_dict[catid] = catid_num_dict.get(catid, 0) + 1
     for i, (catid, _) in enumerate(
-        sorted(catid_num_dict.items(), key=lambda x: x[1], reverse=True)
+            sorted(catid_num_dict.items(), key=lambda x: x[1], reverse=True)
     ):
         if catid not in catid2color:
             color_index = i % len(color_list)

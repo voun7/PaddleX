@@ -6,10 +6,10 @@ Global:
   output: "output"
 
 CheckDataset:
-  convert: 
+  convert:
     enable: False
     src_dataset_type: null
-  split: 
+  split:
     enable: False
     train_percent: null
     val_percent: null
@@ -24,7 +24,7 @@ Train:
   resume_path: null
   log_interval: 10
   eval_interval: 100
-  input_shape: [1, 3, 512, 512] # export the model with fixed input shape
+  input_shape: [ 1, 3, 512, 512 ] # export the model with fixed input shape
 
 Evaluate:
   weight_path: "output/best_model/model.pdparams"
@@ -32,7 +32,7 @@ Evaluate:
 
 Export:
   weight_path: https://paddle-model-ecology.bj.bcebos.com/paddlex/official_pretrained_model/MaskFormer_small_pretrained.pdparams
-  input_shape: [1, 3, 512, 512]
+  input_shape: [ 1, 3, 512, 512 ]
 
 Predict:
   batch_size: 1

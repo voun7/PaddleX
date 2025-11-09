@@ -15,8 +15,8 @@
 
 import os
 
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
 
 
 class SegTrainer(BaseTrainer):
@@ -30,8 +30,8 @@ class SegTrainer(BaseTrainer):
         if self.train_config.num_classes is not None:
             self.pdx_config.update_num_classes(self.train_config.num_classes)
         if (
-            self.train_config.pretrain_weight_path
-            and self.train_config.pretrain_weight_path != ""
+                self.train_config.pretrain_weight_path
+                and self.train_config.pretrain_weight_path != ""
         ):
             self.pdx_config.update_pretrained_weights(
                 self.train_config.pretrain_weight_path, is_backbone=True
@@ -53,8 +53,8 @@ class SegTrainer(BaseTrainer):
         if self.train_config.epochs_iters is not None:
             train_args["epochs_iters"] = self.train_config.epochs_iters
         if (
-            self.train_config.resume_path is not None
-            and self.train_config.resume_path != ""
+                self.train_config.resume_path is not None
+                and self.train_config.resume_path != ""
         ):
             train_args["resume_path"] = self.train_config.resume_path
         if self.global_config.output is not None:

@@ -4,10 +4,14 @@ comments: true
 
 # Hygon DCU PaddlePaddle Installation Tutorial
 
-Currently, PaddleX supports HYGON Z100 series chips. Considering environmental differences, we recommend using the <b>officially released HYGON DCU development image by PaddlePaddle</b>, which is pre-installed with the HYGON DCU basic runtime library (DTK).
+Currently, PaddleX supports HYGON Z100 series chips. Considering environmental differences, we recommend using the <b>
+officially released HYGON DCU development image by PaddlePaddle</b>, which is pre-installed with the HYGON DCU basic
+runtime library (DTK).
 
 ## 1. Docker Environment Preparation
-Pull the image. Note that this image is only for development environments and does not include pre-compiled PaddlePaddle installation packages.
+
+Pull the image. Note that this image is only for development environments and does not include pre-compiled PaddlePaddle
+installation packages.
 
 ```bash
 docker pull ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddle-dcu:dtk24.04.1-kylinv10-gcc82
@@ -25,7 +29,9 @@ docker run -it --name paddle-dcu-dev -v $(pwd):/work \
 ```
 
 ## 2. Install PaddlePaddle Package
-Within the started docker container, download and install the wheel package released by PaddlePaddle's official website. <b>Note</b>: The DCU version of PaddlePaddle framework only supports Hygon C86 architecture.
+
+Within the started docker container, download and install the wheel package released by PaddlePaddle's official
+website. <b>Note</b>: The DCU version of PaddlePaddle framework only supports Hygon C86 architecture.
 
 ```bash
 # Download and install the wheel package

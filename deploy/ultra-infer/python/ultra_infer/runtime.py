@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import absolute_import
+
 import logging
+
 import numpy as np
+
 from . import ModelFormat
 from . import c_lib_wrap as C
 
@@ -133,7 +136,7 @@ class Runtime:
             index, int
         ), "The input parameter index should be type of int."
         assert (
-            index < self.num_inputs()
+                index < self.num_inputs()
         ), "The input parameter index:{} should less than number of inputs:{}.".format(
             index, self.num_inputs
         )
@@ -149,7 +152,7 @@ class Runtime:
             index, int
         ), "The input parameter index should be type of int."
         assert (
-            index < self.num_outputs()
+                index < self.num_outputs()
         ), "The input parameter index:{} should less than number of outputs:{}.".format(
             index, self.num_outputs
         )
@@ -171,7 +174,7 @@ class RuntimeOption:
         self._option = C.RuntimeOption()
 
     def set_model_path(
-        self, model_path, params_path="", model_format=ModelFormat.PADDLE
+            self, model_path, params_path="", model_format=ModelFormat.PADDLE
     ):
         """Set path of model file and parameters file
 
@@ -182,7 +185,7 @@ class RuntimeOption:
         return self._option.set_model_path(model_path, params_path, model_format)
 
     def set_model_buffer(
-        self, model_buffer, params_buffer="", model_format=ModelFormat.PADDLE
+            self, model_buffer, params_buffer="", model_format=ModelFormat.PADDLE
     ):
         """Specify the memory buffer of model and parameter. Used when model and params are loaded directly from memory
         :param model_buffer: (bytes)The memory buffer of model
@@ -204,16 +207,16 @@ class RuntimeOption:
         return self._option.use_gpu(device_id)
 
     def use_kunlunxin(
-        self,
-        device_id=0,
-        l3_workspace_size=16 * 1024 * 1024,
-        locked=False,
-        autotune=True,
-        autotune_file="",
-        precision="int16",
-        adaptive_seqlen=False,
-        enable_multi_stream=False,
-        gm_default_size=0,
+            self,
+            device_id=0,
+            l3_workspace_size=16 * 1024 * 1024,
+            locked=False,
+            autotune=True,
+            autotune_file="",
+            precision="int16",
+            adaptive_seqlen=False,
+            enable_multi_stream=False,
+            gm_default_size=0,
     ):
         """Inference with KunlunXin XPU
 
@@ -248,7 +251,7 @@ class RuntimeOption:
         return self._option.use_cpu()
 
     def use_rknpu2(
-        self, rknpu2_name=C.CpuName.RK356X, rknpu2_core=C.CoreMask.RKNN_NPU_CORE_AUTO
+            self, rknpu2_name=C.CpuName.RK356X, rknpu2_core=C.CoreMask.RKNN_NPU_CORE_AUTO
     ):
         return self._option.use_rknpu2(rknpu2_name, rknpu2_core)
 
@@ -370,7 +373,7 @@ class RuntimeOption:
         )
 
     def set_lite_mixed_precision_quantization_config_path(
-        self, mixed_precision_quantization_config_path
+            self, mixed_precision_quantization_config_path
     ):
         """Set nnadapter mixed precision quantization config path for Paddle Lite backend.."""
         logging.warning(
@@ -465,7 +468,7 @@ class RuntimeOption:
         self._option.paddle_lite_option.power_mode = mode
 
     def set_trt_input_shape(
-        self, tensor_name, min_shape, opt_shape=None, max_shape=None
+            self, tensor_name, min_shape, opt_shape=None, max_shape=None
     ):
         """Set shape range information while using TensorRT backend with loadding a model contains dynamic input shape. While inference with a new input shape out of the set shape range, the tensorrt engine will be rebuilt to expand the shape range information.
 
@@ -482,14 +485,14 @@ class RuntimeOption:
             max_shape = min_shape
         else:
             assert (
-                opt_shape is not None and max_shape is not None
+                    opt_shape is not None and max_shape is not None
             ), "Set min_shape only, or set min_shape, opt_shape, max_shape both."
         return self._option.trt_option.set_shape(
             tensor_name, min_shape, opt_shape, max_shape
         )
 
     def set_trt_input_data(
-        self, tensor_name, min_input_data, opt_input_data=None, max_input_data=None
+            self, tensor_name, min_input_data, opt_input_data=None, max_input_data=None
     ):
         """Set input data while using TensorRT backend with loadding a model contains dynamic input shape.
 
@@ -506,7 +509,7 @@ class RuntimeOption:
             opt_input_data = min_input_data
         else:
             assert (
-                opt_input_data is not None and max_input_data is not None
+                    opt_input_data is not None and max_input_data is not None
             ), "Set min_input_data only, or set min_input_data, opt_input_data, max_input_data both."
         return self._option.trt_option.set_input_data(
             tensor_name, min_input_data, opt_input_data, max_input_data
@@ -608,22 +611,22 @@ class RuntimeOption:
         self._option.disable_trt_ops(ops)
 
     def use_ipu(
-        self,
-        device_num=1,
-        micro_batch_size=1,
-        enable_pipelining=False,
-        batches_per_step=1,
+            self,
+            device_num=1,
+            micro_batch_size=1,
+            enable_pipelining=False,
+            batches_per_step=1,
     ):
         return self._option.use_ipu(
             device_num, micro_batch_size, enable_pipelining, batches_per_step
         )
 
     def set_ipu_config(
-        self,
-        enable_fp16=False,
-        replica_num=1,
-        available_memory_proportion=1.0,
-        enable_half_partial=False,
+            self,
+            enable_fp16=False,
+            replica_num=1,
+            available_memory_proportion=1.0,
+            enable_half_partial=False,
     ):
         logging.warning(
             "`RuntimeOption.set_ipu_config` will be deprecated in v1.2.0, please use `RuntimeOption.paddle_infer_option.set_ipu_config()` instead."

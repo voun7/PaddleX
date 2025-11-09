@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
 
 
 class TableRecTrainer(BaseTrainer):
@@ -47,8 +47,8 @@ class TableRecTrainer(BaseTrainer):
         if self.train_config.epochs_iters is not None:
             self.pdx_config._update_epochs(self.train_config.epochs_iters)
         if (
-            self.train_config.resume_path is not None
-            and self.train_config.resume_path != ""
+                self.train_config.resume_path is not None
+                and self.train_config.resume_path != ""
         ):
             self.pdx_config._update_checkpoints(self.train_config.resume_path)
         if self.global_config.output is not None:

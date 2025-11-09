@@ -31,15 +31,15 @@ __all__ = [
 
 
 def _fusion_flash_attention(
-    q,
-    k,
-    v,
-    training_mode,
-    attention_probs_dropout_prob,
-    use_sparse_flash_attn,
-    attention_mask=None,
-    attn_mask_start_row_indices=None,
-    rr_flash_attn=None,
+        q,
+        k,
+        v,
+        training_mode,
+        attention_probs_dropout_prob,
+        use_sparse_flash_attn,
+        attention_mask=None,
+        attn_mask_start_row_indices=None,
+        rr_flash_attn=None,
 ):
     """
     Performs fused flash attention with multiple implementation variants.

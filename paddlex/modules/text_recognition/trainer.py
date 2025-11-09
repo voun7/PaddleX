@@ -16,8 +16,8 @@
 import shutil
 from pathlib import Path
 
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
 
 
 class TextRecTrainer(BaseTrainer):
@@ -70,8 +70,8 @@ class TextRecTrainer(BaseTrainer):
 
         if self.global_config["model"] == "LaTeX_OCR_rec":
             if (
-                self.train_config.batch_size_train is not None
-                and self.train_config.batch_size_val
+                    self.train_config.batch_size_train is not None
+                    and self.train_config.batch_size_val
             ):
                 self.pdx_config.update_batch_size_pair(
                     self.train_config.batch_size_train, self.train_config.batch_size_val
@@ -85,8 +85,8 @@ class TextRecTrainer(BaseTrainer):
         if self.train_config.epochs_iters is not None:
             self.pdx_config._update_epochs(self.train_config.epochs_iters)
         if (
-            self.train_config.resume_path is not None
-            and self.train_config.resume_path != ""
+                self.train_config.resume_path is not None
+                and self.train_config.resume_path != ""
         ):
             self.pdx_config._update_checkpoints(self.train_config.resume_path)
         if self.global_config.output is not None:

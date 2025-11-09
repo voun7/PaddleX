@@ -25,9 +25,9 @@ from typing import Dict, List, Optional, Tuple, Union
 import numpy as np
 from PIL import Image
 
+from .setting import BLOCK_LABEL_MAP, REGION_SETTINGS
 from ..components import convert_points_to_boxes
 from ..ocr.result import OCRResult
-from .setting import BLOCK_LABEL_MAP, REGION_SETTINGS
 
 
 def get_overlap_boxes_idx(src_boxes: np.ndarray, ref_boxes: np.ndarray) -> List:
@@ -57,10 +57,10 @@ def get_overlap_boxes_idx(src_boxes: np.ndarray, ref_boxes: np.ndarray) -> List:
 
 
 def get_sub_regions_ocr_res(
-    overall_ocr_res: OCRResult,
-    object_boxes: List,
-    flag_within: bool = True,
-    return_match_idx: bool = False,
+        overall_ocr_res: OCRResult,
+        object_boxes: List,
+        flag_within: bool = True,
+        return_match_idx: bool = False,
 ) -> OCRResult:
     """
     Filters OCR results to only include text boxes within specified object boxes based on a flag.
@@ -144,8 +144,8 @@ def sorted_layout_boxes(res, w):
             break
         # Check that the bbox is on the left
         elif (
-            _boxes[i]["block_bbox"][0] < w / 4
-            and _boxes[i]["block_bbox"][2] < 3 * w / 5
+                _boxes[i]["block_bbox"][0] < w / 4
+                and _boxes[i]["block_bbox"][2] < 3 * w / 5
         ):
             res_left.append(_boxes[i])
             i += 1
@@ -172,10 +172,10 @@ def sorted_layout_boxes(res, w):
 
 
 def calculate_projection_overlap_ratio(
-    bbox1: List[float],
-    bbox2: List[float],
-    direction: str = "horizontal",
-    mode="union",
+        bbox1: List[float],
+        bbox2: List[float],
+        direction: str = "horizontal",
+        mode="union",
 ) -> float:
     """
     Calculate the IoU of lines between two bounding boxes.
@@ -219,9 +219,9 @@ def calculate_projection_overlap_ratio(
 
 
 def calculate_overlap_ratio(
-    bbox1: Union[np.ndarray, list, tuple],
-    bbox2: Union[np.ndarray, list, tuple],
-    mode="union",
+        bbox1: Union[np.ndarray, list, tuple],
+        bbox2: Union[np.ndarray, list, tuple],
+        mode="union",
 ) -> float:
     """
     Calculate the overlap ratio between two bounding boxes using NumPy.
@@ -350,10 +350,10 @@ def gather_imgs(original_img, layout_det_objs):
 
 
 def _get_minbox_if_overlap_by_ratio(
-    bbox1: Union[List[int], Tuple[int, int, int, int]],
-    bbox2: Union[List[int], Tuple[int, int, int, int]],
-    ratio: float,
-    smaller: bool = True,
+        bbox1: Union[List[int], Tuple[int, int, int, int]],
+        bbox2: Union[List[int], Tuple[int, int, int, int]],
+        ratio: float,
+        smaller: bool = True,
 ) -> Optional[Union[List[int], Tuple[int, int, int, int]]]:
     """
     Determine if the overlap area between two bounding boxes exceeds a given ratio
@@ -384,7 +384,7 @@ def _get_minbox_if_overlap_by_ratio(
 
 
 def remove_overlap_blocks(
-    blocks: List[Dict[str, List[int]]], threshold: float = 0.65, smaller: bool = True
+        blocks: List[Dict[str, List[int]]], threshold: float = 0.65, smaller: bool = True
 ) -> Tuple[List[Dict[str, List[int]]], List[Dict[str, List[int]]]]:
     """
     Remove overlapping blocks based on a specified overlap ratio threshold.
@@ -481,12 +481,12 @@ def get_bbox_intersection(bbox1, bbox2, return_format="bbox"):
 
 
 def shrink_supplement_region_bbox(
-    supplement_region_bbox,
-    ref_region_bbox,
-    image_width,
-    image_height,
-    block_idxes_set,
-    block_bboxes,
+        supplement_region_bbox,
+        ref_region_bbox,
+        image_width,
+        image_height,
+        block_idxes_set,
+        block_bboxes,
 ) -> List:
     """
     Shrink the supplement region bbox according to the reference region bbox and match the block bboxes.
@@ -526,11 +526,11 @@ def shrink_supplement_region_bbox(
                 tmp_region_bbox, block_bboxes[block_idx], mode="small"
             )
             if overlap_ratio > REGION_SETTINGS.get(
-                "match_block_overlap_ratio_threshold", 0.8
+                    "match_block_overlap_ratio_threshold", 0.8
             ):
                 iner_block_idxes.append(block_idx)
             elif overlap_ratio > REGION_SETTINGS.get(
-                "split_block_overlap_ratio_threshold", 0.4
+                    "split_block_overlap_ratio_threshold", 0.4
             ):
                 split_block_idxes.append(block_idx)
 
@@ -657,13 +657,13 @@ def get_seg_flag(block, prev_block):
         num_of_prev_lines = prev_block.num_of_lines
         pre_block_seg_end_coordinate = prev_block.seg_end_coordinate
         prev_end_space_small = (
-            abs(prev_block.end_coordinate - pre_block_seg_end_coordinate) < 10
+                abs(prev_block.end_coordinate - pre_block_seg_end_coordinate) < 10
         )
         prev_lines_more_than_one = num_of_prev_lines > 1
 
         overlap_blocks = (
-            context_left_coordinate < prev_block.end_coordinate
-            and context_right_coordinate > prev_block.start_coordinate
+                context_left_coordinate < prev_block.end_coordinate
+                and context_right_coordinate > prev_block.start_coordinate
         )
 
         # update context_left_coordinate and context_right_coordinate
@@ -675,7 +675,7 @@ def get_seg_flag(block, prev_block):
                 prev_block.end_coordinate, context_right_coordinate
             )
             prev_end_space_small = (
-                abs(context_right_coordinate - pre_block_seg_end_coordinate) < 10
+                    abs(context_right_coordinate - pre_block_seg_end_coordinate) < 10
             )
             edge_distance = 0
         else:
@@ -684,10 +684,10 @@ def get_seg_flag(block, prev_block):
         current_start_space_small = seg_start_coordinate - context_left_coordinate < 10
 
         if (
-            prev_end_space_small
-            and current_start_space_small
-            and prev_lines_more_than_one
-            and edge_distance < max(prev_block.width, block.width)
+                prev_end_space_small
+                and current_start_space_small
+                and prev_lines_more_than_one
+                and edge_distance < max(prev_block.width, block.width)
         ):
             seg_start_flag = False
     else:

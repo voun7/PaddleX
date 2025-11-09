@@ -21,9 +21,9 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+from .utils.visualizer import draw_keypoint
 from .....utils.deps import function_requires_deps, is_dep_available
 from .....utils.errors import DatasetFileNotFoundError
-from .utils.visualizer import draw_keypoint
 
 if is_dep_available("pycocotools"):
     from pycocotools.coco import COCO

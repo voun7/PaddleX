@@ -21,6 +21,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
+from .pipeline_base import PP_ChatOCR_Pipeline
+from ..components.chat_server import BaseChat
+from ..layout_parsing.result import LayoutParsingResult
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ...utils.benchmark import benchmark
+from ...utils.hpi import HPIConfig
+from ...utils.pp_option import PaddlePredictorOption
 from ....utils import logging
 from ....utils.deps import (
     function_requires_deps,
@@ -28,14 +36,6 @@ from ....utils.deps import (
     pipeline_requires_extra,
 )
 from ....utils.file_interface import custom_open
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ...utils.benchmark import benchmark
-from ...utils.hpi import HPIConfig
-from ...utils.pp_option import PaddlePredictorOption
-from ..components.chat_server import BaseChat
-from ..layout_parsing.result import LayoutParsingResult
-from .pipeline_base import PP_ChatOCR_Pipeline
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -49,13 +49,13 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
     entities = ["PP-ChatOCRv4-doc"]
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
-        initial_predictor: bool = True,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            initial_predictor: bool = True,
     ) -> None:
         """Initializes the pp-chatocrv3-doc pipeline.
 
@@ -251,30 +251,30 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
 
     # Function to perform visual prediction on input images
     def visual_predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_textline_orientation: Optional[bool] = None,
-        use_seal_recognition: Optional[bool] = None,
-        use_table_recognition: Optional[bool] = None,
-        layout_threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
-        seal_det_limit_side_len: Optional[int] = None,
-        seal_det_limit_type: Optional[str] = None,
-        seal_det_thresh: Optional[float] = None,
-        seal_det_box_thresh: Optional[float] = None,
-        seal_det_unclip_ratio: Optional[float] = None,
-        seal_rec_score_thresh: Optional[float] = None,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_textline_orientation: Optional[bool] = None,
+            use_seal_recognition: Optional[bool] = None,
+            use_table_recognition: Optional[bool] = None,
+            layout_threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
+            seal_det_limit_side_len: Optional[int] = None,
+            seal_det_limit_type: Optional[str] = None,
+            seal_det_thresh: Optional[float] = None,
+            seal_det_box_thresh: Optional[float] = None,
+            seal_det_unclip_ratio: Optional[float] = None,
+            seal_rec_score_thresh: Optional[float] = None,
+            **kwargs,
     ) -> dict:
         """
         This function takes an input image or a list of images and performs various visual
@@ -325,30 +325,29 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
             self.inintial_visual_predictor(self.config)
 
         for layout_parsing_result in self.layout_parsing_pipeline.predict(
-            input,
-            use_doc_orientation_classify=use_doc_orientation_classify,
-            use_doc_unwarping=use_doc_unwarping,
-            use_textline_orientation=use_textline_orientation,
-            use_seal_recognition=use_seal_recognition,
-            use_table_recognition=use_table_recognition,
-            layout_threshold=layout_threshold,
-            layout_nms=layout_nms,
-            layout_unclip_ratio=layout_unclip_ratio,
-            layout_merge_bboxes_mode=layout_merge_bboxes_mode,
-            text_det_limit_side_len=text_det_limit_side_len,
-            text_det_limit_type=text_det_limit_type,
-            text_det_thresh=text_det_thresh,
-            text_det_box_thresh=text_det_box_thresh,
-            text_det_unclip_ratio=text_det_unclip_ratio,
-            text_rec_score_thresh=text_rec_score_thresh,
-            seal_det_box_thresh=seal_det_box_thresh,
-            seal_det_limit_side_len=seal_det_limit_side_len,
-            seal_det_limit_type=seal_det_limit_type,
-            seal_det_thresh=seal_det_thresh,
-            seal_det_unclip_ratio=seal_det_unclip_ratio,
-            seal_rec_score_thresh=seal_rec_score_thresh,
+                input,
+                use_doc_orientation_classify=use_doc_orientation_classify,
+                use_doc_unwarping=use_doc_unwarping,
+                use_textline_orientation=use_textline_orientation,
+                use_seal_recognition=use_seal_recognition,
+                use_table_recognition=use_table_recognition,
+                layout_threshold=layout_threshold,
+                layout_nms=layout_nms,
+                layout_unclip_ratio=layout_unclip_ratio,
+                layout_merge_bboxes_mode=layout_merge_bboxes_mode,
+                text_det_limit_side_len=text_det_limit_side_len,
+                text_det_limit_type=text_det_limit_type,
+                text_det_thresh=text_det_thresh,
+                text_det_box_thresh=text_det_box_thresh,
+                text_det_unclip_ratio=text_det_unclip_ratio,
+                text_rec_score_thresh=text_rec_score_thresh,
+                seal_det_box_thresh=seal_det_box_thresh,
+                seal_det_limit_side_len=seal_det_limit_side_len,
+                seal_det_limit_type=seal_det_limit_type,
+                seal_det_thresh=seal_det_thresh,
+                seal_det_unclip_ratio=seal_det_unclip_ratio,
+                seal_rec_score_thresh=seal_rec_score_thresh,
         ):
-
             visual_info = self.decode_visual_result(layout_parsing_result)
 
             visual_predict_res = {
@@ -393,7 +392,7 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
         return visual_info_list
 
     def merge_visual_info_list(
-        self, visual_info_list: List[dict]
+            self, visual_info_list: List[dict]
     ) -> Tuple[list, list, list, list]:
         """
         Merge visual info lists.
@@ -429,12 +428,12 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
         )
 
     def build_vector(
-        self,
-        visual_info: dict,
-        min_characters: int = 3500,
-        block_size: int = 300,
-        flag_save_bytes_vector: bool = False,
-        retriever_config: dict = None,
+            self,
+            visual_info: dict,
+            min_characters: int = 3500,
+            block_size: int = 300,
+            flag_save_bytes_vector: bool = False,
+            retriever_config: dict = None,
     ) -> dict:
         """
         Build a vector representation from visual information.
@@ -483,7 +482,7 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
                 all_items += [f"{type}：{text}\n"]
 
         for table_html, table_text, table_nei_text in zip(
-            all_table_html_list, all_table_text_list, all_table_nei_text_list
+                all_table_html_list, all_table_text_list, all_table_nei_text_list
         ):
             if len(table_html) > min_characters - self.table_structure_len_max:
                 all_items += [f"table：{table_text}\t{table_nei_text}"]
@@ -508,7 +507,7 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
         return vector_info
 
     def save_vector(
-        self, vector_info: dict, save_path: str, retriever_config: dict = None
+            self, vector_info: dict, save_path: str, retriever_config: dict = None
     ) -> None:
         directory = os.path.dirname(save_path)
         if not os.path.exists(directory):
@@ -528,8 +527,8 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
 
         vector_info_data = copy.deepcopy(vector_info)
         if (
-            not vector_info["flag_too_short_text"]
-            and not vector_info["flag_save_bytes_vector"]
+                not vector_info["flag_too_short_text"]
+                and not vector_info["flag_save_bytes_vector"]
         ):
             vector_info_data["vector"] = retriever.encode_vector_store_to_bytes(
                 vector_info_data["vector"]
@@ -559,9 +558,9 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
             data = fin.readline()
             vector_info = json.loads(data)
             if (
-                "flag_too_short_text" not in vector_info
-                or "flag_save_bytes_vector" not in vector_info
-                or "vector" not in vector_info
+                    "flag_too_short_text" not in vector_info
+                    or "flag_save_bytes_vector" not in vector_info
+                    or "vector" not in vector_info
             ):
                 logging.error("Invalid vector info.")
                 return {"error": "Invalid vector info when load vector!"}
@@ -599,10 +598,10 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
 
     @function_requires_deps("opencv-contrib-python")
     def mllm_pred(
-        self,
-        input: Union[str, np.ndarray],
-        key_list: Union[str, List[str]],
-        mllm_chat_bot_config=None,
+            self,
+            input: Union[str, np.ndarray],
+            key_list: Union[str, List[str]],
+            mllm_chat_bot_config=None,
     ) -> dict:
         """
         Generates MLLM results based on the provided key list and input image.
@@ -649,8 +648,8 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
             result = {}
             for key in key_list:
                 prompt = (
-                    str(key)
-                    + "\n请用图片中完整出现的内容回答，可以是单词、短语或句子，针对问题回答尽可能详细和完整，并保持格式、单位、符号和标点都与图片中的文字内容完全一致。"
+                        str(key)
+                        + "\n请用图片中完整出现的内容回答，可以是单词、短语或句子，针对问题回答尽可能详细和完整，并保持格式、单位、符号和标点都与图片中的文字内容完全一致。"
                 )
                 mllm_chat_bot_result = mllm_chat_bot.generate_chat_results(
                     prompt=prompt, image=image_base64
@@ -661,12 +660,12 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
             return {"mllm_res": result}
 
     def generate_and_merge_chat_results(
-        self,
-        chat_bot: BaseChat,
-        prompt: str,
-        key_list: list,
-        final_results: dict,
-        failed_results: list,
+            self,
+            chat_bot: BaseChat,
+            prompt: str,
+            key_list: list,
+            final_results: dict,
+            failed_results: list,
     ) -> None:
         """
         Generate and merge chat results into the final results dictionary.
@@ -707,13 +706,13 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
         return
 
     def get_related_normal_text(
-        self,
-        retriever_config: dict,
-        use_vector_retrieval: bool,
-        vector_info: dict,
-        key_list: List[str],
-        all_normal_text_list: list,
-        min_characters: int,
+            self,
+            retriever_config: dict,
+            use_vector_retrieval: bool,
+            vector_info: dict,
+            key_list: List[str],
+            all_normal_text_list: list,
+            min_characters: int,
     ) -> str:
         """
         Retrieve related normal text based on vector retrieval or all normal text list.
@@ -748,7 +747,7 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
             vector = vector_info["vector"]
             if not vector_info["flag_too_short_text"]:
                 assert (
-                    vector_info["model_name"] == retriever.model_name
+                        vector_info["model_name"] == retriever.model_name
                 ), f"The vector model name ({vector_info['model_name']}) does not match the retriever model name ({retriever.model_name}). Please check your retriever config."
                 if vector_info["flag_save_bytes_vector"]:
                     vector = retriever.decode_vector_store_from_bytes(vector)
@@ -773,11 +772,11 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
         return related_text
 
     def ensemble_ocr_llm_mllm(
-        self,
-        chat_bot: BaseChat,
-        key_list: List[str],
-        ocr_llm_predict_dict: dict,
-        mllm_predict_dict: dict,
+            self,
+            chat_bot: BaseChat,
+            key_list: List[str],
+            ocr_llm_predict_dict: dict,
+            mllm_predict_dict: dict,
     ) -> dict:
         """
         Ensemble OCR_LLM and LMM predictions based on given key list.
@@ -838,26 +837,26 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
         return final_predict_dict
 
     def chat(
-        self,
-        key_list: Union[str, List[str]],
-        visual_info: dict,
-        use_vector_retrieval: bool = True,
-        vector_info: dict = None,
-        min_characters: int = 3500,
-        text_task_description: str = None,
-        text_output_format: str = None,
-        text_rules_str: str = None,
-        text_few_shot_demo_text_content: str = None,
-        text_few_shot_demo_key_value_list: str = None,
-        table_task_description: str = None,
-        table_output_format: str = None,
-        table_rules_str: str = None,
-        table_few_shot_demo_text_content: str = None,
-        table_few_shot_demo_key_value_list: str = None,
-        mllm_predict_info: dict = None,
-        mllm_integration_strategy: str = "integration",
-        chat_bot_config: dict = None,
-        retriever_config: dict = None,
+            self,
+            key_list: Union[str, List[str]],
+            visual_info: dict,
+            use_vector_retrieval: bool = True,
+            vector_info: dict = None,
+            min_characters: int = 3500,
+            text_task_description: str = None,
+            text_output_format: str = None,
+            text_rules_str: str = None,
+            text_few_shot_demo_text_content: str = None,
+            text_few_shot_demo_key_value_list: str = None,
+            table_task_description: str = None,
+            table_output_format: str = None,
+            table_rules_str: str = None,
+            table_few_shot_demo_text_content: str = None,
+            table_few_shot_demo_key_value_list: str = None,
+            mllm_predict_info: dict = None,
+            mllm_integration_strategy: str = "integration",
+            chat_bot_config: dict = None,
+            retriever_config: dict = None,
     ) -> dict:
         """
         Generates chat results based on the provided key list and visual information.
@@ -946,7 +945,7 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
 
         if len(key_list) > 0:
             for table_html, table_text, table_nei_text in zip(
-                all_table_html_list, all_table_text_list, all_table_nei_text_list
+                    all_table_html_list, all_table_text_list, all_table_nei_text_list
             ):
                 if len(table_html) <= min_characters - self.table_structure_len_max:
                     for table_info in [table_html]:
@@ -954,7 +953,7 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
 
                             if len(table_nei_text) > 0:
                                 table_info = (
-                                    table_info + "\n 表格周围文字：" + table_nei_text
+                                        table_info + "\n 表格周围文字：" + table_nei_text
                                 )
 
                             prompt = self.table_pe.generate_prompt(
@@ -976,9 +975,9 @@ class PP_ChatOCRv4_Pipeline(PP_ChatOCR_Pipeline):
                             )
 
         if (
-            self.use_mllm_predict
-            and mllm_integration_strategy != "llm_only"
-            and mllm_predict_info is not None
+                self.use_mllm_predict
+                and mllm_integration_strategy != "llm_only"
+                and mllm_predict_info is not None
         ):
             if mllm_integration_strategy == "integration":
                 final_predict_dict = self.ensemble_ocr_llm_mllm(

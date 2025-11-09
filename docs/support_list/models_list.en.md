@@ -4,9 +4,13 @@ comments: true
 
 # PaddleX Model List (CPU/GPU)
 
-PaddleX includes multiple pipelines, each containing several modules, and each module includes several models. You can choose which models to use based on the benchmark data below. If you prioritize model accuracy, choose models with higher accuracy. If you prioritize model inference speed, choose models with faster inference speed. If you prioritize model storage size, choose models with smaller storage size.
+PaddleX includes multiple pipelines, each containing several modules, and each module includes several models. You can
+choose which models to use based on the benchmark data below. If you prioritize model accuracy, choose models with
+higher accuracy. If you prioritize model inference speed, choose models with faster inference speed. If you prioritize
+model storage size, choose models with smaller storage size.
 
 ## [Image Classification Module](../module_usage/tutorials/cv_modules/image_classification.en.md)
+
 <table>
 <thead>
 <tr>
@@ -719,6 +723,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are based on the </b>[ImageNet-1k](https://www.image-net.org/index.php)<b> validation set Top1 Acc.</b>
 
 ## [Image Multi-label Classification Module](../module_usage/tutorials/cv_modules/image_multilabel_classification.en.md)
+
 <table>
 <thead>
 <tr>
@@ -785,6 +790,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are for the multi-label classification task mAP on [COCO2017](https://cocodataset.org/#home).</b>
 
 ## [Pedestrian Attribute Module](../module_usage/tutorials/cv_modules/pedestrian_attribute_recognition.en.md)
+
 <table>
 <thead>
 <tr>
@@ -811,6 +817,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are for the internal PaddleX dataset mA.</b>
 
 ## [Vehicle Attribute Module](../module_usage/tutorials/cv_modules/vehicle_attribute_recognition.en.md)
+
 <table>
 <thead>
 <tr>
@@ -836,6 +843,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are based on the VeRi dataset mA.</b>
 
 ## [Image Feature Module](../module_usage/tutorials/cv_modules/image_feature.en.md)
+
 <table>
 <thead>
 <tr>
@@ -876,8 +884,8 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 </table>
 <b>Note: The above accuracy metrics are based on the AliProducts recall@1.</b>
 
-
 ## [Face Feature Module](../module_usage/tutorials/cv_modules/face_feature.en.md)
+
 <table>
 <thead>
 <tr>
@@ -914,6 +922,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are measured on the AgeDB-30, CFP-FP, and LFW datasets.</b>
 
 ## [Main Body Detection Module](../module_usage/tutorials/cv_modules/mainbody_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -939,6 +948,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are based on the [PaddleClas Main Body Detection Dataset](https://github.com/PaddlePaddle/PaddleClas/blob/release/2.5/docs/zh_CN/training/PP-ShiTu/mainbody_detection.md) mAP(0.5:0.95).</b>
 
 ## [Object Detection Module](../module_usage/tutorials/cv_modules/object_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1318,6 +1328,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are based on the COCO2017 validation set mAP(0.5:0.95).</b>
 
 ## [Small Object Detection Module](../module_usage/tutorials/cv_modules/small_object_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1360,7 +1371,8 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 </tr>
 </table>
 
-<b>Note: The above accuracy metrics are based on the validation set mAP(0.5:0.95) of </b>[VisDrone-DET](https://github.com/VisDrone/VisDrone-Dataset)<b>.</b>
+<b>Note: The above accuracy metrics are based on the validation set mAP(0.5:0.95)
+of </b>[VisDrone-DET](https://github.com/VisDrone/VisDrone-Dataset)<b>.</b>
 
 ## [Open-Vocabulary Object Detection](../module_usage/tutorials/cv_modules/open_vocabulary_detection.en.md)
 
@@ -1452,6 +1464,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <p><b>Note: The above accuracy metrics are based on the <a href="https://captain-whu.github.io/DOTA/">DOTA</a> validation set mAP(0.5:0.95). </b></p>
 
 ## [Pedestrian Detection Module](../module_usage/tutorials/cv_modules/human_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1485,6 +1498,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are based on the validation set mAP(0.5:0.95) of </b>[CrowdHuman](https://bj.bcebos.com/v1/paddledet/data/crowdhuman.zip)<b>.</b>
 
 ## [Vehicle Detection Module](../module_usage/tutorials/cv_modules/vehicle_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1518,6 +1532,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above precision metrics are based on the validation set mAP(0.5:0.95) of </b>[PPVehicle](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/modules/ppvehicle)<b></b>
 
 ## [Face Detection Module](../module_usage/tutorials/cv_modules/face_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1568,6 +1583,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 **Note: The above precision metrics are evaluated on the WIDER-FACE validation set with an input size of 640x640.**
 
 ## [Anomaly Detection Module](../module_usage/tutorials/cv_modules/anomaly_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1628,7 +1644,8 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 </tr>
 </table>
 
-**Note: The above accuracy metrics are based on the COCO dataset AP(0.5:0.95), with detection boxes obtained from ground truth annotations.**
+**Note: The above accuracy metrics are based on the COCO dataset AP(0.5:0.95), with detection boxes obtained from ground
+truth annotations.**
 
 ## [3D Multi-modal Fusion Detection Module](../module_usage/tutorials//cv_modules/3d_bev_detection.en.md)
 
@@ -1651,6 +1668,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <p><b>Note: The above accuracy metrics are based on the <a href="https://www.nuscenes.org/nuscenes">nuscenes</a> validation set with mAP(0.5:0.95) and NDS 60.9, and the precision type is FP32.</b></p>
 
 ## [Semantic Segmentation Module](../module_usage/tutorials/cv_modules/semantic_segmentation.en.md)
+
 <table>
 <thead>
 <tr>
@@ -1861,6 +1879,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The above accuracy metrics are based on the </b>[ADE20k](https://groups.csail.mit.edu/vision/datasets/ADE20K/)<b> dataset. "Slice" indicates that the input images have been cropped.</b>
 
 ## [Instance Segmentation Module](../module_usage/tutorials/cv_modules/instance_segmentation.en.md)
+
 <table>
 <thead>
 <tr>
@@ -2086,6 +2105,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 <b>Note: The evaluation dataset for the above accuracy metrics is the self-built Chinese and English dataset of PaddleOCR, covering multiple scenarios such as street view, web images, documents, and handwriting, with 593 images for text recognition. </b>
 
 ## [Seal Text Detection Module](../module_usage/tutorials/ocr_modules/seal_text_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -2121,6 +2141,7 @@ PaddleX includes multiple pipelines, each containing several modules, and each m
 ## [Text Recognition Module](../module_usage/tutorials/ocr_modules/text_recognition.en.md)
 
 * <b>Chinese Text Recognition Models</b>
+
 <table>
 <tr>
 <th>Model</th>
@@ -2585,6 +2606,7 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 <p><b>Note: The above accuracy metrics are measured from the internal table classification dataset built by PaddleX. </b></p>
 
 ## [Text Image Unwarping Module](../module_usage/tutorials/ocr_modules/text_image_unwarping.en.md)
+
 <table>
 <thead>
 <tr>
@@ -2613,7 +2635,11 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 
 ## [Layout Detection Module](../module_usage/tutorials/ocr_modules/layout_detection.en.md)
 
-* <b>Layout detection model, including 20 common categories: document title, section title, text, page number, abstract, table of contents, references, footnote, header, footer, algorithm, formula, formula number, image, table, figure and table captions (figure caption, table caption, and chart caption), stamp, chart, sidebar text, and reference content.</b>
+* <b>Layout detection model, including 20 common categories: document title, section title, text, page number, abstract,
+  table of contents, references, footnote, header, footer, algorithm, formula, formula number, image, table, figure and
+  table captions (figure caption, table caption, and chart caption), stamp, chart, sidebar text, and reference
+  content.</b>
+
 <table>
 <thead>
 <tr>
@@ -2639,9 +2665,12 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody>
 </table>
 
-<b>Note: The evaluation set for the accuracy metrics mentioned above is a custom-built layout detection dataset, which includes 1,300 document-type images such as Chinese and English papers, magazines, newspapers, research reports, PPTs, exam papers, and textbooks.</b>
+<b>Note: The evaluation set for the accuracy metrics mentioned above is a custom-built layout detection dataset, which
+includes 1,300 document-type images such as Chinese and English papers, magazines, newspapers, research reports, PPTs,
+exam papers, and textbooks.</b>
 
 * <b>Layout detection model, including 1 category: block.</b>
+
 <table>
 <thead>
 <tr>
@@ -2667,10 +2696,14 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody>
 </table>
 
-<b>Note: The evaluation set for the accuracy metrics mentioned above is a custom-built layout block detection dataset, which includes 1,000 document-type images such as Chinese and English papers, magazines, newspapers, research reports, PPTs, exam papers, and textbooks.</b>
+<b>Note: The evaluation set for the accuracy metrics mentioned above is a custom-built layout block detection dataset,
+which includes 1,000 document-type images such as Chinese and English papers, magazines, newspapers, research reports,
+PPTs, exam papers, and textbooks.</b>
 
+* <b>The layout detection model includes 23 common categories: document title, paragraph title, text, page number,
+  abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, figure
+  caption, table, table caption, seal, figure title, figure, header image, footer image, and sidebar text. </b>
 
-* <b>The layout detection model includes 23 common categories: document title, paragraph title, text, page number, abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, figure caption, table, table caption, seal, figure title, figure, header image, footer image, and sidebar text. </b>
 <table>
 <thead>
 <tr>
@@ -2714,10 +2747,11 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody>
 </table>
 
-<b>Note: The evaluation set for the accuracy metrics mentioned above is a custom-built layout region detection dataset, which includes 500 common document-type images such as Chinese and English papers, magazines, and research reports.</b>
-
+<b>Note: The evaluation set for the accuracy metrics mentioned above is a custom-built layout region detection dataset,
+which includes 500 common document-type images such as Chinese and English papers, magazines, and research reports.</b>
 
 * <b>Table Layout Detection Model</b>
+
 <table>
 <thead>
 <tr>
@@ -2787,6 +2821,7 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 <b>Note: The evaluation dataset for the above accuracy metrics is the layout area detection dataset built by PaddleOCR, which includes 1,154 common types of document images such as Chinese and English papers, magazines, and research reports. </b>
 
 * <b>5-class English document layout detection model, including text, title, table, image, and list</b>
+
 <table>
 <thead>
 <tr>
@@ -2812,7 +2847,10 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody></table>
 <b>Note: The evaluation dataset for the above accuracy metrics is the [PubLayNet](https://developer.ibm.com/exchanges/data/all/publaynet/) evaluation dataset, which contains 11,245 images of English documents. </b>
 
-* <b>17-class layout detection model, including 17 common layout categories: paragraph title, image, text, number, abstract, content, figure title, formula, table, table title, reference, document title, footnote, header, algorithm, footer, and seal</b>
+* <b>17-class layout detection model, including 17 common layout categories: paragraph title, image, text, number,
+  abstract, content, figure title, formula, table, table title, reference, document title, footnote, header, algorithm,
+  footer, and seal</b>
+
 <table>
 <thead>
 <tr>
@@ -2855,7 +2893,9 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tr>
 </table>
 
-<b>Note: The evaluation set for the above accuracy metrics is the layout area detection dataset built by PaddleOCR, which includes 892 images of common document types such as Chinese and English papers, magazines, and research reports. </b>
+<b>Note: The evaluation set for the above accuracy metrics is the layout area detection dataset built by PaddleOCR,
+which includes 892 images of common document types such as Chinese and English papers, magazines, and research
+reports. </b>
 
 ## [Document Image Orientation Classification Module](../module_usage/tutorials/ocr_modules/doc_img_orientation_classification.en.md)
 
@@ -2884,7 +2924,6 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody>
 </table>
 <b>Note: The evaluation set for the above accuracy metrics is a self-built dataset covering multiple scenarios such as documents and certificates, with 1000 images. </b>
-
 
 ## [Text Line Orientation Classification Module](../module_usage/tutorials/ocr_modules/textline_orientation_classification.en.md)
 
@@ -2922,7 +2961,8 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody>
 </table>
 
-<b>Note: The evaluation dataset for the above accuracy metrics is a self-built dataset covering multiple scenarios such as certificates and documents, with 1,000 images.</b>
+<b>Note: The evaluation dataset for the above accuracy metrics is a self-built dataset covering multiple scenarios such
+as certificates and documents, with 1,000 images.</b>
 
 ## [Time Series Forecasting Module](../module_usage/tutorials/time_series_modules/time_series_forecasting.en.md)
 
@@ -3007,6 +3047,7 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 <b>Note: The above accuracy metrics are measured from the </b>[ETTH1](https://paddle-model-ecology.bj.bcebos.com/paddlex/data/Etth1.tar)<b> dataset </b><b>(evaluation results on the test.csv test set)</b><b>.</b>
 
 ## [Time Series Anomaly Detection Module](../module_usage/tutorials/time_series_modules/time_series_anomaly_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -3057,6 +3098,7 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 <b>Note: The above precision metrics are measured from the </b>[PSM](https://paddle-model-ecology.bj.bcebos.com/paddlex/data/ts_anomaly_examples.tar)<b> dataset.</b>
 
 ## [Time Series Classification Module](../module_usage/tutorials/time_series_modules/time_series_classification.en.md)
+
 <table>
 <thead>
 <tr>
@@ -3076,7 +3118,6 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 </tbody>
 </table>
 <b>Note: The above accuracy metrics are measured from the [UWaveGestureLibrary](https://paddlets.bj.bcebos.com/classification/UWaveGestureLibrary_TEST.csv) dataset.</b>
-
 
 ## [Multilingual Speech Recognition Module](../module_usage/tutorials/speech_modules/multilingual_speech_recognition.en.md)
 
@@ -3217,7 +3258,6 @@ eslav_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle
 <td><a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-DocBee2-3B_infer.tar">Inference Model</a></td>
 </tr>
 </table>
-
 
 ## [Chart Parsing Model Module](../module_usage/tutorials/vlm_modules/chart_parsing.en.md)
 

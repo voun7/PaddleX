@@ -15,29 +15,28 @@
 import inspect
 from typing import Any, Callable, Dict, List, Optional, Union
 
-from ....modules.open_vocabulary_detection.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..object_detection.result import DetResult
 from .processors import (
     GroundingDINOPostProcessor,
     GroundingDINOProcessor,
     YOLOWorldPostProcessor,
     YOLOWorldProcessor,
 )
+from ..base import BasePredictor
+from ..object_detection.result import DetResult
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.open_vocabulary_detection.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class OVDetPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
     register = FuncRegister(_FUNC_MAP)
 
     def __init__(
-        self, *args, thresholds: Optional[Union[Dict, float]] = None, **kwargs
+            self, *args, thresholds: Optional[Union[Dict, float]] = None, **kwargs
     ):
         """Initializes DetPredictor.
         Args:
@@ -79,7 +78,7 @@ class OVDetPredictor(BasePredictor):
         return pre_ops, infer, post_op
 
     def process(
-        self, batch_data: List[Any], prompt: str, thresholds: Optional[dict] = None
+            self, batch_data: List[Any], prompt: str, thresholds: Optional[dict] = None
     ):
         """
         Process a batch of data through the preprocessing, inference, and postprocessing.
@@ -149,7 +148,7 @@ class OVDetPredictor(BasePredictor):
 
     @register("GroundingDINOProcessor")
     def build_grounding_dino_preprocessor(
-        self, text_max_words=256, target_size=(800, 1333)
+            self, text_max_words=256, target_size=(800, 1333)
     ):
         return GroundingDINOProcessor(
             model_dir=self.model_dir,
@@ -159,10 +158,10 @@ class OVDetPredictor(BasePredictor):
 
     @register("YOLOWorldProcessor")
     def build_yoloworld_preprocessor(
-        self,
-        image_target_size=(640, 640),
-        image_mean=[0.0, 0.0, 0.0],
-        image_std=[1.0, 1.0, 1.0],
+            self,
+            image_target_size=(640, 640),
+            image_mean=[0.0, 0.0, 0.0],
+            image_std=[1.0, 1.0, 1.0],
     ):
         return YOLOWorldProcessor(
             model_dir=self.model_dir,

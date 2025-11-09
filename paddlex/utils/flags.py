@@ -67,7 +67,6 @@ DISABLE_DEVICE_FALLBACK = get_flag_from_env_var(
 
 MODEL_SOURCE = os.environ.get("PADDLE_PDX_MODEL_SOURCE", "huggingface").lower()
 
-
 # Inference Benchmark
 INFER_BENCHMARK = get_flag_from_env_var("PADDLE_PDX_INFER_BENCHMARK", False)
 PIPELINE_BENCHMARK = get_flag_from_env_var("PADDLE_PDX_PIPELINE_BENCHMARK", False)

@@ -14,10 +14,10 @@
 
 from operator import attrgetter
 
-from paddlex.inference.pipelines.components import IndexData
+from common.base_model import BaseShiTuModel
 from paddlex_hps_server import schemas, utils
 
-from common.base_model import BaseShiTuModel
+from paddlex.inference.pipelines.components import IndexData
 
 
 class TritonPythonModel(BaseShiTuModel):

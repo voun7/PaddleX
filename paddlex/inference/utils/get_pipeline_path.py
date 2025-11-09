@@ -20,7 +20,7 @@ def get_pipeline_path(pipeline_name):
     # XXX: using dict class to handle all pipeline configs
     config_subdir = "configs/pipelines"
     pipeline_path = (
-        Path(__file__).parent.parent.parent / config_subdir / f"{pipeline_name}.yaml"
+            Path(__file__).parent.parent.parent / config_subdir / f"{pipeline_name}.yaml"
     ).resolve()
     if not Path(pipeline_path).exists():
         return None

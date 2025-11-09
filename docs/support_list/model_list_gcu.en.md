@@ -4,9 +4,12 @@ comments: true
 
 # PaddleX Model List (Enflame GCU)
 
-PaddleX incorporates multiple pipelines, each containing several modules, and each module encompasses various models. You can select the appropriate models based on the benchmark data below. If you prioritize model accuracy, choose models with higher accuracy. If you prioritize model size, select models with smaller storage requirements.
+PaddleX incorporates multiple pipelines, each containing several modules, and each module encompasses various models.
+You can select the appropriate models based on the benchmark data below. If you prioritize model accuracy, choose models
+with higher accuracy. If you prioritize model size, select models with smaller storage requirements.
 
 ## [Image Classification Module](../module_usage/tutorials/cv_modules/image_classification.en.md)
+
 <table>
 <thead>
 <tr>
@@ -371,6 +374,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics refer to Top-1 Accuracy on the [ImageNet-1k](https://www.image-net.org/index.php) validation set.</b>
 
 ## [Object Detection Module](../module_usage/tutorials/cv_modules/object_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -455,6 +459,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are for</b> [COCO2017](https://cocodataset.org/#home) <b>validation set mAP(0.5:0.95).</b>
 
 ## [Pedestrian Detection Module](../module_usage/tutorials/cv_modules/human_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -479,6 +484,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are mAP(0.5:0.95) on the [CrowdHuman](https://bj.bcebos.com/v1/paddledet/data/crowdhuman.zip) validation set.</b>
 
 ## [Text Detection Module](../module_usage/tutorials/ocr_modules/text_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -503,6 +509,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are evaluated on PaddleOCR's self-built Chinese dataset, covering street scenes, web images, documents, and handwritten scenarios, with 500 images for detection.</b>
 
 ## [Text Recognition Module](../module_usage/tutorials/ocr_modules/text_recognition.en.md)
+
 <table>
 <thead>
 <tr>

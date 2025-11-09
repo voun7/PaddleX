@@ -27,7 +27,6 @@ chat_bot_config = {
     "api_key": "api_key",  # your api_key
 }
 
-
 if input_path.lower().endswith(".md"):
     ori_md_info_list = pipeline.load_from_markdown(input_path)
 else:

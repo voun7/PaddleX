@@ -178,10 +178,10 @@ def translate_html_block(html_block, chunk_size, translate_func, results):
 
     # If the HTML is short and simple, translate directly
     if (
-        html_block.count("<") < 5
-        and html_block.count(">") < 5
-        and html_block.count("<") == html_block.count(">")
-        and len(html_block) < chunk_size
+            html_block.count("<") < 5
+            and html_block.count(">") < 5
+            and html_block.count("<") == html_block.count(">")
+            and len(html_block) < chunk_size
     ):
         translated = translate_func(html_block)
         results.append(translated)
@@ -203,7 +203,7 @@ def translate_html_block(html_block, chunk_size, translate_func, results):
                 td_batch_nodes.append(parent_td)
                 td_batch_texts.append(td_text)
             td_seen.add(id(parent_td))
-            
+
     # Process <td>/<th> nodes in batches
     batch_size = chunk_size
     i = 0
@@ -217,7 +217,7 @@ def translate_html_block(html_block, chunk_size, translate_func, results):
             batch_texts.append(td_batch_texts[i])
             current_length += len(td_batch_texts[i])
             i += 1
-        
+
         # Translate the batch and reinsert translated content
         placeholder = "__TD__"
         batch_text = placeholder.join(batch_texts)
@@ -229,7 +229,6 @@ def translate_html_block(html_block, chunk_size, translate_func, results):
             frag = BeautifulSoup(line, "html.parser")
             for child in frag.contents:
                 td_node.append(copy.deepcopy(child))
-
 
     text_nodes = []
     for node in soup.find_all(string=True, recursive=True):
@@ -308,8 +307,8 @@ def split_original_texts(text):
     for idx, block in enumerate(splited_block):
         _, content = block
         while (
-            current_index < len(html_placeholders)
-            and html_placeholders[current_index] in content
+                current_index < len(html_placeholders)
+                and html_placeholders[current_index] in content
         ):
             content = content.replace(
                 html_placeholders[current_index], html_blocks[current_index]
@@ -338,7 +337,7 @@ def split_and_append_text(result, text_content):
         for m in code_pattern.finditer(text_content):
             # process text before code block
             if m.start() > last_pos:
-                non_code = text_content[last_pos : m.start()]
+                non_code = text_content[last_pos: m.start()]
                 paragraphs = re.split(r"\n{2,}", non_code)
                 for p in paragraphs:
                     if p.strip():

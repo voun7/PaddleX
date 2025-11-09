@@ -14,21 +14,21 @@
 
 from typing import Any, Dict, Optional, Union
 
-from ....utils import logging
+from ..base import BasePipeline
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from ..base import BasePipeline
+from ....utils import logging
 
 
 class PP_ChatOCR_Pipeline(BasePipeline):
     """PP-ChatOCR Pipeline"""
 
     def __init__(
-        self,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the pp-chatocrv3-doc pipeline.
 

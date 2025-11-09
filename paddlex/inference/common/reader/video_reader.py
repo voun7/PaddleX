@@ -22,7 +22,6 @@ class ReadVideo:
     """Load video from the file."""
 
     def __init__(self, backend="opencv", num_seg=8, seg_len=1, sample_type=None):
-
         super().__init__()
         self._video_reader = VideoReader(
             backend=backend, num_seg=num_seg, seg_len=seg_len, sample_type=sample_type

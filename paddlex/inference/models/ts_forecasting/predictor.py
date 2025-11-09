@@ -18,9 +18,8 @@ from typing import Any, Dict, List, Tuple, Union
 
 import pandas as pd
 
-from ....modules.ts_forecast.model_list import MODELS
-from ...common.batch_sampler import TSBatchSampler
-from ...common.reader import ReadTS
+from .processors import ArraytoTS, TSDeNormalize
+from .result import TSFcResult
 from ..base import BasePredictor
 from ..common import (
     BuildTSDataset,
@@ -30,8 +29,9 @@ from ..common import (
     TStoArray,
     TStoBatch,
 )
-from .processors import ArraytoTS, TSDeNormalize
-from .result import TSFcResult
+from ...common.batch_sampler import TSBatchSampler
+from ...common.reader import ReadTS
+from ....modules.ts_forecast.model_list import MODELS
 
 
 class TSFcPredictor(BasePredictor):

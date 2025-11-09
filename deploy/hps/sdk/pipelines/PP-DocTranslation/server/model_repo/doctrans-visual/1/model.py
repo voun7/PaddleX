@@ -75,7 +75,7 @@ class TritonPythonModel(BaseTritonPythonModel):
             if utils.is_url(input.file):
                 maybe_file_type = utils.infer_file_type(input.file)
                 if maybe_file_type is None or not (
-                    maybe_file_type == "PDF" or maybe_file_type == "IMAGE"
+                        maybe_file_type == "PDF" or maybe_file_type == "IMAGE"
                 ):
                     return protocol.create_aistudio_output_without_result(
                         422,

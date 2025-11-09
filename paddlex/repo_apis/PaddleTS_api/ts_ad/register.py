@@ -16,10 +16,10 @@
 import os
 import os.path as osp
 
-from ...base.register import register_model_info, register_suite_info
-from ..ts_base.model import TSModel
 from .config import TSAnomalyConfig
 from .runner import TSADRunner
+from ..ts_base.model import TSModel
+from ...base.register import register_model_info, register_suite_info
 
 REPO_ROOT_PATH = os.environ.get("PADDLE_PDX_PADDLETS_PATH")
 PDX_CONFIG_DIR = osp.abspath(osp.join(osp.dirname(__file__), "..", "configs"))

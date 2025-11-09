@@ -14,14 +14,14 @@
 
 from typing import Any, Dict, List
 
-from .....utils.deps import function_requires_deps, is_dep_available
+from ._common import common
+from ._common import ocr as ocr_common
+from .._app import create_app, primary_operation
 from ...infra import utils as serving_utils
 from ...infra.config import AppConfig
 from ...infra.models import AIStudioResultResponse
 from ...schemas import pp_doctranslation as schema
-from .._app import create_app, primary_operation
-from ._common import common
-from ._common import ocr as ocr_common
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI
@@ -43,7 +43,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "analyzeImages",
     )
     async def _analyze_images(
-        request: schema.AnalyzeImagesRequest,
+            request: schema.AnalyzeImagesRequest,
     ) -> AIStudioResultResponse[schema.AnalyzeImagesResult]:
         pipeline = ctx.pipeline
 
@@ -151,7 +151,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "translate",
     )
     async def _translate(
-        request: schema.TranslateRequest,
+            request: schema.TranslateRequest,
     ) -> AIStudioResultResponse[schema.TranslateResult]:
         pipeline = ctx.pipeline
 

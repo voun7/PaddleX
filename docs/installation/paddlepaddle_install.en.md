@@ -7,7 +7,10 @@ comments: true
 When installing PaddlePaddle, you can choose to install it via Docker or pip.
 
 ## Installing PaddlePaddle via Docker
-<b>If you choose to install via Docker</b>, please refer to the following commands to use the official Docker image of the PaddlePaddle framework to create a container named `paddlex` and map the current working directory to the `/paddle` directory inside the container:
+
+<b>If you choose to install via Docker</b>, please refer to the following commands to use the official Docker image of
+the PaddlePaddle framework to create a container named `paddlex` and map the current working directory to the `/paddle`
+directory inside the container:
 
 If your Docker version >= 19.03, please use:
 
@@ -41,11 +44,13 @@ nvidia-docker run --name paddlex -v $PWD:/paddle  --shm-size=8G --network=host -
 * If your Docker version <= 17.06, please update your Docker.
 
 
-* Note: For more official PaddlePaddle Docker images, please refer to the [PaddlePaddle official website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/en/install/docker/linux-docker.html)
+* Note: For more official PaddlePaddle Docker images, please refer to
+  the [PaddlePaddle official website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/en/install/docker/linux-docker.html)
 
 ## Installing PaddlePaddle via pip
 
-<b>If you choose to install via pip</b>, please refer to the following commands to install PaddlePaddle in your current environment using pip:
+<b>If you choose to install via pip</b>, please refer to the following commands to install PaddlePaddle in your current
+environment using pip:
 
 ```bash
 # CPU
@@ -58,16 +63,18 @@ python -m pip install paddlepaddle==3.0.0 -i https://www.paddlepaddle.org.cn/pac
  python -m pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
 ```
 
+Note: For more PaddlePaddle Wheel versions, please refer to
+the [PaddlePaddle official website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/en/install/pip/linux-pip.html).
 
-Note: For more PaddlePaddle Wheel versions, please refer to the [PaddlePaddle official website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/en/install/pip/linux-pip.html).
-
-<b>For installing PaddlePaddle on other hardware, please refer to</b> [PaddleX Multi-hardware Usage Guide](../other_devices_support/multi_devices_use_guide.en.md).
+<b>For installing PaddlePaddle on other hardware, please refer
+to</b> [PaddleX Multi-hardware Usage Guide](../other_devices_support/multi_devices_use_guide.en.md).
 
 After installation, you can verify if PaddlePaddle is successfully installed using the following command:
 
 ```bash
 python -c "import paddle; print(paddle.__version__)"
 ```
+
 If the installation is successful, the following content will be output:
 
 ```bash
@@ -76,7 +83,9 @@ If the installation is successful, the following content will be output:
 
 ### Installation of PaddlePaddle Wheel Package for Windows with NVIDIA 50 Series GPUs
 
-The standard installation of PaddlePaddle does not fully support NVIDIA 50 series GPUs on Windows operating systems. Therefore, we provide a specially adapted PaddlePaddle package for this hardware environment. Please select the corresponding wheel file according to your Python version for installation.
+The standard installation of PaddlePaddle does not fully support NVIDIA 50 series GPUs on Windows operating systems.
+Therefore, we provide a specially adapted PaddlePaddle package for this hardware environment. Please select the
+corresponding wheel file according to your Python version for installation.
 
 ```bash
 # python 3.9
@@ -91,23 +100,32 @@ python -m pip install https://paddle-qa.bj.bcebos.com/paddle-pipeline/Develop-Ta
 # python 3.12
 python -m pip install https://paddle-qa.bj.bcebos.com/paddle-pipeline/Develop-TagBuild-Training-Windows-Gpu-Cuda12.9-Cudnn9.9-Trt10.5-Mkl-Avx-VS2019-SelfBuiltPypiUse/86d658f56ebf3a5a7b2b33ace48f22d10680d311/paddlepaddle_gpu-3.0.0.dev20250717-cp312-cp312-win_amd64.whl
 ```
-**Note:** The currently released PaddlePaddle wheel package for Windows systems with 50 series GPUs has known issues with text recognition model training, and related functionalities are still being adapted and improved.
+
+**Note:** The currently released PaddlePaddle wheel package for Windows systems with 50 series GPUs has known issues
+with text recognition model training, and related functionalities are still being adapted and improved.
 
 ## Install the TensorRT Subgraph Engine
 
-If you want to use the [Paddle Inference TensorRT Subgraph Engine](https://www.paddlepaddle.org.cn/documentation/docs/en/guides/paddle_v3_features/paddle_trt_en.html):
+If you want to use
+the [Paddle Inference TensorRT Subgraph Engine](https://www.paddlepaddle.org.cn/documentation/docs/en/guides/paddle_v3_features/paddle_trt_en.html):
 
-1. If you are using the official PaddlePaddle 3.0 Docker image, you need to run the following command in the started container to install TensorRT.
+1. If you are using the official PaddlePaddle 3.0 Docker image, you need to run the following command in the started
+   container to install TensorRT.
 
     ```bash
     python -m pip install /usr/local/TensorRT-*/python/tensorrt-*-cp310-none-linux_x86_64.whl
     ```
 
-2. If you are using the official PaddlePaddle 3.1 Docker image or higher, or if you installed PaddlePaddle with pip, you need to refer to the [TensorRT Documentation](https://docs.nvidia.com/deeplearning/tensorrt/archives/index.html) to install the corresponding version of TensorRT:
+2. If you are using the official PaddlePaddle 3.1 Docker image or higher, or if you installed PaddlePaddle with pip, you
+   need to refer to the [TensorRT Documentation](https://docs.nvidia.com/deeplearning/tensorrt/archives/index.html) to
+   install the corresponding version of TensorRT:
 
-    - For PaddlePaddle with CUDA 11.8, the compatible TensorRT version is 8.x (where x >= 6). PaddleX has completed compatibility tests of Paddle-TensorRT on TensorRT 8.6.1.6, so it is **strongly recommended to install TensorRT 8.6.1.6**.
+    - For PaddlePaddle with CUDA 11.8, the compatible TensorRT version is 8.x (where x >= 6). PaddleX has completed
+      compatibility tests of Paddle-TensorRT on TensorRT 8.6.1.6, so it is **strongly recommended to install TensorRT
+      8.6.1.6**.
 
-    Below is an example of installing TensorRT 8.6.1.6 using the "Tar File Installation" method in a CUDA 11.8 environment:
+   Below is an example of installing TensorRT 8.6.1.6 using the "Tar File Installation" method in a CUDA 11.8
+   environment:
 
     ```bash
     # Download TensorRT tar file
@@ -120,4 +138,5 @@ If you want to use the [Paddle Inference TensorRT Subgraph Engine](https://www.p
     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:TensorRT-8.6.1.6/lib"
     ```
 
-> ❗ <b>Note</b>: If you encounter any issues during the installation process, feel free to [submit an issue](https://github.com/PaddlePaddle/Paddle/issues) in the Paddle repository.
+> ❗ <b>Note</b>: If you encounter any issues during the installation process, feel free
+> to [submit an issue](https://github.com/PaddlePaddle/Paddle/issues) in the Paddle repository.

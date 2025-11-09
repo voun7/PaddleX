@@ -5,13 +5,25 @@ comments: true
 # PP-ChatOCRv4-doc Pipeline Tutorial
 
 ## 1. Introduction to PP-ChatOCRv4-doc Pipeline
-PP-ChatOCRv4-doc is a unique document and image intelligent analysis solution from PaddlePaddle, combining LLM, MLLM, and OCR technologies to address complex document information extraction challenges such as layout analysis, rare characters, multi-page PDFs, tables, and seal recognition. Integrated with ERNIE Bot, it fuses massive data and knowledge, achieving high accuracy and wide applicability. This pipeline also provides flexible service deployment options, supporting deployment on various hardware. Furthermore, it offers custom development capabilities, allowing you to train and fine-tune models on your own datasets, with seamless integration of trained models.
+
+PP-ChatOCRv4-doc is a unique document and image intelligent analysis solution from PaddlePaddle, combining LLM, MLLM,
+and OCR technologies to address complex document information extraction challenges such as layout analysis, rare
+characters, multi-page PDFs, tables, and seal recognition. Integrated with ERNIE Bot, it fuses massive data and
+knowledge, achieving high accuracy and wide applicability. This pipeline also provides flexible service deployment
+options, supporting deployment on various hardware. Furthermore, it offers custom development capabilities, allowing you
+to train and fine-tune models on your own datasets, with seamless integration of trained models.
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/pp_chatocrv4/pp_charocrv4_pipeline.png"/>
 
-The Document Scene Information Extraction v4 pipeline includes modules for **Layout Region Detection**, **Table Structure Recognition**, **Table Classification**, **Table Cell Localization**, **Text Detection**, **Text Recognition**, **Seal Text Detection**, **Text Image Rectification**, and **Document Image Orientation Classification**. The relevant models are integrated as sub-pipelines, and you can view the model configurations of different modules through the [pipeline configuration](../../../../paddlex/configs/pipelines/PP-ChatOCRv4-doc.yaml).
+The Document Scene Information Extraction v4 pipeline includes modules for **Layout Region Detection**, **Table
+Structure Recognition**, **Table Classification**, **Table Cell Localization**, **Text Detection**, **Text Recognition
+**, **Seal Text Detection**, **Text Image Rectification**, and **Document Image Orientation Classification**. The
+relevant models are integrated as sub-pipelines, and you can view the model configurations of different modules through
+the [pipeline configuration](../../../../paddlex/configs/pipelines/PP-ChatOCRv4-doc.yaml).
 
-<b>If you prioritize model accuracy, choose a model with higher accuracy. If you prioritize inference speed, select a model with faster inference. If you prioritize model storage size, choose a model with a smaller storage size.</b> Benchmarks for some models are as follows:
+<b>If you prioritize model accuracy, choose a model with higher accuracy. If you prioritize inference speed, select a
+model with faster inference. If you prioritize model storage size, choose a model with a smaller storage size.</b>
+Benchmarks for some models are as follows:
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
@@ -138,9 +150,12 @@ The Document Scene Information Extraction v4 pipeline includes modules for **Lay
 </table>
 <b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 500 common document-type images of Chinese and English papers, magazines, contracts, books, exams, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
-> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The complete model list is as follows:
+> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module
+> actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The
+> complete model list is as follows:
 
 * <b>Table Layout Detection Model</b>
+
 <table>
 <thead>
 <tr>
@@ -166,6 +181,7 @@ The Document Scene Information Extraction v4 pipeline includes modules for **Lay
 <b>Note: The evaluation dataset for the above precision metrics is a self-built layout table area detection dataset by PaddleOCR, containing 7835 Chinese and English document images with tables. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
 * <b>3-Class Layout Detection Model, including Table, Image, and Stamp</b>
+
 <table>
 <thead>
 <tr>
@@ -209,6 +225,7 @@ The Document Scene Information Extraction v4 pipeline includes modules for **Lay
 <b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 1154 common document images of Chinese and English papers, magazines, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
 * <b>5-Class English Document Area Detection Model, including Text, Title, Table, Image, and List</b>
+
 <table>
 <thead>
 <tr>
@@ -233,7 +250,10 @@ The Document Scene Information Extraction v4 pipeline includes modules for **Lay
 </tbody></table>
 <b>Note: The evaluation dataset for the above precision metrics is the [PubLayNet](https://developer.ibm.com/exchanges/data/all/publaynet/) dataset, containing 11245 English document images. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
-* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number, Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header, Algorithm, Footer, and Stamp</b>
+* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number,
+  Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header,
+  Algorithm, Footer, and Stamp</b>
+
 <table>
 <thead>
 <tr>
@@ -438,6 +458,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -468,6 +489,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -730,16 +752,37 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </details>
 
 ## 2. Quick Start
-The pre-trained pipelines provided by PaddleX allow for quick experience of their effects. You can locally use Python to experience the effects of the PP-ChatOCRv4-doc pipeline.
+
+The pre-trained pipelines provided by PaddleX allow for quick experience of their effects. You can locally use Python to
+experience the effects of the PP-ChatOCRv4-doc pipeline.
 
 ### 2.1 Local Experience
-Before using the PP-ChatOCRv4-doc pipeline locally, ensure you have completed the installation of the PaddleX wheel package according to the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md). If you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency group corresponding to this pipeline is `ie`.
 
-Before performing model inference, you first need to prepare the API key for the large language model. PP-ChatOCRv4 supports large model services on the [Baidu Cloud Qianfan Platform](https://console.bce.baidu.com/qianfan/ais/console/onlineService) or the locally deployed standard OpenAI interface. If using the Baidu Cloud Qianfan Platform, refer to [Authentication and Authorization](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Um2wxbaps_en) to obtain the API key. If using a locally deployed large model service, refer to the [PaddleNLP Large Model Deployment Documentation](https://github.com/PaddlePaddle/PaddleNLP/tree/develop/llm) for deployment of the dialogue interface and vectorization interface for large models, and fill in the corresponding `base_url` and `api_key`. If you need to use a multimodal large model for data fusion, refer to the OpenAI service deployment in the [PaddleMIX Model Documentation](https://github.com/PaddlePaddle/PaddleMIX/tree/develop/paddlemix/examples/ppdocbee) for multimodal large model deployment, and fill in the corresponding `base_url` and `api_key`.
+Before using the PP-ChatOCRv4-doc pipeline locally, ensure you have completed the installation of the PaddleX wheel
+package according to the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md). If you wish to
+selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency
+group corresponding to this pipeline is `ie`.
 
-After updating the configuration file, you can complete quick inference using just a few lines of Python code. You can use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/vehicle_certificate-1.png) for testing:
+Before performing model inference, you first need to prepare the API key for the large language model. PP-ChatOCRv4
+supports large model services on
+the [Baidu Cloud Qianfan Platform](https://console.bce.baidu.com/qianfan/ais/console/onlineService) or the locally
+deployed standard OpenAI interface. If using the Baidu Cloud Qianfan Platform, refer
+to [Authentication and Authorization](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Um2wxbaps_en) to obtain the API key.
+If using a locally deployed large model service, refer to
+the [PaddleNLP Large Model Deployment Documentation](https://github.com/PaddlePaddle/PaddleNLP/tree/develop/llm) for
+deployment of the dialogue interface and vectorization interface for large models, and fill in the corresponding
+`base_url` and `api_key`. If you need to use a multimodal large model for data fusion, refer to the OpenAI service
+deployment in
+the [PaddleMIX Model Documentation](https://github.com/PaddlePaddle/PaddleMIX/tree/develop/paddlemix/examples/ppdocbee)
+for multimodal large model deployment, and fill in the corresponding `base_url` and `api_key`.
 
-**Note**: If local deployment of a multimodal large model is restricted due to the local environment, you can comment out the lines containing the `mllm` variable in the code and only use the large language model for information extraction.
+After updating the configuration file, you can complete quick inference using just a few lines of Python code. You can
+use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/vehicle_certificate-1.png) for
+testing:
+
+**Note**: If local deployment of a multimodal large model is restricted due to the local environment, you can comment
+out the lines containing the `mllm` variable in the code and only use the large language model for information
+extraction.
 
 ```python
 from paddlex import create_pipeline
@@ -1169,9 +1212,14 @@ The following are the parameters and descriptions of the `visual_predict()` meth
 
 <details><summary>(3) Process the Visual Prediction Results.</summary>
 
-The prediction result for each sample is of `dict` type, containing two fields: `visual_info` and `layout_parsing_result`. You can obtain visual information through `visual_info` (including `normal_text_dict`, `table_text_list`, `table_html_list`, etc.), and place the information for each sample into the `visual_info_list` list, which will be fed into the large language model later.
+The prediction result for each sample is of `dict` type, containing two fields: `visual_info` and
+`layout_parsing_result`. You can obtain visual information through `visual_info` (including `normal_text_dict`,
+`table_text_list`, `table_html_list`, etc.), and place the information for each sample into the `visual_info_list` list,
+which will be fed into the large language model later.
 
-Of course, you can also obtain the layout parsing results through `layout_parsing_result`, which includes tables, text, images, and other content contained in the document or image. It supports operations such as printing, saving as an image, and saving as a `json` file:
+Of course, you can also obtain the layout parsing results through `layout_parsing_result`, which includes tables, text,
+images, and other content contained in the document or image. It supports operations such as printing, saving as an
+image, and saving as a `json` file:
 
 ```python
 ......
@@ -1264,10 +1312,12 @@ for res in visual_predict_res:
 </tr>
 </table>
 
-- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained as follows:
+- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained
+  as follows:
     - `input_path`: `(str)` The input path of the image to be predicted
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF; otherwise, it is `None`
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF;
+      otherwise, it is `None`
 
     - `model_settings`: `(Dict[str, bool])` Model parameters required for the pipeline
 
@@ -1277,32 +1327,45 @@ for res in visual_predict_res:
         - `use_table_recognition`: `(bool)` Controls whether to enable the table recognition pipeline
         - `use_formula_recognition`: `(bool)` Controls whether to enable the formula recognition pipeline
 
-    - `parsing_res_list`: `(List[Dict])` A list of parsing results, each element is a dictionary, and the list order is the reading order after parsing.
+    - `parsing_res_list`: `(List[Dict])` A list of parsing results, each element is a dictionary, and the list order is
+      the reading order after parsing.
         - `block_bbox`: `(np.ndarray)` The bounding box of the layout area.
         - `block_label`: `(str)` The label of the layout area, such as `text`, `table`, etc.
         - `block_content`: `(str)` The content within the layout area.
 
     - `overall_ocr_res`: `(Dict[str, Union[List[str], List[float], numpy.ndarray]])` A dictionary of global OCR results
-      - `input_path`: `(Union[str, None])` The image path accepted by the OCR pipeline, when the input is `numpy.ndarray`, it is saved as `None`
-      - `model_settings`: `(Dict)` Model configuration parameters for the OCR pipeline
-      - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented by a numpy array of 4 vertex coordinates, with a shape of (4, 2) and a data type of int16
-      - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes
-      - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module
-        - `limit_side_len`: `(int)` The side length limit for image preprocessing
-        - `limit_type`: `(str)` The processing method for the side length limit
-        - `thresh`: `(float)` The confidence threshold for text pixel classification
-        - `box_thresh`: `(float)` The confidence threshold for text detection boxes
-        - `unclip_ratio`: `(float)` The inflation coefficient for text detection boxes
+        - `input_path`: `(Union[str, None])` The image path accepted by the OCR pipeline, when the input is
+          `numpy.ndarray`, it is saved as `None`
+        - `model_settings`: `(Dict)` Model configuration parameters for the OCR pipeline
+        - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is
+          represented by a numpy array of 4 vertex coordinates, with a shape of (4, 2) and a data type of int16
+        - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes
+        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module
+            - `limit_side_len`: `(int)` The side length limit for image preprocessing
+            - `limit_type`: `(str)` The processing method for the side length limit
+            - `thresh`: `(float)` The confidence threshold for text pixel classification
+            - `box_thresh`: `(float)` The confidence threshold for text detection boxes
+            - `unclip_ratio`: `(float)` The inflation coefficient for text detection boxes
+            - `text_type`: `(str)` The type of text detection, currently fixed as "general"
+
         - `text_type`: `(str)` The type of text detection, currently fixed as "general"
+        - `textline_orientation_angles`: `(List[int])` The prediction results of text line orientation classification.
+          When enabled, it returns actual angle values (e.g., [0,0,1])
+        - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results
+        - `rec_texts`: `(List[str])` A list of text recognition results, only including texts with confidence
+          exceeding `text_rec_score```markdown
+- Calling the `save_to_json()` method will save the aforementioned content to the specified `save_path`. If a directory
+  is specified, the save path will be `save_path/{your_img_basename}.json`. If a file is specified, it will be saved
+  directly to that file. Since JSON files do not support saving numpy arrays, `numpy.array` types will be converted to
+  list form.
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, the save path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`. If a file is
+  specified, it will be saved directly to that file. (Production pipelines often involve numerous result images, so it
+  is not recommended to specify a specific file path directly, as multiple images will be overwritten, leaving only the
+  last one.)
 
-      - `text_type`: `(str)` The type of text detection, currently fixed as "general"
-      - `textline_orientation_angles`: `(List[int])` The prediction results of text line orientation classification. When enabled, it returns actual angle values (e.g., [0,0,1])
-      - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results
-      - `rec_texts`: `(List[str])` A list of text recognition results, only including texts with confidence exceeding `text_rec_score```markdown
-- Calling the `save_to_json()` method will save the aforementioned content to the specified `save_path`. If a directory is specified, the save path will be `save_path/{your_img_basename}.json`. If a file is specified, it will be saved directly to that file. Since JSON files do not support saving numpy arrays, `numpy.array` types will be converted to list form.
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, the save path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`. If a file is specified, it will be saved directly to that file. (Production pipelines often involve numerous result images, so it is not recommended to specify a specific file path directly, as multiple images will be overwritten, leaving only the last one.)
-
-In addition, it is also supported to obtain visualized images with results and prediction results through attributes, as detailed below:
+In addition, it is also supported to obtain visualized images with results and prediction results through attributes, as
+detailed below:
 
 <table>
 <thead>
@@ -1321,8 +1384,14 @@ In addition, it is also supported to obtain visualized images with results and p
 </tr>
 </table>
 
-- The prediction result obtained by the `json` attribute is data of type `dict`, with content consistent with that saved by calling the `save_to_json()` method.
-- The prediction result returned by the `img` attribute is data of type `dict`. The keys are `layout_det_res`, `overall_ocr_res`, `text_paragraphs_ocr_res`, `formula_res_region1`, `table_cell_img`, and `seal_res_region1`, with corresponding values being `Image.Image` objects: used for displaying visualized images of layout detection, OCR, OCR text paragraphs, formulas, tables, and seal results, respectively. If optional modules are not used, only `layout_det_res` will be included in the dictionary.
+- The prediction result obtained by the `json` attribute is data of type `dict`, with content consistent with that saved
+  by calling the `save_to_json()` method.
+- The prediction result returned by the `img` attribute is data of type `dict`. The keys are `layout_det_res`,
+  `overall_ocr_res`, `text_paragraphs_ocr_res`, `formula_res_region1`, `table_cell_img`, and `seal_res_region1`, with
+  corresponding values being `Image.Image` objects: used for displaying visualized images of layout detection, OCR, OCR
+  text paragraphs, formulas, tables, and seal results, respectively. If optional modules are not used, only
+  `layout_det_res` will be included in the dictionary.
+
 </details>
 
 <details><summary>(4) Call the <code>build_vector()</code> method of the PP-ChatOCRv4 pipeline object to construct vectors for text content.</summary>
@@ -1390,7 +1459,10 @@ This method returns a dictionary containing visual text information, with the fo
 
 - `flag_save_bytes_vector`: `(bool)` Whether the result is saved as a binary file
 - `flag_too_short_text`: `(bool)` Whether the text length is less than the minimum number of characters
-- `vector`: `(str|list)` Binary content or text content of the text, depending on the values of `flag_save_bytes_vector` and `min_characters`. If `flag_save_bytes_vector=True` and the text length is greater than or equal to the minimum number of characters, binary content is returned; otherwise, the original text is returned.
+- `vector`: `(str|list)` Binary content or text content of the text, depending on the values of `flag_save_bytes_vector`
+  and `min_characters`. If `flag_save_bytes_vector=True` and the text length is greater than or equal to the minimum
+  number of characters, binary content is returned; otherwise, the original text is returned.
+
 </details>
 
 <details><summary>(5) Call the <code>mllm_pred()</code> method of the PP-ChatOCRv4 pipeline object to obtain multimodal large model extraction results.</summary>
@@ -1593,20 +1665,33 @@ Below are the parameters and their descriptions for the `chat()` method:
 </table>
 
 This method will print the results to the terminal. The content printed to the terminal is explained as follows:
-  - `chat_res`: `(dict)` The result of information extraction, which is a dictionary containing the keys to be extracted and their corresponding values.
+
+- `chat_res`: `(dict)` The result of information extraction, which is a dictionary containing the keys to be extracted
+  and their corresponding values.
 
 </details>
 
 ## 3. Development Integration/Deployment
-If the pipeline meets your requirements for inference speed and accuracy in production, you can proceed directly with development integration/deployment.
 
-If you need to apply the pipeline directly in your Python project, you can refer to the sample code in [2.2 Local Experience](#22-local-experience).
+If the pipeline meets your requirements for inference speed and accuracy in production, you can proceed directly with
+development integration/deployment.
+
+If you need to apply the pipeline directly in your Python project, you can refer to the sample code
+in [2.2 Local Experience](#22-local-experience).
 
 Additionally, PaddleX provides three other deployment methods, detailed as follows:
 
-🚀 **High-Performance Inference**: In actual production environments, many applications have stringent standards for the performance metrics of deployment strategies (especially response speed) to ensure efficient system operation and smooth user experience. To this end, PaddleX provides a high-performance inference plugin aimed at deeply optimizing model inference and pre/post-processing to significantly speed up the end-to-end process. For detailed instructions on high-performance inference, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.md).
+🚀 **High-Performance Inference**: In actual production environments, many applications have stringent standards for the
+performance metrics of deployment strategies (especially response speed) to ensure efficient system operation and smooth
+user experience. To this end, PaddleX provides a high-performance inference plugin aimed at deeply optimizing model
+inference and pre/post-processing to significantly speed up the end-to-end process. For detailed instructions on
+high-performance inference, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.md).
 
-☁️ **Serving**: Serving is a common deployment form in actual production environments. By encapsulating the inference functionality as a service, clients can access these services through network requests to obtain inference results. PaddleX supports multiple serving solutions for pipelines. For detailed instructions on serving, please refer to the [PaddleX Serving Guide](../../../pipeline_deploy/serving.md).
+☁️ **Serving**: Serving is a common deployment form in actual production environments. By encapsulating the inference
+functionality as a service, clients can access these services through network requests to obtain inference results.
+PaddleX supports multiple serving solutions for pipelines. For detailed instructions on serving, please refer to
+the [PaddleX Serving Guide](../../../pipeline_deploy/serving.md).
 
 Below are the API references for basic serving and multi-language service invocation examples:
 
@@ -2902,14 +2987,25 @@ function send_post_raw($url, $data) {
 </details>
 <br/>
 
-📱 **On-Device Deployment**: Edge deployment is a method where computing and data processing functions are placed on the user's device itself. The device can directly process data without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed instructions on edge deployment, please refer to the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.md).
-You can choose an appropriate deployment method for your pipeline based on your needs and proceed with subsequent AI application integration.
+📱 **On-Device Deployment**: Edge deployment is a method where computing and data processing functions are placed on the
+user's device itself. The device can directly process data without relying on remote servers. PaddleX supports deploying
+models on edge devices such as Android. For detailed instructions on edge deployment, please refer to
+the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.md).
+You can choose an appropriate deployment method for your pipeline based on your needs and proceed with subsequent AI
+application integration.
 
 ## 4. Custom Development
-If the default model weights provided by the Document Scene Information Extraction v4 Pipeline do not meet your expectations in terms of accuracy or speed in your specific scenario, you can try to further **fine-tune** the existing models using **data from your specific domain or application scenario** to enhance the recognition performance in your context.
+
+If the default model weights provided by the Document Scene Information Extraction v4 Pipeline do not meet your
+expectations in terms of accuracy or speed in your specific scenario, you can try to further **fine-tune** the existing
+models using **data from your specific domain or application scenario** to enhance the recognition performance in your
+context.
 
 ### 4.1 Model Fine-Tuning
-Since the Document Scene Information Extraction v4 Pipeline consists of several modules, suboptimal performance may stem from any of these modules. You can analyze cases with poor extraction results, identify which module is problematic through visual image inspection, and refer to the fine-tuning tutorial links in the table below for model fine-tuning.
+
+Since the Document Scene Information Extraction v4 Pipeline consists of several modules, suboptimal performance may stem
+from any of these modules. You can analyze cases with poor extraction results, identify which module is problematic
+through visual image inspection, and refer to the fine-tuning tutorial links in the table below for model fine-tuning.
 
 <table>
   <thead>
@@ -2964,46 +3060,54 @@ Since the Document Scene Information Extraction v4 Pipeline consists of several 
 </table>
 
 ### 4.2 Model Deployment
+
 After fine-tuning using your private dataset, you will obtain local model weights files.
 
-To use the fine-tuned model weights, you only need to modify the pipeline configuration file by replacing the path to the default model weights with the path to your fine-tuned model weights in the corresponding location:
+To use the fine-tuned model weights, you only need to modify the pipeline configuration file by replacing the path to
+the default model weights with the path to your fine-tuned model weights in the corresponding location:
 
 ```yaml
 ......
 SubModules:
-    TextDetection:
-    module_name: text_detection
-    model_name: PP-OCRv5_server_det
-    model_dir: null # Replace with the path to the fine-tuned text detection model weights
-    limit_side_len: 960
-    limit_type: max
-    max_side_limit: 4000
-    thresh: 0.3
-    box_thresh: 0.6
-    unclip_ratio: 1.5
+  TextDetection:
+  module_name: text_detection
+  model_name: PP-OCRv5_server_det
+  model_dir: null # Replace with the path to the fine-tuned text detection model weights
+  limit_side_len: 960
+  limit_type: max
+  max_side_limit: 4000
+  thresh: 0.3
+  box_thresh: 0.6
+  unclip_ratio: 1.5
 
-    TextRecognition:
-    module_name: text_recognition
-    model_name: PP-OCRv5_server_rec
-    model_dir: null # Replace with the path to the fine-tuned text recognition model weights
-    batch_size: 1
-    score_thresh: 0
-......
+  TextRecognition:
+  module_name: text_recognition
+  model_name: PP-OCRv5_server_rec
+  model_dir: null # Replace with the path to the fine-tuned text recognition model weights
+  batch_size: 1
+  score_thresh: 0
+  ......
 ```
 
-Subsequently, refer to the command line method or Python script method in [2.2 Local Experience](#22-local-experience) to load the modified pipeline configuration file.
+Subsequently, refer to the command line method or Python script method in [2.2 Local Experience](#22-local-experience)
+to load the modified pipeline configuration file.
 
 ## 5. Multi-Hardware Support
-PaddleX supports various mainstream hardware devices such as NVIDIA GPUs, Kunlun XPU, Ascend NPU, and Cambricon MLU, allowing seamless switching between different hardware **by simply setting the `device` parameter**.
 
-For example, when using the Document Scene Information Extraction v4 Pipeline, to change the running device from an NVIDIA GPU to an Ascend NPU, you only need to modify the `device` in the script to npu:
+PaddleX supports various mainstream hardware devices such as NVIDIA GPUs, Kunlun XPU, Ascend NPU, and Cambricon MLU,
+allowing seamless switching between different hardware **by simply setting the `device` parameter**.
+
+For example, when using the Document Scene Information Extraction v4 Pipeline, to change the running device from an
+NVIDIA GPU to an Ascend NPU, you only need to modify the `device` in the script to npu:
 
 ```python
 from paddlex import create_pipeline
+
 pipeline = create_pipeline(
     pipeline="PP-ChatOCRv4-doc",
-    device="npu:0" # gpu:0 --> npu:0
-    )
+    device="npu:0"  # gpu:0 --> npu:0
+)
 ```
 
-If you want to use the General Document Scene Information Extraction v4 Pipeline on more types of hardware, please refer to the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
+If you want to use the General Document Scene Information Extraction v4 Pipeline on more types of hardware, please refer
+to the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).

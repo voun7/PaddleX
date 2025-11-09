@@ -1,8 +1,11 @@
 # 1. Contributing Models
 
-The prosperity of the PaddlePaddle ecosystem is inseparable from the contributions of developers and users. We warmly welcome you to contribute more models for multi-hardware compatibility to PaddlePaddle and greatly appreciate your feedback.
+The prosperity of the PaddlePaddle ecosystem is inseparable from the contributions of developers and users. We warmly
+welcome you to contribute more models for multi-hardware compatibility to PaddlePaddle and greatly appreciate your
+feedback.
 
-The current list of hardware-compatible models in PaddleX is as follows. You can check whether the relevant models have been adapted for the corresponding hardware:
+The current list of hardware-compatible models in PaddleX is as follows. You can check whether the relevant models have
+been adapted for the corresponding hardware:
 
 * [NPU Model List](../support_list/model_list_npu.en.md)
 
@@ -12,9 +15,15 @@ The current list of hardware-compatible models in PaddleX is as follows. You can
 
 * [MLU Model List](../support_list/model_list_mlu.en.md)
 
-The source code for current PaddleX-related models is placed in various kits, and some kits and models have not been integrated into PaddleX. Therefore, before adapting a model, please ensure that your model is already integrated into PaddleX. For the current list of PaddleX models, see [PaddleX Model Library](../support_list/models_list.en.md). If you have specific model requirements, please submit an [issue](https://github.com/PaddlePaddle/PaddleX/issues/new?assignees=&labels=&projects=&template=6_hardware_contribute.en.md&title=) to inform us.
+The source code for current PaddleX-related models is placed in various kits, and some kits and models have not been
+integrated into PaddleX. Therefore, before adapting a model, please ensure that your model is already integrated into
+PaddleX. For the current list of PaddleX models, see [PaddleX Model Library](../support_list/models_list.en.md). If you
+have specific model requirements, please submit
+an [issue](https://github.com/PaddlePaddle/PaddleX/issues/new?assignees=&labels=&projects=&template=6_hardware_contribute.en.md&title=)
+to inform us.
 
-If the model you are adapting involves modifications to the model networking code on the relevant hardware, please submit the code to the corresponding kit first, referring to the contribution guides for each kit:
+If the model you are adapting involves modifications to the model networking code on the relevant hardware, please
+submit the code to the corresponding kit first, referring to the contribution guides for each kit:
 
 1. [PaddleClas](https://github.com/PaddlePaddle/PaddleClas/tree/develop)
 
@@ -28,27 +37,30 @@ If the model you are adapting involves modifications to the model networking cod
 
 # 2. Submitting an Issue for Explanation
 
-When you have completed the adaptation of a model on a specific hardware, please submit an [issue](https://github.com/PaddlePaddle/PaddleX/issues/new?assignees=&labels=&projects=&template=6_hardware_contribute.md&title=) to PaddleX explaining the relevant information. We will verify the model and, upon confirmation of no issues, merge the relevant code and update the model list in the documentation.
+When you have completed the adaptation of a model on a specific hardware, please submit
+an [issue](https://github.com/PaddlePaddle/PaddleX/issues/new?assignees=&labels=&projects=&template=6_hardware_contribute.md&title=)
+to PaddleX explaining the relevant information. We will verify the model and, upon confirmation of no issues, merge the
+relevant code and update the model list in the documentation.
 
 The relevant issue needs to provide information to reproduce the model's accuracy, including at least the following:
 
 * The software versions used to verify the model's accuracy, including but not limited to:
 
-  * Paddle version
+    * Paddle version
 
-  * PaddleCustomDevice version (if applicable)
+    * PaddleCustomDevice version (if applicable)
 
-  * Branch of PaddleX or the corresponding kit
+    * Branch of PaddleX or the corresponding kit
 
 * The machine environment used to verify the model's accuracy, including but not limited to:
 
-  * Chip model
+    * Chip model
 
-  * Operating system version
+    * Operating system version
 
-  * Hardware driver version
+    * Hardware driver version
 
-  * Operator library version, etc.
+    * Operator library version, etc.
 
 # 3. More Documentation
 

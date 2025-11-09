@@ -182,10 +182,10 @@ class Benchmark:
     def time_methods(self, cls):
         for name, func in cls.__dict__.items():
             if (
-                callable(func)
-                and self._is_public_method(name)
-                and not name.startswith("__")
-                and name not in PIPELINE_FUNC_BLACK_LIST
+                    callable(func)
+                    and self._is_public_method(name)
+                    and not name.startswith("__")
+                    and name not in PIPELINE_FUNC_BLACK_LIST
             ):
                 setattr(cls, name, self.timeit(func))
         return cls
@@ -314,7 +314,7 @@ class Benchmark:
                 summary[op_tag] += avg
 
         summary["core"] = (
-            summary["preprocessing"] + summary["inference"] + summary["postprocessing"]
+                summary["preprocessing"] + summary["inference"] + summary["postprocessing"]
         )
 
         summary["other"] = summary["end_to_end"] - summary["core"]
@@ -487,10 +487,10 @@ class Benchmark:
             step = info_list[idx][0]
             format_operation_name = info_list[idx][3]
             op_time = (
-                np.sum(
-                    [info_list[pos][4] for pos in range(idx, len(info_list), step_num)]
-                )
-                / loop_num
+                    np.sum(
+                        [info_list[pos][4] for pos in range(idx, len(info_list), step_num)]
+                    )
+                    / loop_num
             )
             detail_list.append([step, format_operation_name, op_time])
 

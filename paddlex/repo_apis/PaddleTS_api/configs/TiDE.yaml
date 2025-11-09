@@ -7,7 +7,7 @@ to_static_train: False
 use_amp: False
 amp_level: O2
 
-dataset: 
+dataset:
   name: TSDataset
   dataset_root: /data/
   train_path: /data/train.csv
@@ -22,7 +22,7 @@ info_params:
   time_col: date
 
 
-model: 
+model:
   name: TiDE
   model_cfg:
     c_in: 7

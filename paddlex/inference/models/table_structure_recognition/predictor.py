@@ -16,14 +16,14 @@ from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 
-from ....modules.table_recognition.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import Normalize, ResizeByLong, ToBatch, ToCHWImage
 from .processors import Pad, TableLabelDecode
 from .result import TableRecResult
+from ..base import BasePredictor
+from ..common import Normalize, ResizeByLong, ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.table_recognition.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class TablePredictor(BasePredictor):
@@ -136,11 +136,11 @@ class TablePredictor(BasePredictor):
 
     @register("NormalizeImage")
     def build_normalize(
-        self,
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
-        scale=1 / 255,
-        order="hwc",
+            self,
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+            scale=1 / 255,
+            order="hwc",
     ):
         return Normalize(mean=mean, std=std)
 

@@ -16,13 +16,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ...utils.benchmark import benchmark
-from ...utils.hpi import HPIConfig
-from ...utils.pp_option import PaddlePredictorOption
+from .result import OCRResult
 from .._parallel import AutoParallelImageSimpleInferencePipeline
 from ..base import BasePipeline
 from ..components import (
@@ -33,7 +27,13 @@ from ..components import (
     convert_points_to_boxes,
     rotate_image,
 )
-from .result import OCRResult
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ...utils.benchmark import benchmark
+from ...utils.hpi import HPIConfig
+from ...utils.pp_option import PaddlePredictorOption
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -41,12 +41,12 @@ class _OCRPipeline(BasePipeline):
     """OCR Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: Optional[str] = None,
-        pp_option: Optional[PaddlePredictorOption] = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: Optional[str] = None,
+            pp_option: Optional[PaddlePredictorOption] = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """
         Initializes the class with given configurations and options.
@@ -139,7 +139,7 @@ class _OCRPipeline(BasePipeline):
         self.img_reader = ReadImage(format="BGR")
 
     def rotate_image(
-        self, image_array_list: List[np.ndarray], rotate_angle_list: List[int]
+            self, image_array_list: List[np.ndarray], rotate_angle_list: List[int]
     ) -> List[np.ndarray]:
         """
         Rotate the given image arrays by their corresponding angles.
@@ -192,8 +192,8 @@ class _OCRPipeline(BasePipeline):
             return False
 
         if (
-            model_settings["use_textline_orientation"]
-            and not self.use_textline_orientation
+                model_settings["use_textline_orientation"]
+                and not self.use_textline_orientation
         ):
             logging.error(
                 "Set use_textline_orientation, but the models for use_textline_orientation are not initialized."
@@ -203,10 +203,10 @@ class _OCRPipeline(BasePipeline):
         return True
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Optional[bool],
-        use_doc_unwarping: Optional[bool],
-        use_textline_orientation: Optional[bool],
+            self,
+            use_doc_orientation_classify: Optional[bool],
+            use_doc_unwarping: Optional[bool],
+            use_textline_orientation: Optional[bool],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -235,13 +235,13 @@ class _OCRPipeline(BasePipeline):
         )
 
     def get_text_det_params(
-        self,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_max_side_limit: Optional[int] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
+            self,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_max_side_limit: Optional[int] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
     ) -> dict:
         """
         Get text detection parameters.
@@ -281,19 +281,19 @@ class _OCRPipeline(BasePipeline):
         )
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_textline_orientation: Optional[bool] = None,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_max_side_limit: Optional[int] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
-        return_word_box: Optional[bool] = None,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_textline_orientation: Optional[bool] = None,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_max_side_limit: Optional[int] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
+            return_word_box: Optional[bool] = None,
     ) -> OCRResult:
         """
         Predict OCR results based on input images or arrays with optional preprocessing steps.
@@ -415,13 +415,13 @@ class _OCRPipeline(BasePipeline):
                 for i, idx in enumerate(indices):
                     res = results[idx]
                     res["textline_orientation_angles"] = angles[
-                        chunk_indices[i] : chunk_indices[i + 1]
+                        chunk_indices[i]: chunk_indices[i + 1]
                     ]
 
                 # TODO: Process all sub-images in the batch together
                 for i, idx in enumerate(indices):
                     all_subs_of_img = all_subs_of_imgs[
-                        chunk_indices[i] : chunk_indices[i + 1]
+                        chunk_indices[i]: chunk_indices[i + 1]
                     ]
                     res = results[idx]
                     dt_polys = dt_polys_list[idx]
@@ -439,9 +439,9 @@ class _OCRPipeline(BasePipeline):
                         all_subs_of_img[x["sub_img_id"]] for x in sorted_subs_info
                     ]
                     for i, rec_res in enumerate(
-                        self.text_rec_model(
-                            sorted_subs_of_img, return_word_box=return_word_box
-                        )
+                            self.text_rec_model(
+                                sorted_subs_of_img, return_word_box=return_word_box
+                            )
                     ):
                         sub_img_id = sorted_subs_info[i]["sub_img_id"]
                         sub_img_info_list[sub_img_id]["rec_res"] = rec_res

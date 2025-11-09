@@ -4,9 +4,12 @@ comments: true
 
 # PaddleX Model List (Hygon DCU)
 
-PaddleX incorporates multiple pipelines, each containing several modules, and each module encompasses various models. The specific models to use can be selected based on the benchmark data below. If you prioritize model accuracy, choose models with higher accuracy. If you prioritize model storage size, select models with smaller storage sizes.
+PaddleX incorporates multiple pipelines, each containing several modules, and each module encompasses various models.
+The specific models to use can be selected based on the benchmark data below. If you prioritize model accuracy, choose
+models with higher accuracy. If you prioritize model storage size, select models with smaller storage sizes.
 
 ## Image Classification Module
+
 <table>
 <thead>
 <tr>
@@ -51,6 +54,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are Top-1 Accuracy on the [ImageNet-1k](https://www.image-net.org/index.php) validation set.</b>
 
 ## [Image Multi-label Classification Module](../module_usage/tutorials/cv_modules/image_multilabel_classification.en.md)
+
 <table>
 <thead>
 <tr>
@@ -84,6 +88,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are for the multi-label classification task mAP of [COCO2017](https://cocodataset.org/#home).</b>
 
 ## [Image Feature Module](../module_usage/tutorials/cv_modules/image_feature.en.md)
+
 <table>
 <thead>
 <tr>
@@ -103,6 +108,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are for AliProducts recall@1。</b>
 
 ## Object Detection Module
+
 <table>
 <thead>
 <tr>
@@ -187,6 +193,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are mAP(0.5:0.95) on the [COCO2017](https://cocodataset.org/#home) validation set.</b>
 
 ## [Small Object Detection Module](../module_usage/tutorials/cv_modules/small_object_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -216,6 +223,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are for </b>[VisDrone-DET](https://github.com/VisDrone/VisDrone-Dataset)<b> validation set mAP(0.5:0.95)。</b>
 
 ## [Semantic Segmentation Module](../module_usage/tutorials/cv_modules/semantic_segmentation.en.md)
+
 <table>
 <thead>
 <tr>
@@ -245,6 +253,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are mIoU on the [Cityscapes](https://www.cityscapes-dataset.com/) dataset.</b>
 
 ## [Abnormality Detection Module](../module_usage/tutorials/cv_modules/anomaly_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -264,6 +273,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are evaluated on the </b>[MVTec AD](https://www.mvtec.com/company/research/datasets/mvtec-ad)<b> dataset using the average anomaly score.</b>
 
 ## [Face Detection Module](../module_usage/tutorials/cv_modules/face_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -283,6 +293,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are evaluated on the WIDER-FACE validation set with an input size of 640*640.</b>
 
 ## Text Detection Module
+
 <table>
 <thead>
 <tr>
@@ -307,6 +318,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The evaluation set for the above accuracy metrics is PaddleOCR's self-built Chinese dataset, covering street scenes, web images, documents, handwriting, and more scenarios, with 500 images for detection.</b>
 
 ## Text Recognition Module
+
 <table>
 <thead>
 <tr>
@@ -331,6 +343,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The evaluation set for the above accuracy metrics is PaddleOCR's self-built Chinese dataset, covering street scenes, web images, documents, handwriting, and more scenarios, with 11,000 images for text recognition.</b>
 
 ## [Time Series Forecasting Module](../module_usage/tutorials/time_series_modules/time_series_forecasting.en.md)
+
 <table>
 <thead>
 <tr>

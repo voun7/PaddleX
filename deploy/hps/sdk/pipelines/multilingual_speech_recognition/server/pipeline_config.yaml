@@ -1,4 +1,3 @@
-
 pipeline_name: multilingual_speech_recognition
 
 SubModules:

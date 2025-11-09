@@ -146,20 +146,20 @@ class TritonPythonModel(BaseTritonPythonModel):
                     start_idx = 0
                     ind_preds = []
                     for item in ind_img_lsts:
-                        ind_preds.append(preds[start_idx : start_idx + len(item)])
+                        ind_preds.append(preds[start_idx: start_idx + len(item)])
                         start_idx += len(item)
 
                     for i, result in zip(
-                        input_ids_g,
-                        executor.map(
-                            self._postprocess,
-                            ind_img_lsts,
-                            ind_data_info_lst,
-                            ind_visualize_enabled_lst,
-                            ind_preds,
-                            log_ids_g,
-                            inputs_g,
-                        ),
+                            input_ids_g,
+                            executor.map(
+                                self._postprocess,
+                                ind_img_lsts,
+                                ind_data_info_lst,
+                                ind_visualize_enabled_lst,
+                                ind_preds,
+                                log_ids_g,
+                                inputs_g,
+                            ),
                     ):
                         result_or_output_dic[i] = result
 
@@ -220,7 +220,7 @@ class TritonPythonModel(BaseTritonPythonModel):
             if utils.is_url(input.file):
                 maybe_file_type = utils.infer_file_type(input.file)
                 if maybe_file_type is None or not (
-                    maybe_file_type == "PDF" or maybe_file_type == "IMAGE"
+                        maybe_file_type == "PDF" or maybe_file_type == "IMAGE"
                 ):
                     return protocol.create_aistudio_output_without_result(
                         422,

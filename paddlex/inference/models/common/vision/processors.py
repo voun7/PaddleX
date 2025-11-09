@@ -17,9 +17,9 @@ import math
 import numpy as np
 from PIL import Image
 
-from .....utils.deps import class_requires_deps, is_dep_available
-from ....utils.benchmark import benchmark
 from . import funcs as F
+from ....utils.benchmark import benchmark
+from .....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -86,12 +86,12 @@ class Resize(_BaseResize):
     """Resize the image."""
 
     def __init__(
-        self,
-        target_size,
-        keep_ratio=False,
-        size_divisor=None,
-        interp="LINEAR",
-        backend="cv2",
+            self,
+            target_size,
+            keep_ratio=False,
+            size_divisor=None,
+            interp="LINEAR",
+            backend="cv2",
     ):
         """
         Initialize the instance.
@@ -143,7 +143,7 @@ class ResizeByLong(_BaseResize):
     """
 
     def __init__(
-        self, target_long_edge, size_divisor=None, interp="LINEAR", backend="cv2"
+            self, target_long_edge, size_divisor=None, interp="LINEAR", backend="cv2"
     ):
         """
         Initialize the instance.
@@ -185,7 +185,7 @@ class ResizeByShort(_BaseResize):
     """
 
     def __init__(
-        self, target_short_edge, size_divisor=None, interp="LINEAR", backend="cv2"
+            self, target_short_edge, size_divisor=None, interp="LINEAR", backend="cv2"
     ):
         """
         Initialize the instance.

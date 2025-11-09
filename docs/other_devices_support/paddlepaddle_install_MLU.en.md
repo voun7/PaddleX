@@ -4,10 +4,13 @@ comments: true
 
 # Cambricon MLU Installation Tutorial for PaddlePaddle
 
-Currently, PaddleX supports the Cambricon MLU370X8 chip. Considering environmental differences, we recommend using the <b>Cambricon MLU development image provided by PaddlePaddle</b> to prepare your environment.
+Currently, PaddleX supports the Cambricon MLU370X8 chip. Considering environmental differences, we recommend using
+the <b>Cambricon MLU development image provided by PaddlePaddle</b> to prepare your environment.
 
 ## 1. Docker Environment Preparation
-Pull the image. This image is for development only and does not include a pre-compiled PaddlePaddle installation package.
+
+Pull the image. This image is for development only and does not include a pre-compiled PaddlePaddle installation
+package.
 
 ```bash
 # Applicable to X86 architecture, Arch64 architecture image is not provided for now
@@ -25,7 +28,11 @@ docker run -it --name paddle-mlu-dev -v $(pwd):/work \
 ```
 
 ## 2. Install Paddle Package
-Within the started docker container, download and install the wheel package released by PaddlePaddle. Currently, Python 3.10 wheel packages are provided. If you require other Python versions, refer to the [PaddlePaddle official documentation](https://www.paddlepaddle.org.cn/en/install/quick) for compilation and installation instructions.
+
+Within the started docker container, download and install the wheel package released by PaddlePaddle. Currently, Python
+3.10 wheel packages are provided. If you require other Python versions, refer to
+the [PaddlePaddle official documentation](https://www.paddlepaddle.org.cn/en/install/quick) for compilation and
+installation instructions.
 
 ```bash
 # Download and install the wheel package

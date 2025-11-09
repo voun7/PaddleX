@@ -4,9 +4,12 @@ comments: true
 
 # PaddleX Model List (Kunlun XPU)
 
-PaddleX incorporates multiple pipelines, each containing several modules, and each module encompasses various models. You can select the appropriate models based on the benchmark data below. If you prioritize model accuracy, choose models with higher accuracy. If you prioritize model size, select models with smaller storage requirements.
+PaddleX incorporates multiple pipelines, each containing several modules, and each module encompasses various models.
+You can select the appropriate models based on the benchmark data below. If you prioritize model accuracy, choose models
+with higher accuracy. If you prioritize model size, select models with smaller storage requirements.
 
 ## Image Classification Module
+
 <table>
 <thead>
 <tr>
@@ -181,6 +184,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are Top-1 Accuracy on the [ImageNet-1k](https://www.image-net.org/index.php) validation set.</b>
 
 ## Object Detection Module
+
 <table>
 <thead>
 <tr>
@@ -235,6 +239,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are mAP(0.5:0.95) on the [COCO2017](https://cocodataset.org/#home) validation set.</b>
 
 ## [Semantic Segmentation Module](../module_usage/tutorials/cv_modules/semantic_segmentation.en.md)
+
 <table>
 <thead>
 <tr>
@@ -254,6 +259,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are based on the mIoU of the [Cityscapes](https://www.cityscapes-dataset.com/) dataset.</b>
 
 ## [Abnormality Detection Module](../module_usage/tutorials/cv_modules/anomaly_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -273,6 +279,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are evaluated on the </b>[MVTec AD](https://www.mvtec.com/company/research/datasets/mvtec-ad)<b> dataset using the average anomaly score.</b>
 
 ## [Face Detection Module](../module_usage/tutorials/cv_modules/face_detection.en.md)
+
 <table>
 <thead>
 <tr>
@@ -292,6 +299,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The above accuracy metrics are evaluated on the WIDER-FACE validation set with an input size of 640*640.</b>
 
 ## Text Detection Module
+
 <table>
 <thead>
 <tr>
@@ -316,6 +324,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The evaluation set for the above accuracy metrics is PaddleOCR's self-built Chinese dataset, covering street scenes, web images, documents, handwriting, and more scenarios, with 500 images for detection.</b>
 
 ## Text Recognition Module
+
 <table>
 <thead>
 <tr>
@@ -340,6 +349,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The evaluation set for the above accuracy metrics is PaddleOCR's self-built Chinese dataset, covering street scenes, web images, documents, handwriting, and more scenarios, with 11,000 images for text recognition.</b>
 
 ## Layout Analysis Module
+
 <table>
 <thead>
 <tr>
@@ -359,6 +369,7 @@ PaddleX incorporates multiple pipelines, each containing several modules, and ea
 <b>Note: The evaluation set for the above accuracy metrics is PaddleOCR's self-built layout analysis dataset, containing 10,000 images.</b>
 
 ## [Time Series Forecasting Module](../module_usage/tutorials/time_series_modules/time_series_forecasting.en.md)
+
 <table>
 <thead>
 <tr>

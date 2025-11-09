@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 from ..... import UltraInferModel, ModelFormat
 from ..... import c_lib_wrap as C
 
@@ -90,11 +91,11 @@ class InsightFaceRecognitionPostprocessor:
 
 class InsightFaceRecognitionBase(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a InsightFaceRecognitionBase model exported by PaddleClas.
 
@@ -147,11 +148,11 @@ class InsightFaceRecognitionBase(UltraInferModel):
 
 class ArcFace(InsightFaceRecognitionBase):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a ArcFace model exported by PaddleClas.
         :param model_file: (str)Path of model file, e.g ArcFace/model.pdmodel
@@ -170,11 +171,11 @@ class ArcFace(InsightFaceRecognitionBase):
 
 class CosFace(InsightFaceRecognitionBase):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a CosFace model exported by PaddleClas.
         :param model_file: (str)Path of model file, e.g CosFace/model.pdmodel
@@ -193,11 +194,11 @@ class CosFace(InsightFaceRecognitionBase):
 
 class PartialFC(InsightFaceRecognitionBase):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a PartialFC model exported by PaddleClas.
         :param model_file: (str)Path of model file, e.g PartialFC/model.pdmodel
@@ -216,11 +217,11 @@ class PartialFC(InsightFaceRecognitionBase):
 
 class VPL(InsightFaceRecognitionBase):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a VPL model exported by PaddleClas.
         :param model_file: (str)Path of model file, e.g VPL/model.pdmodel

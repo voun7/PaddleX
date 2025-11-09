@@ -14,31 +14,31 @@
 
 import os
 
-from ....utils.device import parse_device
-from ....utils.misc import abspath
+from .config import InstanceSegConfig
 from ...base import BaseModel
 from ...base.utils.arg import CLIArgument
 from ...base.utils.subprocess import CompletedProcess
-from .config import InstanceSegConfig
+from ....utils.device import parse_device
+from ....utils.misc import abspath
 
 
 class InstanceSegModel(BaseModel):
     """Instance Segmentation Model"""
 
     def train(
-        self,
-        batch_size: int = None,
-        learning_rate: float = None,
-        epochs_iters: int = None,
-        ips: str = None,
-        device: str = "gpu",
-        resume_path: str = None,
-        dy2st: bool = False,
-        amp: str = "OFF",
-        num_workers: int = None,
-        use_vdl: bool = True,
-        save_dir: str = None,
-        **kwargs,
+            self,
+            batch_size: int = None,
+            learning_rate: float = None,
+            epochs_iters: int = None,
+            ips: str = None,
+            device: str = "gpu",
+            resume_path: str = None,
+            dy2st: bool = False,
+            amp: str = "OFF",
+            num_workers: int = None,
+            use_vdl: bool = True,
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """train self
 
@@ -142,14 +142,14 @@ class InstanceSegModel(BaseModel):
             )
 
     def evaluate(
-        self,
-        weight_path: str,
-        batch_size: int = None,
-        ips: bool = None,
-        device: bool = "gpu",
-        amp: bool = "OFF",
-        num_workers: int = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            batch_size: int = None,
+            ips: bool = None,
+            device: bool = "gpu",
+            amp: bool = "OFF",
+            num_workers: int = None,
+            **kwargs,
     ) -> CompletedProcess:
         """evaluate self using specified weight
 
@@ -191,12 +191,12 @@ class InstanceSegModel(BaseModel):
             return cp
 
     def predict(
-        self,
-        input_path: str,
-        weight_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs,
+            self,
+            input_path: str,
+            weight_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """predict using specified weight
 
@@ -294,12 +294,12 @@ class InstanceSegModel(BaseModel):
             return self.runner.export(config_path, cli_args, None)
 
     def infer(
-        self,
-        model_dir: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs,
+            self,
+            model_dir: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs,
     ):
         """predict image using infernece model
 
@@ -330,15 +330,15 @@ class InstanceSegModel(BaseModel):
         return self.runner.infer(cli_args, device)
 
     def compression(
-        self,
-        weight_path: str,
-        batch_size: int = None,
-        learning_rate: float = None,
-        epochs_iters: int = None,
-        device: str = None,
-        use_vdl: bool = True,
-        save_dir: str = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            batch_size: int = None,
+            learning_rate: float = None,
+            epochs_iters: int = None,
+            device: str = None,
+            use_vdl: bool = True,
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """compression model
 

@@ -16,13 +16,13 @@ import os
 from copy import deepcopy
 from typing import Dict, List
 
-from ...utils import logging
-from ...utils.device import get_default_device, parse_device, set_env_for_device_type
-from ...utils.flags import ENABLE_MKLDNN_BYDEFAULT, USE_PIR_TRT, DISABLE_DEVICE_FALLBACK
 from .misc import is_mkldnn_available
 from .mkldnn_blocklist import MKLDNN_BLOCKLIST
 from .new_ir_blocklist import NEWIR_BLOCKLIST
 from .trt_config import TRT_CFG_SETTING, TRT_PRECISION_MAP
+from ...utils import logging
+from ...utils.device import get_default_device, parse_device, set_env_for_device_type
+from ...utils.flags import ENABLE_MKLDNN_BYDEFAULT, USE_PIR_TRT, DISABLE_DEVICE_FALLBACK
 
 
 def get_default_run_mode(model_name, device_type):
@@ -31,9 +31,9 @@ def get_default_run_mode(model_name, device_type):
     if device_type != "cpu":
         return "paddle"
     if (
-        ENABLE_MKLDNN_BYDEFAULT
-        and is_mkldnn_available()
-        and model_name not in MKLDNN_BLOCKLIST
+            ENABLE_MKLDNN_BYDEFAULT
+            and is_mkldnn_available()
+            and model_name not in MKLDNN_BLOCKLIST
     ):
         return "mkldnn"
     else:
@@ -275,7 +275,7 @@ class PaddlePredictorOption(object):
 
     @trt_dynamic_shape_input_data.setter
     def trt_dynamic_shape_input_data(
-        self, trt_dynamic_shape_input_data: Dict[str, List[float]]
+            self, trt_dynamic_shape_input_data: Dict[str, List[float]]
     ):
         self._update("trt_dynamic_shape_input_data", trt_dynamic_shape_input_data)
 

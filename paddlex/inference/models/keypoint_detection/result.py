@@ -18,8 +18,8 @@ import math
 import numpy as np
 from PIL import Image
 
-from ....utils.deps import function_requires_deps, is_dep_available
 from ...common.result import BaseCVResult, JsonMixin
+from ....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -140,8 +140,8 @@ def draw_keypoints(img, results, visual_thresh=0.1, ids=None):
         for j in range(len(skeletons)):
             edge = EDGES[i]
             if (
-                skeletons[j][edge[0], 2] < visual_thresh
-                or skeletons[j][edge[1], 2] < visual_thresh
+                    skeletons[j][edge[0], 2] < visual_thresh
+                    or skeletons[j][edge[1], 2] < visual_thresh
             ):
                 continue
 

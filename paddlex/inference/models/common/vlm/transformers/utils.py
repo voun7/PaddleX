@@ -55,7 +55,7 @@ def fn_args_to_dict(func, *args, **kwargs):
     init_dict = dict(zip(spec_args, args))
     # add default argument values
     kwargs_dict = (
-        dict(zip(spec_args[-len(spec_defaults) :], spec_defaults))
+        dict(zip(spec_args[-len(spec_defaults):], spec_defaults))
         if spec_defaults
         else {}
     )
@@ -68,11 +68,11 @@ def fn_args_to_dict(func, *args, **kwargs):
 
 
 def get_checkpoint_shard_files(
-    pretrained_model_name_or_path,
-    index_filename,
-    cache_dir=None,
-    subfolder="",
-    **kwargs,
+        pretrained_model_name_or_path,
+        index_filename,
+        cache_dir=None,
+        subfolder="",
+        **kwargs,
 ):
     """
     For a given model:

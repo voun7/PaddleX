@@ -41,15 +41,15 @@ import numpy as np
 import paddle
 import paddle.nn as nn
 
+from ._config import PaddleOCRVLConfig
+from ._ernie import Ernie4_5Model, Ernie4_5PretrainedModel
+from ._projector import Projector
+from ._siglip import SiglipVisionModel
 from ....common.vlm.generation import GenerationMixin
 from ....common.vlm.transformers.model_outputs import (
     CausalLMOutputWithCrossAttentions,
     ModelOutput,
 )
-from ._config import PaddleOCRVLConfig
-from ._ernie import Ernie4_5Model, Ernie4_5PretrainedModel
-from ._projector import Projector
-from ._siglip import SiglipVisionModel
 
 
 @dataclass
@@ -98,12 +98,12 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         return self.model
 
     def get_rope_index(
-        self,
-        input_ids: Optional[paddle.Tensor] = None,
-        image_grid_thw: Optional[paddle.Tensor] = None,
-        video_grid_thw: Optional[paddle.Tensor] = None,
-        second_per_grid_ts: Optional[paddle.Tensor] = None,
-        attention_mask: Optional[paddle.Tensor] = None,
+            self,
+            input_ids: Optional[paddle.Tensor] = None,
+            image_grid_thw: Optional[paddle.Tensor] = None,
+            video_grid_thw: Optional[paddle.Tensor] = None,
+            second_per_grid_ts: Optional[paddle.Tensor] = None,
+            attention_mask: Optional[paddle.Tensor] = None,
     ) -> Tuple[paddle.Tensor, paddle.Tensor]:
         """
         Calculate the 3D rope index based on image and video's temporal, height and width in LLM.
@@ -164,7 +164,7 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         vision_start_token_id = self.config.vision_start_token_id
         mrope_position_deltas = []
         if input_ids is not None and (
-            image_grid_thw is not None or video_grid_thw is not None
+                image_grid_thw is not None or video_grid_thw is not None
         ):
             total_input_ids = input_ids
             if attention_mask is None:
@@ -243,9 +243,9 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
                     expanded_range = range_tensor.expand((-1, llm_grid_h * llm_grid_w))
 
                     time_tensor = (
-                        expanded_range
-                        * second_per_grid_t
-                        * self.config.vision_config.tokens_per_second
+                            expanded_range
+                            * second_per_grid_t
+                            * self.config.vision_config.tokens_per_second
                     )
 
                     time_tensor_long = time_tensor.astype("int64")
@@ -310,7 +310,7 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
             return position_ids, mrope_position_deltas
 
     def prepare_attention_mask_for_generation(
-        self, input_ids, pad_token_id, eos_token_id
+            self, input_ids, pad_token_id, eos_token_id
     ):
         """Avoid using attention_mask with flash_attn on generation."""
         if self.config.use_flash_attention:
@@ -320,15 +320,15 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         )
 
     def prepare_inputs_for_generation(
-        self,
-        input_ids,
-        use_cache=False,
-        past_key_values=None,
-        inputs_embeds=None,
-        pixel_values=None,
-        pixel_values_videos=None,
-        position_ids=None,
-        **kwargs,
+            self,
+            input_ids,
+            use_cache=False,
+            past_key_values=None,
+            inputs_embeds=None,
+            pixel_values=None,
+            pixel_values_videos=None,
+            position_ids=None,
+            **kwargs,
     ):
         if past_key_values:
             input_ids = input_ids[:, -1:]
@@ -355,7 +355,7 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         return model_inputs
 
     def update_model_kwargs_for_generation(
-        self, outputs, model_kwargs, is_encoder_decoder=False
+            self, outputs, model_kwargs, is_encoder_decoder=False
     ):
         """
         Updates model kwargs for generation.
@@ -370,21 +370,21 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         """
         # update cache
         if (
-            isinstance(outputs, tuple)
-            and len(outputs) > 1
-            and not isinstance(outputs[1], paddle.Tensor)
+                isinstance(outputs, tuple)
+                and len(outputs) > 1
+                and not isinstance(outputs[1], paddle.Tensor)
         ):
             model_kwargs["past_key_values"] = outputs[1]
 
         if (
-            isinstance(outputs, CausalLMOutputWithCrossAttentions)
-            and "past_key_values" in outputs
+                isinstance(outputs, CausalLMOutputWithCrossAttentions)
+                and "past_key_values" in outputs
         ):
             model_kwargs["past_key_values"] = outputs.past_key_values
 
         if (
-            not is_encoder_decoder
-            and model_kwargs.get("attention_mask", None) is not None
+                not is_encoder_decoder
+                and model_kwargs.get("attention_mask", None) is not None
         ):
             # update attention mask
             attention_mask = model_kwargs["attention_mask"]
@@ -426,12 +426,12 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
 
     def get_hf_state_dict(self, *args, **kwargs):
         def _merge_attention_weights(
-            q_weight=None,
-            k_weight=None,
-            v_weight=None,
-            q_bias=None,
-            k_bias=None,
-            v_bias=None,
+                q_weight=None,
+                k_weight=None,
+                v_weight=None,
+                q_bias=None,
+                k_bias=None,
+                v_bias=None,
         ):
             if q_weight is not None and k_weight is not None and v_weight is not None:
                 return paddle.concat([q_weight, k_weight, v_weight], axis=1)
@@ -508,9 +508,9 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
                         v_key = key.replace("q_proj", "v_proj")
 
                         if (
-                            q_key in hf_state_dict
-                            and k_key in hf_state_dict
-                            and v_key in hf_state_dict
+                                q_key in hf_state_dict
+                                and k_key in hf_state_dict
+                                and v_key in hf_state_dict
                         ):
                             merged_weights = _merge_attention_weights(
                                 q_weight=hf_state_dict[q_key],
@@ -527,9 +527,9 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
                         v_key = key.replace("q_proj", "v_proj")
 
                         if (
-                            q_key in hf_state_dict
-                            and k_key in hf_state_dict
-                            and v_key in hf_state_dict
+                                q_key in hf_state_dict
+                                and k_key in hf_state_dict
+                                and v_key in hf_state_dict
                         ):
                             merged_bias = _merge_attention_weights(
                                 q_bias=hf_state_dict[q_key],
@@ -559,14 +559,14 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
             if weight is not None:
                 split_size = weight.shape[1] // 3
                 q_weight = weight[:, :split_size]
-                k_weight = weight[:, split_size : 2 * split_size]
-                v_weight = weight[:, 2 * split_size :]
+                k_weight = weight[:, split_size: 2 * split_size]
+                v_weight = weight[:, 2 * split_size:]
                 return q_weight, k_weight, v_weight
             elif bias is not None:
                 split_size = bias.shape[0] // 3
                 q_bias = bias[:split_size]
-                k_bias = bias[split_size : 2 * split_size]
-                v_bias = bias[2 * split_size :]
+                k_bias = bias[split_size: 2 * split_size]
+                v_bias = bias[2 * split_size:]
                 return q_bias, k_bias, v_bias
 
         def _convert_state_dict(old_state_dict):
@@ -626,24 +626,24 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         return self.set_state_dict(state_dict, *args, **kwargs)
 
     def forward(
-        self,
-        input_ids: paddle.Tensor = None,
-        attention_mask: Optional[paddle.Tensor] = None,
-        position_ids: Optional[paddle.Tensor] = None,
-        past_key_values: Optional[List[paddle.Tensor]] = None,
-        inputs_embeds: Optional[paddle.Tensor] = None,
-        labels: Optional[paddle.Tensor] = None,
-        use_cache: Optional[bool] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        return_dict: Optional[bool] = None,
-        pixel_values: Optional[paddle.Tensor] = None,
-        pixel_values_videos: Optional[paddle.Tensor] = None,
-        image_grid_thw: Optional[paddle.Tensor] = None,
-        video_grid_thw: Optional[paddle.Tensor] = None,
-        rope_deltas: Optional[paddle.Tensor] = None,
-        second_per_grid_ts: Optional[paddle.Tensor] = None,
-        **kwargs,
+            self,
+            input_ids: paddle.Tensor = None,
+            attention_mask: Optional[paddle.Tensor] = None,
+            position_ids: Optional[paddle.Tensor] = None,
+            past_key_values: Optional[List[paddle.Tensor]] = None,
+            inputs_embeds: Optional[paddle.Tensor] = None,
+            labels: Optional[paddle.Tensor] = None,
+            use_cache: Optional[bool] = None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            return_dict: Optional[bool] = None,
+            pixel_values: Optional[paddle.Tensor] = None,
+            pixel_values_videos: Optional[paddle.Tensor] = None,
+            image_grid_thw: Optional[paddle.Tensor] = None,
+            video_grid_thw: Optional[paddle.Tensor] = None,
+            rope_deltas: Optional[paddle.Tensor] = None,
+            second_per_grid_ts: Optional[paddle.Tensor] = None,
+            **kwargs,
     ) -> Union[Tuple, PaddleOCRVLCausalLMOutputWithPast]:
         output_attentions = (
             output_attentions
@@ -731,11 +731,11 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         # position_ids = None
         # if we get 4D attention mask we cannot calculate rope deltas anymore. TODO @raushan fixme
         if position_ids is None and (
-            attention_mask is None or attention_mask.ndim == 2
+                attention_mask is None or attention_mask.ndim == 2
         ):
             # calculate RoPE index once per generation in the pre-fill stage only
             if curr_rope_deltas is None or (
-                past_key_values is None or past_key_values[0] is None
+                    past_key_values is None or past_key_values[0] is None
             ):
                 position_ids, rope_deltas = self.get_rope_index(
                     input_ids,
@@ -756,7 +756,7 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
                 position_ids = paddle.arange(seq_length)
                 position_ids = position_ids.reshape((1, -1)).expand((batch_size, -1))
                 if (
-                    past_key_values is not None and past_key_values[0] is not None
+                        past_key_values is not None and past_key_values[0] is not None
                 ):  # otherwise `deltas` is an int `0`
                     delta = delta.repeat_interleave(
                         batch_size // delta.shape[0], axis=0
@@ -817,8 +817,8 @@ class PaddleOCRVLForConditionalGeneration(Ernie4_5PretrainedModel, GenerationMix
         return generated_ids
 
     def _get_image_nums_and_video_nums(
-        self,
-        input_ids: Optional[paddle.Tensor],
+            self,
+            input_ids: Optional[paddle.Tensor],
     ) -> Tuple[paddle.Tensor, paddle.Tensor]:
         """
         Get the number of images and videos for each sample to calculate the separation length of the sample tensor.

@@ -26,8 +26,8 @@ class ModelPaths(TypedDict, total=False):
 
 
 def get_model_paths(
-    model_dir: Union[str, PathLike],
-    model_file_prefix: str = MODEL_FILE_PREFIX,
+        model_dir: Union[str, PathLike],
+        model_file_prefix: str = MODEL_FILE_PREFIX,
 ) -> ModelPaths:
     model_dir = Path(model_dir)
     model_paths: ModelPaths = {}

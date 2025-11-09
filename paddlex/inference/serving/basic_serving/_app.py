@@ -32,12 +32,12 @@ from typing import (
 
 from typing_extensions import ParamSpec, TypeGuard
 
-from ....utils import logging
-from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
-from ...pipelines import BasePipeline
 from ..infra.config import AppConfig
 from ..infra.models import AIStudioNoResultResponse
 from ..infra.utils import call_async, generate_log_id
+from ...pipelines import BasePipeline
+from ....utils import logging
+from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
 
 if is_dep_available("aiohttp"):
     import aiohttp
@@ -60,9 +60,9 @@ class _Error(TypedDict):
 
 def _is_error(obj: object) -> TypeGuard[_Error]:
     return (
-        isinstance(obj, dict)
-        and obj.keys() == {"error"}
-        and isinstance(obj["error"], str)
+            isinstance(obj, dict)
+            and obj.keys() == {"error"}
+            and isinstance(obj["error"], str)
     )
 
 
@@ -167,7 +167,7 @@ class AppContext(Generic[PipelineT]):
 
 @function_requires_deps("fastapi", "aiohttp", "starlette")
 def create_app(
-    *, pipeline: PipelineT, app_config: AppConfig, app_aiohttp_session: bool = True
+        *, pipeline: PipelineT, app_config: AppConfig, app_aiohttp_session: bool = True
 ) -> Tuple["fastapi.FastAPI", AppContext[PipelineT]]:
     @contextlib.asynccontextmanager
     async def _app_lifespan(app: "fastapi.FastAPI") -> AsyncGenerator[None, None]:
@@ -175,7 +175,7 @@ def create_app(
         try:
             if app_aiohttp_session:
                 async with aiohttp.ClientSession(
-                    cookie_jar=aiohttp.DummyCookieJar()
+                        cookie_jar=aiohttp.DummyCookieJar()
                 ) as aiohttp_session:
                     ctx.aiohttp_session = aiohttp_session
                     yield
@@ -197,7 +197,7 @@ def create_app(
 
     @app.exception_handler(RequestValidationError)
     async def _validation_exception_handler(
-        request: fastapi.Request, exc: RequestValidationError
+            request: fastapi.Request, exc: RequestValidationError
     ) -> JSONResponse:
         json_compatible_data = jsonable_encoder(
             AIStudioNoResultResponse(
@@ -210,7 +210,7 @@ def create_app(
 
     @app.exception_handler(HTTPException)
     async def _http_exception_handler(
-        request: fastapi.Request, exc: HTTPException
+            request: fastapi.Request, exc: HTTPException
     ) -> JSONResponse:
         json_compatible_data = jsonable_encoder(
             AIStudioNoResultResponse(
@@ -221,7 +221,7 @@ def create_app(
 
     @app.exception_handler(Exception)
     async def _unexpected_exception_handler(
-        request: fastapi.Request, exc: Exception
+            request: fastapi.Request, exc: Exception
     ) -> JSONResponse:
         # XXX: The default server will duplicate the error message. Is it
         # necessary to log the exception info here?
@@ -241,7 +241,7 @@ def create_app(
 # TODO: Precise type hints
 @function_requires_deps("fastapi")
 def primary_operation(
-    app: "fastapi.FastAPI", path: str, operation_id: str, **kwargs: Any
+        app: "fastapi.FastAPI", path: str, operation_id: str, **kwargs: Any
 ) -> Callable:
     return app.post(
         path,

@@ -5,11 +5,21 @@ comments: true
 # General Layout Parsing Pipeline Tutorial
 
 ## 1. Introduction to the General Layout Parsing Pipeline
-Layout parsing is a technology that extracts structured information from document images, primarily used to convert complex document layouts into machine-readable data formats. This technology has extensive applications in document management, information extraction, and data digitization. By combining Optical Character Recognition (OCR), image processing, and machine learning algorithms, layout parsing can identify and extract text blocks, titles, paragraphs, images, tables, and other layout elements from documents. The process typically involves three main steps: layout analysis, element analysis, and data formatting, ultimately generating structured document data to improve data processing efficiency and accuracy.
 
-The <b>General Layout Parsing Pipeline</b> includes modules for table structure recognition, layout region analysis, text detection, text recognition, formula recognition, seal text detection, text image rectification, and document image orientation classification.
+Layout parsing is a technology that extracts structured information from document images, primarily used to convert
+complex document layouts into machine-readable data formats. This technology has extensive applications in document
+management, information extraction, and data digitization. By combining Optical Character Recognition (OCR), image
+processing, and machine learning algorithms, layout parsing can identify and extract text blocks, titles, paragraphs,
+images, tables, and other layout elements from documents. The process typically involves three main steps: layout
+analysis, element analysis, and data formatting, ultimately generating structured document data to improve data
+processing efficiency and accuracy.
 
-<b>If you prioritize model accuracy, choose a model with higher accuracy. If you prioritize inference speed, choose a model with faster inference. If you prioritize model storage size, choose a model with a smaller storage size.</b>
+The <b>General Layout Parsing Pipeline</b> includes modules for table structure recognition, layout region analysis,
+text detection, text recognition, formula recognition, seal text detection, text image rectification, and document image
+orientation classification.
+
+<b>If you prioritize model accuracy, choose a model with higher accuracy. If you prioritize inference speed, choose a
+model with faster inference. If you prioritize model storage size, choose a model with a smaller storage size.</b>
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
@@ -172,9 +182,12 @@ The <b>General Layout Parsing Pipeline</b> includes modules for table structure 
 </table>
 <b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 500 common document-type images of Chinese and English papers, magazines, contracts, books, exams, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
-> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The complete model list is as follows:
+> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module
+> actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The
+> complete model list is as follows:
 
 * <b>Table Layout Detection Model</b>
+
 <table>
 <thead>
 <tr>
@@ -200,6 +213,7 @@ The <b>General Layout Parsing Pipeline</b> includes modules for table structure 
 <b>Note: The evaluation dataset for the above precision metrics is a self-built layout table area detection dataset by PaddleOCR, containing 7835 Chinese and English document images with tables. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
 * <b>3-Class Layout Detection Model, including Table, Image, and Stamp</b>
+
 <table>
 <thead>
 <tr>
@@ -243,6 +257,7 @@ The <b>General Layout Parsing Pipeline</b> includes modules for table structure 
 <b>Note: The evaluation dataset for the above precision metrics is a self-built layout area detection dataset by PaddleOCR, containing 1154 common document images of Chinese and English papers, magazines, and research reports. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
 * <b>5-Class English Document Area Detection Model, including Text, Title, Table, Image, and List</b>
+
 <table>
 <thead>
 <tr>
@@ -267,7 +282,10 @@ The <b>General Layout Parsing Pipeline</b> includes modules for table structure 
 </tbody></table>
 <b>Note: The evaluation dataset for the above precision metrics is the [PubLayNet](https://developer.ibm.com/exchanges/data/all/publaynet/) dataset, containing 11245 English document images. GPU inference time is based on an NVIDIA Tesla T4 machine with FP32 precision. CPU inference speed is based on an Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz with 8 threads and FP32 precision.</b>
 
-* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number, Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header, Algorithm, Footer, and Stamp</b>
+* <b>17-Class Area Detection Model, including 17 common layout categories: Paragraph Title, Image, Text, Number,
+  Abstract, Content, Figure Caption, Formula, Table, Table Caption, References, Document Title, Footnote, Header,
+  Algorithm, Footer, and Stamp</b>
+
 <table>
 <thead>
 <tr>
@@ -472,6 +490,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -502,6 +521,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -732,12 +752,20 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </details>
 
 ## 2. Quick Start
-The pipelines provided by PaddleX allow for quick experience of their effects. You can use the command line or Python to experience the effects of the General Layout Parsing pipeline locally.
 
-Before using the General Layout Parsing pipeline locally, ensure you have completed the installation of the PaddleX wheel package according to the [PaddleX Local Installation Tutorial](../../../installation/installation.md). If you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency group corresponding to this pipeline is `ocr`.
+The pipelines provided by PaddleX allow for quick experience of their effects. You can use the command line or Python to
+experience the effects of the General Layout Parsing pipeline locally.
+
+Before using the General Layout Parsing pipeline locally, ensure you have completed the installation of the PaddleX
+wheel package according to the [PaddleX Local Installation Tutorial](../../../installation/installation.md). If you wish
+to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency
+group corresponding to this pipeline is `ocr`.
 
 ### 2.1 Experience via Command Line
-You can quickly experience the effects of the Layout Parsing pipeline with a single command. Use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_parsing_demo.png) and replace `--input` with the local path for prediction:
+
+You can quickly experience the effects of the Layout Parsing pipeline with a single command. Use
+the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/layout_parsing_demo.png) and replace
+`--input` with the local path for prediction:
 
 ```
 paddlex --pipeline layout_parsing \
@@ -749,9 +777,13 @@ paddlex --pipeline layout_parsing \
         --device gpu:0
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
-For parameter descriptions, refer to the parameter explanations in [2.2.2 Integration via Python Script](#222-integration-via-python-script). Supports specifying multiple devices simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
+For parameter descriptions, refer to the parameter explanations
+in [2.2.2 Integration via Python Script](#222-integration-via-python-script). Supports specifying multiple devices
+simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
 
 After running, the results will be printed to the terminal, as shown below:
 
@@ -775,10 +807,13 @@ After running, the results will be printed to the terminal, as shown below:
         [1156, 1351]]], dtype=int16), 'rec_boxes': array([[ 122, ...,  135],
        ...,
        [1156, ..., 1351]], dtype=int16)}}}
+
 </code></pre></details>
 
 ### 2.2 Integrating via Python Script
-A few lines of code suffice for rapid inference on the pipeline, taking the general layout parsing pipeline as an example:
+
+A few lines of code suffice for rapid inference on the pipeline, taking the general layout parsing pipeline as an
+example:
 
 ```python
 from paddlex import create_pipeline
@@ -848,7 +883,9 @@ In the above Python script, the following steps are executed:
 </tbody>
 </table>
 
-### (2) Invoke the `predict()` method of the Layout Analysis Pipeline object for inference prediction. This method will return a `generator`. Below are the parameters of the `predict()` method and their descriptions:
+### (2) Invoke the
+`predict()` method of the Layout Analysis Pipeline object for inference prediction. This method will return a
+`generator`. Below are the parameters of the `predict()` method and their descriptions:
 
 <table>
 <thead>
@@ -1137,7 +1174,8 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-(3) Processing Prediction Results: Each sample's prediction result is encapsulated in a corresponding Result object, supporting operations such as printing, saving as an image, and saving as a `json` file:
+(3) Processing Prediction Results: Each sample's prediction result is encapsulated in a corresponding Result object,
+supporting operations such as printing, saving as an image, and saving as a `json` file:
 
 
 <table>
@@ -1217,10 +1255,12 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained as follows:
+- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained
+  as follows:
     - `input_path`: `(str)` The input path of the image to be predicted
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF; otherwise, it is `None`
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF;
+      otherwise, it is `None`
 
     - `model_settings`: `(Dict[str, bool])` Model parameters required for configuring the pipeline
 
@@ -1230,45 +1270,63 @@ In the above Python script, the following steps are executed:
         - `use_table_recognition`: `(bool)` Controls whether to enable the table recognition pipeline
         - `use_formula_recognition`: `(bool)` Controls whether to enable the formula recognition pipeline
 
-    - `parsing_res_list`: `(List[Dict])` A list of parsing results, each element is a dictionary, and the list order follows the reading order after parsing.
+    - `parsing_res_list`: `(List[Dict])` A list of parsing results, each element is a dictionary, and the list order
+      follows the reading order after parsing.
         - `block_bbox`: `(np.ndarray)` The bounding box of the layout area.
         - `block_label`: `(str)` The label of the layout area, such as `text`, `table`, etc.
         - `block_content`: `(str)` The content within the layout area.
 
     - `overall_ocr_res`: `(Dict[str, Union[List[str], List[float], numpy.ndarray]])` A dictionary of global OCR results
-      - `input_path`: `(Union[str, None])` The image path received by the OCR pipeline, when the input is `numpy.ndarray`, it is saved as `None`
-      - `model_settings`: `(Dict)` Model configuration parameters for the OCR pipeline
-      - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented by a numpy array consisting of 4 vertex coordinates, with a shape of (4, 2) and a data type of int16
-      - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes
-      - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module
-        - `limit_side_len`: `(int)` The side length limit for image preprocessing
-        - `limit_type`: `(str)` The processing method for the side length limit
-        - `thresh`: `(float)` The confidence threshold for text pixel classification
-        - `box_thresh`: `(float)` The confidence threshold for text detection boxes
-        - `unclip_ratio`: `(float)` The inflation coefficient for text detection boxes
+        - `input_path`: `(Union[str, None])` The image path received by the OCR pipeline, when the input is
+          `numpy.ndarray`, it is saved as `None`
+        - `model_settings`: `(Dict)` Model configuration parameters for the OCR pipeline
+        - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is
+          represented by a numpy array consisting of 4 vertex coordinates, with a shape of (4, 2) and a data type of
+          int16
+        - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes
+        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module
+            - `limit_side_len`: `(int)` The side length limit for image preprocessing
+            - `limit_type`: `(str)` The processing method for the side length limit
+            - `thresh`: `(float)` The confidence threshold for text pixel classification
+            - `box_thresh`: `(float)` The confidence threshold for text detection boxes
+            - `unclip_ratio`: `(float)` The inflation coefficient for text detection boxes
+            - `text_type`: `(str)` The type of text detection, currently fixed as "general"
+
         - `text_type`: `(str)` The type of text detection, currently fixed as "general"
+        - `textline_orientation_angles`: `(List[int])` The prediction results for text line orientation classification.
+          When enabled, it returns actual angle values (e.g., [0,0,1])
+        - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results
+        - `rec_texts`: `(List[str])` A list of text recognition results, only including texts with confidence scores
+          exceeding `text_rec_score_thresh`
+        - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, already filtered by
+          `text_rec_score_thresh`
+        - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes after confidence filtering, with the same
+          format as `dt_polys`
 
-      - `text_type`: `(str)` The type of text detection, currently fixed as "general"
-      - `textline_orientation_angles`: `(List[int])` The prediction results for text line orientation classification. When enabled, it returns actual angle values (e.g., [0,0,1])
-      - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results
-      - `rec_texts`: `(List[str])` A list of text recognition results, only including texts with confidence scores exceeding `text_rec_score_thresh`
-      - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, already filtered by `text_rec_score_thresh`
-      - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes after confidence filtering, with the same format as `dt_polys`
-
-    - `formula_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of formula recognition results, each element is a dictionary
+    - `formula_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of formula recognition
+      results, each element is a dictionary
         - `rec_formula`: `(str)` The formula recognition result
         - `rec_polys`: `(numpy.ndarray)` The formula detection box, with a shape of (4, 2) and a dtype of int16
         - `formula_region_id`: `(int)` The region ID where the formula is located
 
-    - `seal_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of seal recognition results, each element is a dictionary
+    - `seal_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of seal recognition results,
+      each element is a dictionary
         - `input_path`: `(str)` The input path of the seal image
         - `model_settings`: `(Dict)` Model configuration parameters for```markdown
-**AI and Computer Vision Tutorial**
+          **AI and Computer Vision Tutorial**
 
-- Calling the `save_to_json()` method will save the aforementioned content to the specified `save_path`. If a directory is specified, the save path will be `save_path/{your_img_basename}.json`. If a file is specified, it will be saved directly to that file. Since JSON files do not support saving numpy arrays, `numpy.array` types will be converted to list form.
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, the save path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`. If a file is specified, it will be saved directly to that file. (pipelines often contain many result images, so it is not recommended to specify a specific file path directly, as multiple images will be overwritten, leaving only the last one.)
+- Calling the `save_to_json()` method will save the aforementioned content to the specified `save_path`. If a directory
+  is specified, the save path will be `save_path/{your_img_basename}.json`. If a file is specified, it will be saved
+  directly to that file. Since JSON files do not support saving numpy arrays, `numpy.array` types will be converted to
+  list form.
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, the save path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`. If a file is
+  specified, it will be saved directly to that file. (pipelines often contain many result images, so it is not
+  recommended to specify a specific file path directly, as multiple images will be overwritten, leaving only the last
+  one.)
 
-In addition, attributes are also supported for obtaining visual images with results and prediction results, specifically as follows:
+In addition, attributes are also supported for obtaining visual images with results and prediction results, specifically
+as follows:
 <table>
 <thead>
 <tr>
@@ -1286,14 +1344,25 @@ In addition, attributes are also supported for obtaining visual images with resu
 </tr>
 </table>
 
-- The prediction results obtained by the `json` attribute are data of the `dict` type, with content consistent with that saved by calling the `save_to_json()` method.
-- The prediction results returned by the `img` attribute are data of the `dict` type. The keys are `layout_det_res`, `overall_ocr_res`, `text_paragraphs_ocr_res`, `formula_res_region1`, `table_cell_img`, and `seal_res_region1`, and the corresponding values are `Image.Image` objects: used to display the visual images of layout area detection, OCR, OCR text paragraphs, formulas, tables, and seal results, respectively. If optional modules are not used, only `layout_det_res` will be included in the dictionary.
+- The prediction results obtained by the `json` attribute are data of the `dict` type, with content consistent with that
+  saved by calling the `save_to_json()` method.
+- The prediction results returned by the `img` attribute are data of the `dict` type. The keys are `layout_det_res`,
+  `overall_ocr_res`, `text_paragraphs_ocr_res`, `formula_res_region1`, `table_cell_img`, and `seal_res_region1`, and the
+  corresponding values are `Image.Image` objects: used to display the visual images of layout area detection, OCR, OCR
+  text paragraphs, formulas, tables, and seal results, respectively. If optional modules are not used, only
+  `layout_det_res` will be included in the dictionary.
 
-Furthermore, you can obtain the layout parsing pipeline configuration file and load it for prediction. Execute the following command to save the results in `my_path`:
+Furthermore, you can obtain the layout parsing pipeline configuration file and load it for prediction. Execute the
+following command to save the results in `my_path`:
+
 ```
 paddlex --get_pipeline_config layout_parsing --save_path ./my_path
 ```
-Once you have obtained the configuration file, you can customize the configurations of the layout parsing pipeline by modifying the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file. An example is as follows:
+
+Once you have obtained the configuration file, you can customize the configurations of the layout parsing pipeline by
+modifying the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file.
+An example is as follows:
+
 ```python
 from paddlex import create_pipeline
 pipeline = create_pipeline(pipeline="./my_path/layout_parsing.yaml")
@@ -1308,19 +1377,32 @@ for res in output:
     res.save_to_img("./output/")
     res.save_to_json("./output/")
 ```
-**Note**: The parameters in the configuration file are pipeline initialization parameters. If you wish to change the initialization parameters of the general layout parsing pipeline, you can directly modify the parameters in the configuration file and load it for prediction. Additionally, CLI prediction also supports passing in configuration files by specifying the path of the configuration file with `--pipeline`.
+
+**Note**: The parameters in the configuration file are pipeline initialization parameters. If you wish to change the
+initialization parameters of the general layout parsing pipeline, you can directly modify the parameters in the
+configuration file and load it for prediction. Additionally, CLI prediction also supports passing in configuration files
+by specifying the path of the configuration file with `--pipeline`.
 
 ## 3. Development Integration/Deployment
 
-If the pipeline meets your requirements in terms of inference speed and accuracy, you can proceed with development integration or deployment.
+If the pipeline meets your requirements in terms of inference speed and accuracy, you can proceed with development
+integration or deployment.
 
-To directly apply the pipeline in your Python project, refer to the example code in [2.2 Python Script Integration](#22-python-script-integration).
+To directly apply the pipeline in your Python project, refer to the example code
+in [2.2 Python Script Integration](#22-python-script-integration).
 
 Additionally, PaddleX offers three other deployment methods, detailed as follows:
 
-🚀 <b>High-Performance Inference</b>: In production environments, many applications require stringent performance metrics, especially response speed, to ensure efficient operation and smooth user experience. PaddleX provides a high-performance inference plugin that deeply optimizes model inference and pre/post-processing for significant end-to-end speedups. For detailed instructions on high-performance inference, refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+🚀 <b>High-Performance Inference</b>: In production environments, many applications require stringent performance
+metrics, especially response speed, to ensure efficient operation and smooth user experience. PaddleX provides a
+high-performance inference plugin that deeply optimizes model inference and pre/post-processing for significant
+end-to-end speedups. For detailed instructions on high-performance inference, refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
 
-☁️ <b>Serving</b>: Serving is a common deployment strategy in real-world production environments. By encapsulating inference functions into services, clients can access these services via network requests to obtain inference results. PaddleX supports various solutions for serving pipelines. For detailed pipeline serving procedures, please refer to the [PaddleX Pipeline Serving Guide](../../../pipeline_deploy/serving.md).
+☁️ <b>Serving</b>: Serving is a common deployment strategy in real-world production environments. By encapsulating
+inference functions into services, clients can access these services via network requests to obtain inference results.
+PaddleX supports various solutions for serving pipelines. For detailed pipeline serving procedures, please refer to
+the [PaddleX Pipeline Serving Guide](../../../pipeline_deploy/serving.md).
 
 Below are the API reference and multi-language service invocation examples for the basic serving solution:
 
@@ -2097,16 +2179,27 @@ foreach ($result as $i => $item) {
 </details>
 <br/>
 
-📱 <b>On-Device Deployment</b>: Edge deployment refers to placing computational and data processing capabilities directly on user devices, enabling them to process data without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
+📱 <b>On-Device Deployment</b>: Edge deployment refers to placing computational and data processing capabilities directly
+on user devices, enabling them to process data without relying on remote servers. PaddleX supports deploying models on
+edge devices such as Android. For detailed edge deployment procedures, please refer to
+the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
 
-You can choose an appropriate method to deploy your model pipeline based on your needs, and proceed with subsequent AI application integration.
+You can choose an appropriate method to deploy your model pipeline based on your needs, and proceed with subsequent AI
+application integration.
 
 ## 4. Custom Development
-If the default model weights provided by the general layout parsing pipeline do not meet your requirements in terms of accuracy or speed for your specific scenario, you can try to further fine-tune the existing models using <b>your own domain-specific or application-specific data</b> to improve the recognition performance of the general layout parsing pipeline in your scenario.
+
+If the default model weights provided by the general layout parsing pipeline do not meet your requirements in terms of
+accuracy or speed for your specific scenario, you can try to further fine-tune the existing models using <b>your own
+domain-specific or application-specific data</b> to improve the recognition performance of the general layout parsing
+pipeline in your scenario.
 
 ### 4.1 Model Fine-tuning
 
-Since the general layout analysis pipeline includes several modules, the underperformance of the model pipeline might be due to any one of them. You can analyze cases with poor extraction results by visualizing images to determine which module has the issue. Then, refer to the corresponding fine-tuning tutorial links in the table below to fine-tune the model:
+Since the general layout analysis pipeline includes several modules, the underperformance of the model pipeline might be
+due to any one of them. You can analyze cases with poor extraction results by visualizing images to determine which
+module has the issue. Then, refer to the corresponding fine-tuning tutorial links in the table below to fine-tune the
+model:
 
 <table>
 <thead>
@@ -2166,9 +2259,11 @@ Since the general layout analysis pipeline includes several modules, the underpe
 </table>
 
 ### 4.2 Model Application
+
 After fine-tuning your model with a private dataset, you will obtain local model weights files.
 
-To use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local paths of the fine-tuned model weights to the corresponding positions in the configuration file:
+To use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local paths of the
+fine-tuned model weights to the corresponding positions in the configuration file:
 
 ```python
 ......
@@ -2187,19 +2282,26 @@ To use the fine-tuned model weights, simply modify the pipeline configuration fi
   device: "gpu:0"
 ......
 ```
-Subsequently, refer to the command line or Python script methods in the local experience to load the modified pipeline configuration file.
+
+Subsequently, refer to the command line or Python script methods in the local experience to load the modified pipeline
+configuration file.
 
 ## 5. Multi-Hardware Support
-PaddleX supports various mainstream hardware devices such as NVIDIA GPUs, Kunlun XPU, Ascend NPU, and Cambricon MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware.
+
+PaddleX supports various mainstream hardware devices such as NVIDIA GPUs, Kunlun XPU, Ascend NPU, and Cambricon MLU. <b>
+Simply modify the `--device` parameter</b> to seamlessly switch between different hardware.
 
 For example, if you use an NVIDIA GPU for inference in the layout parsing pipeline, the Python command is:
 
 ```bash
 paddlex --pipeline layout_parsing --input layout_parsing.jpg --device gpu:0
 ```
+
 At this point, if you want to switch the hardware to Ascend NPU, simply modify `--device` to npu in the Python command:
 
 ```bash
 paddlex --pipeline layout_parsing --input layout_parsing.jpg --device npu:0
 ```
-If you want to use the general layout parsing pipeline on more types of hardware, please refer to the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.md).
+
+If you want to use the general layout parsing pipeline on more types of hardware, please refer to
+the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.md).

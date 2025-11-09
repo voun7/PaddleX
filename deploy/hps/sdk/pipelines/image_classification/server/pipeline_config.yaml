@@ -1,4 +1,3 @@
-
 pipeline_name: image_classification
 
 SubModules:

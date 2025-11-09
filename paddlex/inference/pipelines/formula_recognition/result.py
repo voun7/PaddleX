@@ -22,9 +22,6 @@ from typing import Dict, Tuple
 import numpy as np
 from PIL import Image, ImageDraw
 
-from ....utils import logging
-from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
-from ....utils.fonts import PINGFANG_FONT
 from ...common.result import BaseCVResult, JsonMixin
 from ...models.formula_recognition.result import (
     crop_white_area,
@@ -35,6 +32,9 @@ from ...models.formula_recognition.result import (
     generate_tex_file,
     pdf2img,
 )
+from ....utils import logging
+from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
+from ....utils.fonts import PINGFANG_FONT
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -75,7 +75,7 @@ class FormulaRecognitionResult(BaseCVResult):
             xywh = crop_white_area(image)
             if xywh is not None:
                 x, y, w, h = xywh
-                image = image[y : y + h, x : x + w]
+                image = image[y: y + h, x: x + w]
             image = Image.fromarray(image)
             image_width, image_height = image.size
             box = [
@@ -218,7 +218,7 @@ class FormulaRecognitionResult(BaseCVResult):
 
 @function_requires_deps("opencv-contrib-python")
 def draw_box_formula_fine(
-    img_size: Tuple[int, int], box: np.ndarray, formula: str, is_debug: bool = False
+        img_size: Tuple[int, int], box: np.ndarray, formula: str, is_debug: bool = False
 ) -> np.ndarray:
     """draw box formula for pipeline"""
     """

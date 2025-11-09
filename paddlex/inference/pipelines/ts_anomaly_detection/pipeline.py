@@ -16,12 +16,12 @@ from typing import Any, Dict, List, Optional, Union
 
 import pandas as pd
 
-from ....utils.deps import pipeline_requires_extra
+from ..base import BasePipeline
 from ...models.ts_anomaly_detection.result import TSAdResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from ..base import BasePipeline
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -32,12 +32,12 @@ class TSAnomalyDetPipeline(BasePipeline):
     entities = "ts_anomaly_detection"
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the Time Series ad pipeline.
 
@@ -60,7 +60,7 @@ class TSAnomalyDetPipeline(BasePipeline):
         self.ts_ad_model = self.create_model(ts_ad_model_config)
 
     def predict(
-        self, input: Union[str, List[str], pd.DataFrame, List[pd.DataFrame]], **kwargs
+            self, input: Union[str, List[str], pd.DataFrame, List[pd.DataFrame]], **kwargs
     ) -> TSAdResult:
         """Predicts time series anomaly detection results for the given input.
 

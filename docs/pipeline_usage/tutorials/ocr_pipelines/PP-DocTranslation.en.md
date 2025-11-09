@@ -5,13 +5,26 @@ comments: true
 # PP-DocTranslation Pipeline Tutorial
 
 ## 1. Introduction to PP-DocTranslation Pipeline
-The General Document Translation Pipeline (PP-DocTranslation) is a document intelligent translation solution provided by PaddlePaddle. It integrates advanced general layout analysis technology with the capabilities of large language models (LLMs) to offer you efficient document intelligent translation services. This solution can accurately identify and extract various elements within documents, including text blocks, headings, paragraphs, images, tables, and other complex layout structures, and on this basis, achieve high-quality multilingual translation. PP-DocTranslation supports mutual translation among multiple mainstream languages, and is particularly adept at handling documents with complex layouts and strong contextual dependencies, striving to deliver accurate, natural, fluent, and professional translation results. This pipeline also provides flexible Serving deployment options, supporting the use of multiple programming languages across various hardware. Moreover, it offers the capability for secondary development, allowing you to train and fine-tune models on your own datasets, with the trained models being seamlessly integrable.
+
+The General Document Translation Pipeline (PP-DocTranslation) is a document intelligent translation solution provided by
+PaddlePaddle. It integrates advanced general layout analysis technology with the capabilities of large language models (
+LLMs) to offer you efficient document intelligent translation services. This solution can accurately identify and
+extract various elements within documents, including text blocks, headings, paragraphs, images, tables, and other
+complex layout structures, and on this basis, achieve high-quality multilingual translation. PP-DocTranslation supports
+mutual translation among multiple mainstream languages, and is particularly adept at handling documents with complex
+layouts and strong contextual dependencies, striving to deliver accurate, natural, fluent, and professional translation
+results. This pipeline also provides flexible Serving deployment options, supporting the use of multiple programming
+languages across various hardware. Moreover, it offers the capability for secondary development, allowing you to train
+and fine-tune models on your own datasets, with the trained models being seamlessly integrable.
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/doc_translation/pp_doctranslation.png"/>
 
-<b>The general document translation pipeline uses PP-StructureV3 sub-pipeline, and thus has all the functions of PP-StructureV3. For more information on the functions and usage details of PP-StructureV3, click on the [PP-StructureV3 Documentation](./PP-StructureV3.en.md) page.</b>
+<b>The general document translation pipeline uses PP-StructureV3 sub-pipeline, and thus has all the functions of
+PP-StructureV3. For more information on the functions and usage details of PP-StructureV3, click on
+the [PP-StructureV3 Documentation](./PP-StructureV3.en.md) page.</b>
 
-<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize model inference speed, choose a faster inference model; if you prioritize model storage size, choose a smaller storage model.</b>
+<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize model inference speed, choose a
+faster inference model; if you prioritize model storage size, choose a smaller storage model.</b>
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
@@ -645,10 +658,16 @@ devanagari_PP-OCRv3_mobile_rec_infer.tar">Inference model</a>/<a href="https://p
 </details>
 
 ## 2. Quick Start
-### 2.1 Local Experience
-Before using the PP-DocTranslation pipeline locally, ensure that you have completed the installation of PaddleX (refer to the [Installation Guide](../../../installation/installation.en.md)). This pipeline depends on the group named `translation`.
 
-Before use, you need to prepare the API key for a large language model, which supports the [Baidu Cloud Qianfan Platform](https://console.bce.baidu.com/qianfan/ais/console/onlineService) or local large model services that comply with the OpenAI interface standards.
+### 2.1 Local Experience
+
+Before using the PP-DocTranslation pipeline locally, ensure that you have completed the installation of PaddleX (refer
+to the [Installation Guide](../../../installation/installation.en.md)). This pipeline depends on the group named
+`translation`.
+
+Before use, you need to prepare the API key for a large language model, which supports
+the [Baidu Cloud Qianfan Platform](https://console.bce.baidu.com/qianfan/ais/console/onlineService) or local large model
+services that comply with the OpenAI interface standards.
 
 ```python
 from paddlex import create_pipeline
@@ -708,7 +727,9 @@ for tgt_md_info in tgt_md_info_list:
     tgt_md_info.save_to_markdown(output_path)
 ```
 
-After executing the above code, you will obtain the parsed results of the original document to be translated, the Markdown file of the original document to be translated, and the Markdown file of the translated document, all saved in the `output` folder.
+After executing the above code, you will obtain the parsed results of the original document to be translated, the
+Markdown file of the original document to be translated, and the Markdown file of the translated document, all saved in
+the `output` folder.
 
 # PP-DocTranslation Prediction Process, API Description, and Output Description
 
@@ -1235,72 +1256,99 @@ After executing the above code, you will obtain the parsed results of the origin
         - `input_path`: `(str)` The image path accepted by the document preprocessing sub-pipeline. When the input is `numpy.ndarray`, it is saved as `None`, and it is `None` here
         - `page_index`: `None`, as the input here is `numpy.ndarray`, so the value is `None`
         - `model_settings`: `(Dict[str, bool])` The model configuration parameters for the document preprocessing sub-pipeline
-- `use_doc_orientation_classify`: `(bool)` Controls whether to enable the submodule for document image orientation classification.
-          - `use_doc_unwarping`: `(bool)` Controls whether to enable the submodule for text image distortion correction.
-        - `angle`: `(int)` The prediction result of the submodule for document image orientation classification. Returns the actual angle value when enabled.
 
-    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The list is ordered according to the reading sequence after parsing.
+- `use_doc_orientation_classify`: `(bool)` Controls whether to enable the submodule for document image orientation
+  classification.
+  - `use_doc_unwarping`: `(bool)` Controls whether to enable the submodule for text image distortion correction.
+  - `angle`: `(int)` The prediction result of the submodule for document image orientation classification. Returns the
+  actual angle value when enabled.
+
+    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The list is
+      ordered according to the reading sequence after parsing.
         - `block_bbox`: `(np.ndarray)` The bounding box of the layout area.
         - `block_label`: `(str)` The label of the layout area, such as `text`, `table`, etc.
         - `block_content`: `(str)` The content within the layout area.
         - `seg_start_flag`: `(bool)` Indicates whether this layout area is the start of a paragraph.
         - `seg_end_flag`: `(bool)` Indicates whether this layout area is the end of a paragraph.
-        - `sub_label`: `(str)` The sub-label of the layout area. For example, the sub-label of `text` might be `title_text`.
+        - `sub_label`: `(str)` The sub-label of the layout area. For example, the sub-label of `text` might be
+          `title_text`.
         - `sub_index`: `(int)` The sub-index of the layout area, used for restoring Markdown.
         - `index`: `(int)` The index of the layout area, used for displaying the layout sorting results.
 
     - `overall_ocr_res`: `(Dict[str, Union[List[str], List[float], numpy.ndarray]])` A dictionary of global OCR results.
-      - `input_path`: `(Union[str, None])` The image path accepted by the image OCR sub-pipeline. When the input is `numpy.ndarray`, it is saved as `None`.
+        - `input_path`: `(Union[str, None])` The image path accepted by the image OCR sub-pipeline. When the input is
+          `numpy.ndarray`, it is saved as `None`.
 - `page_index`: `None`, the input here is `numpy.ndarray`, so the value is `None`.
-      - `model_settings`: `(Dict)` Model configuration parameters for the OCR sub-pipeline.
-      - `dt_polys`: `(List[numpy.ndarray])` List of polygon bounding boxes for text detection. Each bounding box is represented by a numpy array of 4 vertex coordinates, with an array shape of (4, 2) and a data type of int16.
-      - `dt_scores`: `(List[float])` List of confidence scores for text detection bounding boxes.
-      - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module.
-        - `limit_side_len`: `(int)` Side length limit during image preprocessing.
-        - `limit_type`: `(str)` Method for handling side length limits.
-        - `thresh`: `(float)` Confidence threshold for text pixel classification.
-        - `box_thresh`: `(float)` Confidence threshold for text detection bounding boxes.
-        - `unclip_ratio`: `(float)` Expansion coefficient for text detection bounding boxes.
-        - `text_type`: `(str)` Type of text detection, currently fixed as "general".
+  - `model_settings`: `(Dict)` Model configuration parameters for the OCR sub-pipeline.
+  - `dt_polys`: `(List[numpy.ndarray])` List of polygon bounding boxes for text detection. Each bounding box is
+  represented by a numpy array of 4 vertex coordinates, with an array shape of (4, 2) and a data type of int16.
+  - `dt_scores`: `(List[float])` List of confidence scores for text detection bounding boxes.
+  - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module.
+  - `limit_side_len`: `(int)` Side length limit during image preprocessing.
+  - `limit_type`: `(str)` Method for handling side length limits.
+  - `thresh`: `(float)` Confidence threshold for text pixel classification.
+  - `box_thresh`: `(float)` Confidence threshold for text detection bounding boxes.
+  - `unclip_ratio`: `(float)` Expansion coefficient for text detection bounding boxes.
+  - `text_type`: `(str)` Type of text detection, currently fixed as "general".
 
       - `text_type`: `(str)` Type of text detection, currently fixed as "general".
       - `textline_orientation_angles`: `(List[int])` Prediction results for text line orientation classification. Returns actual angle values when enabled (e.g., [0,0,1]).
       - `text_rec_score_thresh`: `(float)` Filtering threshold for text recognition results.
       - `rec_texts`: `(List[str])` List of text recognition results, containing only texts with confidence scores exceeding `text_rec_score_thresh`.
 - `rec_scores`: `(List[float])` List of confidence scores for text recognition, filtered by `text_rec_score_thresh`
-      - `rec_polys`: `(List[numpy.ndarray])` List of text detection bounding boxes after confidence filtering, with the same format as `dt_polys`
+  - `rec_polys`: `(List[numpy.ndarray])` List of text detection bounding boxes after confidence filtering, with the same
+  format as `dt_polys`
 
-    - `formula_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` List of formula recognition results, with each element being a dictionary
+    - `formula_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` List of formula recognition
+      results, with each element being a dictionary
         - `rec_formula`: `(str)` Formula recognition result
         - `rec_polys`: `(numpy.ndarray)` Formula detection bounding box with a shape of (4, 2) and dtype of int16
         - `formula_region_id`: `(int)` Region number where the formula is located
 
-    - `seal_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` List of seal recognition results, with each element being a dictionary
+    - `seal_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` List of seal recognition results,
+      with each element being a dictionary
         - `input_path`: `(str)` Input path of the seal image
         - `page_index`: `None`, since the input here is `numpy.ndarray`, the value is `None`
         - `model_settings`: `(Dict)` Model configuration parameters for the seal recognition sub-pipeline
         - `dt_polys`: `(List[numpy.ndarray])` List of seal detection bounding boxes, with the same format as `dt_polys`
-        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the seal detection module, with the same meanings of specific parameters as above
+        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the seal detection
+          module, with the same meanings of specific parameters as above
         - `text_type`: `(str)` Type of seal detection, currently fixed as "seal"
 - `text_rec_score_thresh`: `(float)` The filtering threshold for seal recognition results
-        - `rec_texts`: `(List[str])` A list of seal recognition results, containing only texts with confidence scores exceeding `text_rec_score_thresh`
-        - `rec_scores`: `(List[float])` A list of confidence scores for seal recognition, filtered by `text_rec_score_thresh`
-        - `rec_polys`: `(List[numpy.ndarray])` A list of seal detection boxes filtered by confidence scores, with the same format as `dt_polys`
-        - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4) and dtype of int16. Each row represents a rectangle
+  - `rec_texts`: `(List[str])` A list of seal recognition results, containing only texts with confidence scores
+  exceeding `text_rec_score_thresh`
+  - `rec_scores`: `(List[float])` A list of confidence scores for seal recognition, filtered by `text_rec_score_thresh`
+  - `rec_polys`: `(List[numpy.ndarray])` A list of seal detection boxes filtered by confidence scores, with the same
+  format as `dt_polys`
+  - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4)
+  and dtype of int16. Each row represents a rectangle
 
-    - `table_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of table recognition results, with each element being a dictionary
+    - `table_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of table recognition results,
+      with each element being a dictionary
         - `cell_box_list`: `(List[numpy.ndarray])` A list of bounding boxes for table cells
         - `pred_html`: `(str)` An HTML-formatted string for the table
         - `table_ocr_pred`: `(dict)` OCR recognition results for the table
             - `rec_polys`: `(List[numpy.ndarray])` A list of detection boxes for cells
             - `rec_texts`: `(List[str])` Recognition results for cells
             - `rec_scores`: `(List[float])` Recognition confidence scores for cells
-- `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection, with a shape of (n, 4) and dtype of int16. Each row represents a rectangle.
+- `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection, with a shape of (n, 4) and dtype
+  of int16. Each row represents a rectangle.
 
-- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved directly to that file. Since JSON files do not support saving numpy arrays, the `numpy.array` type will be converted to a list format.
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, it will save the layout region detection visualization image, global OCR visualization image, layout reading order visualization image, etc. If a file is specified, it will be saved directly to that file. (The pipeline usually contains many result images, so it is not recommended to directly specify a specific file path; otherwise, multiple images will be overwritten, and only the last image will be retained.)
-- Calling the `save_to_markdown()` method will save the converted Markdown file to the specified `save_path`. The saved file path will be `save_path/{your_img_basename}.md`. If the input is a PDF file, it is recommended to directly specify a directory; otherwise, multiple markdown files will be overwritten.
-- Calling the `concatenate_markdown_pages()` method will merge the multi-page Markdown content `markdown_list` output by the PP-DocTranslation pipeline into a single complete document and return the merged Markdown content.</details>
+- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is
+  specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved
+  directly to that file. Since JSON files do not support saving numpy arrays, the `numpy.array` type will be converted
+  to a list format.
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, it will save the layout region detection visualization image, global OCR visualization image, layout
+  reading order visualization image, etc. If a file is specified, it will be saved directly to that file. (The pipeline
+  usually contains many result images, so it is not recommended to directly specify a specific file path; otherwise,
+  multiple images will be overwritten, and only the last image will be retained.)
+- Calling the `save_to_markdown()` method will save the converted Markdown file to the specified `save_path`. The saved
+  file path will be `save_path/{your_img_basename}.md`. If the input is a PDF file, it is recommended to directly
+  specify a directory; otherwise, multiple markdown files will be overwritten.
+- Calling the `concatenate_markdown_pages()` method will merge the multi-page Markdown content `markdown_list` output by
+  the PP-DocTranslation pipeline into a single complete document and return the merged Markdown content.</details>
+
 <details><summary>(4) Call <code>translate()</code> method to perform document translation. This method will return the original markdown text and the translated text, which is a markdown object. You can save the required parts locally by executing the <code>save_to_markdown()</code> method. The following are the descriptions of the relevant parameters of the <code>translate()</code> method:</summary>
 <table>
 <thead>
@@ -1429,13 +1477,16 @@ After executing the above code, you will obtain the parsed results of the origin
 </table>
 </details>
 
-In addition, you can obtain the configuration file for the layout analysis pipeline and load the configuration file for prediction. You can execute the following command to save the results in `my_path`:
+In addition, you can obtain the configuration file for the layout analysis pipeline and load the configuration file for
+prediction. You can execute the following command to save the results in `my_path`:
 
 ```
 paddlex --get_pipeline_config PP-DocTranslation --save_path ./my_path
 ```
 
-If you obtain the configuration file, you can customize the configurations of the layout parsing pipeline by simply modifying the value of the `pipeline` parameter in the `create_pipeline` method to the path of the pipeline configuration file. Here is an example:
+If you obtain the configuration file, you can customize the configurations of the layout parsing pipeline by simply
+modifying the value of the `pipeline` parameter in the `create_pipeline` method to the path of the pipeline
+configuration file. Here is an example:
 
 ```python
 from paddlex import create_pipeline
@@ -1486,18 +1537,32 @@ for tgt_md_info in tgt_md_info_list:
     tgt_md_info.save_to_markdown(output_path)
 ```
 
-<b>Note:</b>The parameters in the configuration file are pipeline initialization parameters. If you want to change the initialization parameters of the general layout parsing v3 pipeline, you can directly modify the parameters in the configuration file and load the configuration file for prediction. Meanwhile, CLI prediction also supports passing in the configuration file, and you can specify the path of the configuration file with `--pipeline`.
+<b>Note:</b>The parameters in the configuration file are pipeline initialization parameters. If you want to change the
+initialization parameters of the general layout parsing v3 pipeline, you can directly modify the parameters in the
+configuration file and load the configuration file for prediction. Meanwhile, CLI prediction also supports passing in
+the configuration file, and you can specify the path of the configuration file with `--pipeline`.
 
 ## 3. Development Integration/Deployment
-If the pipeline can meet your requirements for inference speed and accuracy, you can directly proceed with development integration/deployment.
 
-If you need to directly apply the pipeline to your Python project, you can refer to the sample code in [2.2 Integration via Python Script](#22-python脚本方式集成).
+If the pipeline can meet your requirements for inference speed and accuracy, you can directly proceed with development
+integration/deployment.
+
+If you need to directly apply the pipeline to your Python project, you can refer to the sample code
+in [2.2 Integration via Python Script](#22-python脚本方式集成).
 
 In addition, PaddleX also provides three other deployment methods, which are described in detail below:
 
-🚀<b>High-performance inference</b>: In real production environments, many applications have stringent performance metrics (especially response speed) for deployment strategies to ensure efficient system operation and smooth user experience. To this end, PaddleX provides a high-performance inference plugin designed to deeply optimize model inference and pre/post-processing, achieving significant acceleration of the end-to-end process. For detailed information on the high-performance inference process, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+🚀<b>High-performance inference</b>: In real production environments, many applications have stringent performance
+metrics (especially response speed) for deployment strategies to ensure efficient system operation and smooth user
+experience. To this end, PaddleX provides a high-performance inference plugin designed to deeply optimize model
+inference and pre/post-processing, achieving significant acceleration of the end-to-end process. For detailed
+information on the high-performance inference process, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
 
-☁️<b>Serving</b>: Serving is a common form of deployment in actual production environments. By encapsulating inference functions as services, clients can access these services through network requests to obtain inference results. PaddleX supports multiple pipeline Serving deployment solutions. For detailed pipeline Serving deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
+☁️<b>Serving</b>: Serving is a common form of deployment in actual production environments. By encapsulating inference
+functions as services, clients can access these services through network requests to obtain inference results. PaddleX
+supports multiple pipeline Serving deployment solutions. For detailed pipeline Serving deployment procedures, please
+refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
 
 The following is the API reference for basic Serving and examples of multilingual service invocation:
 
@@ -2018,77 +2083,87 @@ import sys
 
 import requests
 
-
 API_BASE_URL = "http://127.0.0.1:8080"
 
 file_path = "./demo.jpg"
 target_language = "en"
 
 with open(file_path, "rb") as file:
-    file_bytes = file.read()
-    file_data = base64.b64encode(file_bytes).decode("ascii")
+file_bytes = file.read()
+file_data = base64.b64encode(file_bytes).decode("ascii")
 
 payload = {
-    "file": file_data,
-    "fileType": 1,
+"file": file_data,
+"fileType": 1,
 }
 resp_visual = requests.post(url=f"{API_BASE_URL}/doctrans-visual", json=payload)
 if resp_visual.status_code != 200:
-    print(
-        f"Request to doctrans-visual failed with status code {resp_visual.status_code}."
-    )
-    pprint.pp(resp_visual.json())
-    sys.exit(1)
+print(
+f"Request to doctrans-visual failed with status code {resp_visual.status_code}."
+)
+pprint.pp(resp_visual.json())
+sys.exit(1)
 result_visual = resp_visual.json()["result"]
 
 markdown_list = []
 for i, res in enumerate(result_visual["layoutParsingResults"]):
-    md_dir = pathlib.Path(f"markdown_{i}")
-    md_dir.mkdir(exist_ok=True)
-    (md_dir / "doc.md").write_text(res["markdown"]["text"])
+md_dir = pathlib.Path(f"markdown_{i}")
+md_dir.mkdir(exist_ok=True)
+(md_dir / "doc.md").write_text(res["markdown"]["text"])
 for img_path, img in res["markdown"]["images"].items():
-        img_path = md_dir / img_path
-        img_path.parent.mkdir(parents=True, exist_ok=True)
-        img_path.write_bytes(base64.b64decode(img))
-    print(f"The Markdown document to be translated is saved at {md_dir / 'doc.md'}")
-    del res["markdown"]["images"]
-    markdown_list.append(res["markdown"])
-    for img_name, img in res["outputImages"].items():
-        img_path = f"{img_name}_{i}.jpg"
-        with open(img_path, "wb") as f:
-            f.write(base64.b64decode(img))
-        print(f"Output image saved at {img_path}")
+img_path = md_dir / img_path
+img_path.parent.mkdir(parents=True, exist_ok=True)
+img_path.write_bytes(base64.b64decode(img))
+print(f"The Markdown document to be translated is saved at {md_dir / 'doc.md'}")
+del res["markdown"]["images"]
+markdown_list.append(res["markdown"])
+for img_name, img in res["outputImages"].items():
+img_path = f"{img_name}_{i}.jpg"
+with open(img_path, "wb") as f:
+f.write(base64.b64decode(img))
+print(f"Output image saved at {img_path}")
 
 payload = {
-    "markdownList": markdown_list,
-    "targetLanguage": target_language,
+"markdownList": markdown_list,
+"targetLanguage": target_language,
 }
 resp_translate = requests.post(url=f"{API_BASE_URL}/doctrans-translate", json=payload)
 if resp_translate.status_code != 200:
-    print(
-        f"Request to doctrans-translate failed with status code {resp_translate.status_code}."
-    )
-    pprint.pprint(resp_translate.json())
-    sys.exit(1)
+print(
+f"Request to doctrans-translate failed with status code {resp_translate.status_code}."
+)
+pprint.pprint(resp_translate.json())
+sys.exit(1)
 result_translate = resp_translate.json()["result"]
 
 for i, res in enumerate(result_translate["translationResults"]):
-    md_dir = pathlib.Path(f"markdown_{i}")
-    (md_dir / "doc_translated.md").write_text(res["markdown"]["text"])
-    print(f"Translated markdown document saved at {md_dir / 'doc_translated.md'}")</code></pre></details>
+md_dir = pathlib.Path(f"markdown_{i}")
+(md_dir / "doc_translated.md").write_text(res["markdown"]["text"])
+print(f"Translated markdown document saved at {md_dir / 'doc_translated.md'}")</code></pre></details>
 </details>
 <br/>
 
-📱<b>On-device deployment</b>: On-device deployment is a method that places computing and data processing functions on the user's device itself, allowing the device to process data directly without relying on a remote server. PaddleX supports deploying models on on-device devices such as Android. For detailed on-device deployment procedures, please refer to the [PaddleX On-device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
+📱<b>On-device deployment</b>: On-device deployment is a method that places computing and data processing functions on
+the user's device itself, allowing the device to process data directly without relying on a remote server. PaddleX
+supports deploying models on on-device devices such as Android. For detailed on-device deployment procedures, please
+refer to the [PaddleX On-device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
 
-You can choose an appropriate way to deploy the model pipeline according to your needs, and then proceed with subsequent AI application integration.
+You can choose an appropriate way to deploy the model pipeline according to your needs, and then proceed with subsequent
+AI application integration.
 
 ## 4. Secondary Development
-If the default model weights provided by the Layout Analysis v3 sub-pipeline in the general document translation pipeline do not meet your accuracy or speed requirements in your scenario, you can try to use<b>the data from your own specific domain or application scenario</b>to further<b>fine-tune</b>the existing model to improve the recognition performance of the general Layout Analysis v3 sub-pipeline in your scenario.
+
+If the default model weights provided by the Layout Analysis v3 sub-pipeline in the general document translation
+pipeline do not meet your accuracy or speed requirements in your scenario, you can try to use<b>the data from your own
+specific domain or application scenario</b>to further<b>fine-tune</b>the existing model to improve the recognition
+performance of the general Layout Analysis v3 sub-pipeline in your scenario.
 
 ### 4.1 Model Fine-tuning
 
-Since the General Layout Analysis v3 sub-pipeline contains several modules, the subpar performance of the model pipeline may stem from any one of these modules. You can analyze the cases with poor extraction results, use visualized images to identify which module is problematic, and refer to the corresponding fine-tuning tutorial links in the following table to fine-tune the model.
+Since the General Layout Analysis v3 sub-pipeline contains several modules, the subpar performance of the model pipeline
+may stem from any one of these modules. You can analyze the cases with poor extraction results, use visualized images to
+identify which module is problematic, and refer to the corresponding fine-tuning tutorial links in the following table
+to fine-tune the model.
 
 <table>
 <thead>
@@ -2148,9 +2223,11 @@ Since the General Layout Analysis v3 sub-pipeline contains several modules, the 
 </table>
 
 ### 4.2 Model Application
+
 After completing fine-tuning training with your private dataset, you can obtain a local model weight file.
 
-If you need to use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local path of the fine-tuned model weights into the corresponding location in the pipeline configuration file:
+If you need to use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local
+path of the fine-tuned model weights into the corresponding location in the pipeline configuration file:
 
 ```yaml
 ......
@@ -2187,12 +2264,16 @@ SubPipelines:
 ......
 ```
 
-Then, refer to the command-line method or Python script method in the local experience to load the modified pipeline configuration file.
+Then, refer to the command-line method or Python script method in the local experience to load the modified pipeline
+configuration file.
 
 ## 5. Multi-hardware Support
-PaddleX supports multiple mainstream hardware devices such as NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambrian MLU, <b>and only requires setting the `device` parameter </b>to achieve seamless switching between different hardware.
 
-For example, when using the document scenario information extraction v4 pipeline, to change the running device from NVIDIA GPU to Ascend NPU, you only need to modify `device` to npu in the script:
+PaddleX supports multiple mainstream hardware devices such as NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambrian
+MLU, <b>and only requires setting the `device` parameter </b>to achieve seamless switching between different hardware.
+
+For example, when using the document scenario information extraction v4 pipeline, to change the running device from
+NVIDIA GPU to Ascend NPU, you only need to modify `device` to npu in the script:
 
 ```python
 from paddlex import create_pipeline
@@ -2202,4 +2283,5 @@ pipeline = create_pipeline(
     )
 ```
 
-If you want to use the general document translation pipeline on more types of hardware, please refer to the [PaddleX Multi-Hardware Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
+If you want to use the general document translation pipeline on more types of hardware, please refer to
+the [PaddleX Multi-Hardware Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).

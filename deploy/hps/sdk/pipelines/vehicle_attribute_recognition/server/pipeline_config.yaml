@@ -5,8 +5,8 @@ SubModules:
     module_name: object_detection
     model_name: PP-YOLOE-L_vehicle
     model_dir: null
-    batch_size: 1  
-    threshold: 0.5  
+    batch_size: 1
+    threshold: 0.5
   Classification:
     module_name: multilabel_classification
     model_name: PP-LCNet_x1_0_vehicle_attribute

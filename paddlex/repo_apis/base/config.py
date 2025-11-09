@@ -17,8 +17,8 @@ import abc
 import collections.abc
 from collections import OrderedDict
 
-from ...utils.errors import UnsupportedParamError
 from .register import get_registered_model_info, get_registered_suite_info
+from ...utils.errors import UnsupportedParamError
 
 __all__ = ["Config", "BaseConfig"]
 

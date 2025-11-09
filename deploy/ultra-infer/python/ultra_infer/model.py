@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import absolute_import
+
 import abc
 
 from . import c_lib_wrap as C
@@ -50,7 +51,7 @@ class UltraInferModel(BaseUltraInferModel):
 
     def input_info_of_runtime(self, index):
         assert (
-            index < self.num_inputs_of_runtime()
+                index < self.num_inputs_of_runtime()
         ), "The index:{} must be less than number of inputs:{}.".format(
             index, self.num_inputs_of_runtime()
         )
@@ -58,7 +59,7 @@ class UltraInferModel(BaseUltraInferModel):
 
     def output_info_of_runtime(self, index):
         assert (
-            index < self.num_outputs_of_runtime()
+                index < self.num_outputs_of_runtime()
         ), "The index:{} must be less than number of outputs:{}.".format(
             index, self.num_outputs_of_runtime()
         )

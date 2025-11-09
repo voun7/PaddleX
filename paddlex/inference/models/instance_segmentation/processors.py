@@ -14,8 +14,8 @@
 
 from typing import List, Optional
 
-from ...utils.benchmark import benchmark
 from ..object_detection.processors import restructured_boxes
+from ...utils.benchmark import benchmark
 
 
 def extract_masks_from_boxes(boxes, masks):
@@ -76,10 +76,10 @@ class InstanceSegPostProcess(object):
         return result
 
     def __call__(
-        self,
-        batch_outputs: List[dict],
-        datas: List[dict],
-        threshold: Optional[float] = None,
+            self,
+            batch_outputs: List[dict],
+            datas: List[dict],
+            threshold: Optional[float] = None,
     ):
         """Apply the post-processing to a batch of outputs.
 

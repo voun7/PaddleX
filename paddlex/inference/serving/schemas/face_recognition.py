@@ -16,8 +16,8 @@ from typing import Final, List, Optional
 
 from pydantic import BaseModel
 
-from ..infra.models import PrimaryOperations
 from .shared import object_detection
+from ..infra.models import PrimaryOperations
 
 __all__ = [
     "ImageLabelPair",

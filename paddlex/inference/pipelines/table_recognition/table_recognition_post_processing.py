@@ -15,10 +15,10 @@ from typing import Dict
 
 import numpy as np
 
+from .result import SingleTableRecognitionResult
 from ..components import convert_points_to_boxes
 from ..layout_parsing.utils import get_sub_regions_ocr_res
 from ..ocr.result import OCRResult
-from .result import SingleTableRecognitionResult
 
 
 def get_ori_image_coordinate(x: int, y: int, box_list: list) -> list:
@@ -42,7 +42,7 @@ def get_ori_image_coordinate(x: int, y: int, box_list: list) -> list:
 
 
 def convert_table_structure_pred_bbox(
-    table_structure_pred: Dict, crop_start_point: list, img_shape: tuple
+        table_structure_pred: Dict, crop_start_point: list, img_shape: tuple
 ) -> None:
     """
     Convert the predicted table structure bounding boxes to the original image coordinate system.
@@ -172,9 +172,9 @@ def _sort_box_by_y_projection(boxes, line_height_iou_threshold=0.6):
     for index, box in indexed_boxes[1:]:
         y0, y1 = box[1], box[3]
         if _whether_y_overlap_exceeds_threshold(
-            (0, current_y0, 0, current_y1),
-            (0, y0, 0, y1),
-            line_height_iou_threshold,
+                (0, current_y0, 0, current_y1),
+                (0, y0, 0, y1),
+                line_height_iou_threshold,
         ):
             current_line.append((index, box))
             current_y0 = min(current_y0, y0)
@@ -196,7 +196,7 @@ def _sort_box_by_y_projection(boxes, line_height_iou_threshold=0.6):
 
 
 def match_table_and_ocr(
-    cell_box_list: list, ocr_dt_boxes: list, cell_sort_by_y_projection: bool = False
+        cell_box_list: list, ocr_dt_boxes: list, cell_sort_by_y_projection: bool = False
 ) -> dict:
     """
     match table and ocr
@@ -236,7 +236,7 @@ def match_table_and_ocr(
 
 
 def get_html_result(
-    matched_index: dict, ocr_contents: dict, pred_structures: list
+        matched_index: dict, ocr_contents: dict, pred_structures: list
 ) -> str:
     """
     Generates HTML content based on the matched index, OCR contents, and predicted structures.
@@ -261,8 +261,8 @@ def get_html_result(
             if td_index in matched_index.keys():
                 b_with = False
                 if (
-                    "<b>" in ocr_contents[matched_index[td_index][0]]
-                    and len(matched_index[td_index]) > 1
+                        "<b>" in ocr_contents[matched_index[td_index][0]]
+                        and len(matched_index[td_index]) > 1
                 ):
                     b_with = True
                     pred_html.extend("<b>")
@@ -298,12 +298,12 @@ def get_html_result(
 
 
 def get_table_recognition_res(
-    table_box: list,
-    table_structure_pred: dict,
-    overall_ocr_res: OCRResult,
-    cells_texts_list: list,
-    use_table_cells_ocr_results: bool,
-    cell_sort_by_y_projection: bool = False,
+        table_box: list,
+        table_structure_pred: dict,
+        overall_ocr_res: OCRResult,
+        cells_texts_list: list,
+        use_table_cells_ocr_results: bool,
+        cell_sort_by_y_projection: bool = False,
 ) -> SingleTableRecognitionResult:
     """
     Retrieve table recognition result from cropped image info, table structure prediction, and overall OCR result.

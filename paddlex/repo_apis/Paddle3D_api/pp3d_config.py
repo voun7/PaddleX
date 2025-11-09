@@ -16,8 +16,8 @@ import codecs
 
 import yaml
 
-from ...utils.misc import abspath
 from ..base import BaseConfig
+from ...utils.misc import abspath
 
 
 class PP3DConfig(BaseConfig):
@@ -103,7 +103,7 @@ class PP3DConfig(BaseConfig):
 
     def get_qat_epochs_iters(self):
         assert (
-            "finetune_config" in self
+                "finetune_config" in self
         ), "QAT training yaml should contain finetune_config key"
         if "iters" in self.finetune_config:
             return self.finetune_config["iters"]
@@ -113,7 +113,7 @@ class PP3DConfig(BaseConfig):
 
     def get_qat_learning_rate(self):
         assert (
-            "finetune_config" in self
+                "finetune_config" in self
         ), "QAT training yaml should contain finetune_config key"
         cfg = self.finetune_config
         if "lr_scheduler" in cfg or "learning_rate" not in cfg.lr_scheduler:

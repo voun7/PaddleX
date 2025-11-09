@@ -13,17 +13,18 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 from .... import UltraInferModel, ModelFormat
 from .... import c_lib_wrap as C
 
 
 class PPMSVSR(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a VSR model exported by PaddleGAN.
 
@@ -35,7 +36,7 @@ class PPMSVSR(UltraInferModel):
         super(PPMSVSR, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PPMSVSR model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.sr.PPMSVSR(
             model_file, params_file, self._runtime_option, model_format
@@ -54,11 +55,11 @@ class PPMSVSR(UltraInferModel):
 
 class EDVR(PPMSVSR):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a EDVR model exported by PaddleGAN.
 
@@ -70,7 +71,7 @@ class EDVR(PPMSVSR):
         super(PPMSVSR, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "EDVR model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.sr.EDVR(
             model_file, params_file, self._runtime_option, model_format
@@ -89,11 +90,11 @@ class EDVR(PPMSVSR):
 
 class BasicVSR(PPMSVSR):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a EDVR model exported by PaddleGAN.
 
@@ -105,7 +106,7 @@ class BasicVSR(PPMSVSR):
         super(PPMSVSR, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "BasicVSR model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.sr.BasicVSR(
             model_file, params_file, self._runtime_option, model_format

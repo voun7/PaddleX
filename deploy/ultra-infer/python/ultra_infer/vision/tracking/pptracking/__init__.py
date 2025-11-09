@@ -13,18 +13,19 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 from .... import UltraInferModel, ModelFormat
 from .... import c_lib_wrap as C
 
 
 class PPTracking(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PPTracking model exported by PaddleDetection.
 
@@ -37,7 +38,7 @@ class PPTracking(UltraInferModel):
         super(PPTracking, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PPTracking model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.tracking.PPTracking(
             model_file, params_file, config_file, self._runtime_option, model_format

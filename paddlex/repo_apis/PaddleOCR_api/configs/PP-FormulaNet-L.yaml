@@ -6,7 +6,7 @@ Global:
   save_model_dir: ./output/rec/pp_formulanet_l/
   save_epoch_step: 2
   # evaluation is run every  417  iterations (1 epoch)(batch_size = 24)   # max_seq_len: 1024
-  eval_batch_step: [0,  417 ]
+  eval_batch_step: [ 0,  417 ]
   cal_metric_during_train: True
   pretrained_model:
   checkpoints:
@@ -17,11 +17,11 @@ Global:
   use_space_char: False
   rec_char_dict_path: &rec_char_dict_path ppocr/utils/dict/unimernet_tokenizer
   max_new_tokens: &max_new_tokens 1024
-  input_size: &input_size [768, 768]
+  input_size: &input_size [ 768, 768 ]
   save_res_path: ./output/rec/predicts_pp_formulanet_l.txt
   allow_resize_largeImg: False
   start_ema: True
-  d2s_train_image_shape: [1,768,768]
+  d2s_train_image_shape: [ 1,768,768 ]
 
 Optimizer:
   name: AdamW
@@ -39,11 +39,11 @@ Architecture:
   Transform:
   Backbone:
     name: Vary_VIT_B_Formula
-    image_size: 768 
+    image_size: 768
     encoder_embed_dim: 768
     encoder_depth: 12
     encoder_num_heads: 12
-    encoder_global_attn_indexes: [2, 5, 8, 11]
+    encoder_global_attn_indexes: [ 2, 5, 8, 11 ]
   Head:
     name: PPFormulaNet_Head
     max_new_tokens: *max_new_tokens
@@ -53,10 +53,10 @@ Architecture:
     decoder_layers: 8
     temperature: 0.2
     do_sample: False
-    top_p: 0.95 
+    top_p: 0.95
     encoder_hidden_size: 1024
     is_export: False
-    length_aware: False 
+    length_aware: False
     use_parallel: False
     parallel_step: 0
 
@@ -64,29 +64,29 @@ Loss:
   name: PPFormulaNet_L_Loss
 
 PostProcess:
-  name:  UniMERNetDecode
-  rec_char_dict_path:  *rec_char_dict_path
+  name: UniMERNetDecode
+  rec_char_dict_path: *rec_char_dict_path
 
 Metric:
   name: LaTeXOCRMetric
-  main_indicator:  exp_rate
+  main_indicator: exp_rate
   cal_bleu_score: True
 
 Train:
   dataset:
     name: SimpleDataSet
     data_dir: ./ocr_rec_latexocr_dataset_example
-    label_file_list: ["./ocr_rec_latexocr_dataset_example/train.txt"]
+    label_file_list: [ "./ocr_rec_latexocr_dataset_example/train.txt" ]
     transforms:
       - UniMERNetImgDecode:
           input_size: *input_size
-      - UniMERNetTrainTransform: 
+      - UniMERNetTrainTransform:
       - LatexImageFormat:
       - UniMERNetLabelEncode:
           rec_char_dict_path: *rec_char_dict_path
-          max_seq_len:  *max_new_tokens
+          max_seq_len: *max_new_tokens
       - KeepKeys:
-          keep_keys: ['image', 'label', 'attention_mask']
+          keep_keys: [ 'image', 'label', 'attention_mask' ]
 
   loader:
     shuffle: False
@@ -99,17 +99,17 @@ Eval:
   dataset:
     name: SimpleDataSet
     data_dir: ./ocr_rec_latexocr_dataset_example
-    label_file_list: ["./ocr_rec_latexocr_dataset_example/val.txt"]
+    label_file_list: [ "./ocr_rec_latexocr_dataset_example/val.txt" ]
     transforms:
       - UniMERNetImgDecode:
           input_size: *input_size
       - UniMERNetTestTransform:
       - LatexImageFormat:
       - UniMERNetLabelEncode:
-          max_seq_len:  *max_new_tokens
+          max_seq_len: *max_new_tokens
           rec_char_dict_path: *rec_char_dict_path
       - KeepKeys:
-          keep_keys: ['image', 'label', 'attention_mask', 'filename']
+          keep_keys: [ 'image', 'label', 'attention_mask', 'filename' ]
   loader:
     shuffle: False
     drop_last: False

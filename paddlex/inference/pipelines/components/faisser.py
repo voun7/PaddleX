@@ -17,9 +17,9 @@ from pathlib import Path
 
 import numpy as np
 
+from ...utils.io import YAMLReader, YAMLWriter
 from ....utils import logging
 from ....utils.deps import class_requires_deps, is_dep_available
-from ...utils.io import YAMLReader, YAMLWriter
 
 if is_dep_available("faiss-cpu"):
     import faiss
@@ -120,9 +120,9 @@ class IndexData:
             yaml_reader = YAMLReader()
             index_info = yaml_reader.read(index_info_path)
             assert (
-                "id_map" in index_info
-                and "metric_type" in index_info
-                and "index_type" in index_info
+                    "id_map" in index_info
+                    and "metric_type" in index_info
+                    and "index_type" in index_info
             ), f"The index_info file({index_info_path}) may have been damaged, `id_map` or `metric_type` or `index_type` not found in `index_info`."
             id_map = IndexData._convert_int64(index_info["id_map"])
 
@@ -143,8 +143,8 @@ class IndexData:
 class FaissIndexer:
 
     def __init__(
-        self,
-        index,
+            self,
+            index,
     ):
         super().__init__()
         self._indexer, self.id_map, self.metric_type, index_type = IndexData.load(index)
@@ -170,7 +170,6 @@ class FaissIndexer:
 
 @class_requires_deps("faiss-cpu")
 class FaissBuilder:
-
     SUPPORT_METRIC_TYPE = ("hamming", "IP", "L2")
     SUPPORT_INDEX_TYPE = ("Flat", "IVF", "HNSW32")
     BINARY_METRIC_TYPE = ("hamming",)
@@ -189,7 +188,7 @@ class FaissBuilder:
         # for binary index, add B at head of index_type
         if metric_type in cls.BINARY_METRIC_TYPE:
             assert (
-                index_type in cls.BINARY_SUPPORT_INDEX_TYPE
+                    index_type in cls.BINARY_SUPPORT_INDEX_TYPE
             ), f"The metric type({metric_type}) only support {cls.BINARY_SUPPORT_INDEX_TYPE} index types!"
             index_type = "B" + index_type
 
@@ -215,19 +214,19 @@ class FaissBuilder:
 
     @classmethod
     def build(
-        cls,
-        gallery_imgs,
-        gallery_label,
-        predict_func,
-        metric_type="IP",
-        index_type="HNSW32",
+            cls,
+            gallery_imgs,
+            gallery_label,
+            predict_func,
+            metric_type="IP",
+            index_type="HNSW32",
     ):
         assert (
-            index_type in cls.SUPPORT_INDEX_TYPE
+                index_type in cls.SUPPORT_INDEX_TYPE
         ), f"Supported index types only: {cls.SUPPORT_INDEX_TYPE}!"
 
         assert (
-            metric_type in cls.SUPPORT_METRIC_TYPE
+                metric_type in cls.SUPPORT_METRIC_TYPE
         ), f"Supported metric types only: {cls.SUPPORT_METRIC_TYPE}!"
 
         if isinstance(gallery_label, str):
@@ -265,9 +264,9 @@ class FaissBuilder:
 
     @classmethod
     def remove(
-        cls,
-        remove_ids,
-        index,
+            cls,
+            remove_ids,
+            index,
     ):
         index, ids, metric_type, index_type = IndexData.load(index)
         if index_type == "HNSW32":
@@ -297,7 +296,7 @@ class FaissBuilder:
     def append(cls, gallery_imgs, gallery_label, predict_func, index):
         index, ids, metric_type, index_type = IndexData.load(index)
         assert (
-            metric_type in cls.SUPPORT_METRIC_TYPE
+                metric_type in cls.SUPPORT_METRIC_TYPE
         ), f"Supported metric types only: {cls.SUPPORT_METRIC_TYPE}!"
 
         if isinstance(gallery_label, str):
@@ -319,7 +318,7 @@ class FaissBuilder:
 
     @classmethod
     def _add_gallery(
-        cls, metric_type, index, ids, gallery_features, gallery_docs, mode
+            cls, metric_type, index, ids, gallery_features, gallery_docs, mode
     ):
         start_id = max(ids.keys()) + 1 if ids else 0
         ids_now = (np.arange(0, len(gallery_docs)) + start_id).astype(np.int64)

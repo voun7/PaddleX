@@ -156,7 +156,7 @@ def run_async(coro, return_future=False, timeout=None):
 class GenAIClient(object):
 
     def __init__(
-        self, backend, base_url, max_concurrency=200, model_name=None, **kwargs
+            self, backend, base_url, max_concurrency=200, model_name=None, **kwargs
     ):
         from openai import AsyncOpenAI
 

@@ -33,7 +33,6 @@ CLIENT_LIB_PATH = BASE_DIR / "paddlex-hps-client"
 VERSIONS_PATH = BASE_DIR / "versions.json"
 OUTPUT_DIR = BASE_DIR / "output"
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("pipeline_names", type=str, metavar="pipeline-names", nargs="*")

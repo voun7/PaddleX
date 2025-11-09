@@ -55,7 +55,7 @@ class MaxTimeCriteria(StoppingCriteria):
         )
 
     def __call__(
-        self, input_ids: paddle.Tensor, scores: paddle.Tensor, **kwargs
+            self, input_ids: paddle.Tensor, scores: paddle.Tensor, **kwargs
     ) -> bool:
         return time.time() - self.initial_timestamp > self.max_time
 
@@ -74,7 +74,7 @@ class MaxLengthCriteria(StoppingCriteria):
         self.max_length = max_length
 
     def __call__(
-        self, input_ids: paddle.Tensor, scores: paddle.Tensor, **kwargs
+            self, input_ids: paddle.Tensor, scores: paddle.Tensor, **kwargs
     ) -> bool:
         return input_ids.shape[-1] >= self.max_length
 
@@ -92,7 +92,7 @@ class StoppingCriteriaList(list):
 
 
 def validate_stopping_criteria(
-    stopping_criteria: StoppingCriteriaList, max_length: int
+        stopping_criteria: StoppingCriteriaList, max_length: int
 ) -> StoppingCriteriaList:
     stopping_max_length = stopping_criteria.max_length
     new_stopping_criteria = deepcopy(stopping_criteria)

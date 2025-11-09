@@ -15,9 +15,9 @@
 import os
 from pathlib import Path
 
-from ...base import BaseDatasetChecker
-from ..model_list import MODELS
 from .dataset_src import check_train, check_val
+from ..model_list import MODELS
+from ...base import BaseDatasetChecker
 
 
 class FaceRecDatasetChecker(BaseDatasetChecker):

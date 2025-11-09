@@ -12,7 +12,7 @@ train_dataset:
       max_scale_factor: 1.5
       scale_step_size: 0.125
     - type: RandomPaddingCrop
-      crop_size: [1024, 512]
+      crop_size: [ 1024, 512 ]
     - type: RandomHorizontalFlip
     - type: RandomDistort
       brightness_range: 0.5
@@ -35,8 +35,8 @@ model:
   backbone:
     type: STDC1
     pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
-  arm_out_chs: [32, 64, 128]
-  seg_head_inter_chs: [32, 64, 64]
+  arm_out_chs: [ 32, 64, 128 ]
+  seg_head_inter_chs: [ 32, 64, 64 ]
 
 optimizer:
   type: SGD
@@ -59,7 +59,7 @@ loss:
       min_kept: 130000
     - type: OhemCrossEntropyLoss
       min_kept: 130000
-  coef: [1, 1, 1]
+  coef: [ 1, 1, 1 ]
 
 test_config:
   aug_eval: True

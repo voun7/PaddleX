@@ -14,8 +14,8 @@
 
 from __future__ import absolute_import
 
-from ....utils.deps import function_requires_deps, is_dep_available
 from .style import Table
+from ....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("lxml"):
     from lxml import html

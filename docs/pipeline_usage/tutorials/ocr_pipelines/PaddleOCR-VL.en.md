@@ -4,7 +4,15 @@ comments: true
 
 # PaddleOCR-VL Introduction
 
-PaddleOCR-VL is a SOTA and resource-efficient model tailored for document parsing. Its core component is PaddleOCR-VL-0.9B, a compact yet powerful vision-language model (VLM) that integrates a NaViT-style dynamic resolution visual encoder with the ERNIE-4.5-0.3B language model to enable accurate element recognition. This innovative model efficiently supports 109 languages and excels in recognizing complex elements (e.g., text, tables, formulas, and charts), while maintaining minimal resource consumption. Through comprehensive evaluations on widely used public benchmarks and in-house benchmarks, PaddleOCR-VL achieves SOTA performance in both page-level document parsing and element-level recognition. It significantly outperforms existing solutions, exhibits strong competitiveness against top-tier VLMs, and delivers fast inference speeds. These strengths make it highly suitable for practical deployment in real-world scenarios.
+PaddleOCR-VL is a SOTA and resource-efficient model tailored for document parsing. Its core component is
+PaddleOCR-VL-0.9B, a compact yet powerful vision-language model (VLM) that integrates a NaViT-style dynamic resolution
+visual encoder with the ERNIE-4.5-0.3B language model to enable accurate element recognition. This innovative model
+efficiently supports 109 languages and excels in recognizing complex elements (e.g., text, tables, formulas, and
+charts), while maintaining minimal resource consumption. Through comprehensive evaluations on widely used public
+benchmarks and in-house benchmarks, PaddleOCR-VL achieves SOTA performance in both page-level document parsing and
+element-level recognition. It significantly outperforms existing solutions, exhibits strong competitiveness against
+top-tier VLMs, and delivers fast inference speeds. These strengths make it highly suitable for practical deployment in
+real-world scenarios.
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/refs/heads/main/images/paddleocr_vl/metrics/allmetric.png"/>
 
@@ -17,6 +25,7 @@ python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn
 python -m pip install paddlex
 python -m pip install https://paddle-whl.bj.bcebos.com/nightly/cu126/safetensors/safetensors-0.6.2.dev0-cp38-abi3-linux_x86_64.whl
 ```
+
 > For Windows users, please use WSL or a Docker container.
 
 Running the PaddleOCR-VL has the following GPU hardware requirements:
@@ -46,11 +55,14 @@ Running the PaddleOCR-VL has the following GPU hardware requirements:
 </tbody>
 </table>
 
-The PaddleOCR-VL currently does not support CPU or Arm architecture. Support for more hardware will be expanded based on actual requirements in the future. Stay tuned!
+The PaddleOCR-VL currently does not support CPU or Arm architecture. Support for more hardware will be expanded based on
+actual requirements in the future. Stay tuned!
 
 ## 2. Quick Start
 
-PaddleOCR-VL supports two usage methods: CLI command line and Python API. The CLI command line method is simpler and suitable for quickly verifying functionality, while the Python API method is more flexible and suitable for integration into existing projects.
+PaddleOCR-VL supports two usage methods: CLI command line and Python API. The CLI command line method is simpler and
+suitable for quickly verifying functionality, while the Python API method is more flexible and suitable for integration
+into existing projects.
 
 ### 2.1 Command Line Usage
 
@@ -303,11 +315,15 @@ The inference result will be printed in the terminal. The default output of the 
 
 For explanation of the result parameters, refer to [2.2 Python Script Integration](#222-python-script-integration).
 
-<b>Note: </b> The default model for the production line is relatively large, which may result in slower inference speed. It is recommended to use [inference acceleration frameworks to enhance VLM inference performance](#31-starting-the-vlm-inference-service) for faster inference.
+<b>Note: </b> The default model for the production line is relatively large, which may result in slower inference speed.
+It is recommended to
+use [inference acceleration frameworks to enhance VLM inference performance](#31-starting-the-vlm-inference-service) for
+faster inference.
 
 ### 2.2 Python Script Integration
 
-The command line method is for quick testing and visualization. In actual projects, you usually need to integrate the model via code. You can perform pipeline inference with just a few lines of code as shown below:
+The command line method is for quick testing and visualization. In actual projects, you usually need to integrate the
+model via code. You can perform pipeline inference with just a few lines of code as shown below:
 
 ```python
 from paddlex import create_pipeline
@@ -322,7 +338,8 @@ for res in output:
     res.save_to_markdown(save_path="output") ## 保存当前图像的markdown格式的结果
 ```
 
-For PDF files, each page will be processed individually and generate a separate Markdown file. If you want to convert the entire PDF to a single Markdown file, use the following method:
+For PDF files, each page will be processed individually and generate a separate Markdown file. If you want to convert
+the entire PDF to a single Markdown file, use the following method:
 
 ```python
 from pathlib import Path
@@ -364,7 +381,9 @@ for item in markdown_images:
 
 **Note:**
 
-- In the example code, the parameters `use_doc_orientation_classify` and  `use_doc_unwarping` are all set to `False` by default. These indicate that document orientation classification and document image unwarping are disabled. You can manually set them to `True` if needed.
+- In the example code, the parameters `use_doc_orientation_classify` and  `use_doc_unwarping` are all set to `False` by
+  default. These indicate that document orientation classification and document image unwarping are disabled. You can
+  manually set them to `True` if needed.
 
 The above Python script performs the following steps:
 
@@ -799,11 +818,12 @@ If not set, the initialized parameter value will be used.
 </tr>
 </table>
 
-
-- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained as follows:
+- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained
+  as follows:
     - `input_path`: `(str)` The input path of the image or PDF to be predicted.
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF; otherwise, it is `None`.
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF;
+      otherwise, it is `None`.
 
     - `model_settings`: `(Dict[str, bool])` Model parameters required for configuring PaddleOCR-VL.
         - `use_doc_preprocessor`: `(bool)` Controls whether to enable the document preprocessing sub-pipeline.
@@ -811,24 +831,35 @@ If not set, the initialized parameter value will be used.
         - `use_chart_recognition`: `(bool)` Controls whether to enable the chart recognition function.
         - `format_block_content`: `(bool)` Controls whether to save the formatted markdown content in `JSON`.
 
-    - `doc_preprocessor_res`: `(Dict[str, Union[List[float], str]])` A dictionary of document preprocessing results, which exists only when `use_doc_preprocessor=True`.
-        - `input_path`: `(str)` The image path accepted by the document preprocessing sub-pipeline. When the input is a `numpy.ndarray`, it is saved as `None`; here, it is `None`.
+    - `doc_preprocessor_res`: `(Dict[str, Union[List[float], str]])` A dictionary of document preprocessing results,
+      which exists only when `use_doc_preprocessor=True`.
+        - `input_path`: `(str)` The image path accepted by the document preprocessing sub-pipeline. When the input is a
+          `numpy.ndarray`, it is saved as `None`; here, it is `None`.
         - `page_index`: `None`. Since the input here is a `numpy.ndarray`, the value is `None`.
-        - `model_settings`: `(Dict[str, bool])` Model configuration parameters for the document preprocessing sub-pipeline.
-          - `use_doc_orientation_classify`: `(bool)` Controls whether to enable the document image orientation classification sub-module.
-          - `use_doc_unwarping`: `(bool)` Controls whether to enable the text image distortion correction sub-module.
-        - `angle`: `(int)` The prediction result of the document image orientation classification sub-module. When enabled, it returns the actual angle value.
+        - `model_settings`: `(Dict[str, bool])` Model configuration parameters for the document preprocessing
+          sub-pipeline.
+            - `use_doc_orientation_classify`: `(bool)` Controls whether to enable the document image orientation
+              classification sub-module.
+            - `use_doc_unwarping`: `(bool)` Controls whether to enable the text image distortion correction sub-module.
+        - `angle`: `(int)` The prediction result of the document image orientation classification sub-module. When
+          enabled, it returns the actual angle value.
 
-    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The list order is the reading order after parsing.
+    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The list order
+      is the reading order after parsing.
         - `block_bbox`: `(np.ndarray)` The bounding box of the layout area.
         - `block_label`: `(str)` The label of the layout area, such as `text`, `table`, etc.
         - `block_content`: `(str)` The content within the layout area.
         - `block_id`: `(int)` The index of the layout area, used to display the layout sorting results.
-        - `block_order` `(int)` The order of the layout area, used to display the layout reading order. For non-sorted parts, the default value is `None`.
-- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved directly to that file. Since json files do not support saving numpy arrays, the `numpy.array` types within will be converted to list form.
+        - `block_order` `(int)` The order of the layout area, used to display the layout reading order. For non-sorted
+          parts, the default value is `None`.
+- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is
+  specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved
+  directly to that file. Since json files do not support saving numpy arrays, the `numpy.array` types within will be
+  converted to list form.
     - `input_path`: `(str)` The input path of the image or PDF to be predicted.
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF; otherwise, it is `None`.
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates the current page number of the PDF;
+      otherwise, it is `None`.
 
     - `model_settings`: `(Dict[str, bool])` Model parameters required for configuring PaddleOCR-VL.
 
@@ -837,26 +868,40 @@ If not set, the initialized parameter value will be used.
         - `use_chart_recognition`: `(bool)` Controls whether to enable the chart recognition function.
         - `format_block_content`: `(bool)` Controls whether to save the formatted markdown content in `JSON`.
 
-    - `doc_preprocessor_res`: `(Dict[str, Union[List[float], str]])` A dictionary of document preprocessing results, which exists only when `use_doc_preprocessor=True`.
-        - `input_path`: `(str)` The image path accepted by the document preprocessing sub-pipeline. When the input is a `numpy.ndarray`, it is saved as `None`; here, it is `None`.
+    - `doc_preprocessor_res`: `(Dict[str, Union[List[float], str]])` A dictionary of document preprocessing results,
+      which exists only when `use_doc_preprocessor=True`.
+        - `input_path`: `(str)` The image path accepted by the document preprocessing sub-pipeline. When the input is a
+          `numpy.ndarray`, it is saved as `None`; here, it is `None`.
         - `page_index`: `None`. Since the input here is a `numpy.ndarray`, the value is `None`.
-        - `model_settings`: `(Dict[str, bool])` Model configuration parameters for the document preprocessing sub-pipeline.
-          - `use_doc_orientation_classify`: `(bool)` Controls whether to enable the document image orientation classification sub-module.
-          - `use_doc_unwarping`: `(bool)` Controls whether to enable the text image distortion correction sub-module.
-        - `angle`: `(int)` The prediction result of the document image orientation classification sub-module. When enabled, it returns the actual angle value.
+        - `model_settings`: `(Dict[str, bool])` Model configuration parameters for the document preprocessing
+          sub-pipeline.
+            - `use_doc_orientation_classify`: `(bool)` Controls whether to enable the document image orientation
+              classification sub-module.
+            - `use_doc_unwarping`: `(bool)` Controls whether to enable the text image distortion correction sub-module.
+        - `angle`: `(int)` The prediction result of the document image orientation classification sub-module. When
+          enabled, it returns the actual angle value.
 
-    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The list order represents the reading order after parsing.
+    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The list order
+      represents the reading order after parsing.
         - `block_bbox`: `(np.ndarray)` The bounding box of the layout region.
         - `block_label`: `(str)` The label of the layout region, such as `text`, `table`, etc.
         - `block_content`: `(str)` The content within the layout region.
         - `block_id`: `(int)` The index of the layout region, used to display the layout sorting results.
-        - `block_order` `(int)` The order of the layout region, used to display the layout reading order. For non-sorted parts, the default value is `None`.
+        - `block_order` `(int)` The order of the layout region, used to display the layout reading order. For non-sorted
+          parts, the default value is `None`.
 
 
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, visualized images for layout region detection, global OCR, layout reading order, etc., will be saved. If a file is specified, it will be saved directly to that file. (Production lines typically contain many result images, so it is not recommended to directly specify a specific file path, as multiple images will be overwritten, retaining only the last one.)
-- Calling the `save_to_markdown()` method will save the converted Markdown file to the specified `save_path`. The saved file path will be `save_path/{your_img_basename}.md`. If the input is a PDF file, it is recommended to directly specify a directory; otherwise, multiple markdown files will be overwritten.
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, visualized images for layout region detection, global OCR, layout reading order, etc., will be saved. If a
+  file is specified, it will be saved directly to that file. (Production lines typically contain many result images, so
+  it is not recommended to directly specify a specific file path, as multiple images will be overwritten, retaining only
+  the last one.)
+- Calling the `save_to_markdown()` method will save the converted Markdown file to the specified `save_path`. The saved
+  file path will be `save_path/{your_img_basename}.md`. If the input is a PDF file, it is recommended to directly
+  specify a directory; otherwise, multiple markdown files will be overwritten.
 
-Additionally, it also supports obtaining visualized images and prediction results with results through attributes, as follows:<table>
+Additionally, it also supports obtaining visualized images and prediction results with results through attributes, as
+follows:<table>
 <thead>
 <tr>
 <th>Attribute</th>
@@ -889,7 +934,10 @@ Additionally, it also supports obtaining visualized images and prediction result
 
 ## 3. Enhancing VLM Inference Performance Using Inference Acceleration Frameworks
 
-The inference performance under the default configuration is not fully optimized and may not meet actual production requirements. PaddleX supports improving the inference performance of VLM through inference acceleration frameworks such as vLLM and SGLang, thereby accelerating the inference speed in production lines. The usage process mainly consists of two steps:
+The inference performance under the default configuration is not fully optimized and may not meet actual production
+requirements. PaddleX supports improving the inference performance of VLM through inference acceleration frameworks such
+as vLLM and SGLang, thereby accelerating the inference speed in production lines. The usage process mainly consists of
+two steps:
 
 1. Start the VLM inference service;
 2. Configure the PaddleX Pipeline to invoke the VLM inference service as a client.
@@ -898,7 +946,8 @@ The inference performance under the default configuration is not fully optimized
 
 #### 3.1.1 Using Docker Images
 
-PaddleX provides Docker images for quickly starting the vLLM inference service. The service can be started using the following command:
+PaddleX provides Docker images for quickly starting the vLLM inference service. The service can be started using the
+following command:
 
 ```bash
 docker run \
@@ -923,7 +972,8 @@ docker run \
     paddlex_genai_server --model_name PaddleOCR-VL-0.9B --host 0.0.0.0 --port 8118 --backend vllm
 ```
 
-If you are using an NVIDIA 50 series graphics card (Compute Capability >= 12), you need to install a specific version of FlashAttention before launching the service.
+If you are using an NVIDIA 50 series graphics card (Compute Capability >= 12), you need to install a specific version of
+FlashAttention before launching the service.
 
 ```bash
 docker run \
@@ -939,7 +989,8 @@ paddlex_genai_server --model_name PaddleOCR-VL-0.9B --backend vllm --port 8118
 
 #### 3.1.2 Via PaddleX CLI and Launch
 
-Since the inference acceleration framework may have dependency conflicts with the PaddlePaddle framework, it is recommended to install it in a virtual environment. An example is as follows:
+Since the inference acceleration framework may have dependency conflicts with the PaddlePaddle framework, it is
+recommended to install it in a virtual environment. An example is as follows:
 
 ```bash
 # Create a virtual environment
@@ -954,7 +1005,8 @@ paddlex --install genai-vllm-server
 # paddlex --install genai-sglang-server
 ```
 
-If you are using an NVIDIA 50 series graphics card (Compute Capability >= 12), you need to install a specific version of FlashAttention before launching the service.
+If you are using an NVIDIA 50 series graphics card (Compute Capability >= 12), you need to install a specific version of
+FlashAttention before launching the service.
 
 ```bash
 python -m pip install flash-attn==2.8.3
@@ -968,18 +1020,19 @@ paddlex_genai_server --model_name PaddleOCR-VL-0.9B --backend vllm --port 8118
 
 The parameters supported by this command are as follows:
 
-| Parameter          | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `--model_name`     | Model name                                                    |
-| `--model_dir`      | Model directory                                               |
-| `--host`           | Server hostname                                               |
-| `--port`           | Server port number                                            |
+| Parameter          | Description                                                                                                |
+|--------------------|------------------------------------------------------------------------------------------------------------|
+| `--model_name`     | Model name                                                                                                 |
+| `--model_dir`      | Model directory                                                                                            |
+| `--host`           | Server hostname                                                                                            |
+| `--port`           | Server port number                                                                                         |
 | `--backend`        | Backend name, i.e., the name of the inference acceleration framework used. Options are `vllm` or `sglang`. |
-| `--backend_config` | A YAML file can be specified, which contains backend configurations. |
+| `--backend_config` | A YAML file can be specified, which contains backend configurations.                                       |
 
 ### 3.2 How to Use the Client
 
-After starting the VLM inference service, the client can invoke the service through PaddleX. Before use, the client plugin needs to be installed:
+After starting the VLM inference service, the client can invoke the service through PaddleX. Before use, the client
+plugin needs to be installed:
 
 ```bash
 paddlex --install genai-client
@@ -991,7 +1044,9 @@ Next, obtain the production line configuration file:
 paddlex --get_pipeline_config PaddleOCR-VL
 ```
 
-The default save path for the configuration file is `PaddleOCR-VL.yaml`. Modify the fields `VLRecognition.genai_config.backend` and `VLRecognition.genai_config.server_url` in the configuration file to the values corresponding to the previously launched service, for example:
+The default save path for the configuration file is `PaddleOCR-VL.yaml`. Modify the fields
+`VLRecognition.genai_config.backend` and `VLRecognition.genai_config.server_url` in the configuration file to the values
+corresponding to the previously launched service, for example:
 
 ```yaml
 VLRecognition:
@@ -1001,7 +1056,8 @@ VLRecognition:
     server_url: http://127.0.0.1:8118/v1
 ```
 
-After that, the modified configuration file can be used for production line invocation. For example, invoke it through the CLI:
+After that, the modified configuration file can be used for production line invocation. For example, invoke it through
+the CLI:
 
 ```bash
 paddlex --pipeline PaddleOCR-VL.yaml --input paddleocr_vl_demo.png
@@ -1020,16 +1076,20 @@ for res in pipeline.predict("paddleocr_vl_demo.png"):
 
 ### 3.3 Performance Tuning
 
-The default configuration is tuned on a single NVIDIA A100 and assumes exclusive client service, so it may not be suitable for other environments. If users encounter performance issues during actual use, they can try the following optimization methods.
+The default configuration is tuned on a single NVIDIA A100 and assumes exclusive client service, so it may not be
+suitable for other environments. If users encounter performance issues during actual use, they can try the following
+optimization methods.
 
 #### 3.3.1 Server-side Parameter Adjustment
 
-Different inference acceleration frameworks support different parameters. Refer to their respective official documentation to learn about available parameters and when to adjust them:
+Different inference acceleration frameworks support different parameters. Refer to their respective official
+documentation to learn about available parameters and when to adjust them:
 
 - [vLLM Official Parameter Tuning Guide](https://docs.vllm.ai/en/latest/configuration/optimization.html)
 - [SGLang Hyperparameter Tuning Documentation](https://docs.sglang.ai/advanced_features/hyperparameter_tuning.html)
 
-The PaddleX VLM inference service supports parameter tuning through configuration files. The following example demonstrates how to adjust the `gpu-memory-utilization` and `max-num-seqs` parameters of the vLLM server:
+The PaddleX VLM inference service supports parameter tuning through configuration files. The following example
+demonstrates how to adjust the `gpu-memory-utilization` and `max-num-seqs` parameters of the vLLM server:
 
 1. Create a YAML file named `vllm_config.yaml` with the following content:
 
@@ -1052,22 +1112,29 @@ paddlex_genai_server --model_name PaddleOCR-VL-0.9B --backend vllm --backend_con
 
 #### 3.3.2 Client-Side Parameter Adjustment
 
-PaddleX groups sub-images from single or multiple input images and initiates concurrent requests to the server. Therefore, the number of concurrent requests significantly impacts performance. Users can set the maximum number of concurrent requests by modifying the `VLRecognition.genai_config.max_concurrency` field in the configuration file.
+PaddleX groups sub-images from single or multiple input images and initiates concurrent requests to the server.
+Therefore, the number of concurrent requests significantly impacts performance. Users can set the maximum number of
+concurrent requests by modifying the `VLRecognition.genai_config.max_concurrency` field in the configuration file.
 
-When there is a one-to-one correspondence between the client and the VLM inference service, and the server-side resources are sufficient, the number of concurrent requests can be appropriately increased to enhance performance. If the server needs to support multiple clients or has limited computational resources, the number of concurrent requests should be reduced to avoid service abnormalities caused by resource overload.
+When there is a one-to-one correspondence between the client and the VLM inference service, and the server-side
+resources are sufficient, the number of concurrent requests can be appropriately increased to enhance performance. If
+the server needs to support multiple clients or has limited computational resources, the number of concurrent requests
+should be reduced to avoid service abnormalities caused by resource overload.
 
 #### 3.3.3 Recommendations for Performance Tuning on Common Hardware
 
-The following configurations are tailored for scenarios with a one-to-one correspondence between the client and the VLM inference service.
+The following configurations are tailored for scenarios with a one-to-one correspondence between the client and the VLM
+inference service.
 
 **NVIDIA RTX 3060**
 
 - **Server-Side**
-  - vLLM: `gpu-memory-utilization=0.8`
+    - vLLM: `gpu-memory-utilization=0.8`
 
 ## 4. Serving
 
-If you need to directly apply PaddleOCR-VL in your Python project, you can refer to the example code in [2.2 Python Script Integration](#22-python-script-integration).
+If you need to directly apply PaddleOCR-VL in your Python project, you can refer to the example code
+in [2.2 Python Script Integration](#22-python-script-integration).
 
 Additionally, PaddleX also provides a service deployment method, detailed as follows:
 
@@ -1096,7 +1163,8 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
 ```
 
-If you need to adjust the configuration (such as model path, batch size, deployment device, etc.), you can specify `--pipeline` as a custom configuration file.
+If you need to adjust the configuration (such as model path, batch size, deployment device, etc.), you can specify
+`--pipeline` as a custom configuration file.
 
 The command-line options related to serving are as follows:
 

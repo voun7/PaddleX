@@ -26,10 +26,10 @@ from .....utils.logging import info
 def split_dataset(root_dir, train_rate, val_rate):
     """split dataset"""
     assert (
-        train_rate + val_rate == 100
+            train_rate + val_rate == 100
     ), f"The sum of train_rate({train_rate}) and val_rate({val_rate}) should equal 100!"
     assert (
-        train_rate > 0 and val_rate > 0
+            train_rate > 0 and val_rate > 0
     ), f"The train_rate({train_rate}) and val_rate({val_rate}) should be greater than 0!"
 
     tags = ["train.csv", "val.csv"]

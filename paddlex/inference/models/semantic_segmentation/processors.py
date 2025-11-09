@@ -16,10 +16,10 @@ import math
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
-from ...utils.benchmark import benchmark
 from ..common.vision import funcs as F
 from ..common.vision.processors import _BaseResize
+from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -30,7 +30,7 @@ class Resize(_BaseResize):
     """Resize the image."""
 
     def __init__(
-        self, target_size=-1, keep_ratio=False, size_divisor=None, interp="LINEAR"
+            self, target_size=-1, keep_ratio=False, size_divisor=None, interp="LINEAR"
     ):
         """
         Initialize the instance.

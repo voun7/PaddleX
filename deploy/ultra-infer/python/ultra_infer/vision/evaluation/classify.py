@@ -11,10 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import numpy as np
+import collections
 import os
 import time
-import collections
+
+import numpy as np
 
 
 def topk_accuracy(topk_list, label_list):
@@ -53,7 +54,7 @@ def eval_classify(model, image_file_path, label_file_path, topk=5):
     average_inference_time = 0
     scores = collections.OrderedDict()
     for (image, label), i in zip(
-        image_label_dict.items(), trange(images_num, desc="Inference Progress")
+            image_label_dict.items(), trange(images_num, desc="Inference Progress")
     ):
         if i == twenty_percent_images_num:
             start_time = time.time()

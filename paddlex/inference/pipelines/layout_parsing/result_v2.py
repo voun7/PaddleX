@@ -22,7 +22,8 @@ from typing import List
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.fonts import PINGFANG_FONT
+from .layout_objects import LayoutBlock
+from .utils import get_seg_flag
 from ...common.result import (
     BaseCVResult,
     HtmlMixin,
@@ -32,17 +33,16 @@ from ...common.result import (
     WordMixin,
     XlsxMixin,
 )
-from .layout_objects import LayoutBlock
-from .utils import get_seg_flag
+from ....utils.fonts import PINGFANG_FONT
 
 
 def compile_title_pattern():
     # Precompiled regex pattern for matching numbering at the beginning of the title
     numbering_pattern = (
-        r"(?:" + r"[1-9][0-9]*(?:\.[1-9][0-9]*)*[\.、]?|" + r"[\(\（](?:[1-9][0-9]*|["
-        r"一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾]+)[\)\）]|" + r"["
-        r"一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾]+"
-        r"[、\.]?|" + r"(?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.?" + r")"
+            r"(?:" + r"[1-9][0-9]*(?:\.[1-9][0-9]*)*[\.、]?|" + r"[\(\（](?:[1-9][0-9]*|["
+                                                               r"一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾]+)[\)\）]|" + r"["
+                                                                                                                                 r"一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾]+"
+                                                                                                                                 r"[、\.]?|" + r"(?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.?" + r")"
     )
     return re.compile(r"^\s*(" + numbering_pattern + r")(\s*)(.*)$")
 
@@ -85,11 +85,11 @@ def format_title_func(block):
 
 def format_centered_by_html(string):
     return (
-        f'<div style="text-align: center;">{string}</div>'.replace(
-            "-\n",
-            "",
-        ).replace("\n", " ")
-        + "\n"
+            f'<div style="text-align: center;">{string}</div>'.replace(
+                "-\n",
+                "",
+            ).replace("\n", " ")
+            + "\n"
     )
 
 
@@ -268,8 +268,8 @@ class LayoutParsingResultV2(
                 seal_res = self["seal_res_list"][sno]
                 data["seal_res_list"].append(seal_res.str["res"])
         if (
-            model_settings["use_formula_recognition"]
-            and len(self["formula_res_list"]) > 0
+                model_settings["use_formula_recognition"]
+                and len(self["formula_res_list"]) > 0
         ):
             data["formula_res_list"] = []
             for sno in range(len(self["formula_res_list"])):
@@ -406,8 +406,8 @@ class LayoutParsingResultV2(
                 seal_res = self["seal_res_list"][sno]
                 data["seal_res_list"].append(seal_res.json["res"])
         if (
-            model_settings["use_formula_recognition"]
-            and len(self["formula_res_list"]) > 0
+                model_settings["use_formula_recognition"]
+                and len(self["formula_res_list"]) > 0
         ):
             data["formula_res_list"] = []
             for sno in range(len(self["formula_res_list"])):

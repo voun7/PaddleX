@@ -18,8 +18,8 @@ from typing import Any
 import pandas as pd
 from PIL import Image
 
-from ....utils.deps import function_requires_deps, is_dep_available
 from ...common.result import BaseTSResult
+from ....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("matplotlib"):
     import matplotlib.pyplot as plt

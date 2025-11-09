@@ -14,8 +14,6 @@
 
 from __future__ import absolute_import
 
-import logging
-
 from ... import ModelFormat, RuntimeOption, UltraInferModel
 from ... import c_lib_wrap as C
 
@@ -45,17 +43,17 @@ class SchemaNode(object):
 
 class UIEModel(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        vocab_file,
-        position_prob=0.5,
-        max_length=128,
-        schema=[],
-        batch_size=64,
-        runtime_option=RuntimeOption(),
-        model_format=ModelFormat.PADDLE,
-        schema_language=SchemaLanguage.ZH,
+            self,
+            model_file,
+            params_file,
+            vocab_file,
+            position_prob=0.5,
+            max_length=128,
+            schema=[],
+            batch_size=64,
+            runtime_option=RuntimeOption(),
+            model_format=ModelFormat.PADDLE,
+            schema_language=SchemaLanguage.ZH,
     ):
         if isinstance(schema, list):
             schema = SchemaNode("", schema)._schema_node_children

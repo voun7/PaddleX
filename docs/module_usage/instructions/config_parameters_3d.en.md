@@ -102,7 +102,9 @@ comments: true
 </table>
 
 # Train
+
 ### Common Parameters for 3d Tasks
+
 <table>
 <thead>
 <tr>
@@ -140,8 +142,8 @@ comments: true
 </tbody>
 </table>
 
-
 # Evaluate
+
 <table>
 <thead>
 <tr>
@@ -169,6 +171,7 @@ comments: true
 </table>
 
 # Export
+
 <table>
 <thead>
 <tr>
@@ -189,6 +192,7 @@ comments: true
 </table>
 
 # Predict
+
 <table>
 <thead>
 <tr>

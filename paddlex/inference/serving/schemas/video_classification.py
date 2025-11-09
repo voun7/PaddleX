@@ -17,8 +17,8 @@ from typing import Final, List, Optional
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated
 
-from ..infra.models import PrimaryOperations
 from .shared import classification
+from ..infra.models import PrimaryOperations
 
 __all__ = [
     "INFER_ENDPOINT",

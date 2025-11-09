@@ -15,11 +15,11 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Union
 
-from ...utils import logging
-from ...utils.subclass_register import AutoRegisterABCMetaClass
 from ..models import BasePredictor
 from ..utils.hpi import HPIConfig
 from ..utils.pp_option import PaddlePredictorOption
+from ...utils import logging
+from ...utils.subclass_register import AutoRegisterABCMetaClass
 
 
 class BasePipeline(ABC, metaclass=AutoRegisterABCMetaClass):
@@ -33,13 +33,13 @@ class BasePipeline(ABC, metaclass=AutoRegisterABCMetaClass):
     __is_base = True
 
     def __init__(
-        self,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
-        *args,
-        **kwargs,
+            self,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            *args,
+            **kwargs,
     ) -> None:
         """
         Initializes the class with specified parameters.

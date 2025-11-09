@@ -16,18 +16,18 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
+from .result import FormulaRecognitionResult
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...models.object_detection.result import DetResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from .result import FormulaRecognitionResult
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -35,12 +35,12 @@ class _FormulaRecognitionPipeline(BasePipeline):
     """Formula Recognition Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the formula recognition pipeline.
 
@@ -84,15 +84,15 @@ class _FormulaRecognitionPipeline(BasePipeline):
             if (layout_nms := layout_det_config.get("layout_nms", None)) is not None:
                 layout_kwargs["layout_nms"] = layout_nms
             if (
-                layout_unclip_ratio := layout_det_config.get(
-                    "layout_unclip_ratio", None
-                )
+                    layout_unclip_ratio := layout_det_config.get(
+                        "layout_unclip_ratio", None
+                    )
             ) is not None:
                 layout_kwargs["layout_unclip_ratio"] = layout_unclip_ratio
             if (
-                layout_merge_bboxes_mode := layout_det_config.get(
-                    "layout_merge_bboxes_mode", None
-                )
+                    layout_merge_bboxes_mode := layout_det_config.get(
+                        "layout_merge_bboxes_mode", None
+                    )
             ) is not None:
                 layout_kwargs["layout_merge_bboxes_mode"] = layout_merge_bboxes_mode
             self.layout_det_model = self.create_model(
@@ -111,10 +111,10 @@ class _FormulaRecognitionPipeline(BasePipeline):
         self.img_reader = ReadImage(format="BGR")
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Optional[bool],
-        use_doc_unwarping: Optional[bool],
-        use_layout_detection: Optional[bool],
+            self,
+            use_doc_orientation_classify: Optional[bool],
+            use_doc_unwarping: Optional[bool],
+            use_layout_detection: Optional[bool],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -144,7 +144,7 @@ class _FormulaRecognitionPipeline(BasePipeline):
         )
 
     def check_model_settings_valid(
-        self, model_settings: Dict, layout_det_res: Union[DetResult, List[DetResult]]
+            self, model_settings: Dict, layout_det_res: Union[DetResult, List[DetResult]]
     ) -> bool:
         """
         Check if the input parameters are valid based on the initialized models.
@@ -178,17 +178,17 @@ class _FormulaRecognitionPipeline(BasePipeline):
         return True
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_layout_detection: Optional[bool] = None,
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        layout_det_res: Optional[Union[DetResult, List[DetResult]]] = None,
-        layout_threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float]]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_layout_detection: Optional[bool] = None,
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            layout_det_res: Optional[Union[DetResult, List[DetResult]]] = None,
+            layout_threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float]]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
+            **kwargs,
     ) -> FormulaRecognitionResult:
         """
         This function predicts the layout parsing result for the given input.
@@ -241,8 +241,8 @@ class _FormulaRecognitionPipeline(BasePipeline):
             formula_results = []
 
             if (
-                not model_settings["use_layout_detection"]
-                and external_layout_det_results is None
+                    not model_settings["use_layout_detection"]
+                    and external_layout_det_results is None
             ):
                 layout_det_results = [{} for _ in doc_preprocessor_images]
                 formula_rec_results = list(
@@ -277,7 +277,7 @@ class _FormulaRecognitionPipeline(BasePipeline):
                 formula_det_results = []
                 chunk_indices = [0]
                 for doc_preprocessor_image, layout_det_res in zip(
-                    doc_preprocessor_images, layout_det_results
+                        doc_preprocessor_images, layout_det_results
                 ):
                     formula_region_id = 1
                     for box_info in layout_det_res["boxes"]:
@@ -299,13 +299,13 @@ class _FormulaRecognitionPipeline(BasePipeline):
                 )
                 for idx in range(len(chunk_indices) - 1):
                     formula_det_results_for_idx = formula_det_results[
-                        chunk_indices[idx] : chunk_indices[idx + 1]
+                        chunk_indices[idx]: chunk_indices[idx + 1]
                     ]
                     formula_rec_results_for_idx = formula_rec_results[
-                        chunk_indices[idx] : chunk_indices[idx + 1]
+                        chunk_indices[idx]: chunk_indices[idx + 1]
                     ]
                     for formula_det_res, formula_rec_res in zip(
-                        formula_det_results_for_idx, formula_rec_results_for_idx
+                            formula_det_results_for_idx, formula_rec_results_for_idx
                     ):
                         formula_region_id = formula_det_res["formula_region_id"]
                         dt_polys = formula_det_res["dt_polys"]
@@ -314,11 +314,11 @@ class _FormulaRecognitionPipeline(BasePipeline):
                     formula_results.append(formula_rec_results_for_idx)
 
             for (
-                input_path,
-                page_index,
-                layout_det_res,
-                doc_preprocessor_res,
-                formula_results_for_img,
+                    input_path,
+                    page_index,
+                    layout_det_res,
+                    doc_preprocessor_res,
+                    formula_results_for_img,
             ) in zip(
                 batch_data.input_paths,
                 batch_data.page_indexes,

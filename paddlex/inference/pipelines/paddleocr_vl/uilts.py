@@ -32,7 +32,7 @@ from ..layout_parsing.utils import (
 
 
 def filter_overlap_boxes(
-    layout_det_res: Dict[str, List[Dict]]
+        layout_det_res: Dict[str, List[Dict]]
 ) -> Dict[str, List[Dict]]:
     """
     Remove overlapping boxes from layout detection results based on a given overlap ratio.
@@ -60,7 +60,7 @@ def filter_overlap_boxes(
                 box_area_i = calculate_bbox_area(boxes[i]["coordinate"])
                 box_area_j = calculate_bbox_area(boxes[j]["coordinate"])
                 if (
-                    boxes[i]["label"] == "image" or boxes[j]["label"] == "image"
+                        boxes[i]["label"] == "image" or boxes[j]["label"] == "image"
                 ) and boxes[i]["label"] != boxes[j]["label"]:
                     continue
                 if box_area_i >= box_area_j:
@@ -226,26 +226,26 @@ def merge_blocks(blocks, non_merge_labels):
 
         iou_h = calculate_projection_overlap_ratio(block_bbox, prev_bbox, "horizontal")
         is_cross = (
-            iou_h == 0
-            and block_label == "text"
-            and block_label == prev_label
-            and block_bbox[0] > prev_bbox[2]
-            and block_bbox[1] < prev_bbox[3]
-            and block_bbox[0] - prev_bbox[2]
-            < max(prev_bbox[2] - prev_bbox[0], block_bbox[2] - block_bbox[0]) * 0.3
+                iou_h == 0
+                and block_label == "text"
+                and block_label == prev_label
+                and block_bbox[0] > prev_bbox[2]
+                and block_bbox[1] < prev_bbox[3]
+                and block_bbox[0] - prev_bbox[2]
+                < max(prev_bbox[2] - prev_bbox[0], block_bbox[2] - block_bbox[0]) * 0.3
         )
         is_updown_align = (
-            iou_h > 0
-            and block_label in ["text"]
-            and block_label == prev_label
-            and block_bbox[3] >= prev_bbox[1]
-            and abs(block_bbox[1] - prev_bbox[3])
-            < max(prev_bbox[3] - prev_bbox[1], block_bbox[3] - block_bbox[1]) * 0.5
-            and (
-                is_aligned(block_bbox[0], prev_bbox[0])
-                ^ is_aligned(block_bbox[2], prev_bbox[2])
-            )
-            and overlapwith_other_box(idx, prev_idx, blocks)
+                iou_h > 0
+                and block_label in ["text"]
+                and block_label == prev_label
+                and block_bbox[3] >= prev_bbox[1]
+                and abs(block_bbox[1] - prev_bbox[3])
+                < max(prev_bbox[3] - prev_bbox[1], block_bbox[3] - block_bbox[1]) * 0.5
+                and (
+                        is_aligned(block_bbox[0], prev_bbox[0])
+                        ^ is_aligned(block_bbox[2], prev_bbox[2])
+                )
+                and overlapwith_other_box(idx, prev_idx, blocks)
         )
         if is_cross:
             align_mode = "center"
@@ -277,7 +277,7 @@ def merge_blocks(blocks, non_merge_labels):
     while idx < len(blocks):
         group_found = False
         for (start, end, group_indices, aligns), (g_indices, g_blocks, g_aligns) in zip(
-            group_ranges, merged_groups
+                group_ranges, merged_groups
         ):
             if idx == start and all(i not in used_indices for i in group_indices):
                 group_found = True
@@ -417,10 +417,10 @@ def tokenize_figure_of_table(table_block_img, table_box, figures):
     for figure_id, figure in enumerate(figures):
         figure_x_min, figure_y_min, figure_x_max, figure_y_max = figure["coordinate"]
         if (
-            figure_x_min >= table_x_min
-            and figure_y_min >= table_y_min
-            and figure_x_max <= table_x_max
-            and figure_y_max <= table_y_max
+                figure_x_min >= table_x_min
+                and figure_y_min >= table_y_min
+                and figure_x_max <= table_x_max
+                and figure_y_max <= table_y_max
         ):
             drop_idxes.append(figure_id)
             # the figure is too small to can't be tokenized and recognized when shortest length is less than 25
@@ -552,12 +552,12 @@ class TableData(BaseModel):
         ]
         for cell in self.table_cells:
             for i in range(
-                min(cell.start_row_offset_idx, self.num_rows),
-                min(cell.end_row_offset_idx, self.num_rows),
+                    min(cell.start_row_offset_idx, self.num_rows),
+                    min(cell.end_row_offset_idx, self.num_rows),
             ):
                 for j in range(
-                    min(cell.start_col_offset_idx, self.num_cols),
-                    min(cell.end_col_offset_idx, self.num_cols),
+                        min(cell.start_col_offset_idx, self.num_cols),
+                        min(cell.end_col_offset_idx, self.num_cols),
                 ):
                     table_data[i][j] = cell
         return table_data
@@ -588,9 +588,9 @@ def otsl_extract_tokens_and_text(s: str):
         Tuple[List[str], List[str]]: (tokens, text_parts)
     """
     pattern = (
-        r"("
-        + r"|".join([OTSL_NL, OTSL_FCEL, OTSL_ECEL, OTSL_LCEL, OTSL_UCEL, OTSL_XCEL])
-        + r")"
+            r"("
+            + r"|".join([OTSL_NL, OTSL_FCEL, OTSL_ECEL, OTSL_LCEL, OTSL_UCEL, OTSL_XCEL])
+            + r")"
     )
     tokens = re.findall(pattern, s)
     text_parts = re.split(pattern, s)
@@ -849,7 +849,7 @@ def find_shortest_repeating_substring(s: str) -> Union[str, None]:
 
 
 def find_repeating_suffix(
-    s: str, min_len: int = 8, min_repeats: int = 5
+        s: str, min_len: int = 8, min_repeats: int = 5
 ) -> Union[Tuple[str, str, int], None]:
     """
     Detect if string ends with a repeating phrase.
@@ -876,7 +876,7 @@ def find_repeating_suffix(
 
 
 def truncate_repetitive_content(
-    content: str, line_threshold: int = 10, char_threshold: int = 10, min_len: int = 10
+        content: str, line_threshold: int = 10, char_threshold: int = 10, min_len: int = 10
 ) -> str:
     """
     Detect and truncate character-level, phrase-level, or line-level repetition in content.
@@ -952,6 +952,6 @@ def crop_margin(img):
         return img
 
     x, y, w, h = cv2.boundingRect(coords)
-    cropped = img[y : y + h, x : x + w]
+    cropped = img[y: y + h, x: x + w]
 
     return cropped

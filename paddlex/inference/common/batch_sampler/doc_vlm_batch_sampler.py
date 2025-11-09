@@ -13,12 +13,11 @@
 # limitations under the License.
 
 
-from ....utils import logging
 from .base_batch_sampler import BaseBatchSampler
+from ....utils import logging
 
 
 class DocVLMBatchSampler(BaseBatchSampler):
-
     model_names_only_supports_batchsize_of_one = {"PP-DocBee-2B", "PP-DocBee-7B"}
 
     def __init__(self, model_name, batch_size: int = 1) -> None:
@@ -30,8 +29,8 @@ class DocVLMBatchSampler(BaseBatchSampler):
         """
         self.model_name = model_name
         if (
-            self.model_name in self.model_names_only_supports_batchsize_of_one
-            and batch_size != 1
+                self.model_name in self.model_names_only_supports_batchsize_of_one
+                and batch_size != 1
         ):
             logging.warning(
                 f"doc vlm batch sampler only support batch size 1 for {self.model_name}, but got {batch_size} and it will not take effect."
@@ -77,8 +76,8 @@ class DocVLMBatchSampler(BaseBatchSampler):
         """
         # only support batch size 1
         if (
-            self.model_name in self.model_names_only_supports_batchsize_of_one
-            and batch_size != 1
+                self.model_name in self.model_names_only_supports_batchsize_of_one
+                and batch_size != 1
         ):
             logging.warning(
                 f"doc vlm batch sampler only support batch size 1 for {self.model_name}, but got {batch_size} and it will not take effect."

@@ -14,8 +14,8 @@
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("scikit-image"):
     from skimage import morphology
@@ -37,8 +37,8 @@ class MapToMask:
         return [self.apply(pred) for pred in preds]
 
     def apply(
-        self,
-        pred,
+            self,
+            pred,
     ):
         """apply"""
         score_map = pred[0]

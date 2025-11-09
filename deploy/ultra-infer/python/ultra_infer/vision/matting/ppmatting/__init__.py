@@ -13,19 +13,19 @@
 # limitations under the License.
 
 from __future__ import absolute_import
-import logging
+
 from .... import UltraInferModel, ModelFormat
 from .... import c_lib_wrap as C
 
 
 class PPMatting(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a PPMatting model exported by PaddleSeg.
 
@@ -38,7 +38,7 @@ class PPMatting(UltraInferModel):
         super(PPMatting, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.PADDLE
+                model_format == ModelFormat.PADDLE
         ), "PPMatting model only support model format of ModelFormat.Paddle now."
         self._model = C.vision.matting.PPMatting(
             model_file, params_file, config_file, self._runtime_option, model_format

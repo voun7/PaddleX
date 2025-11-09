@@ -5,7 +5,13 @@ comments: true
 # Text Recognition Module Tutorial
 
 ## I. Overview
-The text recognition module is the core component of an OCR (Optical Character Recognition) system, responsible for extracting text information from text regions within images. The performance of this module directly impacts the accuracy and efficiency of the entire OCR system. The text recognition module typically receives bounding boxes of text regions output by the text detection module as input. Through complex image processing and deep learning algorithms, it converts the text in images into editable and searchable electronic text. The accuracy of text recognition results is crucial for subsequent applications such as information extraction and data mining.
+
+The text recognition module is the core component of an OCR (Optical Character Recognition) system, responsible for
+extracting text information from text regions within images. The performance of this module directly impacts the
+accuracy and efficiency of the entire OCR system. The text recognition module typically receives bounding boxes of text
+regions output by the text detection module as input. Through complex image processing and deep learning algorithms, it
+converts the text in images into editable and searchable electronic text. The accuracy of text recognition results is
+crucial for subsequent applications such as information extraction and data mining.
 
 ## II. Supported Model List
 
@@ -76,7 +82,8 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </tr>
 </table>
 
-> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this module supports <b>18 models</b>. The complete list of models is as follows:
+> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this
+> module supports <b>18 models</b>. The complete list of models is as follows:
 
 <details><summary> 👉Model List Details</summary>
 
@@ -120,6 +127,7 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </table>
 
 * <b>Chinese Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -210,6 +218,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -250,6 +259,7 @@ en_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle-mo
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -507,9 +517,15 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </details>
 
 ## III. Quick Integration
-Before quick integration, you need to install the PaddleX wheel package. For the installation method, please refer to the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md). After installing the wheel package, a few lines of code can complete the inference of the text recognition module. You can switch models under this module freely, and you can also integrate the model inference of the text recognition module into your project.
 
-Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_rec_001.png) to your local machine.
+Before quick integration, you need to install the PaddleX wheel package. For the installation method, please refer to
+the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md). After installing the wheel package,
+a few lines of code can complete the inference of the text recognition module. You can switch models under this module
+freely, and you can also integrate the model inference of the text recognition module into your project.
+
+Before running the following code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_rec_001.png) to your
+local machine.
 
 ```python
 from paddlex import create_model
@@ -521,15 +537,21 @@ for res in output:
     res.save_to_json(save_path="./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
-For more information on using PaddleX's single-model inference APIs, please refer to the [PaddleX Single-Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using PaddleX's single-model inference APIs, please refer to
+the [PaddleX Single-Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 After running, the result obtained is:
+
 ```bash
 {'res': {'input_path': 'general_ocr_rec_001.png', 'page_index': None, 'rec_text': '绿洲仕格维花园公寓', 'rec_score': 0.9823867082595825}}
 ````
+
 The meanings of the running results parameters are as follows:
+
 - `input_path`：Represents the path to the image of the text line to be predicted.
 - `page_index`：If the input is a PDF file, this indicates the current page number of the PDF. Otherwise, it is `None`
 - `rec_text`：Represents the predicted text of the text line image.
@@ -541,7 +563,8 @@ The visualized image is as follows:
 
 The explanations for the methods, parameters, etc., are as follows:
 
-* The `create_model` instantiates the text recognition model (here, `PP-OCRv4_mobile_rec` is taken as an example), and the specific instructions are as follows:
+* The `create_model` instantiates the text recognition model (here, `PP-OCRv4_mobile_rec` is taken as an example), and
+  the specific instructions are as follows:
 
 <table>
 <thead>
@@ -590,10 +613,12 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX are used. If `model_dir` is specified, the user-defined model is used.
+* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX are
+  used. If `model_dir` is specified, the user-defined model is used.
 
 
-* The `predict()` method of the formula recognition model is called for inference prediction. The `predict()` method has parameters `input` and `batch_size`, which are explained as follows:
+* The `predict()` method of the formula recognition model is called for inference prediction. The `predict()` method has
+  parameters `input` and `batch_size`, which are explained as follows:
 
 <table>
 <thead>
@@ -629,7 +654,8 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* Process the prediction results. The prediction result for each sample is of `dict` type, and supports operations such as printing, saving as an image, and saving as a `json` file:
+* Process the prediction results. The prediction result for each sample is of `dict` type, and supports operations such
+  as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -692,7 +718,8 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* Additionally, it supports obtaining the visualization image with results and the prediction results through attributes, as follows:
+* Additionally, it supports obtaining the visualization image with results and the prediction results through
+  attributes, as follows:
 
 <table>
 <thead>
@@ -711,17 +738,27 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-For more information on using PaddleX's single-model inference API, refer to the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
-
+For more information on using PaddleX's single-model inference API, refer to
+the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
 
-If you are seeking higher accuracy from existing models, you can use PaddleX's custom development capabilities to develop better  text recognition models. Before using PaddleX to develop text recognition models, please ensure that you have installed the relevant model training plugins for OCR in PaddleX. The installation process can be found in the custom development section of the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
+If you are seeking higher accuracy from existing models, you can use PaddleX's custom development capabilities to
+develop better text recognition models. Before using PaddleX to develop text recognition models, please ensure that you
+have installed the relevant model training plugins for OCR in PaddleX. The installation process can be found in the
+custom development section of the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
 
 ### 4.1 Data Preparation
-Before model training, it is necessary to prepare the corresponding dataset for each task module. PaddleX provides a data validation function for each module, and <b>only data that passes the validation can be used for model training</b>. Additionally, PaddleX offers Demo datasets for each module, allowing you to complete subsequent development based on the officially provided Demo data. If you wish to use a private dataset for subsequent model training, you can refer to the [PaddleX Text Detection/Text Recognition Task Module Data Annotation Tutorial](../../../data_annotations/ocr_modules/text_detection_recognition.en.md).
+
+Before model training, it is necessary to prepare the corresponding dataset for each task module. PaddleX provides a
+data validation function for each module, and <b>only data that passes the validation can be used for model
+training</b>. Additionally, PaddleX offers Demo datasets for each module, allowing you to complete subsequent
+development based on the officially provided Demo data. If you wish to use a private dataset for subsequent model
+training, you can refer to
+the [PaddleX Text Detection/Text Recognition Task Module Data Annotation Tutorial](../../../data_annotations/ocr_modules/text_detection_recognition.en.md).
 
 #### 4.1.1 Download Demo Data
+
 You can use the following commands to download the Demo dataset to a specified folder:
 
 ```bash
@@ -730,6 +767,7 @@ tar -xf ./dataset/ocr_rec_dataset_examples.tar -C ./dataset/
 ```
 
 #### 4.1.2 Data Validation
+
 A single command can complete data validation:
 
 ```bash
@@ -737,7 +775,11 @@ python main.py -c paddlex/configs/modules/text_recognition/PP-OCRv4_mobile_rec.y
     -o Global.mode=check_dataset \
     -o Global.dataset_dir=./dataset/ocr_rec_dataset_examples
 ```
-After executing the above command, PaddleX will validate the dataset and summarize its basic information. If the command runs successfully, it will print `Check dataset passed !` in the log. The validation results file is saved in `./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory in the current directory, including visual examples of sample images and sample distribution histograms.
+
+After executing the above command, PaddleX will validate the dataset and summarize its basic information. If the command
+runs successfully, it will print `Check dataset passed !` in the log. The validation results file is saved in
+`./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory in the
+current directory, including visual examples of sample images and sample distribution histograms.
 
 <details><summary>👉 <b>Validation Result Details (Click to Expand)</b></summary>
 <p>The specific content of the validation result file is:</p>
@@ -793,8 +835,8 @@ Additionally, the dataset validation also analyzes the distribution of character
 
 #### 4.1.3 Dataset Format Conversion/Dataset Splitting (Optional)
 
-
-After completing data validation, you can convert the dataset format or re-split the training/validation ratio of the dataset by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
+After completing data validation, you can convert the dataset format or re-split the training/validation ratio of the
+dataset by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
 
 <details><summary>👉 <b>Dataset Format Conversion/Dataset Splitting Details (Click to Expand)</b></summary>
 <p><b>(1) Dataset Format Conversion</b></p>
@@ -833,20 +875,30 @@ CheckDataset:
 </code></pre></details>
 
 ### 4.2 Model Training
-Model training can be completed with a single command. Here's an example of training the PP-OCRv4 mobile text recognition model (PP-OCRv4_mobile_rec):
+
+Model training can be completed with a single command. Here's an example of training the PP-OCRv4 mobile text
+recognition model (PP-OCRv4_mobile_rec):
 
 ```bash
 python main.py -c paddlex/configs/modules/text_recognition/PP-OCRv4_mobile_rec.yaml \
     -o Global.mode=train \
     -o Global.dataset_dir=./dataset/ocr_rec_dataset_examples
 ```
+
 The steps required are:
 
-* Specify the path to the model's `.yaml` configuration file (here it's `PP-OCRv4_mobile_rec.yaml`,When training other models, you need to specify the corresponding configuration files. The relationship between the model and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
+* Specify the path to the model's `.yaml` configuration file (here it's `PP-OCRv4_mobile_rec.yaml`,When training other
+  models, you need to specify the corresponding configuration files. The relationship between the model and
+  configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
 * Specify the mode as model training: `-o Global.mode=train`
 * Specify the path to the training dataset: `-o Global.dataset_dir`.
-* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file or adjusted by appending parameters in the command line. For example, to specify training on the first 2 GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the [PaddleX Common Configuration File Parameters](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file or
+  adjusted by appending parameters in the command line. For example, to specify training on the first 2 GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to
+  the [PaddleX Common Configuration File Parameters](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Information (Click to Expand)</b></summary>
 <ul>
@@ -865,33 +917,41 @@ The steps required are:
 </ul></details>
 
 ## <b>4.3 Model Evaluation</b>
-After completing model training, you can evaluate the specified model weights file on the validation set to verify the model's accuracy. Using PaddleX for model evaluation can be done with a single command:
+
+After completing model training, you can evaluate the specified model weights file on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation can be done with a single command:
 
 ```bash
 python main.py -c paddlex/configs/modules/text_recognition/PP-OCRv4_mobile_rec.yaml \
     -o Global.mode=evaluate \
     -o Global.dataset_dir=./dataset/ocr_rec_dataset_examples
 ```
+
 Similar to model training, the following steps are required:
 
 * Specify the `.yaml` configuration file path for the model (here it's `PP-OCRv4_mobile_rec.yaml`)
 * Specify the mode as model evaluation: `-o Global.mode=evaluate`
 * Specify the path to the validation dataset: `-o Global.dataset_dir`
-Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file. For details, refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
-
+  Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file.
+  For details, refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 <b>More Information (Click to Expand)</b></summary>
 <p>When evaluating the model, you need to specify the model weights file path. Each configuration file has a default weight save path. If you need to change it, simply append the command line parameter to set it, such as <code>-o Evaluate.weight_path=./output/best_model/best_model.pdparams</code>.</p>
 <p>After completing the model evaluation, an <code>evaluate_result.json</code> file will be produced, which records the evaluation results, specifically, whether the evaluation task was completed successfully and the model's evaluation metrics, including  acc、norm_edit_dis；</p></details>
 
 ### <b>4.4 Model Inference and Model Integration</b>
-After completing model training and evaluation, you can use the trained model weights for inference prediction or Python integration.
+
+After completing model training and evaluation, you can use the trained model weights for inference prediction or Python
+integration.
 
 #### 4.4.1 Model Inference
+
 To perform inference prediction via the command line, simply use the following command:
 
-Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_rec_001.png) to your local machine.
-
+Before running the following code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_rec_001.png) to your
+local machine.
 
 ```bash
 python main.py -c paddlex/configs/modules/text_recognition/PP-OCRv4_mobile_rec.yaml \
@@ -899,23 +959,34 @@ python main.py -c paddlex/configs/modules/text_recognition/PP-OCRv4_mobile_rec.y
     -o Predict.model_dir="./output/best_accuracy/inference" \
     -o Predict.input="general_ocr_rec_001.png"
 ```
+
 Similar to model training and evaluation, the following steps are required:
 
 * Specify the `.yaml` configuration file path for the model (here it is `PP-OCRv4_mobile_rec.yaml`)
 * Specify the mode as model inference prediction: `-o Global.mode=predict`
 * Specify the model weights path: `-o Predict.model_dir="./output/best_accuracy/inference"`
 * Specify the input data path: `-o Predict.input="..."`
-Other related parameters can be set by modifying the `Global` and `Predict` fields in the `.yaml` configuration file. For details, refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the `Global` and `Predict` fields in the `.yaml` configuration file.
+  For details, refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 #### 4.4.2 Model Integration
+
 Models can be directly integrated into the PaddleX pipelines or into your own projects.
 
 1.<b>Pipeline Integration</b>
 
-The text recognition module can be integrated into PaddleX pipelines such as the [General OCR Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/OCR.en.md), [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md), and [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md). Simply replace the model path to update the text recognition module of the relevant pipeline.
+The text recognition module can be integrated into PaddleX pipelines such as
+the [General OCR Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/OCR.en.md), [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md),
+and [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md).
+Simply replace the model path to update the text recognition module of the relevant pipeline.
 
 2.<b>Module Integration</b>
 
-The weights you produce can be directly integrated into the text recognition module. Refer to the [Quick Integration](#iii-quick-integration) Python example code. Simply replace the model with the path to your trained model.
+The weights you produce can be directly integrated into the text recognition module. Refer to
+the [Quick Integration](#iii-quick-integration) Python example code. Simply replace the model with the path to your
+trained model.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

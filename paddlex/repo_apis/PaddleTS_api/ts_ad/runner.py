@@ -13,23 +13,23 @@
 # limitations under the License.
 
 
-from ....utils.errors import raise_unsupported_api_error
 from ...base import BaseRunner
 from ...base.utils.arg import gather_opts_args
 from ...base.utils.subprocess import CompletedProcess
+from ....utils.errors import raise_unsupported_api_error
 
 
 class TSADRunner(BaseRunner):
     """TS Anomaly Detection Runner"""
 
     def train(
-        self,
-        config_path: str,
-        cli_args: list,
-        device: str,
-        ips: str,
-        save_dir: str,
-        do_eval=True,
+            self,
+            config_path: str,
+            cli_args: list,
+            device: str,
+            ips: str,
+            save_dir: str,
+            do_eval=True,
     ) -> CompletedProcess:
         """train model
 
@@ -58,7 +58,7 @@ class TSADRunner(BaseRunner):
         )
 
     def evaluate(
-        self, config_path: str, cli_args: list, device: str, ips: str
+            self, config_path: str, cli_args: list, device: str, ips: str
     ) -> CompletedProcess:
         """run model evaluating
 
@@ -84,7 +84,7 @@ class TSADRunner(BaseRunner):
         return cp
 
     def predict(
-        self, config_path: str, cli_args: list, device: str
+            self, config_path: str, cli_args: list, device: str
     ) -> CompletedProcess:
         """run predicting using dynamic mode
 
@@ -118,7 +118,7 @@ class TSADRunner(BaseRunner):
         raise_unsupported_api_error("infer", self.__class__)
 
     def compression(
-        self, config_path, train_cli_args, export_cli_args, device, train_save_dir
+            self, config_path, train_cli_args, export_cli_args, device, train_save_dir
     ):
         """compression"""
         raise_unsupported_api_error("compression", self.__class__)

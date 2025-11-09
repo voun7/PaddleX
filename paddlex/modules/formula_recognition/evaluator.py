@@ -15,8 +15,8 @@
 
 from pathlib import Path
 
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
 
 
 class FormulaRecEvaluator(BaseEvaluator):
@@ -33,12 +33,12 @@ class FormulaRecEvaluator(BaseEvaluator):
                 self.global_config.dataset_dir, "LaTeXOCRDataSet"
             )
         elif self.global_config["model"] in (
-            "UniMERNet",
-            "PP-FormulaNet-L",
-            "PP-FormulaNet-S",
-            "PP-FormulaNet_plus-L",
-            "PP-FormulaNet_plus-M",
-            "PP-FormulaNet_plus-S",
+                "UniMERNet",
+                "PP-FormulaNet-L",
+                "PP-FormulaNet-S",
+                "PP-FormulaNet_plus-L",
+                "PP-FormulaNet_plus-M",
+                "PP-FormulaNet_plus-S",
         ):
             self.pdx_config.update_dataset(
                 self.global_config.dataset_dir, "SimpleDataSet"
@@ -48,7 +48,7 @@ class FormulaRecEvaluator(BaseEvaluator):
             label_dict_path = self.eval_config.label_dict_path
         else:
             label_dict_path = (
-                Path(self.eval_config.weight_path).parent / "label_dict.txt"
+                    Path(self.eval_config.weight_path).parent / "label_dict.txt"
             )
             if not label_dict_path.exists():
                 label_dict_path = None

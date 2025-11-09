@@ -16,12 +16,12 @@ from typing import Any, List, Optional, Sequence, Tuple
 
 import numpy as np
 
-from ....modules.instance_segmentation.model_list import MODELS
-from ....utils import logging
-from ..object_detection import DetPredictor
-from ..object_detection.processors import ReadImage, ToBatch
 from .processors import InstanceSegPostProcess
 from .result import InstanceSegResult
+from ..object_detection import DetPredictor
+from ..object_detection.processors import ReadImage, ToBatch
+from ....modules.instance_segmentation.model_list import MODELS
+from ....utils import logging
 
 
 class InstanceSegPredictor(DetPredictor):

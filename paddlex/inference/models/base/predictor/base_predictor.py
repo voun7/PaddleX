@@ -20,6 +20,13 @@ from typing import Any, Dict, Iterator, List, Optional, Union
 
 from pydantic import ValidationError
 
+from ...common import HPInfer, PaddleInfer
+from ...common.genai import GenAIClient, GenAIConfig, need_local_model
+from ....common.batch_sampler import BaseBatchSampler
+from ....utils.benchmark import ENTRY_POINT_NAME, benchmark
+from ....utils.hpi import HPIConfig, HPIInfo
+from ....utils.io import YAMLReader
+from ....utils.pp_option import PaddlePredictorOption
 from ..... import constants
 from .....utils import logging
 from .....utils.deps import require_hpip
@@ -31,13 +38,6 @@ from .....utils.flags import (
     PIPELINE_BENCHMARK,
 )
 from .....utils.subclass_register import AutoRegisterABCMetaClass
-from ....common.batch_sampler import BaseBatchSampler
-from ....utils.benchmark import ENTRY_POINT_NAME, benchmark
-from ....utils.hpi import HPIConfig, HPIInfo
-from ....utils.io import YAMLReader
-from ....utils.pp_option import PaddlePredictorOption
-from ...common import HPInfer, PaddleInfer
-from ...common.genai import GenAIClient, GenAIConfig, need_local_model
 
 
 class PredictionWrap:
@@ -80,17 +80,17 @@ class BasePredictor(
     __is_base = True
 
     def __init__(
-        self,
-        model_dir: Optional[str] = None,
-        config: Optional[Dict[str, Any]] = None,
-        *,
-        device: Optional[str] = None,
-        batch_size: int = 1,
-        pp_option: Optional[PaddlePredictorOption] = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
-        genai_config: Optional[GenAIConfig] = None,
-        model_name: Optional[str] = None,
+            self,
+            model_dir: Optional[str] = None,
+            config: Optional[Dict[str, Any]] = None,
+            *,
+            device: Optional[str] = None,
+            batch_size: int = 1,
+            pp_option: Optional[PaddlePredictorOption] = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            genai_config: Optional[GenAIConfig] = None,
+            model_name: Optional[str] = None,
     ) -> None:
         """Initializes the BasePredictor.
 
@@ -216,10 +216,10 @@ class BasePredictor(
         return self._genai_config
 
     def __call__(
-        self,
-        input: Any,
-        batch_size: Optional[int] = None,
-        **kwargs: Any,
+            self,
+            input: Any,
+            batch_size: Optional[int] = None,
+            **kwargs: Any,
     ) -> Iterator[Any]:
         """
         Predict with the input data.
@@ -272,8 +272,8 @@ class BasePredictor(
             yield from self.apply(input, **kwargs)
 
     def set_predictor(
-        self,
-        batch_size: Optional[int] = None,
+            self,
+            batch_size: Optional[int] = None,
     ) -> None:
         """
         Sets the predictor configuration.
@@ -391,9 +391,9 @@ class BasePredictor(
         raise NotImplementedError
 
     def _prepare_pp_option(
-        self,
-        pp_option: Optional[PaddlePredictorOption],
-        device: Optional[str],
+            self,
+            pp_option: Optional[PaddlePredictorOption],
+            device: Optional[str],
     ) -> PaddlePredictorOption:
         if pp_option is None or device is not None:
             device_info = self._get_device_info(device)
@@ -437,9 +437,9 @@ class BasePredictor(
         return pp_option
 
     def _prepare_hpi_config(
-        self,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]],
-        device: Optional[str],
+            self,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]],
+            device: Optional[str],
     ) -> HPIConfig:
         if hpi_config is None:
             hpi_config = {}

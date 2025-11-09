@@ -14,15 +14,15 @@
 
 from typing import Any, Dict, Optional, Union
 
-from ....utils.deps import pipeline_requires_extra
+from .result import ShiTuResult
+from ..base import BasePipeline
+from ..components import CropByBoxes, FaissBuilder, FaissIndexer
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from ..base import BasePipeline
-from ..components import CropByBoxes, FaissBuilder, FaissIndexer
-from .result import ShiTuResult
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -33,12 +33,12 @@ class ShiTuV2Pipeline(BasePipeline):
     entities = "PP-ShiTuV2"
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ):
         super().__init__(
             device=device, pp_option=pp_option, use_hpip=use_hpip, hpi_config=hpi_config
@@ -73,7 +73,7 @@ class ShiTuV2Pipeline(BasePipeline):
             raw_imgs = self.img_reader(batch_data.instances)
             all_det_res = list(self.det_model(raw_imgs, threshold=det_threshold))
             for input_data, raw_img, det_res in zip(
-                batch_data.instances, raw_imgs, all_det_res
+                    batch_data.instances, raw_imgs, all_det_res
             ):
                 rec_res = self.get_rec_result(
                     raw_img, det_res, indexer, rec_threshold, hamming_radius, topk
@@ -81,7 +81,7 @@ class ShiTuV2Pipeline(BasePipeline):
                 yield self.get_final_result(input_data, raw_img, det_res, rec_res)
 
     def get_rec_result(
-        self, raw_img, det_res, indexer, rec_threshold, hamming_radius, topk
+            self, raw_img, det_res, indexer, rec_threshold, hamming_radius, topk
     ):
         if len(det_res["boxes"]) == 0:
             w, h = raw_img.shape[:2]
@@ -126,12 +126,12 @@ class ShiTuV2Pipeline(BasePipeline):
         return ShiTuResult(single_img_res)
 
     def build_index(
-        self,
-        gallery_imgs,
-        gallery_label,
-        metric_type="IP",
-        index_type="HNSW32",
-        **kwargs
+            self,
+            gallery_imgs,
+            gallery_label,
+            metric_type="IP",
+            index_type="HNSW32",
+            **kwargs
     ):
         return FaissBuilder.build(
             gallery_imgs,
@@ -145,10 +145,10 @@ class ShiTuV2Pipeline(BasePipeline):
         return FaissBuilder.remove(remove_ids, index)
 
     def append_index(
-        self,
-        gallery_imgs,
-        gallery_label,
-        index,
+            self,
+            gallery_imgs,
+            gallery_label,
+            index,
     ):
         return FaissBuilder.append(
             gallery_imgs,

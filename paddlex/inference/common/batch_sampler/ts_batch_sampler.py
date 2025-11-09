@@ -17,10 +17,10 @@ from pathlib import Path
 
 import pandas as pd
 
+from .base_batch_sampler import BaseBatchSampler, Batch
 from ....utils import logging
 from ....utils.cache import CACHE_DIR
 from ....utils.download import download
-from .base_batch_sampler import BaseBatchSampler, Batch
 
 
 class TSBatchSampler(BaseBatchSampler):

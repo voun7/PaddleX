@@ -1,7 +1,7 @@
 batch_size: 128
 seq_len: 100
 epoch: 5
-training: True 
+training: True
 do_eval: True
 task: anomaly
 to_static_train: False
@@ -9,7 +9,7 @@ use_amp: False
 amp_level: O2
 
 
-dataset: 
+dataset:
   name: TSADDataset
   dataset_root: ./data/
   train_path: ./data/train.csv
@@ -23,7 +23,7 @@ info_params:
   time_col: "timestamp"
   feature_cols: "feature_0,feature_1"
 
-model: 
+model:
   name: AutoEncoder
   model_cfg:
     optimizer_params:

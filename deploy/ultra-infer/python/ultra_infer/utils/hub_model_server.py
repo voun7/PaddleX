@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import requests
 from typing import List
+
+import requests
 
 from .hub_config import config
 
@@ -41,7 +42,7 @@ class ModelServer(object):
         self._timeout = timeout
 
     def search_model(
-        self, name: str, format: str = None, version: str = None
+            self, name: str, format: str = None, version: str = None
     ) -> List[dict]:
         """
         Search model from model server.

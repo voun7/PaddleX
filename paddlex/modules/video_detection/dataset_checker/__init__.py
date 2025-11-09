@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pathlib import Path
-
-from ...base import BaseDatasetChecker
-from ..model_list import MODELS
 from .dataset_src import check, deep_analyse
+from ..model_list import MODELS
+from ...base import BaseDatasetChecker
 
 
 class VideoDetDatasetChecker(BaseDatasetChecker):

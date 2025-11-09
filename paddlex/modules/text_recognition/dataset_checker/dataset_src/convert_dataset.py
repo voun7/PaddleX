@@ -83,8 +83,8 @@ def txt2pickle(images, equations, save_dir):
                 img_path = os.path.join(images, img_name)
                 width, height = imagesize.get(img_path)
                 if (
-                    min_dimensions[0] <= width <= max_dimensions[0]
-                    and min_dimensions[1] <= height <= max_dimensions[1]
+                        min_dimensions[0] <= width <= max_dimensions[0]
+                        and min_dimensions[1] <= height <= max_dimensions[1]
                 ):
                     divide_h = math.ceil(height / 16) * 16
                     divide_w = math.ceil(width / 16) * 16

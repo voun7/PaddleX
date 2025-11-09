@@ -16,18 +16,18 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
+from .result import SealRecognitionResult
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...models.object_detection.result import DetResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from .result import SealRecognitionResult
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -35,12 +35,12 @@ class _SealRecognitionPipeline(BasePipeline):
     """Seal Recognition Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the seal recognition pipeline.
 
@@ -83,15 +83,15 @@ class _SealRecognitionPipeline(BasePipeline):
             if (layout_nms := layout_det_config.get("layout_nms", None)) is not None:
                 layout_kwargs["layout_nms"] = layout_nms
             if (
-                layout_unclip_ratio := layout_det_config.get(
-                    "layout_unclip_ratio", None
-                )
+                    layout_unclip_ratio := layout_det_config.get(
+                        "layout_unclip_ratio", None
+                    )
             ) is not None:
                 layout_kwargs["layout_unclip_ratio"] = layout_unclip_ratio
             if (
-                layout_merge_bboxes_mode := layout_det_config.get(
-                    "layout_merge_bboxes_mode", None
-                )
+                    layout_merge_bboxes_mode := layout_det_config.get(
+                        "layout_merge_bboxes_mode", None
+                    )
             ) is not None:
                 layout_kwargs["layout_merge_bboxes_mode"] = layout_merge_bboxes_mode
             self.layout_det_model = self.create_model(
@@ -109,7 +109,7 @@ class _SealRecognitionPipeline(BasePipeline):
         self.img_reader = ReadImage(format="BGR")
 
     def check_model_settings_valid(
-        self, model_settings: Dict, layout_det_res: DetResult
+            self, model_settings: Dict, layout_det_res: DetResult
     ) -> bool:
         """
         Check if the input parameters are valid based on the initialized models.
@@ -143,10 +143,10 @@ class _SealRecognitionPipeline(BasePipeline):
         return True
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Optional[bool],
-        use_doc_unwarping: Optional[bool],
-        use_layout_detection: Optional[bool],
+            self,
+            use_doc_orientation_classify: Optional[bool],
+            use_doc_unwarping: Optional[bool],
+            use_layout_detection: Optional[bool],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -175,23 +175,23 @@ class _SealRecognitionPipeline(BasePipeline):
         )
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_layout_detection: Optional[bool] = None,
-        layout_det_res: Optional[Union[DetResult, List[DetResult]]] = None,
-        layout_threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float]]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
-        seal_det_limit_side_len: Optional[int] = None,
-        seal_det_limit_type: Optional[str] = None,
-        seal_det_thresh: Optional[float] = None,
-        seal_det_box_thresh: Optional[float] = None,
-        seal_det_unclip_ratio: Optional[float] = None,
-        seal_rec_score_thresh: Optional[float] = None,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_layout_detection: Optional[bool] = None,
+            layout_det_res: Optional[Union[DetResult, List[DetResult]]] = None,
+            layout_threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float]]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
+            seal_det_limit_side_len: Optional[int] = None,
+            seal_det_limit_type: Optional[str] = None,
+            seal_det_thresh: Optional[float] = None,
+            seal_det_box_thresh: Optional[float] = None,
+            seal_det_unclip_ratio: Optional[float] = None,
+            seal_rec_score_thresh: Optional[float] = None,
+            **kwargs,
     ) -> SealRecognitionResult:
 
         model_settings = self.get_model_settings(
@@ -226,8 +226,8 @@ class _SealRecognitionPipeline(BasePipeline):
             ]
 
             if (
-                not model_settings["use_layout_detection"]
-                and external_layout_det_results is None
+                    not model_settings["use_layout_detection"]
+                    and external_layout_det_results is None
             ):
                 layout_det_results = [{} for _ in doc_preprocessor_images]
                 flat_seal_results = list(
@@ -267,7 +267,7 @@ class _SealRecognitionPipeline(BasePipeline):
                 cropped_imgs = []
                 chunk_indices = [0]
                 for doc_preprocessor_image, layout_det_res in zip(
-                    doc_preprocessor_images, layout_det_results
+                        doc_preprocessor_images, layout_det_results
                 ):
                     for box_info in layout_det_res["boxes"]:
                         if box_info["label"].lower() in ["seal"]:
@@ -302,11 +302,11 @@ class _SealRecognitionPipeline(BasePipeline):
                         seal_region_id += 1
 
             for (
-                input_path,
-                page_index,
-                doc_preprocessor_res,
-                layout_det_res,
-                seal_results_for_img,
+                    input_path,
+                    page_index,
+                    doc_preprocessor_res,
+                    layout_det_res,
+                    seal_results_for_img,
             ) in zip(
                 batch_data.input_paths,
                 batch_data.page_indexes,

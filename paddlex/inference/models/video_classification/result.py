@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
 import PIL
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.deps import class_requires_deps, is_dep_available
-from ....utils.fonts import PINGFANG_FONT
 from ...common.result import BaseVideoResult
 from ...utils.color_map import get_colormap
 from ...utils.io import VideoReader
+from ....utils.deps import class_requires_deps, is_dep_available
+from ....utils.fonts import PINGFANG_FONT
 
 if is_dep_available("opencv-contrib-python"):
     import cv2

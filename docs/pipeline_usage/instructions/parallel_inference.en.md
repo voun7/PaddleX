@@ -2,7 +2,10 @@
 
 ## Specifying Multiple Inference Devices
 
-For some pipelines in both the CLI and Python API, PaddleX supports specifying multiple inference devices simultaneously. If multiple devices are specified, at initialization each device will host its own instance of the underlying pipeline class, and incoming inputs will be inferred in parallel across them. For example, for the PP-StructureV3 pipeline:
+For some pipelines in both the CLI and Python API, PaddleX supports specifying multiple inference devices
+simultaneously. If multiple devices are specified, at initialization each device will host its own instance of the
+underlying pipeline class, and incoming inputs will be inferred in parallel across them. For example, for the
+PP-StructureV3 pipeline:
 
 ```bash
 paddlex --pipeline PP-StructureV3 \
@@ -24,13 +27,18 @@ output = pipeline.predict(
 )
 ```
 
-In both examples above, four GPUs (IDs 0, 1, 2, 3) are used to perform parallel inference on all files in the `input_images` directory.
+In both examples above, four GPUs (IDs 0, 1, 2, 3) are used to perform parallel inference on all files in the
+`input_images` directory.
 
-When specifying multiple devices, the inference interface remains the same as when specifying a single device. Please refer to the pipeline usage guide to check whether a given pipeline supports multiple-device inference.
+When specifying multiple devices, the inference interface remains the same as when specifying a single device. Please
+refer to the pipeline usage guide to check whether a given pipeline supports multiple-device inference.
 
 ## Example of Multi-Process Parallel Inference
 
-Beyond PaddleX’s built-in multi-GPU parallel inference, users can also implement parallelism by wrapping PaddleX pipeline API calls themselves according to their specific scenario, with a view to achieving a better speedup. Below is an example of using Python’s `multiprocessing` to run multiple cards and multiple pipeline instances in parallel over the files in an input directory:
+Beyond PaddleX’s built-in multi-GPU parallel inference, users can also implement parallelism by wrapping PaddleX
+pipeline API calls themselves according to their specific scenario, with a view to achieving a better speedup. Below is
+an example of using Python’s `multiprocessing` to run multiple cards and multiple pipeline instances in parallel over
+the files in an input directory:
 
 ```python
 import argparse

@@ -13,25 +13,6 @@
 # limitations under the License.
 from __future__ import absolute_import
 
-from . import (
-    classification,
-    detection,
-    evaluation,
-    facealign,
-    facedet,
-    faceid,
-    generation,
-    headpose,
-    keypointdetection,
-    matting,
-    ocr,
-    perception,
-    segmentation,
-    sr,
-    tracking,
-)
-from .utils import fd_result_to_json
-from .visualize import *
 from .. import C
 
 

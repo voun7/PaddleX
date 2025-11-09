@@ -19,9 +19,9 @@ from typing import Dict
 import numpy as np
 from PIL import Image, ImageDraw
 
+from ...common.result import BaseCVResult, JsonMixin
 from ....utils.deps import class_requires_deps, function_requires_deps, is_dep_available
 from ....utils.fonts import SIMFANG_FONT, create_font, create_font_vertical
-from ...common.result import BaseCVResult, JsonMixin
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -229,7 +229,7 @@ class OCRResult(BaseCVResult):
 # Adds a function comment according to Google Style Guide
 @function_requires_deps("opencv-contrib-python")
 def draw_box_txt_fine(
-    img_size: tuple, box: np.ndarray, txt: str, font_path: str
+        img_size: tuple, box: np.ndarray, txt: str, font_path: str
 ) -> np.ndarray:
     """
     Draws text in a box on an image with fine control over size and orientation.

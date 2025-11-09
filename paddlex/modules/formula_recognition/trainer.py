@@ -16,8 +16,8 @@
 import shutil
 from pathlib import Path
 
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
 
 
 class FormulaRecTrainer(BaseTrainer):
@@ -50,12 +50,12 @@ class FormulaRecTrainer(BaseTrainer):
                 self.global_config.dataset_dir, "LaTeXOCRDataSet"
             )
         elif self.global_config["model"] in (
-            "UniMERNet",
-            "PP-FormulaNet-L",
-            "PP-FormulaNet-S",
-            "PP-FormulaNet_plus-L",
-            "PP-FormulaNet_plus-M",
-            "PP-FormulaNet_plus-S",
+                "UniMERNet",
+                "PP-FormulaNet-L",
+                "PP-FormulaNet-S",
+                "PP-FormulaNet_plus-L",
+                "PP-FormulaNet_plus-M",
+                "PP-FormulaNet_plus-S",
         ):
             self.pdx_config.update_dataset(
                 self.global_config.dataset_dir, "SimpleDataSet"
@@ -103,8 +103,8 @@ class FormulaRecTrainer(BaseTrainer):
         if self.train_config.epochs_iters is not None:
             self.pdx_config._update_epochs(self.train_config.epochs_iters)
         if (
-            self.train_config.resume_path is not None
-            and self.train_config.resume_path != ""
+                self.train_config.resume_path is not None
+                and self.train_config.resume_path != ""
         ):
             self.pdx_config._update_checkpoints(self.train_config.resume_path)
         if self.global_config.output is not None:

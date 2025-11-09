@@ -5,7 +5,12 @@ comments: true
 # Table Structure Recognition Module Tutorial
 
 ## I. Overview
-Table structure recognition is a crucial component in table recognition systems, converting non-editable table images into editable table formats (e.g., HTML). The goal of table structure recognition is to identify the rows, columns, and cell positions of tables. The performance of this module directly impacts the accuracy and efficiency of the entire table recognition system. The module typically outputs HTML or LaTeX code for the table area, which is then passed to the table content recognition module for further processing.
+
+Table structure recognition is a crucial component in table recognition systems, converting non-editable table images
+into editable table formats (e.g., HTML). The goal of table structure recognition is to identify the rows, columns, and
+cell positions of tables. The performance of this module directly impacts the accuracy and efficiency of the entire
+table recognition system. The module typically outputs HTML or LaTeX code for the table area, which is then passed to
+the table content recognition module for further processing.
 
 ## II. Supported Model List
 
@@ -104,11 +109,16 @@ SLANet_plus is an enhanced version of SLANet, a table structure recognition mode
     </tbody>
 </table>
 
-
 ## III. Quick Integration
-> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
-After installing the wheel package, a few lines of code can complete the inference of the table structure recognition module. You can easily switch models within this module and integrate the model inference into your project. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine.
+> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer
+> to [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+
+After installing the wheel package, a few lines of code can complete the inference of the table structure recognition
+module. You can easily switch models within this module and integrate the model inference into your project. Before
+running the following code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local
+machine.
 
 ```python
 from paddlex import create_model
@@ -119,7 +129,9 @@ for res in output:
     res.save_to_json("./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 <details><summary>👉 <b>After running, the result is: (Click to expand)</b></summary>
 
@@ -139,7 +151,9 @@ Parameter meanings are as follows:
 
 Relevant methods, parameters, and explanations are as follows:
 
-* <code>create_model</code> instantiates a table structure recognition model (here, <code>SLANet</code> is used as an example), with specific details as follows:
+* <code>create_model</code> instantiates a table structure recognition model (here, <code>SLANet</code> is used as an
+  example), with specific details as follows:
+
 <table>
 <thead>
 <tr>
@@ -187,9 +201,12 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-* <code>model_name</code> must be specified. After specifying <code>model_name</code>, the default model parameters from PaddleX will be used. If <code>model_dir</code> is specified, the user-defined model will be used.
+* <code>model_name</code> must be specified. After specifying <code>model_name</code>, the default model parameters from
+  PaddleX will be used. If <code>model_dir</code> is specified, the user-defined model will be used.
 
-* The <code>predict()</code> method of the table structure recognition model is called for inference and prediction. The <code>predict()</code> method has parameters <code>input</code> and <code>batch_size</code>, with specific details as follows:
+* The <code>predict()</code> method of the table structure recognition model is called for inference and prediction.
+  The <code>predict()</code> method has parameters <code>input</code> and <code>batch_size</code>, with specific details
+  as follows:
 
 <table>
 <thead>
@@ -225,7 +242,8 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-* Process the prediction results. Each sample's prediction result is a corresponding Result object, and it supports operations such as printing and saving as a `json` file:
+* Process the prediction results. Each sample's prediction result is a corresponding Result object, and it supports
+  operations such as printing and saving as a `json` file:
 
 <table>
 <thead>
@@ -295,15 +313,26 @@ Relevant methods, parameters, and explanations are as follows:
 </tr>
 </table>
 
-For more information on using PaddleX's single-model inference APIs, refer to [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using PaddleX's single-model inference APIs, refer
+to [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
-If you seek higher accuracy from existing models, you can leverage PaddleX's custom development capabilities to develop better table structure recognition models. Before developing table structure recognition models with PaddleX, ensure you have installed the PaddleOCR plugin for PaddleX. The installation process can be found in the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+
+If you seek higher accuracy from existing models, you can leverage PaddleX's custom development capabilities to develop
+better table structure recognition models. Before developing table structure recognition models with PaddleX, ensure you
+have installed the PaddleOCR plugin for PaddleX. The installation process can be found in
+the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
 ### 4.1 Data Preparation
-Before model training, you need to prepare the corresponding dataset for the task module. PaddleX provides data validation functionality for each module, and <b>only data that passes validation can be used for model training</b>. Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development. If you wish to use a private dataset for model training, refer to [PaddleX Table Structure Recognition Task Module Data Annotation Tutorial](../../../data_annotations/ocr_modules/table_recognition.en.md)
+
+Before model training, you need to prepare the corresponding dataset for the task module. PaddleX provides data
+validation functionality for each module, and <b>only data that passes validation can be used for model training</b>.
+Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development. If
+you wish to use a private dataset for model training, refer
+to [PaddleX Table Structure Recognition Task Module Data Annotation Tutorial](../../../data_annotations/ocr_modules/table_recognition.en.md)
 
 #### 4.1.1 Demo Data Download
+
 You can download the demo dataset to a specified folder using the following command:
 
 ```bash
@@ -312,6 +341,7 @@ tar -xf ./dataset/table_rec_dataset_examples.tar -C ./dataset/
 ```
 
 #### 4.1.2 Data Validation
+
 Run a single command to complete data validation:
 
 ```bash
@@ -319,7 +349,11 @@ python main.py -c paddlex/configs/modules/table_recognition/SLANet.yaml \
     -o Global.mode=check_dataset \
     -o Global.dataset_dir=./dataset/table_rec_dataset_examples
 ```
-After executing the above command, PaddleX will validate the dataset and summarize its basic information. If the command runs successfully, it will print `Check dataset passed !` in the log. The validation results file is saved in `./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory in the current directory, including visual examples of sample images and sample distribution histograms.
+
+After executing the above command, PaddleX will validate the dataset and summarize its basic information. If the command
+runs successfully, it will print `Check dataset passed !` in the log. The validation results file is saved in
+`./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory in the
+current directory, including visual examples of sample images and sample distribution histograms.
 
 <details><summary>👉 <b>Details of Validation Results (Click to Expand)</b></summary>
 <p>The specific content of the validation result file is:</p>
@@ -359,7 +393,9 @@ After executing the above command, PaddleX will validate the dataset and summari
 </ul></details>
 
 #### 4.1.3 Dataset Format Conversion / Dataset Splitting (Optional)
-After completing the dataset verification, you can convert the dataset format or re-split the training/validation ratio by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
+
+After completing the dataset verification, you can convert the dataset format or re-split the training/validation ratio
+by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
 
 <details><summary>👉 <b>Details on Format Conversion / Dataset Splitting (Click to Expand)</b></summary>
 <p><b>(1) Dataset Format Conversion</b></p>
@@ -397,22 +433,32 @@ CheckDataset:
     -o CheckDataset.split.val_percent=10
 </code></pre></details>
 
-
 ### 4.2 Model Training
-A single command can complete the model training. Taking the training of the table structure recognition model SLANet as an example:
+
+A single command can complete the model training. Taking the training of the table structure recognition model SLANet as
+an example:
 
 ```bash
 python main.py -c paddlex/configs/modules/table_recognition/SLANet.yaml \
     -o Global.mode=train \
     -o Global.dataset_dir=./dataset/table_rec_dataset_examples
 ```
+
 the following steps are required:
 
-* Specify the path of the model's `.yaml` configuration file (here it is `SLANet.yaml`,When training other models, you need to specify the corresponding configuration files. The relationship between the model and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
+* Specify the path of the model's `.yaml` configuration file (here it is `SLANet.yaml`,When training other models, you
+  need to specify the corresponding configuration files. The relationship between the model and configuration files can
+  be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
 * Specify the mode as model training: `-o Global.mode=train`
 * Specify the path of the training dataset: `-o Global.dataset_dir`.
-* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration file, or adjusted by appending parameters in the command line. For example, to specify training on the first 2 GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the configuration file parameter instructions for the corresponding task module of the model [PaddleX Common Model Configuration File Parameters](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration
+  file, or adjusted by appending parameters in the command line. For example, to specify training on the first 2 GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to the configuration file parameter instructions for the
+  corresponding task module of the
+  model [PaddleX Common Model Configuration File Parameters](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 <ul>
@@ -431,52 +477,77 @@ the following steps are required:
 </ul></details>
 
 ## <b>4.3 Model Evaluation</b>
-After completing model training, you can evaluate the specified model weights file on the validation set to verify the model's accuracy. Using PaddleX for model evaluation can be done with a single command:
+
+After completing model training, you can evaluate the specified model weights file on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation can be done with a single command:
+
 ```bash
 python main.py -c paddlex/configs/modules/table_recognition/SLANet.yaml \
     -o Global.mode=evaluate \
     -o Global.dataset_dir=./dataset/table_rec_dataset_examples
 ```
+
 Similar to model training, the following steps are required:
 
 * Specify the `.yaml` configuration file path for the model (here it's `SLANet.yaml`)
 * Specify the mode as model evaluation: `-o Global.mode=evaluate`
 * Specify the path to the validation dataset: `-o Global.dataset_dir`
-Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file. For details, refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file.
+  For details, refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 <p>When evaluating the model, you need to specify the model weights file path. Each configuration file has a default weight save path. If you need to change it, simply append the command line parameter to set it, such as <code>-o Evaluate.weight_path=./output/best_accuracy/best_accuracy.pdparams</code>.</p>
 <p>After completing the model evaluation, an <code>evaluate_result.json</code> file will be produced, which records the evaluation results, specifically, whether the evaluation task was completed successfully and the model's evaluation metrics, including acc ;</p></details>
 
 ### <b>4.4 Model Inference and Model Integration</b>
-After completing model training and evaluation, you can use the trained model weights for inference predictions or Python integration.
+
+After completing model training and evaluation, you can use the trained model weights for inference predictions or
+Python integration.
 
 #### 4.4.1 Model Inference
-* Inference predictions can be performed through the command line with just one command. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine.
+
+* Inference predictions can be performed through the command line with just one command. Before running the following
+  code, please download
+  the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your
+  local machine.
+
 ```bash
 python main.py -c paddlex/configs/modules/table_recognition/SLANet.yaml  \
     -o Global.mode=predict \
     -o Predict.model_dir="./output/best_accuracy/inference" \
     -o Predict.input="table_recognition.jpg"
 ```
+
 Similar to model training and evaluation, the following steps are required:
 
 * Specify the `.yaml` configuration file path for the model (here it's `SLANet.yaml `)
 * Specify the mode as model inference prediction: `-o Global.mode=predict`
 * Specify the model weights path: `-o Predict.model_dir="./output/best_accuracy/inference"`
-* Specify the input data path: `-o Predict.input="..."`. Other related parameters can be set by modifying the `Global` and `Predict` fields in the `.yaml` configuration file. For details, refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
-* Alternatively, you can use the PaddleX wheel package for inference, easily integrating the model into your own projects.
-
+* Specify the input data path: `-o Predict.input="..."`. Other related parameters can be set by modifying the `Global`
+  and `Predict` fields in the `.yaml` configuration file. For details, refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+* Alternatively, you can use the PaddleX wheel package for inference, easily integrating the model into your own
+  projects.
 
 #### 4.4.2 Model Integration
+
 The model can be directly integrated into the PaddleX pipeline or directly into your own project.
 
 1.<b>Pipeline Integration</b>
 
-The table structure recognition module can be integrated into PaddleX pipelines such as the [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md) and the [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md). Simply replace the model path to update the table structure recognition module in the relevant pipelines. For pipeline integration, you can deploy your obtained model using high-performance inference and serving deployment.
+The table structure recognition module can be integrated into PaddleX pipelines such as
+the [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md) and
+the [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md).
+Simply replace the model path to update the table structure recognition module in the relevant pipelines. For pipeline
+integration, you can deploy your obtained model using high-performance inference and serving deployment.
 
 2.<b>Module Integration</b>
 
-The model weights you produce can be directly integrated into the table structure recognition module. Refer to the Python example code in [Quick Integration](#iii-quick-integration) , and simply replace the model with the path to your trained model.
+The model weights you produce can be directly integrated into the table structure recognition module. Refer to the
+Python example code in [Quick Integration](#iii-quick-integration) , and simply replace the model with the path to your
+trained model.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

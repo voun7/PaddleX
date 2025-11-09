@@ -29,7 +29,6 @@ __all__ = [
     "create_skip_config_for_refined_recompute",
 ]
 
-
 _is_second_fwd = False
 
 
@@ -66,9 +65,9 @@ class CustomSavedTensorsHooks:
         pack_hook_name = f"{pack_hook.__module__}.{pack_hook.__name__}"
         unpack_hook_name = f"{unpack_hook.__module__}.{unpack_hook.__name__}"
         self._is_second_fwd = (
-            pack_hook_name == "paddle.distributed.fleet.recompute.recompute.inner_pack"
-            and unpack_hook_name
-            == "paddle.distributed.fleet.recompute.recompute.inner_unpack"
+                pack_hook_name == "paddle.distributed.fleet.recompute.recompute.inner_pack"
+                and unpack_hook_name
+                == "paddle.distributed.fleet.recompute.recompute.inner_unpack"
         )
 
     def __enter__(self) -> None:
@@ -260,8 +259,8 @@ class RefinedRecomputeFunction:
             return outputs
         else:
             if (
-                self.function_name
-                == "paddle.nn.functional.flash_attention.flashmask_attention"
+                    self.function_name
+                    == "paddle.nn.functional.flash_attention.flashmask_attention"
             ):
                 kwargs["return_softmax_lse"] = True
                 kwargs["return_seed_offset"] = True
@@ -269,8 +268,8 @@ class RefinedRecomputeFunction:
                     *args, **kwargs
                 )  # outputs is [out, result_softmax_lse, result_seed_offset]
             elif (
-                self.function_name
-                == "paddle.nn.functional.flash_attention.flash_attention_with_sparse_mask"
+                    self.function_name
+                    == "paddle.nn.functional.flash_attention.flash_attention_with_sparse_mask"
             ):
                 kwargs["return_softmax"] = False
                 kwargs["return_softmax_lse"] = True
@@ -328,13 +327,13 @@ class RefinedRecomputeFunction:
         bound_args.apply_defaults()
 
         for arg, param in zip(
-            bound_args.arguments.values(), dyfunc_sig.parameters.values()
+                bound_args.arguments.values(), dyfunc_sig.parameters.values()
         ):
             if param.kind == param.VAR_POSITIONAL:
                 input_args.extend(arg)
             elif param.kind in (
-                param.POSITIONAL_ONLY,
-                param.POSITIONAL_OR_KEYWORD,
+                    param.POSITIONAL_ONLY,
+                    param.POSITIONAL_OR_KEYWORD,
             ):
                 input_args.append(arg)
             elif param.kind == param.VAR_KEYWORD:

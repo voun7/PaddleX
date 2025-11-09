@@ -4,7 +4,8 @@ comments: true
 
 # Overview of PaddleX Model Pipeline Usage
 
-If you have already experienced the pre-trained model pipeline effects in PaddleX and wish to proceed directly with model fine-tuning, you can jump to [Model Selection](#3-model-selection-optional).
+If you have already experienced the pre-trained model pipeline effects in PaddleX and wish to proceed directly with
+model fine-tuning, you can jump to [Model Selection](#3-model-selection-optional).
 
 The complete PaddleX model pipeline development process is illustrated in the following diagram:
 
@@ -23,38 +24,59 @@ graph LR
     test_ok --Yes--> development_integration
 ```
 
-The pre-trained model pipelines provided by PaddleX allow for <b>quick experience of effects</b>. If the pipeline effects meet your requirements, you can directly proceed with <b>development integration/deployment</b> of the pre-trained model pipeline. If the effects are not as expected, you can use your private data to <b>fine-tune</b> the models within the pipeline until satisfactory results are achieved.
+The pre-trained model pipelines provided by PaddleX allow for <b>quick experience of effects</b>. If the pipeline
+effects meet your requirements, you can directly proceed with <b>development integration/deployment</b> of the
+pre-trained model pipeline. If the effects are not as expected, you can use your private data to <b>fine-tune</b> the
+models within the pipeline until satisfactory results are achieved.
 
-Below, let's take the task of boarding pass recognition as an example to introduce the local usage process of the PaddleX model pipeline tool. Before use, please ensure you have completed the installation of PaddleX according to the [PaddleX Local Installation Tutorial](../installation/installation.en.md).
+Below, let's take the task of boarding pass recognition as an example to introduce the local usage process of the
+PaddleX model pipeline tool. Before use, please ensure you have completed the installation of PaddleX according to
+the [PaddleX Local Installation Tutorial](../installation/installation.en.md).
 
 ## 1. Select Pipeline
 
-Each pipeline in PaddleX can solve specific task scenarios such as object detection, time series prediction, semantic segmentation, etc. You need to select the pipeline for subsequent development based on the specific task. For example, for the boarding pass recognition task, the corresponding PaddleX pipeline is the <b>General OCR Pipeline</b>. More task-pipeline correspondences can be found in the [PaddleX Models List (CPU/GPU)](../support_list/models_list.en.md).
+Each pipeline in PaddleX can solve specific task scenarios such as object detection, time series prediction, semantic
+segmentation, etc. You need to select the pipeline for subsequent development based on the specific task. For example,
+for the boarding pass recognition task, the corresponding PaddleX pipeline is the <b>General OCR Pipeline</b>. More
+task-pipeline correspondences can be found in the [PaddleX Models List (CPU/GPU)](../support_list/models_list.en.md).
 
 ## 2. Quick Start
 
-Each pipeline in PaddleX integrates numerous pre-trained models. You can first experience the effects of the PaddleX pre-trained model pipeline. If the effects of the pre-trained model pipeline meet your expectations, you can proceed directly with [Development Integration/Deployment](#6-development-integration-and-deployment). If not, optimize the pipeline effects according to the subsequent steps.
+Each pipeline in PaddleX integrates numerous pre-trained models. You can first experience the effects of the PaddleX
+pre-trained model pipeline. If the effects of the pre-trained model pipeline meet your expectations, you can proceed
+directly with [Development Integration/Deployment](#6-development-integration-and-deployment). If not, optimize the
+pipeline effects according to the subsequent steps.
 
-PaddleX provides three ways to quickly experience pipeline effects. You can choose the appropriate method based on your needs:
+PaddleX provides three ways to quickly experience pipeline effects. You can choose the appropriate method based on your
+needs:
 
 * Online Quick Experience URL: [PaddleX Pipeline List (CPU/GPU)](../support_list/pipelines_list.en.md)
-* Command Line Quick Experience: [PaddleX Pipeline Command Line Usage Instructions](../pipeline_usage/instructions/pipeline_CLI_usage.en.md)
-* Python Script Quick Experience: [PaddleX Pipeline Python API Usage Instructions](../pipeline_usage/instructions/pipeline_python_API.en.md)
+* Command Line Quick
+  Experience: [PaddleX Pipeline Command Line Usage Instructions](../pipeline_usage/instructions/pipeline_CLI_usage.en.md)
+* Python Script Quick
+  Experience: [PaddleX Pipeline Python API Usage Instructions](../pipeline_usage/instructions/pipeline_python_API.en.md)
 
-To demonstrate the OCR pipeline for the boarding pass recognition task, you can quickly experience the pipeline's effect in three ways:
+To demonstrate the OCR pipeline for the boarding pass recognition task, you can quickly experience the pipeline's effect
+in three ways:
 
 <b>🌐 Online Experience</b>
 
-You can experience the effects of the universal OCR pipeline in AI Studio [online](https://aistudio.baidu.com/community/app/91660/webUI?source=appMineRecent). Use the official demo image provided for recognition, for example:
+You can experience the effects of the universal OCR pipeline in AI
+Studio [online](https://aistudio.baidu.com/community/app/91660/webUI?source=appMineRecent). Use the official demo image
+provided for recognition, for example:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/ocr/02.png">
 
 <b>💻 Command Line Experience</b>
 
-A single command can quickly experience the pipeline effects. Use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png), and replace `--input` with a local path for prediction:
+A single command can quickly experience the pipeline effects. Use
+the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png), and replace
+`--input` with a local path for prediction:
+
 ```bash
 paddlex --pipeline OCR --input general_ocr_002.png --device gpu:0
 ```
+
 Parameter description:
 
 ```bash
@@ -79,7 +101,8 @@ Parameter description:
 <p>The visualization result is as follows:</p>
 <p><img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/boardingpass.png"></p></details>
 
-When executing the above command, the default OCR pipeline configuration file is loaded. If you need a custom configuration file, you can follow the steps below:
+When executing the above command, the default OCR pipeline configuration file is loaded. If you need a custom
+configuration file, you can follow the steps below:
 
 <details><summary>👉Click to expand</summary>
 
@@ -117,30 +140,43 @@ The following steps are executed:
 
 > ❗ The results obtained from running the Python script are the same as those from the command line method.
 
-If you’d like to perform parallel inference, please refer to [Pipeline Parallel Inference](../pipeline_usage/instructions/parallel_inference.en.md).
+If you’d like to perform parallel inference, please refer
+to [Pipeline Parallel Inference](../pipeline_usage/instructions/parallel_inference.en.md).
 
-If the pre-trained model pipeline meets your expectations, you can proceed directly to [development integration/deployment](#6-development-integration-and-deployment). If not, optimize the pipeline effects according to the following steps.
+If the pre-trained model pipeline meets your expectations, you can proceed directly
+to [development integration/deployment](#6-development-integration-and-deployment). If not, optimize the pipeline
+effects according to the following steps.
 
 ## 3. Model Selection (Optional)
 
-Since a pipeline may contain one or more models, when fine-tuning models, you need to determine which model to fine-tune based on testing results. Taking the OCR pipeline for boarding pass recognition as an example, this pipeline includes a text detection model (e.g., `PP-OCRv4_mobile_det`) and a text recognition model (e.g., `PP-OCRv4_mobile_rec`). If the text positioning is inaccurate, you need to fine-tune the text detection model. If the text recognition is inaccurate, you need to fine-tune the text recognition model. If you are unsure which models are included in the pipeline, you can refer to the [PaddleX Models List (CPU/GPU)](../support_list/models_list.en.md)
+Since a pipeline may contain one or more models, when fine-tuning models, you need to determine which model to fine-tune
+based on testing results. Taking the OCR pipeline for boarding pass recognition as an example, this pipeline includes a
+text detection model (e.g., `PP-OCRv4_mobile_det`) and a text recognition model (e.g., `PP-OCRv4_mobile_rec`). If the
+text positioning is inaccurate, you need to fine-tune the text detection model. If the text recognition is inaccurate,
+you need to fine-tune the text recognition model. If you are unsure which models are included in the pipeline, you can
+refer to the [PaddleX Models List (CPU/GPU)](../support_list/models_list.en.md)
 
 ## 4. Model Fine-tuning (Optional)
 
-After determining the model to fine-tune, you need to train the model with your private dataset. PaddleX provides a single-model development tool that can complete model training with a single command:
+After determining the model to fine-tune, you need to train the model with your private dataset. PaddleX provides a
+single-model development tool that can complete model training with a single command:
 
 ```bash
 python main.py -c paddlex/configs/text_recognition/PP-OCRv4_mobile_rec.yaml \
     -o Global.mode=train \
     -o Global.dataset_dir=your/dataset_dir
 ```
-In addition, PaddleX provides detailed tutorials for preparing private datasets for model fine-tuning, single-model inference, and more. For details, please refer to the [PaddleX Modules Tutorials](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_detection.html)
+
+In addition, PaddleX provides detailed tutorials for preparing private datasets for model fine-tuning, single-model
+inference, and more. For details, please refer to
+the [PaddleX Modules Tutorials](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_detection.html)
 
 ## 5. Pipeline Testing (Optional)
 
 After fine-tuning your model with a private dataset, you will obtain local model weight files.
 
-To use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local paths of the fine-tuned model weights with the corresponding paths in the configuration file:
+To use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local paths of the
+fine-tuned model weights with the corresponding paths in the configuration file:
 
 ```bash
 ......
@@ -152,30 +188,50 @@ Pipeline:
   rec_device: "gpu"
 ......
 ```
-Then, refer to the [command line method](#2-quick-start) or [Python script](#6-development-integration-and-deployment) method to load the modified pipeline configuration file.
 
-If the results are satisfactory, proceed with [Development Integration/Deployment](#6-development-integration-and-deployment). If not, return to [Model Selection](#3-model-selection-optional) to continue fine-tuning other task modules until you achieve satisfactory results.
+Then, refer to the [command line method](#2-quick-start) or [Python script](#6-development-integration-and-deployment)
+method to load the modified pipeline configuration file.
+
+If the results are satisfactory, proceed
+with [Development Integration/Deployment](#6-development-integration-and-deployment). If not, return
+to [Model Selection](#3-model-selection-optional) to continue fine-tuning other task modules until you achieve
+satisfactory results.
 
 ## 6. Development Integration and Deployment
 
-If the pre-trained pipeline meets your requirements for inference speed and accuracy, you can proceed directly to development integration/deployment.
+If the pre-trained pipeline meets your requirements for inference speed and accuracy, you can proceed directly to
+development integration/deployment.
 
-If you need to apply the pipeline directly in your Python project, you can refer to the [PaddleX Pipeline Python Script Usage Guide](./instructions/pipeline_python_API.en.md) and the Python example code in the [Quick Start](#2-quick-start) section.
+If you need to apply the pipeline directly in your Python project, you can refer to
+the [PaddleX Pipeline Python Script Usage Guide](./instructions/pipeline_python_API.en.md) and the Python example code
+in the [Quick Start](#2-quick-start) section.
 
 In addition, PaddleX also provides three other deployment methods, with detailed instructions as follows:
 
+🚀 <b>high-performance inference</b>: In actual production environments, many applications have stringent standards for
+the performance metrics (especially response speed) of deployment strategies to ensure efficient system operation and
+smooth user experience. To this end, PaddleX provides high-performance inference plugins that aim to deeply optimize
+model inference and pre/post-processing for significant speedups in the end-to-end process. Refer to
+the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md) for detailed
+high-performance inference procedures.
+
+☁️ <b>Serving</b>: Serving is a common deployment strategy in real-world production environments. By encapsulating
+inference functions into services, clients can access these services via network requests to obtain inference results.
+PaddleX supports various solutions for serving pipelines. For detailed pipeline serving procedures, please refer to
+the [PaddleX Pipeline Serving Guide](../pipeline_deploy/serving.md).
+
+📱 <b>On-Device Deployment</b>: Edge deployment is a method that places computing and data processing capabilities on
+user devices themselves, allowing devices to process data directly without relying on remote servers. PaddleX supports
+deploying models on edge devices such as Android. Refer to
+the [PaddleX On-Device Deployment Guide](../pipeline_deploy/on_device_deployment.en.md) for detailed edge deployment
+procedures.
+
+Choose the appropriate deployment method for your model pipeline based on your needs, and proceed with subsequent AI
+application integration.
 
 
-🚀 <b>high-performance inference</b>: In actual production environments, many applications have stringent standards for the performance metrics (especially response speed) of deployment strategies to ensure efficient system operation and smooth user experience. To this end, PaddleX provides high-performance inference plugins that aim to deeply optimize model inference and pre/post-processing for significant speedups in the end-to-end process. Refer to the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md) for detailed high-performance inference procedures.
-
-☁️ <b>Serving</b>: Serving is a common deployment strategy in real-world production environments. By encapsulating inference functions into services, clients can access these services via network requests to obtain inference results. PaddleX supports various solutions for serving pipelines. For detailed pipeline serving procedures, please refer to the [PaddleX Pipeline Serving Guide](../pipeline_deploy/serving.md).
-
-📱 <b>On-Device Deployment</b>: Edge deployment is a method that places computing and data processing capabilities on user devices themselves, allowing devices to process data directly without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. Refer to the [PaddleX On-Device Deployment Guide](../pipeline_deploy/on_device_deployment.en.md) for detailed edge deployment procedures.
-
-Choose the appropriate deployment method for your model pipeline based on your needs, and proceed with subsequent AI application integration.
-
-
-> ❗ PaddleX provides detailed usage instructions for each pipeline. You can choose according to your needs. Here are all the pipelines and their corresponding detailed instructions:
+> ❗ PaddleX provides detailed usage instructions for each pipeline. You can choose according to your needs. Here are all
+> the pipelines and their corresponding detailed instructions:
 
 <table>
 <thead>

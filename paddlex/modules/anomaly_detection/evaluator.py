@@ -16,8 +16,8 @@
 import os
 from pathlib import Path
 
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
 
 
 class UadEvaluator(BaseEvaluator):

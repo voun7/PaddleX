@@ -1,4 +1,3 @@
-
 pipeline_name: PaddleOCR-VL
 
 batch_size: 64
@@ -16,7 +15,7 @@ SubModules:
     model_name: PP-DocLayoutV2
     model_dir: null
     batch_size: 8
-    threshold: 
+    threshold:
       0: 0.5 # abstract
       1: 0.5 # algorithm
       2: 0.5 # aside_text
@@ -43,8 +42,8 @@ SubModules:
       23: 0.4 # text
       24: 0.5 # vision_footnote
     layout_nms: True
-    layout_unclip_ratio: [1.0, 1.0] 
-    layout_merge_bboxes_mode: 
+    layout_unclip_ratio: [ 1.0, 1.0 ]
+    layout_merge_bboxes_mode:
       0: "union" # abstract
       1: "union" # algorithm
       2: "union" # aside_text

@@ -8,7 +8,7 @@ use_amp: False
 amp_level: O2
 
 
-dataset: 
+dataset:
   name: TSDataset
   dataset_root: /data/
   train_path: /data/train.csv
@@ -21,12 +21,12 @@ info_params:
   target_cols: "OT"
   time_col: date
 
-model: 
+model:
   name: Nonstationary_Transformer
   model_cfg:
     c_in: 7
     factor: 1
-    p_hidden_dims: [256, 256]
+    p_hidden_dims: [ 256, 256 ]
     optimizer_params:
       learning_rate: 0.0001
       gamma: 0.5

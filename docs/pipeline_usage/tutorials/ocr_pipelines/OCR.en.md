@@ -5,17 +5,32 @@ comments: true
 # General OCR Pipeline Tutorial
 
 ## 1. Introduction to the OCR pipeline
-OCR (Optical Character Recognition) is a technology that converts text in images into editable text. It is widely used in document digitization, information extraction, and data processing. OCR can recognize printed text, handwritten text, and even certain types of fonts and symbols.
 
-The General OCR pipeline is designed to solve text recognition tasks, extracting text information from images and outputting it in text form. This pipeline integrates the end-to-end OCR series systems, PP-OCRv5 and PP-OCRv4, supporting recognition of over 80 languages. Additionally, it includes functions for image orientation correction and distortion correction. Based on this pipeline, precise text content prediction at the millisecond level on CPUs can be achieved, covering a wide range of applications including general, manufacturing, finance, and transportation sectors. The pipeline also provides flexible deployment options, supporting calls in various programming languages on multiple hardware platforms. Moreover, it offers the capability for custom development, allowing you to train and optimize on your own dataset. The trained models can also be seamlessly integrated.
+OCR (Optical Character Recognition) is a technology that converts text in images into editable text. It is widely used
+in document digitization, information extraction, and data processing. OCR can recognize printed text, handwritten text,
+and even certain types of fonts and symbols.
+
+The General OCR pipeline is designed to solve text recognition tasks, extracting text information from images and
+outputting it in text form. This pipeline integrates the end-to-end OCR series systems, PP-OCRv5 and PP-OCRv4,
+supporting recognition of over 80 languages. Additionally, it includes functions for image orientation correction and
+distortion correction. Based on this pipeline, precise text content prediction at the millisecond level on CPUs can be
+achieved, covering a wide range of applications including general, manufacturing, finance, and transportation sectors.
+The pipeline also provides flexible deployment options, supporting calls in various programming languages on multiple
+hardware platforms. Moreover, it offers the capability for custom development, allowing you to train and optimize on
+your own dataset. The trained models can also be seamlessly integrated.
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/ocr/01.png"/>
 
-<b>The General OCR pipeline includes mandatory text detection and text recognition modules, as well as optional document image orientation classification, text image correction, and text line orientation classification modules.</b> The document image orientation classification and text image correction modules are integrated as a document preprocessing sub-line into the General OCR pipeline. Each module contains multiple models, and you can choose the model based on the benchmark test data below.
+<b>The General OCR pipeline includes mandatory text detection and text recognition modules, as well as optional document
+image orientation classification, text image correction, and text line orientation classification modules.</b> The
+document image orientation classification and text image correction modules are integrated as a document preprocessing
+sub-line into the General OCR pipeline. Each module contains multiple models, and you can choose the model based on the
+benchmark test data below.
 
 ### 1.1 Model benchmark data
 
-<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize inference speed, choose a faster inference model; if you care about model storage size, choose a smaller model.</b>
+<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize inference speed, choose a faster
+inference model; if you care about model storage size, choose a smaller model.</b>
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
@@ -237,7 +252,8 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </tr>
 </table>
 
-> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this module supports <b>18 models</b>. The complete list of models is as follows:
+> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this
+> module supports <b>18 models</b>. The complete list of models is as follows:
 
 <details><summary> 👉Model List Details</summary>
 
@@ -281,6 +297,7 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </table>
 
 * <b>Chinese Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -371,6 +388,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -411,6 +429,7 @@ en_PP-OCRv5_mobile_rec_infer.tar">Inference Model</a>/<a href="https://paddle-mo
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -1861,7 +1880,6 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </table>
 </details>
 
-
 * Test environment:
     * PaddlePaddle 3.1.0、CUDA 11.8、cuDNN 8.9
     * PaddleX @ develop (f1eb28e23cfa54ce3e9234d2e61fcb87c93cf407)
@@ -1871,23 +1889,43 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 * Test strategy:
     * Warm up with 20 samples, then repeat the full dataset once for performance testing.
 * Note:
-    * Since we did not collect device memory data for NPU and XPU, the corresponding entries in the table are marked as N/A.
+    * Since we did not collect device memory data for NPU and XPU, the corresponding entries in the table are marked as
+      N/A.
 
 ## 2. Quick Start
-All model pipelines provided by PaddleX can be quickly experienced. You can experience the effect of the general OCR pipeline on the community platform, or you can use the command line or Python locally to experience the effect of the general OCR pipeline.
+
+All model pipelines provided by PaddleX can be quickly experienced. You can experience the effect of the general OCR
+pipeline on the community platform, or you can use the command line or Python locally to experience the effect of the
+general OCR pipeline.
 
 ### 2.1 Online Experience
-You can [experience the general OCR pipeline online](https://aistudio.baidu.com/community/app/91660/webUI?source=appMineRecent) by recognizing the demo images provided by the official platform, for example:
+
+You
+can [experience the general OCR pipeline online](https://aistudio.baidu.com/community/app/91660/webUI?source=appMineRecent)
+by recognizing the demo images provided by the official platform, for example:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/ocr/02.png"/>
 
-If you are satisfied with the performance of the pipeline, you can directly integrate and deploy it. You can choose to download the deployment package from the cloud, or refer to the methods in [Section 2.2 Local Experience](#22-local-experience) for local deployment. If you are not satisfied with the effect, you can <b>fine-tune the models in the pipeline using your private data</b>. If you have local hardware resources for training, you can start training directly on your local machine; if not, the Star River Zero-Code platform provides a one-click training service. You don't need to write any code—just upload your data and start the training task with one click.
+If you are satisfied with the performance of the pipeline, you can directly integrate and deploy it. You can choose to
+download the deployment package from the cloud, or refer to the methods
+in [Section 2.2 Local Experience](#22-local-experience) for local deployment. If you are not satisfied with the effect,
+you can <b>fine-tune the models in the pipeline using your private data</b>. If you have local hardware resources for
+training, you can start training directly on your local machine; if not, the Star River Zero-Code platform provides a
+one-click training service. You don't need to write any code—just upload your data and start the training task with one
+click.
 
 ### 2.2 Local Experience
-> ❗ Before using the general OCR pipeline locally, please ensure that you have completed the installation of the PaddleX wheel package according to the [PaddleX Installation Guide](../../../installation/installation.en.md). If you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency group corresponding to this pipeline is `ocr`.
+
+> ❗ Before using the general OCR pipeline locally, please ensure that you have completed the installation of the PaddleX
+> wheel package according to the [PaddleX Installation Guide](../../../installation/installation.en.md). If you wish to
+> selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency
+> group corresponding to this pipeline is `ocr`.
 
 #### 2.2.1 Command Line Experience
-* You can quickly experience the OCR pipeline with a single command. Use the [test image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png), and replace `--input` with the local path for prediction.
+
+* You can quickly experience the OCR pipeline with a single command. Use
+  the [test image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png), and replace
+  `--input` with the local path for prediction.
 
 ```bash
 paddlex --pipeline OCR \
@@ -1899,9 +1937,13 @@ paddlex --pipeline OCR \
         --device gpu:0
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
-For details on the relevant parameter descriptions, please refer to the parameter descriptions in [2.2.2 Python Script Integration](#222-python-script-integration). Supports specifying multiple devices simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
+For details on the relevant parameter descriptions, please refer to the parameter descriptions
+in [2.2.2 Python Script Integration](#222-python-script-integration). Supports specifying multiple devices
+simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
 
 After running, the results will be printed to the terminal as follows:
 
@@ -1926,13 +1968,18 @@ After running, the results will be printed to the terminal as follows:
        ...,
        [ 99, ..., 479]], dtype=int16)}}
 ```
-The explanation of the running result parameters can refer to the result interpretation in [2.2.2 Python Script Integration](#222-python-script-integration).
+
+The explanation of the running result parameters can refer to the result interpretation
+in [2.2.2 Python Script Integration](#222-python-script-integration).
 
 The visualized results are saved under `save_path`, and the OCR visualization results are as follows:
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/ocr/03.png"/>
 
 #### 2.2.2 Python Script Integration
-* The above command line is for quick experience and effect checking. Generally, in a project, integration through code is often required. You can complete the quick inference of the pipeline with just a few lines of code. The inference code is as follows:
+
+* The above command line is for quick experience and effect checking. Generally, in a project, integration through code
+  is often required. You can complete the quick inference of the pipeline with just a few lines of code. The inference
+  code is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -2002,7 +2049,8 @@ In the above Python script, the following steps are executed:
 </tbody>
 </table>
 
-(2) The `predict()` method of the OCR pipeline object is called to perform inference. This method returns a `generator`. Below are the parameters and their descriptions for the `predict()` method:
+(2) The `predict()` method of the OCR pipeline object is called to perform inference. This method returns a `generator`.
+Below are the parameters and their descriptions for the `predict()` method:
 
 <table>
 <thead>
@@ -2137,7 +2185,8 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-(3) Process the prediction results. The prediction result for each sample is of type `dict`, and supports operations such as printing, saving as an image, and saving as a `json` file:
+(3) Process the prediction results. The prediction result for each sample is of type `dict`, and supports operations
+such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -2216,21 +2265,26 @@ In the above Python script, the following steps are executed:
 
     - `input_path`: `(str)` The input path of the image to be predicted
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, this indicates the current page number of the PDF. Otherwise, it is `None`
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, this indicates the current page number of the PDF.
+      Otherwise, it is `None`
 
     - `model_settings`: `(Dict[str, bool])` The model parameters required for the pipeline configuration
 
         - `use_doc_preprocessor`: `(bool)` Controls whether to enable the document preprocessing sub-line
         - `use_textline_orientation`: `(bool)` Controls whether to enable text line orientation classification
 
-    - `doc_preprocessor_res`: `(Dict[str, Union[str, Dict[str, bool], int]])` The output result of the document preprocessing sub-line. This exists only when `use_doc_preprocessor=True`
-        - `input_path`: `(Union[str, None])` The image path accepted by the preprocessing sub-line. When the input is `numpy.ndarray`, it is saved as `None`
+    - `doc_preprocessor_res`: `(Dict[str, Union[str, Dict[str, bool], int]])` The output result of the document
+      preprocessing sub-line. This exists only when `use_doc_preprocessor=True`
+        - `input_path`: `(Union[str, None])` The image path accepted by the preprocessing sub-line. When the input is
+          `numpy.ndarray`, it is saved as `None`
         - `model_settings`: `(Dict)` The model configuration parameters for the preprocessing sub-line
             - `use_doc_orientation_classify`: `(bool)` Controls whether to enable document orientation classification
             - `use_doc_unwarping`: `(bool)` Controls whether to enable document unwarping
-        - `angle`: `(int)` The prediction result of document orientation classification. When enabled, it takes values [0,1,2,3], corresponding to [0°,90°,180°,270°]; when disabled, it is -1
+        - `angle`: `(int)` The prediction result of document orientation classification. When enabled, it takes
+          values [0,1,2,3], corresponding to [0°,90°,180°,270°]; when disabled, it is -1
 
-    - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented by a numpy array of 4 vertex coordinates, with a shape of (4, 2) and data type int16
+    - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented
+      by a numpy array of 4 vertex coordinates, with a shape of (4, 2) and data type int16
 
     - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes
 
@@ -2242,27 +2296,43 @@ In the above Python script, the following steps are executed:
         - `unclip_ratio`: `(float)` The expansion ratio for text detection boxes
         - `text_type`: `(str)` The type of text detection, currently fixed as "general"
 
-    - `textline_orientation_angles`: `(List[int])` The prediction results for text line orientation classification. When enabled, it returns actual angle values (e.g., [0,0,1]); when disabled, it returns [-1,-1,-1]
+    - `textline_orientation_angles`: `(List[int])` The prediction results for text line orientation classification. When
+      enabled, it returns actual angle values (e.g., [0,0,1]); when disabled, it returns [-1,-1,-1]
 
     - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results
 
-    - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores above `text_rec_score_thresh`
+    - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores above
+      `text_rec_score_thresh`
 
-    - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by `text_rec_score_thresh`
+    - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by
+      `text_rec_score_thresh`
 
-    - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes filtered by confidence score, in the same format as `dt_polys`
+    - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes filtered by confidence score, in the same
+      format as `dt_polys`
 
-    - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4) and dtype int16. Each row represents the [x_min, y_min, x_max, y_max] coordinates of a rectangle, where (x_min, y_min) is the top-left corner and (x_max, y_max) is the bottom-right corner
+    - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4)
+      and dtype int16. Each row represents the [x_min, y_min, x_max, y_max] coordinates of a rectangle, where (x_min,
+      y_min) is the top-left corner and (x_max, y_max) is the bottom-right corner
 
-    - `text_word`: `(List[str])` When `return_word_box` is set to `True`, returns a list of the recognized text for each character.
+    - `text_word`: `(List[str])` When `return_word_box` is set to `True`, returns a list of the recognized text for each
+      character.
 
-    - `text_word_boxes`: `(List[numpy.ndarray])` When `return_word_box` is set to `True`, returns a list of bounding box coordinates for each recognized character.
+    - `text_word_boxes`: `(List[numpy.ndarray])` When `return_word_box` is set to `True`, returns a list of bounding box
+      coordinates for each recognized character.
 
-- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved directly to that file. Since JSON files do not support saving numpy arrays, the `numpy.array` type will be converted to a list format.
+- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is
+  specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved
+  directly to that file. Since JSON files do not support saving numpy arrays, the `numpy.array` type will be converted
+  to a list format.
 
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, the saved path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`. If a file is specified, it will be saved directly to that file. (Since the pipeline usually contains multiple result images, it is not recommended to specify a specific file path directly, as multiple images will be overwritten and only the last image will be retained)
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, the saved path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`. If a file is
+  specified, it will be saved directly to that file. (Since the pipeline usually contains multiple result images, it is
+  not recommended to specify a specific file path directly, as multiple images will be overwritten and only the last
+  image will be retained)
 
-* Additionally, it also supports obtaining the visualization image with results and the prediction results through attributes, as follows:
+* Additionally, it also supports obtaining the visualization image with results and the prediction results through
+  attributes, as follows:
 
 <table>
 <thead>
@@ -2281,16 +2351,23 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-- The prediction results obtained through the `json` attribute are of type `dict`, and the content is consistent with the data saved by calling the `save_to_json()` method.
-- The prediction results returned by the `img` attribute are of type `dict`. The keys are `ocr_res_img` and `preprocessed_img`, and the corresponding values are two `Image.Image` objects: one for displaying the visualization image of OCR results, and the other for showing the visualization image of image preprocessing. If the image preprocessing sub-module is not used, the dictionary will only contain `ocr_res_img`.
+- The prediction results obtained through the `json` attribute are of type `dict`, and the content is consistent with
+  the data saved by calling the `save_to_json()` method.
+- The prediction results returned by the `img` attribute are of type `dict`. The keys are `ocr_res_img` and
+  `preprocessed_img`, and the corresponding values are two `Image.Image` objects: one for displaying the visualization
+  image of OCR results, and the other for showing the visualization image of image preprocessing. If the image
+  preprocessing sub-module is not used, the dictionary will only contain `ocr_res_img`.
 
-Additionally, you can obtain the OCR pipeline configuration file and load the configuration file for prediction. You can execute the following command to save the results in `my_path`:
+Additionally, you can obtain the OCR pipeline configuration file and load the configuration file for prediction. You can
+execute the following command to save the results in `my_path`:
 
 ```
 paddlex --get_pipeline_config OCR --save_path ./my_path
 ```
 
-If you have obtained the configuration file, you can customize the configurations of the OCR pipeline. You just need to modify the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file. The example is as follows:
+If you have obtained the configuration file, you can customize the configurations of the OCR pipeline. You just need to
+modify the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file.
+The example is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -2310,19 +2387,32 @@ for res in output:
 
 ```
 
-<b>Note:</b> The parameters in the configuration file are initialization parameters for the pipeline. If you want to change the general OCR pipeline initialization parameters, you can directly modify the parameters in the configuration file and load the configuration file for prediction. In addition, CLI prediction also supports passing in a configuration file, just specify the path of the configuration file with `--pipeline`.
+<b>Note:</b> The parameters in the configuration file are initialization parameters for the pipeline. If you want to
+change the general OCR pipeline initialization parameters, you can directly modify the parameters in the configuration
+file and load the configuration file for prediction. In addition, CLI prediction also supports passing in a
+configuration file, just specify the path of the configuration file with `--pipeline`.
 
 ## 3. Development Integration/Deployment
-If the general OCR pipeline meets your requirements for inference speed and accuracy, you can proceed with development integration/deployment directly.
 
-If you need to apply the general OCR pipeline directly in your Python project, you can refer to the example code in [2.2.2 Python Script Method](#222-python-script-method).
+If the general OCR pipeline meets your requirements for inference speed and accuracy, you can proceed with development
+integration/deployment directly.
+
+If you need to apply the general OCR pipeline directly in your Python project, you can refer to the example code
+in [2.2.2 Python Script Method](#222-python-script-method).
 
 In addition, PaddleX also provides three other deployment methods, which are detailed as follows:
 
-🚀 <b>High-Performance Inference</b>: In actual production environments, many applications have strict performance requirements for deployment strategies, especially response speed, to ensure efficient system operation and smooth user experience. To this end, PaddleX provides a high-performance inference plugin, which aims to deeply optimize the performance of model inference and pre/post-processing, significantly speeding up the end-to-end process. For detailed high-performance inference procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+🚀 <b>High-Performance Inference</b>: In actual production environments, many applications have strict performance
+requirements for deployment strategies, especially response speed, to ensure efficient system operation and smooth user
+experience. To this end, PaddleX provides a high-performance inference plugin, which aims to deeply optimize the
+performance of model inference and pre/post-processing, significantly speeding up the end-to-end process. For detailed
+high-performance inference procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
 
-
- ☁️ <b>Serving</b>: Serving is a common deployment strategy in real-world production environments. By encapsulating inference functions into services, clients can access these services via network requests to obtain inference results. PaddleX supports various solutions for serving pipelines. For detailed pipeline serving procedures, please refer to the [PaddleX Pipeline Serving Guide](../../../pipeline_deploy/serving.en.md).
+☁️ <b>Serving</b>: Serving is a common deployment strategy in real-world production environments. By encapsulating
+inference functions into services, clients can access these services via network requests to obtain inference results.
+PaddleX supports various solutions for serving pipelines. For detailed pipeline serving procedures, please refer to
+the [PaddleX Pipeline Serving Guide](../../../pipeline_deploy/serving.en.md).
 
 Below are the API reference and multi-language service invocation examples for the basic serving solution:
 
@@ -2977,14 +3067,24 @@ foreach ($result as $i => $item) {
 </details>
 <br/>
 
-📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities directly on user devices, allowing them to process data locally without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed instructions, please refer to the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
-You can choose the appropriate deployment method based on your needs to integrate the model pipeline into your AI applications.
+📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities
+directly on user devices, allowing them to process data locally without relying on remote servers. PaddleX supports
+deploying models on edge devices such as Android. For detailed instructions, please refer to
+the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
+You can choose the appropriate deployment method based on your needs to integrate the model pipeline into your AI
+applications.
 
 ## 4. Custom Development
-If the default model weights provided by the General OCR pipeline do not meet your requirements in terms of accuracy or speed, you can attempt to <b>fine-tune</b> the existing models using <b>your own domain-specific or application-specific data</b> to improve the recognition performance of the General OCR pipeline in your scenario.
+
+If the default model weights provided by the General OCR pipeline do not meet your requirements in terms of accuracy or
+speed, you can attempt to <b>fine-tune</b> the existing models using <b>your own domain-specific or application-specific
+data</b> to improve the recognition performance of the General OCR pipeline in your scenario.
 
 ### 4.1 Model Fine-Tuning
-Since the General OCR pipeline consists of several modules, the unsatisfactory performance of the pipeline may originate from any one of these modules. You can analyze the images with poor recognition results to identify which module is problematic and refer to the corresponding fine-tuning tutorial links in the table below for model fine-tuning.
+
+Since the General OCR pipeline consists of several modules, the unsatisfactory performance of the pipeline may originate
+from any one of these modules. You can analyze the images with poor recognition results to identify which module is
+problematic and refer to the corresponding fine-tuning tutorial links in the table below for model fine-tuning.
 
 <table>
 <thead>
@@ -3024,9 +3124,11 @@ Since the General OCR pipeline consists of several modules, the unsatisfactory p
 </table>
 
 ### 4.2 Model Application
+
 After fine-tuning with your private dataset, you will obtain the local model weight files.
 
-If you need to use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local paths of the fine-tuned model weights into the corresponding positions in the configuration file:
+If you need to use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local
+paths of the fine-tuned model weights into the corresponding positions in the configuration file:
 
 ```yaml
 SubPipelines:
@@ -3057,10 +3159,13 @@ SubModules:
     batch_size: 1
 ```
 
-Subsequently, refer to the command-line or Python script methods in [2.2 Local Experience](#22-local-experience) to load the modified pipeline configuration file.
+Subsequently, refer to the command-line or Python script methods in [2.2 Local Experience](#22-local-experience) to load
+the modified pipeline configuration file.
 
 ## 5. Multi-Hardware Support
-PaddleX supports a variety of mainstream hardware devices, including NVIDIA GPUs, Kunlunxin XPUs, Ascend NPUs, and Cambricon MLUs. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware devices.
+
+PaddleX supports a variety of mainstream hardware devices, including NVIDIA GPUs, Kunlunxin XPUs, Ascend NPUs, and
+Cambricon MLUs. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware devices.
 
 For example, if you are using an NVIDIA GPU for OCR pipeline inference, the Python command is:
 
@@ -3073,7 +3178,9 @@ paddlex --pipeline OCR \
         --save_path ./output \
         --device npu:0
 ```
+
 Of course, you can also specify the hardware device when calling `create_pipeline()` or `predict()` in a Python script.
 
-If you want to use the General OCR pipeline on more types of hardware, please refer to the [PaddleX Multi-Hardware Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
+If you want to use the General OCR pipeline on more types of hardware, please refer to
+the [PaddleX Multi-Hardware Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
 </details>

@@ -13,9 +13,9 @@
 # limitations under the License.
 
 
-from ...utils import logging
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
+from ...utils import logging
 
 
 class DetTrainer(BaseTrainer):
@@ -51,8 +51,8 @@ class DetTrainer(BaseTrainer):
         if self.train_config.num_classes is not None:
             self.pdx_config.update_num_class(self.train_config.num_classes)
         if (
-            self.train_config.pretrain_weight_path
-            and self.train_config.pretrain_weight_path != ""
+                self.train_config.pretrain_weight_path
+                and self.train_config.pretrain_weight_path != ""
         ):
             self.pdx_config.update_pretrained_weights(
                 self.train_config.pretrain_weight_path
@@ -88,8 +88,8 @@ class DetTrainer(BaseTrainer):
         """
         train_args = {"device": self.get_device()}
         if (
-            self.train_config.resume_path is not None
-            and self.train_config.resume_path != ""
+                self.train_config.resume_path is not None
+                and self.train_config.resume_path != ""
         ):
             train_args["resume_path"] = self.train_config.resume_path
         train_args["dy2st"] = self.train_config.get("dy2st", False)

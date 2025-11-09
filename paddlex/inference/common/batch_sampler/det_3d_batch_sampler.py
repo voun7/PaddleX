@@ -18,10 +18,10 @@ import tarfile
 from pathlib import Path
 from typing import Any, Dict, List, Union
 
+from .base_batch_sampler import BaseBatchSampler
 from ....utils import logging
 from ....utils.cache import CACHE_DIR
 from ....utils.download import download
-from .base_batch_sampler import BaseBatchSampler
 
 
 class Det3DBatchSampler(BaseBatchSampler):
@@ -136,7 +136,7 @@ class Det3DBatchSampler(BaseBatchSampler):
                     tar.extract(member, path=extract_path)
                 logging.info(f"file extract to {extract_path}")
             assert (
-                len(memdirs) == 1
+                    len(memdirs) == 1
             ), "Only one base directory is allowed for 3d bev dataset!"
             return list(memdirs)[0]
         except Exception as e:

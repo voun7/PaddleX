@@ -13,13 +13,8 @@
 # limitations under the License.
 
 
-from importlib import import_module
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
-
-from ...utils import errors
-from ..utils.hpi import HPIConfig
-from ..utils.official_models import official_models
 
 # from .table_recognition import TablePredictor
 # from .general_recognition import ShiTuRecPredictor
@@ -36,7 +31,6 @@ from .image_unwarping import WarpPredictor
 from .instance_segmentation import InstanceSegPredictor
 from .keypoint_detection import KptPredictor
 from .m_3d_bev_detection import BEVDet3DPredictor
-
 # from .face_recognition import FaceRecPredictor
 from .multilingual_speech_recognition import WhisperPredictor
 from .object_detection import DetPredictor
@@ -51,18 +45,20 @@ from .ts_classification import TSClsPredictor
 from .ts_forecasting import TSFcPredictor
 from .video_classification import VideoClasPredictor
 from .video_detection import VideoDetPredictor
+from ..utils.hpi import HPIConfig
+from ..utils.official_models import official_models
 
 
 def create_predictor(
-    model_name: str,
-    model_dir: Optional[str] = None,
-    device: Optional[str] = None,
-    pp_option=None,
-    use_hpip: bool = False,
-    hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
-    genai_config: Optional[Union[Dict[str, Any], GenAIConfig]] = None,
-    *args,
-    **kwargs,
+        model_name: str,
+        model_dir: Optional[str] = None,
+        device: Optional[str] = None,
+        pp_option=None,
+        use_hpip: bool = False,
+        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+        genai_config: Optional[Union[Dict[str, Any], GenAIConfig]] = None,
+        *args,
+        **kwargs,
 ) -> BasePredictor:
     # TODO: Check if the model is a genai model
     if genai_config is not None:
@@ -76,7 +72,7 @@ def create_predictor(
             model_dir = Path(model_dir)
         config = BasePredictor.load_config(model_dir)
         assert (
-            model_name == config["Global"]["model_name"]
+                model_name == config["Global"]["model_name"]
         ), f"Model name mismatch，please input the correct model dir."
     else:
         config = None

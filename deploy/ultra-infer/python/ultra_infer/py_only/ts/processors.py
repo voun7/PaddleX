@@ -32,73 +32,73 @@ _MAX_WINDOW = 183 + 17
 
 
 def _cal_year(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.year
 
 
 def _cal_month(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.month
 
 
 def _cal_day(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.day
 
 
 def _cal_hour(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.hour
 
 
 def _cal_weekday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.dayofweek
 
 
 def _cal_quarter(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.quarter
 
 
 def _cal_hourofday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.hour / 23.0 - 0.5
 
 
 def _cal_dayofweek(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.dayofweek / 6.0 - 0.5
 
 
 def _cal_dayofmonth(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.day / 30.0 - 0.5
 
 
 def _cal_dayofyear(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.dayofyear / 364.0 - 0.5
 
 
 def _cal_weekofyear(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.weekofyear / 51.0 - 0.5
 
 
 def _cal_holiday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     import chinese_calendar
 
@@ -106,7 +106,7 @@ def _cal_holiday(
 
 
 def _cal_workday(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     import chinese_calendar
 
@@ -114,13 +114,13 @@ def _cal_workday(
 
 
 def _cal_minuteofhour(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.minute / 59 - 0.5
 
 
 def _cal_monthofyear(
-    x: np.datetime64,
+        x: np.datetime64,
 ):
     return x.month / 11.0 - 0.5
 
@@ -145,12 +145,12 @@ _CAL_DATE_METHOD = {
 
 
 def _load_from_one_dataframe(
-    data: Union["pd.DataFrame", "pd.Series"],  # noqa: F821
-    time_col: Optional[str] = None,
-    value_cols: Optional[Union[List[str], str]] = None,
-    freq: Optional[Union[str, int]] = None,
-    drop_tail_nan: bool = False,
-    dtype: Optional[Union[type, Dict[str, type]]] = None,
+        data: Union["pd.DataFrame", "pd.Series"],  # noqa: F821
+        time_col: Optional[str] = None,
+        value_cols: Optional[Union[List[str], str]] = None,
+        freq: Optional[Union[str, int]] = None,
+        drop_tail_nan: bool = False,
+        dtype: Optional[Union[type, Dict[str, type]]] = None,
 ):
     import pandas as pd
 
@@ -188,7 +188,7 @@ def _load_from_one_dataframe(
             raise ValueError("The number of rows doesn't match with the RangeIndex!")
         time_index = pd.RangeIndex(start=start_idx, stop=stop_idx, step=freq)
     elif np.issubdtype(time_col_vals.dtype, np.object_) or np.issubdtype(
-        time_col_vals.dtype, np.datetime64
+            time_col_vals.dtype, np.datetime64
     ):
         time_col_vals = pd.to_datetime(time_col_vals, infer_datetime_format=True)
         time_index = pd.DatetimeIndex(time_col_vals)
@@ -216,20 +216,20 @@ def _load_from_one_dataframe(
 
 
 def _load_from_dataframe(
-    df: "pd.DataFrame",  # noqa: F821
-    group_id: str = None,
-    time_col: Optional[str] = None,
-    target_cols: Optional[Union[List[str], str]] = None,
-    label_col: Optional[Union[List[str], str]] = None,
-    observed_cov_cols: Optional[Union[List[str], str]] = None,
-    feature_cols: Optional[Union[List[str], str]] = None,
-    known_cov_cols: Optional[Union[List[str], str]] = None,
-    static_cov_cols: Optional[Union[List[str], str]] = None,
-    freq: Optional[Union[str, int]] = None,
-    fill_missing_dates: bool = False,
-    fillna_method: str = "pre",
-    fillna_window_size: int = 10,
-    **kwargs,
+        df: "pd.DataFrame",  # noqa: F821
+        group_id: str = None,
+        time_col: Optional[str] = None,
+        target_cols: Optional[Union[List[str], str]] = None,
+        label_col: Optional[Union[List[str], str]] = None,
+        observed_cov_cols: Optional[Union[List[str], str]] = None,
+        feature_cols: Optional[Union[List[str], str]] = None,
+        known_cov_cols: Optional[Union[List[str], str]] = None,
+        static_cov_cols: Optional[Union[List[str], str]] = None,
+        freq: Optional[Union[str, int]] = None,
+        fill_missing_dates: bool = False,
+        fillna_method: str = "pre",
+        fillna_window_size: int = 10,
+        **kwargs,
 ):
     dfs = []  # separate multiple group
     if group_id is not None:
@@ -312,7 +312,7 @@ def _distance_to_holiday(holiday):
             index + pd.Timedelta(days=_MAX_WINDOW),
         )
         assert (
-            len(holiday_date) != 0
+                len(holiday_date) != 0
         ), f"No closest holiday for the date index {index} found."
         # It sometimes returns two dates if it is exactly half a year after the
         # holiday. In this case, the smaller distance (182 days) is returned.
@@ -322,7 +322,7 @@ def _distance_to_holiday(holiday):
 
 
 def _to_time_features(
-    dataset, freq, feature_cols, extend_points, inplace: bool = False
+        dataset, freq, feature_cols, extend_points, inplace: bool = False
 ):
     import pandas as pd
 
@@ -451,7 +451,7 @@ class CutOff(PyOnlyProcessor):
             raise ValueError(
                 f"The length of the input data is {len(ts)}, but it should be at least {self._size['in_chunk_len'] + self._size['skip_chunk_len']} for training."
             )
-        ts_data = ts[-(self._size["in_chunk_len"] + skip_len) :]
+        ts_data = ts[-(self._size["in_chunk_len"] + skip_len):]
 
         return {**data, "ts": ts_data, "ori_ts": ts_data}
 

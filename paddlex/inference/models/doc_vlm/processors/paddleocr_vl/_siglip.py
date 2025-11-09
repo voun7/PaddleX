@@ -36,7 +36,6 @@ from typing import Dict, List, Optional, Union
 
 import numpy as np
 
-from ......utils import logging
 from ..common import (
     BatchFeature,
     convert_to_rgb,
@@ -44,6 +43,7 @@ from ..common import (
     make_list_of_images,
     to_numpy_array,
 )
+from ......utils import logging
 
 _OPENAI_CLIP_MEAN = [0.48145466, 0.4578275, 0.40821073]
 _OPENAI_CLIP_STD = [0.26862954, 0.26130258, 0.27577711]
@@ -57,11 +57,11 @@ def adjust_size(size, patch_size):
 
 
 def smart_resize(
-    height: int,
-    width: int,
-    factor: int = 28,
-    min_pixels: int = 28 * 28 * 130,
-    max_pixels: int = 28 * 28 * 1280,
+        height: int,
+        width: int,
+        factor: int = 28,
+        min_pixels: int = 28 * 28 * 130,
+        max_pixels: int = 28 * 28 * 1280,
 ):
     """Rescales the image so that the following conditions are met:
 
@@ -117,21 +117,21 @@ class SiglipImageProcessor(object):
     ]
 
     def __init__(
-        self,
-        do_resize: bool = True,
-        resample: int = 3,
-        do_rescale: bool = True,
-        rescale_factor: Union[int, float] = 1 / 255,
-        do_normalize: bool = True,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_convert_rgb: bool = True,
-        min_pixels: int = 147384,
-        max_pixels: int = 28 * 28 * 3600,
-        patch_size: int = 14,
-        temporal_patch_size: int = 1,
-        merge_size: int = 2,
-        **kwargs,
+            self,
+            do_resize: bool = True,
+            resample: int = 3,
+            do_rescale: bool = True,
+            rescale_factor: Union[int, float] = 1 / 255,
+            do_normalize: bool = True,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_convert_rgb: bool = True,
+            min_pixels: int = 147384,
+            max_pixels: int = 28 * 28 * 3600,
+            patch_size: int = 14,
+            temporal_patch_size: int = 1,
+            merge_size: int = 2,
+            **kwargs,
     ) -> None:
         super().__init__()
         self.do_resize = do_resize
@@ -158,15 +158,15 @@ class SiglipImageProcessor(object):
         return cls(**image_processor_config)
 
     def _preprocess(
-        self,
-        images,
-        do_resize: Optional[bool] = None,
-        do_rescale: Optional[bool] = None,
-        rescale_factor: Optional[float] = None,
-        do_normalize: Optional[bool] = None,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_convert_rgb: Optional[bool] = None,
+            self,
+            images,
+            do_resize: Optional[bool] = None,
+            do_rescale: Optional[bool] = None,
+            rescale_factor: Optional[float] = None,
+            do_normalize: Optional[bool] = None,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_convert_rgb: Optional[bool] = None,
     ):
         images = make_list_of_images(images)
 
@@ -231,18 +231,18 @@ class SiglipImageProcessor(object):
         return flatten_patches, (grid_t, grid_h, grid_w)
 
     def __call__(
-        self,
-        images,
-        videos=None,
-        do_resize: Optional[bool] = None,
-        size: Optional[Dict[str, int]] = None,
-        do_rescale: Optional[bool] = None,
-        rescale_factor: Optional[float] = None,
-        do_normalize: Optional[bool] = None,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_convert_rgb: Optional[bool] = None,
-        return_tensors=None,
+            self,
+            images,
+            videos=None,
+            do_resize: Optional[bool] = None,
+            size: Optional[Dict[str, int]] = None,
+            do_rescale: Optional[bool] = None,
+            rescale_factor: Optional[float] = None,
+            do_normalize: Optional[bool] = None,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_convert_rgb: Optional[bool] = None,
+            return_tensors=None,
     ):
         do_resize = do_resize if do_resize is not None else self.do_resize
         size = size if size is not None else self.size

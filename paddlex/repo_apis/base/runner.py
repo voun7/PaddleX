@@ -21,14 +21,14 @@ import os
 import shlex
 import sys
 
+from .utils.arg import CLIArgument
+from .utils.subprocess import CompletedProcess
+from .utils.subprocess import run_cmd as _run_cmd
 from ...utils import logging
 from ...utils.device import parse_device
 from ...utils.errors import CalledProcessError, raise_unsupported_api_error
 from ...utils.flags import DRY_RUN
 from ...utils.misc import abspath
-from .utils.arg import CLIArgument
-from .utils.subprocess import CompletedProcess
-from .utils.subprocess import run_cmd as _run_cmd
 
 __all__ = ["BaseRunner", "InferOnlyRunner"]
 
@@ -154,7 +154,7 @@ class BaseRunner(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def compression(
-        self, config_path, train_cli_args, export_cli_args, device, train_save_dir
+            self, config_path, train_cli_args, export_cli_args, device, train_save_dir
     ):
         """
         Execute model compression (quantization aware training and model export)
@@ -211,14 +211,14 @@ class BaseRunner(metaclass=abc.ABCMeta):
         return args, None
 
     def run_cmd(
-        self,
-        cmd,
-        env=None,
-        switch_wdir=True,
-        silent=False,
-        echo=True,
-        capture_output=False,
-        log_path=None,
+            self,
+            cmd,
+            env=None,
+            switch_wdir=True,
+            silent=False,
+            echo=True,
+            capture_output=False,
+            log_path=None,
     ):
         """run_cmd"""
 
@@ -271,7 +271,7 @@ class BaseRunner(metaclass=abc.ABCMeta):
             # Refer to
             # https://stackoverflow.com/questions/17190221/subprocess-popen-cloning-stdout-and-stderr-both-to-terminal-and-variables/25960956
             async def _read_display_and_record_from_stream(
-                in_stream, out_stream, files
+                    in_stream, out_stream, files
             ):
                 # According to
                 # https://docs.python.org/3/library/subprocess.html#frequently-used-arguments

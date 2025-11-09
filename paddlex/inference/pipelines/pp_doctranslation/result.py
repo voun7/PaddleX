@@ -47,7 +47,7 @@ class MarkdownResult(BaseCVResult, MarkdownMixin, WordMixin, LatexMixin):
         md_text = self.get("markdown_texts", "")
 
         def set_paragraph_style(
-            paragraph, bold=False, align="left", font_size=11, color=None
+                paragraph, bold=False, align="left", font_size=11, color=None
         ):
             from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
             from docx.oxml.ns import qn
@@ -190,7 +190,7 @@ class MarkdownResult(BaseCVResult, MarkdownMixin, WordMixin, LatexMixin):
 
             def repl(m):
                 placeholders.append(m.group(0))
-                return f"@@FORMULA{len(placeholders)-1}@@"
+                return f"@@FORMULA{len(placeholders) - 1}@@"
 
             # Extract formulas
             formula_pat = re.compile(

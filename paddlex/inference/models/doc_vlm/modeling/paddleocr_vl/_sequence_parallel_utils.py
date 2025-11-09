@@ -29,18 +29,16 @@ from ._distributed.common_dist_utils import (
 )
 
 if not hasattr(paddle.Tensor, "contiguous"):
-
     def contiguous(self):
         """
         Make the tensor contiguous.
         """
         return self
 
+
     paddle.Tensor.contiguous = contiguous
 
-
 if not hasattr(paddle.Tensor, "_md5sum"):
-
     def _md5sum(self):
         """
         Calculate the md5sum of the Tensor.
@@ -49,17 +47,18 @@ if not hasattr(paddle.Tensor, "_md5sum"):
         array_bytes = numpy_array.tobytes()
         return hashlib.md5(array_bytes).hexdigest()
 
+
     paddle.Tensor._md5sum = _md5sum
 
 
 class _AllToAll(paddle.autograd.PyLayer):
     @staticmethod
     def forward(
-        ctx,
-        input,
-        group,
-        output_split_sizes=None,
-        input_split_sizes=None,
+            ctx,
+            input,
+            group,
+            output_split_sizes=None,
+            input_split_sizes=None,
     ):
         """
         All-to-all communication in the group
@@ -152,10 +151,10 @@ class SliceVarlenOp(PyLayer):
 
     @staticmethod
     def forward(
-        ctx,
-        input,
-        indices,
-        group=None,
+            ctx,
+            input,
+            indices,
+            group=None,
     ):
         """forward"""
         ctx.indices = indices

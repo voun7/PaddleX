@@ -10,9 +10,9 @@ amp_level: O2
 
 dataset:
   name: TSDataset
-  dataset_root: /data/ 
-  train_path: /data/train.csv 
-  val_path: /data/val.csv 
+  dataset_root: /data/
+  train_path: /data/train.csv
+  val_path: /data/val.csv
   time_feat: False
   scale: True
 info_params:

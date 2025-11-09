@@ -5,13 +5,29 @@ comments: true
 # PP-StructureV3 Pipeline Tutorial
 
 ## 1. Introduction to PP-StructureV3 pipeline
-Layout parsing is a technology that extracts structured information from document images, primarily used to convert complex document layouts into machine-readable data formats. This technology is widely applied in document management, information extraction, and data digitization. By combining Optical Character Recognition (OCR), image processing, and machine learning algorithms, layout parsing can identify and extract text blocks, headings, paragraphs, images, tables, and other layout elements from documents. The process typically involves three main steps: layout detection, element analysis, and data formatting, ultimately generating structured document data to improve the efficiency and accuracy of data processing. <b>The PP-StructureV3 pipeline, based on the v1 pipeline, enhances the capabilities of layout region detection, table recognition, and formula recognition, and adds the ability to restore multi-column reading order and convert results into Markdown files. It performs excellently on various document data and can handle more complex document data.</b> This pipeline also provides flexible serving deployment options, supporting the use of multiple programming languages on various hardware. Moreover, this pipeline offers the capability for custom development; you can train and optimize models on your own dataset based on this pipeline, and the trained models can be seamlessly integrated.
 
-<b>The PP-StructureV3 pipeline includes a mandatory layout region analysis module and a general OCR sub-pipeline,</b> as well as optional sub-pipelines for document image preprocessing, table recognition, seal recognition, and formula recognition. Each module contains multiple models, and you can choose the model based on the benchmark test data below.
+Layout parsing is a technology that extracts structured information from document images, primarily used to convert
+complex document layouts into machine-readable data formats. This technology is widely applied in document management,
+information extraction, and data digitization. By combining Optical Character Recognition (OCR), image processing, and
+machine learning algorithms, layout parsing can identify and extract text blocks, headings, paragraphs, images, tables,
+and other layout elements from documents. The process typically involves three main steps: layout detection, element
+analysis, and data formatting, ultimately generating structured document data to improve the efficiency and accuracy of
+data processing. <b>The PP-StructureV3 pipeline, based on the v1 pipeline, enhances the capabilities of layout region
+detection, table recognition, and formula recognition, and adds the ability to restore multi-column reading order and
+convert results into Markdown files. It performs excellently on various document data and can handle more complex
+document data.</b> This pipeline also provides flexible serving deployment options, supporting the use of multiple
+programming languages on various hardware. Moreover, this pipeline offers the capability for custom development; you can
+train and optimize models on your own dataset based on this pipeline, and the trained models can be seamlessly
+integrated.
+
+<b>The PP-StructureV3 pipeline includes a mandatory layout region analysis module and a general OCR sub-pipeline,</b> as
+well as optional sub-pipelines for document image preprocessing, table recognition, seal recognition, and formula
+recognition. Each module contains multiple models, and you can choose the model based on the benchmark test data below.
 
 ### 1.1 Model benchmark data
 
-<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize model inference speed, choose a faster inference model; if you prioritize model storage size, choose a smaller storage model.</b>
+<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize model inference speed, choose a
+faster inference model; if you prioritize model storage size, choose a smaller storage model.</b>
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
@@ -268,6 +284,7 @@ Layout parsing is a technology that extracts structured information from documen
 <p><b>Text Recognition Module Model (Required):</b></p>
 
 * <b>Chinese Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -377,6 +394,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -407,6 +425,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -1309,7 +1328,6 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </table>
 </details>
 
-
 * Test environment:
     * PaddlePaddle 3.1.0、CUDA 11.8、cuDNN 8.9
     * PaddleX @ develop (f1eb28e23cfa54ce3e9234d2e61fcb87c93cf407)
@@ -1319,18 +1337,28 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 * Test strategy:
     * Warm up with 20 samples, then repeat the full dataset once for performance testing.
 * Note:
-    * Since we did not collect device memory data for NPU and XPU, the corresponding entries in the table are marked as N/A.
+    * Since we did not collect device memory data for NPU and XPU, the corresponding entries in the table are marked as
+      N/A.
 
 ## 2. Quick Start
-All the model pipelines provided by PaddleX can be quickly experienced. You can use the command line or Python on your local machine to experience the effect of the PP-StructureV3 pipeline.
 
-Before using the PP-StructureV3 pipeline locally, please ensure that you have completed the installation of the PaddleX wheel package according to the [PaddleX Local Installation Guide](../../../installation/installation.en.md). If you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency group corresponding to this pipeline is `ocr`.
+All the model pipelines provided by PaddleX can be quickly experienced. You can use the command line or Python on your
+local machine to experience the effect of the PP-StructureV3 pipeline.
 
-> When performing GPU inference, the default configuration may use more than 16 GB of VRAM. Please ensure that your GPU has sufficient memory. To reduce VRAM usage, you can modify the configuration file as described below to disable unnecessary features.
+Before using the PP-StructureV3 pipeline locally, please ensure that you have completed the installation of the PaddleX
+wheel package according to the [PaddleX Local Installation Guide](../../../installation/installation.en.md). If you wish
+to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency
+group corresponding to this pipeline is `ocr`.
+
+> When performing GPU inference, the default configuration may use more than 16 GB of VRAM. Please ensure that your GPU
+> has sufficient memory. To reduce VRAM usage, you can modify the configuration file as described below to disable
+> unnecessary features.
 
 ### 2.1 Experiencing via Command Line
 
-You can quickly experience the PP-StructureV3 pipeline with a single command. Use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/pp_structure_v3_demo.png) and replace `--input` with the local path to perform prediction.
+You can quickly experience the PP-StructureV3 pipeline with a single command. Use
+the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/pp_structure_v3_demo.png) and replace
+`--input` with the local path to perform prediction.
 
 ```
 paddlex --pipeline PP-StructureV3 \
@@ -1343,18 +1371,121 @@ paddlex --pipeline PP-StructureV3 \
         --device gpu:0
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
-The parameter description can be found in [2.2.2 Python Script Integration](#222-python-script-integration). Supports specifying multiple devices simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
+The parameter description can be found in [2.2.2 Python Script Integration](#222-python-script-integration). Supports
+specifying multiple devices simultaneously for parallel inference. For details, please refer to the documentation on
+pipeline parallel inference.
 
 After running, the result will be printed to the terminal, as follows:
 
 <details><summary>👉Click to Expand</summary>
 <pre><code>
 
-{'res': {'input_path': 'pp_structure_v3_demo.png', 'page_index': None, 'model_settings': {'use_doc_preprocessor': False, 'use_seal_recognition': False, 'use_table_recognition': True, 'use_formula_recognition': True, 'use_chart_recognition': False, 'use_region_detection': True}, 'parsing_res_list': [{'block_label': 'doc_title', 'block_content': '助力双方交往搭建友谊桥梁', 'block_bbox': [133, 36, 1379, 123], 'block_id': 0, 'block_order': 1}, {'block_label': 'text', 'block_content': '本报记者沈小晓任彦黄培昭', 'block_bbox': [584, 159, 927, 179], 'block_id': 1, 'block_order': 2}, {'block_label': 'image', 'block_content': '', 'block_bbox': [774, 201, 1502, 685], 'block_id': 2, 'block_order': None}, {'block_label': 'figure_title', 'block_content': '在厄立特里亚不久前举办的第六届中国风筝文化节上，当地小学生体验风筝制作。中国驻厄立特里亚大使馆供图', 'block_bbox': [808, 704, 1484, 747], 'block_id': 3, 'block_order': None}, {'block_label': 'text', 'block_content': '身着中国传统民族服装的厄立特里亚青年依次登台表演中国民族舞、现代舞、扇子舞等，曼妙的舞姿赢得现场观众阵阵掌声。这是日前危立特里亚高等教育与研究院孔子学院(以下简称“厄特孔院")举办“喜迎新年"中国歌舞比赛的场景。\n', 'block_bbox': [9, 201, 358, 338], 'block_id': 4, 'block_order': 3}, {'block_label': 'text', 'block_content': '中国和厄立特里亚传统友谊深厚。近年来，在高质量共建“一带一路”框架下，中厄两国人文交流不断深化，互利合作的民意基础日益深厚。\n', 'block_bbox': [9, 345, 358, 435], 'block_id': 5, 'block_order': 4}, {'block_label': 'paragraph_title', 'block_content': '“学好中文，我们的未来不是梦”\n', 'block_bbox': [28, 456, 339, 514], 'block_id': 6, 'block_order': 5}, {'block_label': 'text', 'block_content': '“鲜花曾告诉我你怎样走过，大地知道你心中的每一个角落……"厄立特里亚阿斯马拉大学综合楼二层，一阵优美的歌声在走廊里回响。循着熟悉的旋律轻轻推开一间教室的门，学生们正跟着老师学唱中文歌曲《同一首歌》。', 'block_bbox': [9, 536, 358, 651], 'block_id': 7, 'block_order': 6}, {'block_label': 'text', 'block_content': '这是厄特孔院阿斯马拉大学教学点的一节中文歌曲课。为了让学生们更好地理解歌词大意，老师尤斯拉·穆罕默德萨尔·侯赛因逐字翻译和解释歌词。随着伴奏声响起，学生们边唱边随着节拍摇动身体，现场气氛热烈。', 'block_bbox': [9, 658, 359, 770], 'block_id': 8, 'block_order': 7}, {'block_label': 'text', 'block_content': '“这是中文歌曲初级班，共有32人。学生大部分来自首都阿斯马拉的中小学，年龄最小的仅有6岁。”尤斯拉告诉记者。', 'block_bbox': [10, 776, 359, 842], 'block_id': 9, 'block_order': 8}, {'block_label': 'text', 'block_content': '尤斯拉今年23岁，是厄立特里亚一所公立学校的艺术老师。她12岁开始在厄特孔院学习中文，在2017年第十届“汉语桥"世界中学生中文比赛中获得厄立特里亚赛区第一名，并和同伴代表厄立特里亚前往中国参加决赛，获得团体优胜奖。2022年起，尤斯拉开始在厄特孔院兼职教授中文歌曲，每周末两个课时。“中国文化博大精深，我希望我的学生们能够通过中文歌曲更好地理解中国文化。”她说。', 'block_bbox': [9, 848, 358, 1057], 'block_id': 10, 'block_order': 9}, {'block_label': 'text', 'block_content': '“姐姐，你想去中国吗?”“非常想！我想去看故宫、爬长城。”尤斯拉的学生中有一对能歌善舞的姐妹，姐姐露娅今年15岁，妹妹莉娅14岁，两人都已在厄特孔院学习多年，中文说得格外流利。\n', 'block_bbox': [9, 1064, 358, 1177], 'block_id': 11, 'block_order': 10}, {'block_label': 'text', 'block_content': '露娅对记者说：“这些年来，怀着对中文和中国文化的热爱，我们姐妹俩始终相互鼓励，一起学习。我们的中文一天比一天好，还学会了中文歌和中国舞。我们一定要到中国去。学好中文，我们的未来不是梦！”', 'block_bbox': [8, 1184, 358, 1297], 'block_id': 12, 'block_order': 11}, {'block_label': 'text', 'block_content': '据厄特孔院中方院长黄鸣飞介绍，这所孔院成立于2013年3月，由贵州财经大学和', 'block_bbox': [10, 1304, 358, 1346], 'block_id': 13, 'block_order': 12}, {'block_label': 'text', 'block_content': '厄立特里亚高等教育与研究院合作建立，开设了中国语言课程和中国文化课程，注册学生2万余人次。10余年来，厄特孔院已成为当地民众了解中国的一扇窗口。', 'block_bbox': [388, 200, 740, 290], 'block_id': 14, 'block_order': 13}, {'block_label': 'text', 'block_content': '黄鸣飞表示，随着来学习中文的人日益增多，阿斯马拉大学教学点已难以满足教学需要。2024年4月，由中企蜀道集团所属四川路桥承建的孔院教学楼项目在阿斯马拉开工建设，预计今年上半年竣工，建成后将为危特孔院提供全新的办学场地。\n', 'block_bbox': [389, 297, 740, 435], 'block_id': 15, 'block_order': 14}, {'block_label': 'paragraph_title', 'block_content': '“在中国学习的经历让我看到更广阔的世界”', 'block_bbox': [409, 456, 718, 515], 'block_id': 16, 'block_order': 15}, {'block_label': 'text', 'block_content': '多年来，厄立特里亚广大赴华留学生和培训人员积极投身国家建设，成为助力该国发展的人才和厄中友好的见证者和推动者。', 'block_bbox': [389, 537, 740, 603], 'block_id': 17, 'block_order': 16}, {'block_label': 'text', 'block_content': '在厄立特里亚全国妇女联盟工作的约翰娜·特韦尔德·凯莱塔就是其中一位。她曾在中华女子学院攻读硕士学位，研究方向是女性领导力与社会发展。其间，她实地走访中国多个地区，获得了观察中国社会发展的第一手资料。\n', 'block_bbox': [389, 609, 740, 745], 'block_id': 18, 'block_order': 17}, {'block_label': 'text', 'block_content': '谈起在中国求学的经历，约翰娜记忆犹新：“中国的发展在当今世界是独一无二的。沿着中国特色社会主义道路坚定前行，中国创造了发展奇迹，这一切都离不开中国共产党的领导。中国的发展经验值得许多国家学习借鉴。”\n', 'block_bbox': [389, 752, 740, 889], 'block_id': 19, 'block_order': 18}, {'block_label': 'text', 'block_content': '正在西南大学学习的厄立特里亚博士生穆卢盖塔·泽穆伊对中国怀有深厚感情。8年前，在北京师范大学获得硕士学位后，穆卢盖塔在社交媒体上写下这样一段话：“这是我人生的重要一步，自此我拥有了一双坚固的鞋子，赋予我穿越荆棘的力量。”', 'block_bbox': [389, 896, 740, 1033], 'block_id': 20, 'block_order': 19}, {'block_label': 'text', 'block_content': '穆卢盖塔密切关注中国在经济、科技、教育等领域的发展，“中国在科研等方面的实力与日俱增。在中国学习的经历让我看到更广阔的世界，从中受益匪浅。”\n', 'block_bbox': [389, 1040, 740, 1129], 'block_id': 21, 'block_order': 20}, {'block_label': 'text', 'block_content': '23岁的莉迪亚·埃斯蒂法诺斯已在厄特孔院学习3年，在中国书法、中国画等方面表现干分优秀，在2024年厄立特里亚赛区的“汉语桥”比赛中获得一等奖。莉迪亚说：“学习中国书法让我的内心变得安宁和纯粹。我也喜欢中国的服饰，希望未来能去中国学习，把中国不同民族元素融入服装设计中，创作出更多精美作品，也把厄特文化分享给更多的中国朋友。”\n', 'block_bbox': [389, 1136, 740, 1345], 'block_id': 22, 'block_order': 21}, {'block_label': 'text', 'block_content': '“不管远近都是客人，请不用客气；相约好了在一起，我们欢迎你……”在一场中厄青年联谊活动上，四川路桥中方员工同当地大学生合唱《北京欢迎你》。厄立特里亚技术学院计算机科学与工程专业学生鲁夫塔·谢拉是其中一名演唱者，她很早便在孔院学习中文，一直在为去中国留学作准备。“这句歌词是我们两国人民友谊的生动写照。无论是投身于厄立特里亚基础设施建设的中企员工，还是在中国留学的厄立特里亚学子，两国人民携手努力，必将推动两国关系不断向前发展。”鲁夫塔说。\n', 'block_bbox': [769, 776, 1121, 1058], 'block_id': 23, 'block_order': 22}, {'block_label': 'text', 'block_content': '厄立特里亚高等教育委员会主任助理萨马瑞表示：“每年我们都会组织学生到中国访问学习，自前有超过5000名厄立特里亚学生在中国留学。学习中国的教育经验，有助于提升厄立特里亚的教育水平。”', 'block_bbox': [770, 1064, 1121, 1177], 'block_id': 24, 'block_order': 23}, {'block_label': 'paragraph_title', 'block_content': '“共同向世界展示非洲和亚洲的灿烂文明”', 'block_bbox': [790, 1200, 1102, 1259], 'block_id': 25, 'block_order': 24}, {'block_label': 'text', 'block_content': '从阿斯马拉出发，沿着蜿蜒曲折的盘山公路一路向东寻找丝路印迹。驱车两个小时，记者来到位于厄立特里亚港口城市马萨', 'block_bbox': [770, 1280, 1122, 1346], 'block_id': 26, 'block_order': 25}, {'block_label': 'text', 'block_content': '瓦的北红海省博物馆。', 'block_bbox': [1154, 776, 1331, 794], 'block_id': 27, 'block_order': 26}, {'block_label': 'text', 'block_content': '博物馆二层陈列着一个发掘自阿杜利斯古城的中国古代陶制酒器，罐身上写着“万”“和”“禅”“山”等汉字。“这件文物证明，很早以前我们就通过海上丝绸之路进行贸易往来与文化交流。这也是厄立特里亚与中国友好交往历史的有力证明。”北红海省博物馆研究与文献部负责人伊萨亚斯·特斯法兹吉说。\n', 'block_bbox': [1152, 800, 1502, 986], 'block_id': 28, 'block_order': 27}, {'block_label': 'text', 'block_content': '厄立特里亚国家博物馆考古学和人类学研究员菲尔蒙·特韦尔德十分喜爱中国文化。他表示：“学习彼此的语言和文化，将帮助厄中两国人民更好地理解彼此，助力双方交往，搭建友谊桥梁。”\n', 'block_bbox': [1152, 992, 1502, 1106], 'block_id': 29, 'block_order': 28}, {'block_label': 'text', 'block_content': '厄立特里亚国家博物馆馆长塔吉丁·努重达姆·优素福曾多次访问中国，对中华文明的传承与创新、现代化博物馆的建设与发展印象深刻。“中国博物馆不仅有许多保存完好的文物，还充分运用先进科技手段进行展示，帮助人们更好理解中华文明。”塔吉丁说，“危立特里亚与中国都拥有悠久的文明，始终相互理解、相互尊重。我希望未来与中国同行加强合作，共同向世界展示非洲和亚洲的灿烂文明。”\n', 'block_bbox': [1151, 1112, 1502, 1346], 'block_id': 30, 'block_order': 29}], 'layout_det_res': {'input_path': None, 'page_index': None, 'boxes': [{'cls_id': 1, 'label': 'image', 'score': 0.9864752888679504, 'coordinate': [774.821, 201.05176, 1502.1008, 685.7733]}, {'cls_id': 2, 'label': 'text', 'score': 0.9859225749969482, 'coordinate': [769.8655, 776.2444, 1121.5986, 1058.4167]}, {'cls_id': 2, 'label': 'text', 'score': 0.9857110381126404, 'coordinate': [1151.98, 1112.5356, 1502.7852, 1346.3569]}, {'cls_id': 2, 'label': 'text', 'score': 0.9847239255905151, 'coordinate': [389.0322, 1136.3547, 740.2322, 1345.928]}, {'cls_id': 2, 'label': 'text', 'score': 0.9842492938041687, 'coordinate': [1152.1504, 800.1625, 1502.1265, 986.1522]}, {'cls_id': 2, 'label': 'text', 'score': 0.9840831160545349, 'coordinate': [9.158066, 848.8696, 358.5725, 1057.832]}, {'cls_id': 2, 'label': 'text', 'score': 0.9802583456039429, 'coordinate': [9.335953, 201.10046, 358.31543, 338.78876]}, {'cls_id': 2, 'label': 'text', 'score': 0.9801402688026428, 'coordinate': [389.1556, 297.4113, 740.07556, 435.41647]}, {'cls_id': 2, 'label': 'text', 'score': 0.9793564081192017, 'coordinate': [389.18976, 752.0959, 740.0832, 889.88043]}, {'cls_id': 2, 'label': 'text', 'score': 0.9793409109115601, 'coordinate': [389.02496, 896.34143, 740.7431, 1033.9465]}, {'cls_id': 2, 'label': 'text', 'score': 0.9776486754417419, 'coordinate': [8.950775, 1184.7842, 358.75067, 1297.8755]}, {'cls_id': 2, 'label': 'text', 'score': 0.9773538708686829, 'coordinate': [770.7178, 1064.5714, 1121.2249, 1177.9928]}, {'cls_id': 2, 'label': 'text', 'score': 0.9773064255714417, 'coordinate': [389.38086, 609.7071, 740.0553, 745.3206]}, {'cls_id': 2, 'label': 'text', 'score': 0.9765821099281311, 'coordinate': [1152.0115, 992.296, 1502.4929, 1106.1166]}, {'cls_id': 2, 'label': 'text', 'score': 0.9761461019515991, 'coordinate': [9.46727, 536.993, 358.2047, 651.32025]}, {'cls_id': 2, 'label': 'text', 'score': 0.975399911403656, 'coordinate': [9.353531, 1064.3059, 358.45312, 1177.8347]}, {'cls_id': 2, 'label': 'text', 'score': 0.9730532169342041, 'coordinate': [9.932312, 345.36237, 358.03476, 435.1646]}, {'cls_id': 2, 'label': 'text', 'score': 0.9722575545310974, 'coordinate': [388.91736, 200.93637, 740.00793, 290.80692]}, {'cls_id': 2, 'label': 'text', 'score': 0.9710634350776672, 'coordinate': [389.39496, 1040.3186, 740.0091, 1129.7168]}, {'cls_id': 2, 'label': 'text', 'score': 0.9696939587593079, 'coordinate': [9.6145935, 658.1123, 359.06088, 770.0288]}, {'cls_id': 2, 'label': 'text', 'score': 0.9664148092269897, 'coordinate': [770.235, 1280.4562, 1122.0927, 1346.4742]}, {'cls_id': 2, 'label': 'text', 'score': 0.9597565531730652, 'coordinate': [389.66678, 537.5609, 740.06274, 603.17725]}, {'cls_id': 2, 'label': 'text', 'score': 0.9594324827194214, 'coordinate': [10.162949, 776.86414, 359.08307, 842.1771]}, {'cls_id': 2, 'label': 'text', 'score': 0.9484634399414062, 'coordinate': [10.402863, 1304.7743, 358.9441, 1346.3749]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.9476125240325928, 'coordinate': [28.159409, 456.7627, 339.5631, 514.9665]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.9427680969238281, 'coordinate': [790.6992, 1200.3663, 1102.3799, 1259.1647]}, {'cls_id': 0, 'label': 'paragraph_title', 'score': 0.9424256682395935, 'coordinate': [409.02832, 456.6831, 718.8154, 515.5757]}, {'cls_id': 10, 'label': 'doc_title', 'score': 0.9376171827316284, 'coordinate': [133.77905, 36.884415, 1379.6667, 123.46867]}, {'cls_id': 2, 'label': 'text', 'score': 0.9020254015922546, 'coordinate': [584.9165, 159.1416, 927.22876, 179.01605]}, {'cls_id': 2, 'label': 'text', 'score': 0.895164430141449, 'coordinate': [1154.3364, 776.74646, 1331.8564, 794.2301]}, {'cls_id': 6, 'label': 'figure_title', 'score': 0.7892374992370605, 'coordinate': [808.9641, 704.2555, 1484.0623, 747.2296]}]}, 'overall_ocr_res': {'input_path': None, 'page_index': None, 'model_settings': {'use_doc_preprocessor': False, 'use_textline_orientation': False}, 'dt_polys': array([[[ 129,   42],
-        ...,
-        [ 129,  140]],
+{'res': {'input_path': 'pp_structure_v3_demo.png', 'page_index': None, 'model_settings': {'use_doc_preprocessor':
+False, 'use_seal_recognition': False, 'use_table_recognition': True, 'use_formula_recognition': True, '
+use_chart_recognition': False, 'use_region_detection': True}, 'parsing_res_list': [{'block_label': 'doc_title', '
+block_content': '助力双方交往搭建友谊桥梁', 'block_bbox': [133, 36, 1379, 123], 'block_id': 0, 'block_order': 1},
+{'block_label': 'text', 'block_content': '本报记者沈小晓任彦黄培昭', 'block_bbox': [584, 159, 927, 179], 'block_id':
+1, 'block_order': 2}, {'block_label': 'image', 'block_content': '', 'block_bbox': [774, 201, 1502, 685], 'block_id':
+2, 'block_order': None}, {'block_label': 'figure_title', 'block_content': '
+在厄立特里亚不久前举办的第六届中国风筝文化节上，当地小学生体验风筝制作。中国驻厄立特里亚大使馆供图', '
+block_bbox': [808, 704, 1484, 747], 'block_id': 3, 'block_order': None}, {'block_label': 'text', 'block_content': '
+身着中国传统民族服装的厄立特里亚青年依次登台表演中国民族舞、现代舞、扇子舞等，曼妙的舞姿赢得现场观众阵阵掌声。这是日前危立特里亚高等教育与研究院孔子学院(
+以下简称“厄特孔院")举办“喜迎新年"中国歌舞比赛的场景。\n', 'block_bbox': [9, 201, 358, 338], 'block_id': 4, 'block_order':
+3}, {'block_label': 'text', 'block_content': '
+中国和厄立特里亚传统友谊深厚。近年来，在高质量共建“一带一路”框架下，中厄两国人文交流不断深化，互利合作的民意基础日益深厚。\n', '
+block_bbox': [9, 345, 358, 435], 'block_id': 5, 'block_order': 4}, {'block_label': 'paragraph_title', 'block_content': '
+“学好中文，我们的未来不是梦”\n', 'block_bbox': [28, 456, 339, 514], 'block_id': 6, 'block_order': 5}, {'block_label': '
+text', 'block_content': '“鲜花曾告诉我你怎样走过，大地知道你心中的每一个角落……"
+厄立特里亚阿斯马拉大学综合楼二层，一阵优美的歌声在走廊里回响。循着熟悉的旋律轻轻推开一间教室的门，学生们正跟着老师学唱中文歌曲《同一首歌》。', '
+block_bbox': [9, 536, 358, 651], 'block_id': 7, 'block_order': 6}, {'block_label': 'text', 'block_content': '
+这是厄特孔院阿斯马拉大学教学点的一节中文歌曲课。为了让学生们更好地理解歌词大意，老师尤斯拉·穆罕默德萨尔·侯赛因逐字翻译和解释歌词。随着伴奏声响起，学生们边唱边随着节拍摇动身体，现场气氛热烈。', '
+block_bbox': [9, 658, 359, 770], 'block_id': 8, 'block_order': 7}, {'block_label': 'text', 'block_content': '
+“这是中文歌曲初级班，共有32人。学生大部分来自首都阿斯马拉的中小学，年龄最小的仅有6岁。”尤斯拉告诉记者。', '
+block_bbox': [10, 776, 359, 842], 'block_id': 9, 'block_order': 8}, {'block_label': 'text', 'block_content': '
+尤斯拉今年23岁，是厄立特里亚一所公立学校的艺术老师。她12岁开始在厄特孔院学习中文，在2017年第十届“汉语桥"
+世界中学生中文比赛中获得厄立特里亚赛区第一名，并和同伴代表厄立特里亚前往中国参加决赛，获得团体优胜奖。2022年起，尤斯拉开始在厄特孔院兼职教授中文歌曲，每周末两个课时。“中国文化博大精深，我希望我的学生们能够通过中文歌曲更好地理解中国文化。”她说。', '
+block_bbox': [9, 848, 358, 1057], 'block_id': 10, 'block_order': 9}, {'block_label': 'text', 'block_content': '
+“姐姐，你想去中国吗?”“非常想！我想去看故宫、爬长城。”尤斯拉的学生中有一对能歌善舞的姐妹，姐姐露娅今年15岁，妹妹莉娅14岁，两人都已在厄特孔院学习多年，中文说得格外流利。\n', '
+block_bbox': [9, 1064, 358, 1177], 'block_id': 11, 'block_order': 10}, {'block_label': 'text', 'block_content': '
+露娅对记者说：“这些年来，怀着对中文和中国文化的热爱，我们姐妹俩始终相互鼓励，一起学习。我们的中文一天比一天好，还学会了中文歌和中国舞。我们一定要到中国去。学好中文，我们的未来不是梦！”', '
+block_bbox': [8, 1184, 358, 1297], 'block_id': 12, 'block_order': 11}, {'block_label': 'text', 'block_content': '
+据厄特孔院中方院长黄鸣飞介绍，这所孔院成立于2013年3月，由贵州财经大学和', 'block_bbox': [10, 1304, 358, 1346], 'block_id':
+13, 'block_order': 12}, {'block_label': 'text', 'block_content': '
+厄立特里亚高等教育与研究院合作建立，开设了中国语言课程和中国文化课程，注册学生2万余人次。10余年来，厄特孔院已成为当地民众了解中国的一扇窗口。', '
+block_bbox': [388, 200, 740, 290], 'block_id': 14, 'block_order': 13}, {'block_label': 'text', 'block_content': '
+黄鸣飞表示，随着来学习中文的人日益增多，阿斯马拉大学教学点已难以满足教学需要。2024年4月，由中企蜀道集团所属四川路桥承建的孔院教学楼项目在阿斯马拉开工建设，预计今年上半年竣工，建成后将为危特孔院提供全新的办学场地。\n', '
+block_bbox': [389, 297, 740, 435], 'block_id': 15, 'block_order': 14}, {'block_label': 'paragraph_title', '
+block_content': '“在中国学习的经历让我看到更广阔的世界”', 'block_bbox': [409, 456, 718, 515], 'block_id': 16, '
+block_order': 15}, {'block_label': 'text', 'block_content': '
+多年来，厄立特里亚广大赴华留学生和培训人员积极投身国家建设，成为助力该国发展的人才和厄中友好的见证者和推动者。', '
+block_bbox': [389, 537, 740, 603], 'block_id': 17, 'block_order': 16}, {'block_label': 'text', 'block_content': '
+在厄立特里亚全国妇女联盟工作的约翰娜·特韦尔德·凯莱塔就是其中一位。她曾在中华女子学院攻读硕士学位，研究方向是女性领导力与社会发展。其间，她实地走访中国多个地区，获得了观察中国社会发展的第一手资料。\n', '
+block_bbox': [389, 609, 740, 745], 'block_id': 18, 'block_order': 17}, {'block_label': 'text', 'block_content': '
+谈起在中国求学的经历，约翰娜记忆犹新：“中国的发展在当今世界是独一无二的。沿着中国特色社会主义道路坚定前行，中国创造了发展奇迹，这一切都离不开中国共产党的领导。中国的发展经验值得许多国家学习借鉴。”\n', '
+block_bbox': [389, 752, 740, 889], 'block_id': 19, 'block_order': 18}, {'block_label': 'text', 'block_content': '
+正在西南大学学习的厄立特里亚博士生穆卢盖塔·泽穆伊对中国怀有深厚感情。8年前，在北京师范大学获得硕士学位后，穆卢盖塔在社交媒体上写下这样一段话：“这是我人生的重要一步，自此我拥有了一双坚固的鞋子，赋予我穿越荆棘的力量。”', '
+block_bbox': [389, 896, 740, 1033], 'block_id': 20, 'block_order': 19}, {'block_label': 'text', 'block_content': '
+穆卢盖塔密切关注中国在经济、科技、教育等领域的发展，“中国在科研等方面的实力与日俱增。在中国学习的经历让我看到更广阔的世界，从中受益匪浅。”\n', '
+block_bbox': [389, 1040, 740, 1129], 'block_id': 21, 'block_order': 20}, {'block_label': 'text', 'block_content': '
+23岁的莉迪亚·埃斯蒂法诺斯已在厄特孔院学习3年，在中国书法、中国画等方面表现干分优秀，在2024年厄立特里亚赛区的“汉语桥”比赛中获得一等奖。莉迪亚说：“学习中国书法让我的内心变得安宁和纯粹。我也喜欢中国的服饰，希望未来能去中国学习，把中国不同民族元素融入服装设计中，创作出更多精美作品，也把厄特文化分享给更多的中国朋友。”\n', '
+block_bbox': [389, 1136, 740, 1345], 'block_id': 22, 'block_order': 21}, {'block_label': 'text', 'block_content': '
+“不管远近都是客人，请不用客气；相约好了在一起，我们欢迎你……”在一场中厄青年联谊活动上，四川路桥中方员工同当地大学生合唱《北京欢迎你》。厄立特里亚技术学院计算机科学与工程专业学生鲁夫塔·谢拉是其中一名演唱者，她很早便在孔院学习中文，一直在为去中国留学作准备。“这句歌词是我们两国人民友谊的生动写照。无论是投身于厄立特里亚基础设施建设的中企员工，还是在中国留学的厄立特里亚学子，两国人民携手努力，必将推动两国关系不断向前发展。”鲁夫塔说。\n', '
+block_bbox': [769, 776, 1121, 1058], 'block_id': 23, 'block_order': 22}, {'block_label': 'text', 'block_content': '
+厄立特里亚高等教育委员会主任助理萨马瑞表示：“每年我们都会组织学生到中国访问学习，自前有超过5000名厄立特里亚学生在中国留学。学习中国的教育经验，有助于提升厄立特里亚的教育水平。”', '
+block_bbox': [770, 1064, 1121, 1177], 'block_id': 24, 'block_order': 23}, {'block_label': 'paragraph_title', '
+block_content': '“共同向世界展示非洲和亚洲的灿烂文明”', 'block_bbox': [790, 1200, 1102, 1259], 'block_id': 25, '
+block_order': 24}, {'block_label': 'text', 'block_content': '
+从阿斯马拉出发，沿着蜿蜒曲折的盘山公路一路向东寻找丝路印迹。驱车两个小时，记者来到位于厄立特里亚港口城市马萨', '
+block_bbox': [770, 1280, 1122, 1346], 'block_id': 26, 'block_order': 25}, {'block_label': 'text', 'block_content': '
+瓦的北红海省博物馆。', 'block_bbox': [1154, 776, 1331, 794], 'block_id': 27, 'block_order': 26}, {'block_label': '
+text', 'block_content': '
+博物馆二层陈列着一个发掘自阿杜利斯古城的中国古代陶制酒器，罐身上写着“万”“和”“禅”“山”等汉字。“这件文物证明，很早以前我们就通过海上丝绸之路进行贸易往来与文化交流。这也是厄立特里亚与中国友好交往历史的有力证明。”北红海省博物馆研究与文献部负责人伊萨亚斯·特斯法兹吉说。\n', '
+block_bbox': [1152, 800, 1502, 986], 'block_id': 28, 'block_order': 27}, {'block_label': 'text', 'block_content': '
+厄立特里亚国家博物馆考古学和人类学研究员菲尔蒙·特韦尔德十分喜爱中国文化。他表示：“学习彼此的语言和文化，将帮助厄中两国人民更好地理解彼此，助力双方交往，搭建友谊桥梁。”\n', '
+block_bbox': [1152, 992, 1502, 1106], 'block_id': 29, 'block_order': 28}, {'block_label': 'text', 'block_content': '
+厄立特里亚国家博物馆馆长塔吉丁·努重达姆·优素福曾多次访问中国，对中华文明的传承与创新、现代化博物馆的建设与发展印象深刻。“中国博物馆不仅有许多保存完好的文物，还充分运用先进科技手段进行展示，帮助人们更好理解中华文明。”塔吉丁说，“危立特里亚与中国都拥有悠久的文明，始终相互理解、相互尊重。我希望未来与中国同行加强合作，共同向世界展示非洲和亚洲的灿烂文明。”\n', '
+block_bbox': [1151, 1112, 1502, 1346], 'block_id': 30, 'block_order': 29}], 'layout_det_res': {'input_path': None, '
+page_index': None, 'boxes': [{'cls_id': 1, 'label': 'image', 'score': 0.9864752888679504, '
+coordinate': [774.821, 201.05176, 1502.1008, 685.7733]}, {'cls_id': 2, 'label': 'text', 'score': 0.9859225749969482, '
+coordinate': [769.8655, 776.2444, 1121.5986, 1058.4167]}, {'cls_id': 2, 'label': 'text', 'score': 0.9857110381126404, '
+coordinate': [1151.98, 1112.5356, 1502.7852, 1346.3569]}, {'cls_id': 2, 'label': 'text', 'score': 0.9847239255905151, '
+coordinate': [389.0322, 1136.3547, 740.2322, 1345.928]}, {'cls_id': 2, 'label': 'text', 'score': 0.9842492938041687, '
+coordinate': [1152.1504, 800.1625, 1502.1265, 986.1522]}, {'cls_id': 2, 'label': 'text', 'score': 0.9840831160545349, '
+coordinate': [9.158066, 848.8696, 358.5725, 1057.832]}, {'cls_id': 2, 'label': 'text', 'score': 0.9802583456039429, '
+coordinate': [9.335953, 201.10046, 358.31543, 338.78876]}, {'cls_id': 2, 'label': 'text', 'score': 0.9801402688026428, '
+coordinate': [389.1556, 297.4113, 740.07556, 435.41647]}, {'cls_id': 2, 'label': 'text', 'score': 0.9793564081192017, '
+coordinate': [389.18976, 752.0959, 740.0832, 889.88043]}, {'cls_id': 2, 'label': 'text', 'score': 0.9793409109115601, '
+coordinate': [389.02496, 896.34143, 740.7431, 1033.9465]}, {'cls_id': 2, 'label': 'text', 'score': 0.9776486754417419, '
+coordinate': [8.950775, 1184.7842, 358.75067, 1297.8755]}, {'cls_id': 2, 'label': 'text', 'score': 0.9773538708686829, '
+coordinate': [770.7178, 1064.5714, 1121.2249, 1177.9928]}, {'cls_id': 2, 'label': 'text', 'score': 0.9773064255714417, '
+coordinate': [389.38086, 609.7071, 740.0553, 745.3206]}, {'cls_id': 2, 'label': 'text', 'score': 0.9765821099281311, '
+coordinate': [1152.0115, 992.296, 1502.4929, 1106.1166]}, {'cls_id': 2, 'label': 'text', 'score': 0.9761461019515991, '
+coordinate': [9.46727, 536.993, 358.2047, 651.32025]}, {'cls_id': 2, 'label': 'text', 'score': 0.975399911403656, '
+coordinate': [9.353531, 1064.3059, 358.45312, 1177.8347]}, {'cls_id': 2, 'label': 'text', 'score': 0.9730532169342041, '
+coordinate': [9.932312, 345.36237, 358.03476, 435.1646]}, {'cls_id': 2, 'label': 'text', 'score': 0.9722575545310974, '
+coordinate': [388.91736, 200.93637, 740.00793, 290.80692]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9710634350776672, 'coordinate': [389.39496, 1040.3186, 740.0091, 1129.7168]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9696939587593079, 'coordinate': [9.6145935, 658.1123, 359.06088, 770.0288]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9664148092269897, 'coordinate': [770.235, 1280.4562, 1122.0927, 1346.4742]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9597565531730652, 'coordinate': [389.66678, 537.5609, 740.06274, 603.17725]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9594324827194214, 'coordinate': [10.162949, 776.86414, 359.08307, 842.1771]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9484634399414062, 'coordinate': [10.402863, 1304.7743, 358.9441, 1346.3749]}, {'cls_id': 0, 'label': '
+paragraph_title', 'score': 0.9476125240325928, 'coordinate': [28.159409, 456.7627, 339.5631, 514.9665]}, {'cls_id': 0, '
+label': 'paragraph_title', 'score': 0.9427680969238281, 'coordinate': [790.6992, 1200.3663, 1102.3799, 1259.1647]},
+{'cls_id': 0, 'label': 'paragraph_title', 'score': 0.9424256682395935, '
+coordinate': [409.02832, 456.6831, 718.8154, 515.5757]}, {'cls_id': 10, 'label': 'doc_title', 'score':
+0.9376171827316284, 'coordinate': [133.77905, 36.884415, 1379.6667, 123.46867]}, {'cls_id': 2, 'label': 'text', 'score':
+0.9020254015922546, 'coordinate': [584.9165, 159.1416, 927.22876, 179.01605]}, {'cls_id': 2, 'label': 'text', 'score':
+0.895164430141449, 'coordinate': [1154.3364, 776.74646, 1331.8564, 794.2301]}, {'cls_id': 6, 'label': 'figure_title', '
+score': 0.7892374992370605, 'coordinate': [808.9641, 704.2555, 1484.0623, 747.2296]}]}, 'overall_ocr_res':
+{'input_path': None, 'page_index': None, 'model_settings': {'use_doc_preprocessor': False, 'use_textline_orientation':
+False}, 'dt_polys': array([[[ 129, 42],
+...,
+[ 129, 140]],
 
        ...,
 
@@ -1374,12 +1505,16 @@ After running, the result will be printed to the terminal, as follows:
 
 </code></pre></details>
 
-The result parameter description can be found in the result interpretation in [2.2.2 Python Script Integration](#222-python-script-integration).
+The result parameter description can be found in the result interpretation
+in [2.2.2 Python Script Integration](#222-python-script-integration).
 
-<b>Note:</b> Since the default model of the pipeline is relatively large, the inference speed may be slow. You can refer to the model list in Section 1 and replace it with a model that has faster inference speed.
+<b>Note:</b> Since the default model of the pipeline is relatively large, the inference speed may be slow. You can refer
+to the model list in Section 1 and replace it with a model that has faster inference speed.
 
 ### 2.2 Python Script Integration
-Just a few lines of code can complete the quick inference of the pipeline. Taking the PP-StructureV3 pipeline as an example:
+
+Just a few lines of code can complete the quick inference of the pipeline. Taking the PP-StructureV3 pipeline as an
+example:
 
 ```python
 from paddlex import create_pipeline
@@ -1397,7 +1532,10 @@ for res in output:
     res.save_to_json(save_path="output") ## Save the structured JSON result of the current image
     res.save_to_markdown(save_path="output") ## Save the result of the current image in Markdown format
 ```
-If it is a PDF file, each page of the PDF will be processed separately, and each page will have its own corresponding Markdown file. If you want to convert the entire PDF file into a Markdown file, it is recommended to run it in the following way:
+
+If it is a PDF file, each page of the PDF will be processed separately, and each page will have its own corresponding
+Markdown file. If you want to convert the entire PDF file into a Markdown file, it is recommended to run it in the
+following way:
 
 ```python
 from pathlib import Path
@@ -1437,15 +1575,28 @@ for item in markdown_images:
 
 **Note:**
 
-- The default text recognition model used by PP-StructureV3 is the **Chinese-English recognition model**. Limited recognition capability for purely English text. For fully English scenarios, you can modify the `model_name` under the `TextRecognition` configuration item in the [PP-StructureV3 configuration file](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-rc/paddlex/configs/pipelines/PP-StructureV3.yaml) to `en_PP-OCRv4_mobile_rec` or other English recognition models for better recognition results. For other language scenarios, you can also refer to the model list mentioned earlier and choose the corresponding language recognition model for replacement.
+- The default text recognition model used by PP-StructureV3 is the **Chinese-English recognition model**. Limited
+  recognition capability for purely English text. For fully English scenarios, you can modify the `model_name` under the
+  `TextRecognition` configuration item in
+  the [PP-StructureV3 configuration file](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-rc/paddlex/configs/pipelines/PP-StructureV3.yaml)
+  to `en_PP-OCRv4_mobile_rec` or other English recognition models for better recognition results. For other language
+  scenarios, you can also refer to the model list mentioned earlier and choose the corresponding language recognition
+  model for replacement.
 
-- In the example code, the parameters `use_doc_orientation_classify`, `use_doc_unwarping`, and `use_textline_orientation` are all set to False by default. These parameters respectively control the document orientation classification, document unwarping, and text line orientation classification functions. If you need to use these features, you can manually set them to True.
+- In the example code, the parameters `use_doc_orientation_classify`, `use_doc_unwarping`, and
+  `use_textline_orientation` are all set to False by default. These parameters respectively control the document
+  orientation classification, document unwarping, and text line orientation classification functions. If you need to use
+  these features, you can manually set them to True.
 
-- PP-StructureV3 provides flexible parameter configuration, allowing you to adjust parameters for layout detection, text detection, text recognition, etc., based on the characteristics of the document for better results. For more detailed configurations, please refer to the [PP-StructureV3 configuration file](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-rc/paddlex/configs/pipelines/PP-StructureV3.yaml).
+- PP-StructureV3 provides flexible parameter configuration, allowing you to adjust parameters for layout detection, text
+  detection, text recognition, etc., based on the characteristics of the document for better results. For more detailed
+  configurations, please refer to
+  the [PP-StructureV3 configuration file](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-rc/paddlex/configs/pipelines/PP-StructureV3.yaml).
 
 In the above Python script, the following steps are executed:
 
-(1) Instantiate the `create_pipeline` instance to create a pipeline object. The specific parameter descriptions are as follows:
+(1) Instantiate the `create_pipeline` instance to create a pipeline object. The specific parameter descriptions are as
+follows:
 
 <table>
 <thead>
@@ -1492,7 +1643,8 @@ In the above Python script, the following steps are executed:
 </tbody>
 </table>
 
-(2) Call the `predict()` method of the pipeline object to perform inference prediction. This method will return a `generator`. Below are the parameters and their descriptions for the `predict()` method:
+(2) Call the `predict()` method of the pipeline object to perform inference prediction. This method will return a
+`generator`. Below are the parameters and their descriptions for the `predict()` method:
 
 <table>
 <thead>
@@ -1895,7 +2047,8 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-(3) Process the prediction results: The prediction result of each sample is a corresponding Result object, and it supports operations such as printing, saving as an image, and saving as a `json` file:
+(3) Process the prediction results: The prediction result of each sample is a corresponding Result object, and it
+supports operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -1982,10 +2135,12 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained as follows:
+- Calling the `print()` method will print the results to the terminal. The content printed to the terminal is explained
+  as follows:
     - `input_path`: `(str)` The input path of the image to be predicted.
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, this indicates which page of the PDF it is; otherwise, it is `None`.
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, this indicates which page of the PDF it is;
+      otherwise, it is `None`.
 
     - `model_settings`: `(Dict[str, bool])` Model parameters required for configuring the pipeline.
 
@@ -1996,70 +2151,100 @@ In the above Python script, the following steps are executed:
         - `use_formula_recognition`: `(bool)` Controls whether to enable the formula recognition sub-line.
         - `format_block_content`: `(bool)` Controls whether to format the `block_content` into Markdown format
 
-    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The order of the list is the reading order after parsing.
+    - `parsing_res_list`: `(List[Dict])` A list of parsing results, where each element is a dictionary. The order of the
+      list is the reading order after parsing.
         - `block_bbox`: `(np.ndarray)` The bounding box of the layout area.
         - `block_label`: `(str)` The label of the layout area, such as `text`, `table`, etc.
         - `block_content`: `(str)` The content within the layout area.
         - `block_id`: `(int)` The index of the layout area, used to display the layout sorting result.
-        - `block_order`: `(int)` The order of the layout area, used to display the reading order of the layout. For non-ordered parts, the default value is `None`.
+        - `block_order`: `(int)` The order of the layout area, used to display the reading order of the layout. For
+          non-ordered parts, the default value is `None`.
 
     - `overall_ocr_res`: `(Dict[str, Union[List[str], List[float], numpy.ndarray]])` A dictionary of global OCR results
-      -  `input_path`: `(Union[str, None])` The image path accepted by the image OCR sub-line. When the input is a `numpy.ndarray`, it is saved as `None`.
-      - `model_settings`: `(Dict)` Model configuration parameters for the OCR sub-line.
-      - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented by a numpy array of 4 vertex coordinates, with a shape of (4, 2) and a data type of int16.
-      - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes.
-      - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection module.
-        - `limit_side_len`: `(int)` The side length limit value during image preprocessing.
-        - `limit_type`: `(str)` The processing method for side length limits.
-        - `thresh`: `(float)` The confidence threshold for text pixel classification.
-        - `box_thresh`: `(float)` The confidence threshold for text detection boxes.
-        - `unclip_ratio`: `(float)` The expansion ratio for text detection boxes.
+        - `input_path`: `(Union[str, None])` The image path accepted by the image OCR sub-line. When the input is a
+          `numpy.ndarray`, it is saved as `None`.
+        - `model_settings`: `(Dict)` Model configuration parameters for the OCR sub-line.
+        - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is
+          represented by a numpy array of 4 vertex coordinates, with a shape of (4, 2) and a data type of int16.
+        - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes.
+        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the text detection
+          module.
+            - `limit_side_len`: `(int)` The side length limit value during image preprocessing.
+            - `limit_type`: `(str)` The processing method for side length limits.
+            - `thresh`: `(float)` The confidence threshold for text pixel classification.
+            - `box_thresh`: `(float)` The confidence threshold for text detection boxes.
+            - `unclip_ratio`: `(float)` The expansion ratio for text detection boxes.
+            - `text_type`: `(str)` The type of text detection, currently fixed as "general".
+
         - `text_type`: `(str)` The type of text detection, currently fixed as "general".
+        - `textline_orientation_angles`: `(List[int])` The prediction results for text line orientation classification.
+          When enabled, it returns the actual angle values (e.g., [0,0,1]).
+        - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results.
+        - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores
+          above `text_rec_score_thresh`.
+        - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by
+          `text_rec_score_thresh`.
+        - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes filtered by confidence score, in the same
+          format as `dt_polys`.
 
-      - `text_type`: `(str)` The type of text detection, currently fixed as "general".
-      - `textline_orientation_angles`: `(List[int])` The prediction results for text line orientation classification. When enabled, it returns the actual angle values (e.g., [0,0,1]).
-      - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results.
-      - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores above `text_rec_score_thresh`.
-      - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by `text_rec_score_thresh`.
-      - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes filtered by confidence score, in the same format as `dt_polys`.
-
-    - `text_paragraphs_ocr_res`: `(Dict[str, Union[List[str], List[float], numpy.ndarray]])` OCR results for paragraphs, excluding paragraphs of layout types such as tables, seals, and formulas.
+    - `text_paragraphs_ocr_res`: `(Dict[str, Union[List[str], List[float], numpy.ndarray]])` OCR results for paragraphs,
+      excluding paragraphs of layout types such as tables, seals, and formulas.
         - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes, in the same format as `dt_polys`.
         - `rec_texts`: `(List[str])` A list of text recognition results.
         - `rec_scores`: `(List[float])` A list of confidence scores for text recognition results.
-        - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4) and a dtype of int16. Each row represents a rectangle.
+        - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n,
+          4) and a dtype of int16. Each row represents a rectangle.
 
-    - `formula_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of formula recognition results, where each element is a dictionary.
+    - `formula_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of formula recognition
+      results, where each element is a dictionary.
         - `rec_formula`: `(str)` The result of formula recognition.
         - `rec_polys`: `(numpy.ndarray)` The detection box for the formula, with a shape of (4, 2) and a dtype of int16.
         - `formula_region_id`: `(int)` The region ID where the formula is located.
 
-    - `seal_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of seal recognition results, where each element is a dictionary.
+    - `seal_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of seal recognition results,
+      where each element is a dictionary.
         - `input_path`: `(str)` The input path of the seal image.
         - `model_settings`: `(Dict)` Model configuration parameters for the seal recognition sub-line.
         - `dt_polys`: `(List[numpy.ndarray])` A list of seal detection boxes, in the same format as `dt_polys`.
-        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the seal detection module, with the same specific parameter meanings as above.
+        - `text_det_params`: `(Dict[str, Dict[str, int, float]])` Configuration parameters for the seal detection
+          module, with the same specific parameter meanings as above.
         - `text_type`: `(str)` The type of seal detection, currently fixed as "seal".
         - `text_rec_score_thresh`: `(float)` The filtering threshold for seal recognition results.
-        - `rec_texts`: `(List[str])` A list of seal recognition results, containing only texts with confidence scores above `text_rec_score_thresh`.
-        - `rec_scores`: `(List[float])` A list of confidence scores for seal recognition, filtered by `text_rec_score_thresh`.
-        - `rec_polys`: `(List[numpy.ndarray])` A list of seal detection boxes filtered by confidence score, in the same format as `dt_polys`.
-        - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4) and a dtype of int16. Each row represents a rectangle.
+        - `rec_texts`: `(List[str])` A list of seal recognition results, containing only texts with confidence scores
+          above `text_rec_score_thresh`.
+        - `rec_scores`: `(List[float])` A list of confidence scores for seal recognition, filtered by
+          `text_rec_score_thresh`.
+        - `rec_polys`: `(List[numpy.ndarray])` A list of seal detection boxes filtered by confidence score, in the same
+          format as `dt_polys`.
+        - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n,
+          4) and a dtype of int16. Each row represents a rectangle.
 
-    - `table_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of table recognition results, where each element is a dictionary.
+    - `table_res_list`: `(List[Dict[str, Union[numpy.ndarray, List[float], str]]])` A list of table recognition results,
+      where each element is a dictionary.
         - `cell_box_list`: `(List[numpy.ndarray])` A list of bounding boxes for table cells.
         - `pred_html`: `(str)` The HTML format string of the table.
         - `table_ocr_pred`: `(dict)` The OCR recognition results of the table.
             - `rec_polys`: `(List[numpy.ndarray])` A list of detection boxes for cells.
             - `rec_texts`: `(List[str])` The recognition results of cells.
             - `rec_scores`: `(List[float])` The recognition confidence scores of cells.
-            - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4) and a dtype of int16. Each row represents a rectangle.
+            - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape
+              of (n, 4) and a dtype of int16. Each row represents a rectangle.
 
-- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is specified, the save path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved directly to that file. Since JSON files do not support saving NumPy arrays, `numpy.array` types will be converted to lists.
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, it will save images such as layout detection visualization, global OCR visualization, and layout reading order visualization. If a file is specified, it will be saved directly to that file. (The pipeline usually contains many result images, so it is not recommended to specify a specific file path directly; otherwise, multiple images will be overwritten, and only the last image will be retained.)
-- Calling the `save_to_markdown()` method will save the converted Markdown file to the specified `save_path`. The save path will be `save_path/{your_img_basename}.md`. If the input is a PDF file, it is recommended to specify a directory directly; otherwise, multiple Markdown files will be overwritten.
+- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is
+  specified, the save path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved
+  directly to that file. Since JSON files do not support saving NumPy arrays, `numpy.array` types will be converted to
+  lists.
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, it will save images such as layout detection visualization, global OCR visualization, and layout reading
+  order visualization. If a file is specified, it will be saved directly to that file. (The pipeline usually contains
+  many result images, so it is not recommended to specify a specific file path directly; otherwise, multiple images will
+  be overwritten, and only the last image will be retained.)
+- Calling the `save_to_markdown()` method will save the converted Markdown file to the specified `save_path`. The save
+  path will be `save_path/{your_img_basename}.md`. If the input is a PDF file, it is recommended to specify a directory
+  directly; otherwise, multiple Markdown files will be overwritten.
 
-In addition, it also supports obtaining visualized images with results and prediction results through attributes, as follows:
+In addition, it also supports obtaining visualized images with results and prediction results through attributes, as
+follows:
 <table>
 <thead>
 <tr>
@@ -2103,17 +2288,27 @@ In addition, it also supports obtaining visualized images with results and predi
 </tbody>
 </table>
 
-- The prediction result obtained through the `json` attribute is data of the dict type, and its content is consistent with the content saved by calling the `save_to_json()` method.
-- The prediction result returned by the `img` attribute is data of the dictionary type. The keys are `layout_det_res`, `overall_ocr_res`, `text_paragraphs_ocr_res`, `formula_res_region1`, `table_cell_img`, and `seal_res_region1`, and the corresponding values are `Image.Image` objects: used to display the visualized images of layout detection, OCR, OCR text paragraphs, formulas, tables, and seal results. If the optional module is not used, the dictionary only contains `layout_det_res`.
-- - The `markdown` property returns the prediction result as a dictionary. The keys are `markdown_texts` and `markdown_images`, corresponding to markdown text and images for display in Markdown (`Image.Image` objects).
+- The prediction result obtained through the `json` attribute is data of the dict type, and its content is consistent
+  with the content saved by calling the `save_to_json()` method.
+- The prediction result returned by the `img` attribute is data of the dictionary type. The keys are `layout_det_res`,
+  `overall_ocr_res`, `text_paragraphs_ocr_res`, `formula_res_region1`, `table_cell_img`, and `seal_res_region1`, and the
+  corresponding values are `Image.Image` objects: used to display the visualized images of layout detection, OCR, OCR
+  text paragraphs, formulas, tables, and seal results. If the optional module is not used, the dictionary only contains
+  `layout_det_res`.
+-
+    - The `markdown` property returns the prediction result as a dictionary. The keys are `markdown_texts` and
+      `markdown_images`, corresponding to markdown text and images for display in Markdown (`Image.Image` objects).
 
-In addition, you can obtain the PP-StructureV3 pipeline configuration file and load the configuration file for prediction. You can execute the following command to save the result in `my_path`:
+In addition, you can obtain the PP-StructureV3 pipeline configuration file and load the configuration file for
+prediction. You can execute the following command to save the result in `my_path`:
 
 ```
 paddlex --get_pipeline_config PP-StructureV3 --save_path ./my_path
 ```
 
-If you have obtained the configuration file, you can customize the PP-StructureV3 pipeline configuration. You just need to modify the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file. The example is as follows:
+If you have obtained the configuration file, you can customize the PP-StructureV3 pipeline configuration. You just need
+to modify the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file.
+The example is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -2131,18 +2326,32 @@ for res in output:
     res.save_to_markdown(save_path="output") ## Save the result of the current image in Markdown format
 ```
 
-<b>Note:</b> The parameters in the configuration file are the pipeline initialization parameters. If you wish to change the initialization parameters of the PP-StructureV3 pipeline, you can directly modify the parameters in the configuration file and load the configuration file for prediction. Additionally, CLI prediction also supports passing in a configuration file, simply specify the path of the configuration file with `--pipeline`.
+<b>Note:</b> The parameters in the configuration file are the pipeline initialization parameters. If you wish to change
+the initialization parameters of the PP-StructureV3 pipeline, you can directly modify the parameters in the
+configuration file and load the configuration file for prediction. Additionally, CLI prediction also supports passing in
+a configuration file, simply specify the path of the configuration file with `--pipeline`.
 
 ## 3. Development Integration/Deployment
-If the pipeline meets your requirements for inference speed and accuracy, you can proceed directly with development integration/deployment.
 
-If you need to integrate the pipeline directly into your Python project, you can refer to the example code in [2.2 Python Script Method](#22-python脚本方式集成).
+If the pipeline meets your requirements for inference speed and accuracy, you can proceed directly with development
+integration/deployment.
+
+If you need to integrate the pipeline directly into your Python project, you can refer to the example code
+in [2.2 Python Script Method](#22-python脚本方式集成).
 
 In addition, PaddleX also provides three other deployment methods, which are detailed as follows:
 
-🚀 <b>High-Performance Inference</b>: In actual production environments, many applications have strict performance requirements (especially response speed) for deployment strategies to ensure efficient system operation and smooth user experience. To this end, PaddleX provides a high-performance inference plugin aimed at deeply optimizing the performance of model inference and pre/post-processing to significantly speed up the end-to-end process. For detailed high-performance inference procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+🚀 <b>High-Performance Inference</b>: In actual production environments, many applications have strict performance
+requirements (especially response speed) for deployment strategies to ensure efficient system operation and smooth user
+experience. To this end, PaddleX provides a high-performance inference plugin aimed at deeply optimizing the performance
+of model inference and pre/post-processing to significantly speed up the end-to-end process. For detailed
+high-performance inference procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
 
-☁️ <b>Serving Deployment</b>: Serving Deployment is a common form of deployment in actual production environments. By encapsulating the inference functionality into a service, clients can access these services through network requests to obtain inference results. PaddleX supports various serving deployment solutions for pipelines. For detailed procedures, please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
+☁️ <b>Serving Deployment</b>: Serving Deployment is a common form of deployment in actual production environments. By
+encapsulating the inference functionality into a service, clients can access these services through network requests to
+obtain inference results. PaddleX supports various serving deployment solutions for pipelines. For detailed procedures,
+please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
 
 Below is the API reference for basic serving deployment and examples of service calls in multiple languages:
 
@@ -3022,14 +3231,25 @@ foreach ($result as $i => $item) {
 </details>
 <br/>
 
-📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities directly on user devices, allowing the device to process data without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
-You can choose the appropriate deployment method based on your needs to integrate the model into your pipeline and proceed with subsequent AI application integration.
+📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities
+directly on user devices, allowing the device to process data without relying on remote servers. PaddleX supports
+deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to
+the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
+You can choose the appropriate deployment method based on your needs to integrate the model into your pipeline and
+proceed with subsequent AI application integration.
 
 ## 4. Custom Development
-If the default model weights provided by the PP-StructureV3 pipeline do not meet your requirements in terms of accuracy or speed, you can try to <b>fine-tune</b> the existing model using <b>your own domain-specific or application-specific data</b> to improve the recognition performance of the PP-StructureV3 pipeline in your scenario.
+
+If the default model weights provided by the PP-StructureV3 pipeline do not meet your requirements in terms of accuracy
+or speed, you can try to <b>fine-tune</b> the existing model using <b>your own domain-specific or application-specific
+data</b> to improve the recognition performance of the PP-StructureV3 pipeline in your scenario.
 
 ### 4.1 Model Fine-Tuning
-Since the PP-StructureV3 pipeline includes several modules, the unsatisfactory performance of the pipeline may originate from any one of these modules. You can analyze the cases with poor extraction results, identify which module is problematic through visualizing the images, and refer to the corresponding fine-tuning tutorial links in the table below to fine-tune the model.
+
+Since the PP-StructureV3 pipeline includes several modules, the unsatisfactory performance of the pipeline may originate
+from any one of these modules. You can analyze the cases with poor extraction results, identify which module is
+problematic through visualizing the images, and refer to the corresponding fine-tuning tutorial links in the table below
+to fine-tune the model.
 
 <table>
 <thead>
@@ -3089,9 +3309,11 @@ Since the PP-StructureV3 pipeline includes several modules, the unsatisfactory p
 </table>
 
 ### 4.2 Model Application
+
 After you complete fine-tuning with your private dataset, you will obtain a local model weight file.
 
-If you need to use the fine-tuned model weights, simply modify the production configuration file by replacing the local path of the fine-tuned model weights to the corresponding position in the production configuration file:
+If you need to use the fine-tuned model weights, simply modify the production configuration file by replacing the local
+path of the fine-tuned model weights to the corresponding position in the production configuration file:
 
 ```yaml
 ......
@@ -3128,10 +3350,13 @@ SubPipelines:
 ......
 ```
 
-Subsequently, refer to the command-line method or Python script method in the local experience to load the modified pipeline configuration file.
+Subsequently, refer to the command-line method or Python script method in the local experience to load the modified
+pipeline configuration file.
 
 ## 5. Multi-Hardware Support
-PaddleX supports a variety of mainstream hardware devices such as NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambricon MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware devices.
+
+PaddleX supports a variety of mainstream hardware devices such as NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambricon
+MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware devices.
 
 For example, if you use Ascend NPU for PP-StructureV3 pipeline inference, the CLI command you use is:
 
@@ -3146,6 +3371,8 @@ paddlex --pipeline PP-StructureV3 \
         --device npu:0
 ```
 
-Of course, you can also specify the hardware device when calling `create_pipeline()` or `predict()` in your Python script.
+Of course, you can also specify the hardware device when calling `create_pipeline()` or `predict()` in your Python
+script.
 
-If you want to use the PP-StructureV3 pipeline on a wider range of hardware, please refer to the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
+If you want to use the PP-StructureV3 pipeline on a wider range of hardware, please refer to
+the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).

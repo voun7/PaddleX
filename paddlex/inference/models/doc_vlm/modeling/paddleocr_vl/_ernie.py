@@ -28,8 +28,6 @@ from paddle.autograd import PyLayer
 from paddle.distributed import fleet
 from paddle.distributed.fleet.layers.mpu import mp_ops
 from paddle.distributed.fleet.layers.mpu.mp_layers import (
-    ColumnParallelLinear,
-    RowParallelLinear,
     VocabParallelEmbedding,
 )
 from paddle.distributed.fleet.meta_parallel import (
@@ -38,11 +36,6 @@ from paddle.distributed.fleet.meta_parallel import (
 )
 from paddle.distributed.fleet.utils import recompute
 
-from ......utils import logging
-from ....common.vlm.transformers import PretrainedModel
-from ....common.vlm.transformers.model_outputs import (
-    BaseModelOutputWithPastAndCrossAttentions,
-)
 from ._config import PaddleOCRVLConfig
 from ._distributed import (
     AllGatherVarlenOp,
@@ -64,10 +57,15 @@ from ._fusion_ops import (
     fusion_flash_attention,
 )
 from ._sequence_parallel_utils import ScatterOp
+from ....common.vlm.transformers import PretrainedModel
+from ....common.vlm.transformers.model_outputs import (
+    BaseModelOutputWithPastAndCrossAttentions,
+)
+from ......utils import logging
 
 
 def calc_lm_head_logits(
-    config, hidden_states, weight, bias, tensor_parallel_output=None, training=True
+        config, hidden_states, weight, bias, tensor_parallel_output=None, training=True
 ):
     """
     Calculate language model head logits with support for various parallelization strategies.
@@ -156,7 +154,7 @@ def subbatch(f, arg_idx, axis, bs, out_idx, use_recompute=False, same_arg_idx={}
             for i, inp in enumerate(args):
                 if i in same_arg_idx:
                     assert (
-                        i > same_arg_idx[i]
+                            i > same_arg_idx[i]
                     ), f"expect i > same_arg_idx[i], but got i: {i} and same_arg_idx[i]: {same_arg_idx[i]}"
                     _args.append(_args[same_arg_idx[i]])
                 elif i in arg_idx:
@@ -182,7 +180,7 @@ def subbatch(f, arg_idx, axis, bs, out_idx, use_recompute=False, same_arg_idx={}
 def _rotate_half(x):
     """Rotates half the hidden dims of the input."""
     x1 = x[..., : x.shape[-1] // 2]
-    x2 = x[..., x.shape[-1] // 2 :]
+    x2 = x[..., x.shape[-1] // 2:]
     return paddle.concat((-x2, x1), axis=-1)
 
 
@@ -303,7 +301,7 @@ class RMSNorm(nn.Layer):
         with paddle.amp.auto_cast(False):
             variance = hidden_states.astype("float32").pow(2).mean(-1, keepdim=True)
             hidden_states = (
-                paddle.rsqrt(variance + self.variance_epsilon) * hidden_states
+                    paddle.rsqrt(variance + self.variance_epsilon) * hidden_states
             )
         return hidden_states.astype(self.weight.dtype) * self.weight
 
@@ -360,8 +358,8 @@ class KeyeRotaryEmbedding(nn.Layer):
         if self.rope_type == "default":
             dim = config.head_dim
             inv_freq = 1.0 / (
-                config.rope_theta
-                ** (paddle.arange(0, dim, 2, dtype="int64").astype("float32") / dim)
+                    config.rope_theta
+                    ** (paddle.arange(0, dim, 2, dtype="int64").astype("float32") / dim)
             )
             self.attention_scaling = 1.0
         else:
@@ -384,8 +382,8 @@ class KeyeRotaryEmbedding(nn.Layer):
         )  # shape (3, bs, 1, positions)
         with paddle.amp.auto_cast(enable=False):
             freqs = (
-                inv_freq_expanded.cast("float32")
-                @ position_ids_expanded.cast("float32")
+                    inv_freq_expanded.cast("float32")
+                    @ position_ids_expanded.cast("float32")
             ).transpose((0, 1, 3, 2))
             emb = paddle.concat((freqs, freqs), axis=-1)
             cos = emb.cos()
@@ -430,9 +428,9 @@ class Ernie4_5MLP(nn.Layer):
 
             column_ln_configs = {}
             if (
-                config.recompute
-                and config.sequence_parallel
-                and config.skip_recompute_ops[layer_idx].get("mlp_column_ln", False)
+                    config.recompute
+                    and config.sequence_parallel
+                    and config.skip_recompute_ops[layer_idx].get("mlp_column_ln", False)
             ):
                 ColumnLN = RRColumnSequenceParallelLinear
                 column_ln_configs = {"use_rr": True}
@@ -453,9 +451,9 @@ class Ernie4_5MLP(nn.Layer):
         if config.tensor_parallel_degree > 1:
             row_ln_configs = {}
             if (
-                config.recompute
-                and config.sequence_parallel
-                and config.skip_recompute_ops[layer_idx].get("mlp_row_ln", False)
+                    config.recompute
+                    and config.sequence_parallel
+                    and config.skip_recompute_ops[layer_idx].get("mlp_row_ln", False)
             ):
                 RowLN = RRRowSequenceParallelLinear
                 row_ln_configs = {"use_rr": True}
@@ -520,8 +518,8 @@ class Ernie4_5Attention(nn.Layer):
         else:
             self.head_dim = config.head_dim
         self.is_gqa = (
-            config.num_key_value_heads is not None
-            and config.num_key_value_heads != self.num_heads
+                config.num_key_value_heads is not None
+                and config.num_key_value_heads != self.num_heads
         )
 
         self.rope_scaling = config.rope_scaling
@@ -530,26 +528,26 @@ class Ernie4_5Attention(nn.Layer):
 
         if config.tensor_parallel_degree > 1:
             assert (
-                self.num_heads % config.tensor_parallel_degree == 0
+                    self.num_heads % config.tensor_parallel_degree == 0
             ), f"num_heads: {self.num_heads}, tensor_parallel_degree: {config.tensor_parallel_degree}"
             self.num_heads = self.num_heads // config.tensor_parallel_degree
             if self.is_gqa:
                 assert (
-                    self.num_key_value_heads % config.tensor_parallel_degree == 0
+                        self.num_key_value_heads % config.tensor_parallel_degree == 0
                 ), f"num_heads: {self.num_key_value_heads}, tensor_parallel_degree: {config.tensor_parallel_degree}"
                 self.num_key_value_heads = (
-                    self.num_key_value_heads // config.tensor_parallel_degree
+                        self.num_key_value_heads // config.tensor_parallel_degree
                 )
         if self.is_gqa:
             logging.info(
                 f"use GQA - num_heads: {self.num_heads}- num_key_value_heads: {self.num_key_value_heads}"
             )
             assert (
-                self.num_heads % self.num_key_value_heads == 0
+                    self.num_heads % self.num_key_value_heads == 0
             ), f"num_heads: {self.num_heads}, num_key_value_heads: {self.num_key_value_heads}"
             if getattr(config, "head_dim", None) is None:
                 kv_hidden_size = (
-                    self.hidden_size // self.num_heads * self.num_key_value_heads
+                        self.hidden_size // self.num_heads * self.num_key_value_heads
                 )
             else:
                 kv_hidden_size = self.head_dim * config.num_key_value_heads
@@ -570,11 +568,11 @@ class Ernie4_5Attention(nn.Layer):
                 else RowParallelLinear
             )
             if (
-                config.recompute
-                and config.sequence_parallel
-                and config.skip_recompute_ops[layer_idx].get(
-                    "attention_column_ln", False
-                )
+                    config.recompute
+                    and config.sequence_parallel
+                    and config.skip_recompute_ops[layer_idx].get(
+                "attention_column_ln", False
+            )
             ):
                 ColumnLN = RRColumnSequenceParallelLinear
                 column_ln_configs = {"use_rr": True}
@@ -614,9 +612,9 @@ class Ernie4_5Attention(nn.Layer):
         if config.tensor_parallel_degree > 1:
             row_ln_configs = {}
             if (
-                config.recompute
-                and config.sequence_parallel
-                and config.skip_recompute_ops[layer_idx].get("attention_row_ln", False)
+                    config.recompute
+                    and config.sequence_parallel
+                    and config.skip_recompute_ops[layer_idx].get("attention_row_ln", False)
             ):
                 RowLN = RRRowSequenceParallelLinear
                 row_ln_configs = {"use_rr": True}
@@ -648,7 +646,7 @@ class Ernie4_5Attention(nn.Layer):
 
         self._rr_flash_attn = None
         if config.recompute and config.skip_recompute_ops[layer_idx].get(
-            "flash_attn", False
+                "flash_attn", False
         ):
             # TODO
             raise NotImplementedError
@@ -671,16 +669,16 @@ class Ernie4_5Attention(nn.Layer):
             raise NotImplementedError
 
     def forward(
-        self,
-        hidden_states,
-        position_embeddings,
-        past_key_value: Optional[Tuple[paddle.Tensor]] = None,
-        attention_mask: Optional[paddle.Tensor] = None,
-        attn_mask_start_row_indices: Optional[paddle.Tensor] = None,
-        position_ids: Optional[Tuple[paddle.Tensor]] = None,
-        output_attentions: bool = False,
-        use_cache: bool = False,
-        token_type_ids: Optional[Tuple[paddle.Tensor]] = None,  # MLLM
+            self,
+            hidden_states,
+            position_embeddings,
+            past_key_value: Optional[Tuple[paddle.Tensor]] = None,
+            attention_mask: Optional[paddle.Tensor] = None,
+            attn_mask_start_row_indices: Optional[paddle.Tensor] = None,
+            position_ids: Optional[Tuple[paddle.Tensor]] = None,
+            output_attentions: bool = False,
+            use_cache: bool = False,
+            token_type_ids: Optional[Tuple[paddle.Tensor]] = None,  # MLLM
     ) -> Tuple[paddle.Tensor, Optional[paddle.Tensor], Optional[Tuple[paddle.Tensor]]]:
         """Compute attention outputs.
 
@@ -709,9 +707,9 @@ class Ernie4_5Attention(nn.Layer):
                 token_type_ids.stop_gradient = True
             max_sequence_length = self.config.max_sequence_length
             bsz = (
-                hidden_states.shape[0]
-                * self.config.tensor_parallel_degree
-                // max_sequence_length
+                    hidden_states.shape[0]
+                    * self.config.tensor_parallel_degree
+                    // max_sequence_length
             )
             q_len = max_sequence_length
         else:
@@ -734,14 +732,14 @@ class Ernie4_5Attention(nn.Layer):
             has_gradient = not mix_layer.stop_gradient
         else:
             has_gradient = not (
-                query_states.stop_gradient
-                and key_states.stop_gradient
-                and value_states.stop_gradient
+                    query_states.stop_gradient
+                    and key_states.stop_gradient
+                    and value_states.stop_gradient
             )
         if (
-            self.config.recompute
-            and self.config.recompute_granularity == "core_attn"
-            and has_gradient
+                self.config.recompute
+                and self.config.recompute_granularity == "core_attn"
+                and has_gradient
         ):
             assert past_key_value is None, "do not use kv cache in recompute"
             assert not use_cache
@@ -784,13 +782,13 @@ class Ernie4_5Attention(nn.Layer):
         return attn_output, attn_weights, past_key_value
 
     def _flash_attention_wrapper(
-        self,
-        q,
-        k,
-        v,
-        attention_mask=None,
-        attn_mask_start_row_indices=None,
-        seq_length=None,
+            self,
+            q,
+            k,
+            v,
+            attention_mask=None,
+            attn_mask_start_row_indices=None,
+            seq_length=None,
     ):
         """Optimized flash attention implementation.
 
@@ -820,13 +818,13 @@ class Ernie4_5Attention(nn.Layer):
         )
 
     def core_attn(
-        self,
-        q,
-        k,
-        v,
-        attention_mask=None,
-        attn_mask_start_row_indices=None,
-        seq_length=None,
+            self,
+            q,
+            k,
+            v,
+            attention_mask=None,
+            attn_mask_start_row_indices=None,
+            seq_length=None,
     ):
         """Standard self-attention implementation.
 
@@ -857,7 +855,7 @@ class Ernie4_5Attention(nn.Layer):
         k = paddle.repeat_interleave(k, replicate, axis=1)
         v = paddle.repeat_interleave(v, replicate, axis=1)
 
-        scale_qk_coeff = self.config.scale_qk_coeff * self.head_dim**0.5
+        scale_qk_coeff = self.config.scale_qk_coeff * self.head_dim ** 0.5
         product = paddle.matmul(x=q.scale(1.0 / scale_qk_coeff), y=k, transpose_y=True)
 
         product = product.cast(paddle.float32)
@@ -896,18 +894,18 @@ class Ernie4_5Attention(nn.Layer):
         return out, weights
 
     def rope_attn(
-        self,
-        mix_layer,
-        query_states,
-        key_states,
-        value_states,
-        position_embeddings,
-        attention_mask,
-        position_ids,
-        output_attentions=False,
-        past_key_value=None,
-        use_cache=False,
-        attn_mask_start_row_indices=None,
+            self,
+            mix_layer,
+            query_states,
+            key_states,
+            value_states,
+            position_embeddings,
+            attention_mask,
+            position_ids,
+            output_attentions=False,
+            past_key_value=None,
+            use_cache=False,
+            attn_mask_start_row_indices=None,
     ):
         if mix_layer is not None:
             query_states, key_states, value_states = paddle.split(mix_layer, 3, axis=-1)
@@ -960,18 +958,18 @@ class FusedHeadParallelCrossEntropy(PyLayer):
 
     @staticmethod
     def forward(
-        ctx,
-        hidden_states,
-        weight,
-        bias,
-        labels,
-        tensor_parallel_degree,
-        mp_group=None,
-        ignore_index=-100,
-        seq_chunk_size=8192,
-        transpose_y=False,
-        fuse_linear=False,
-        training=True,
+            ctx,
+            hidden_states,
+            weight,
+            bias,
+            labels,
+            tensor_parallel_degree,
+            mp_group=None,
+            ignore_index=-100,
+            seq_chunk_size=8192,
+            transpose_y=False,
+            fuse_linear=False,
+            training=True,
     ):
         """Forward pass for parallel cross-entropy computation.
 
@@ -1231,11 +1229,11 @@ class ErniePretrainingCriterion(paddle.nn.Layer):
         self.config = config
         self.return_tuple = return_tuple
         self.enable_parallel_cross_entropy = (
-            config.tensor_parallel_degree > 1 and config.tensor_parallel_output
+                config.tensor_parallel_degree > 1 and config.tensor_parallel_output
         )
 
         if (
-            self.enable_parallel_cross_entropy
+                self.enable_parallel_cross_entropy
         ):  # and False: # and lm_head is distributed
             logging.info("using parallel cross entroy, take care")
             self.loss_func = ParallelCrossEntropy()
@@ -1334,12 +1332,12 @@ class ErniePretrainingCriterion(paddle.nn.Layer):
         return res
 
     def forward_impl_with_fused_head_loss_fn(
-        self,
-        masked_lm_labels,
-        loss_mask,
-        hidden_states,
-        outlinear_weight,
-        outlinear_bias,
+            self,
+            masked_lm_labels,
+            loss_mask,
+            hidden_states,
+            outlinear_weight,
+            outlinear_bias,
     ):
         """Compute loss with fused head and parallel cross-entropy.
 
@@ -1355,7 +1353,7 @@ class ErniePretrainingCriterion(paddle.nn.Layer):
                 Same return format as forward()
         """
         assert (
-            self.config.tensor_parallel_degree > 0
+                self.config.tensor_parallel_degree > 0
         ), "use_fused_head_and_loss_fn require tensor_parallel_degree > 0"
         masked_lm_loss, masked_lm_labels_all = FusedHeadParallelCrossEntropy.apply(
             hidden_states,
@@ -1395,12 +1393,12 @@ class ErniePretrainingCriterion(paddle.nn.Layer):
         return loss, loss_sum
 
     def forward_impl_with_calc_logits(
-        self,
-        masked_lm_labels,
-        loss_mask,
-        hidden_states,
-        outlinear_weight,
-        outlinear_bias,
+            self,
+            masked_lm_labels,
+            loss_mask,
+            hidden_states,
+            outlinear_weight,
+            outlinear_bias,
     ):
         """Compute logits then calculate loss.
 
@@ -1568,9 +1566,9 @@ class Ernie4_5LMHead(nn.Layer):
         if self.weight.is_distributed:
             self.weight.split_axis = 1
         if (
-            config.weight_share_add_bias
-            and config.use_bias
-            and self.bias.is_distributed
+                config.weight_share_add_bias
+                and config.use_bias
+                and self.bias.is_distributed
         ):
             self.bias.split_axis = 0
 
@@ -1668,16 +1666,16 @@ class Ernie4_5DecoderLayer(nn.Layer):
                 mark_as_sequence_parallel_parameter(self.input_layernorm.bias)
 
     def forward(
-        self,
-        hidden_states: paddle.Tensor,
-        position_embeddings: paddle.Tensor,
-        attention_mask: Optional[paddle.Tensor] = None,
-        attn_mask_start_row_indices: Optional[paddle.Tensor] = None,
-        position_ids: Optional[paddle.Tensor] = None,
-        token_type_ids: Optional[paddle.Tensor] = None,
-        output_attentions: Optional[bool] = False,
-        past_key_value: Optional[Tuple[paddle.Tensor]] = None,
-        use_cache: Optional[bool] = False,
+            self,
+            hidden_states: paddle.Tensor,
+            position_embeddings: paddle.Tensor,
+            attention_mask: Optional[paddle.Tensor] = None,
+            attn_mask_start_row_indices: Optional[paddle.Tensor] = None,
+            position_ids: Optional[paddle.Tensor] = None,
+            token_type_ids: Optional[paddle.Tensor] = None,
+            output_attentions: Optional[bool] = False,
+            past_key_value: Optional[Tuple[paddle.Tensor]] = None,
+            use_cache: Optional[bool] = False,
     ) -> Tuple[paddle.Tensor, Optional[Tuple[paddle.Tensor, paddle.Tensor]]]:
         """Forward pass through the decoder layer.
 
@@ -1703,9 +1701,9 @@ class Ernie4_5DecoderLayer(nn.Layer):
         # Self Attention
         has_gradient = not hidden_states.stop_gradient
         if (
-            self.config.recompute
-            and self.config.recompute_granularity == "full_attn"
-            and has_gradient
+                self.config.recompute
+                and self.config.recompute_granularity == "full_attn"
+                and has_gradient
         ):
             hidden_states, self_attn_weights, present_key_value = recompute(
                 self.self_attn,
@@ -1763,8 +1761,8 @@ class Ernie4_5DecoderLayer(nn.Layer):
             Context manager for dropout operation
         """
         if (
-            self.config.tensor_parallel_degree > 1
-            and self.config.hidden_dropout_prob > 0.0
+                self.config.tensor_parallel_degree > 1
+                and self.config.hidden_dropout_prob > 0.0
         ):
             current_seed = (
                 "local_seed" if self.config.sequence_parallel else "global_seed"
@@ -1803,14 +1801,14 @@ class Ernie4_5PretrainedModel(PretrainedModel):
         )
 
         def gqa_qkv_split_func(
-            weight,
-            tensor_parallel_degree,
-            tensor_parallel_rank,
-            num_attention_heads,
-            num_key_value_heads,
-            head_dim,
-            is_quant=False,
-            is_split=True,
+                weight,
+                tensor_parallel_degree,
+                tensor_parallel_rank,
+                num_attention_heads,
+                num_key_value_heads,
+                head_dim,
+                is_quant=False,
+                is_split=True,
         ):
             if is_quant:
                 weight = weight.T
@@ -1870,12 +1868,12 @@ class Ernie4_5PretrainedModel(PretrainedModel):
             return out
 
         def gqa_qkv_merge_func(
-            weight_list,
-            num_attention_heads,
-            num_key_value_heads,
-            head_dim,
-            is_quant=False,
-            is_split=False,
+                weight_list,
+                num_attention_heads,
+                num_key_value_heads,
+                head_dim,
+                is_quant=False,
+                is_split=False,
         ):
             tensor_parallel_degree = len(weight_list)
             num_attention_heads = num_attention_heads // tensor_parallel_degree
@@ -1925,8 +1923,8 @@ class Ernie4_5PretrainedModel(PretrainedModel):
             return tensor
 
         if (
-            config.num_key_value_heads is not None
-            and config.num_key_value_heads != config.num_attention_heads
+                config.num_key_value_heads is not None
+                and config.num_key_value_heads != config.num_attention_heads
         ):
             if is_split:
                 qkv_fn = partial(
@@ -2055,17 +2053,17 @@ class Ernie4_5Model(Ernie4_5PretrainedModel):
 
     @paddle.jit.not_to_static
     def recompute_training(
-        self,
-        layer_module,
-        hidden_states,
-        position_embeddings,
-        attention_mask,
-        attn_mask_start_row_indices,
-        position_ids,
-        token_type_ids,
-        output_attentions,
-        past_key_value,
-        use_cache,
+            self,
+            layer_module,
+            hidden_states,
+            position_embeddings,
+            attention_mask,
+            attn_mask_start_row_indices,
+            position_ids,
+            token_type_ids,
+            output_attentions,
+            past_key_value,
+            use_cache,
     ):
         """Perform gradient checkpointing for memory-efficient training.
 
@@ -2105,18 +2103,18 @@ class Ernie4_5Model(Ernie4_5PretrainedModel):
         return hidden_states
 
     def forward(
-        self,
-        input_ids=None,
-        position_ids=None,
-        token_type_ids=None,
-        attention_mask=None,
-        attn_mask_start_row_indices=None,
-        inputs_embeds=None,
-        use_cache=None,
-        past_key_values=None,
-        output_attentions=False,
-        output_hidden_states=None,
-        return_dict=False,
+            self,
+            input_ids=None,
+            position_ids=None,
+            token_type_ids=None,
+            attention_mask=None,
+            attn_mask_start_row_indices=None,
+            inputs_embeds=None,
+            use_cache=None,
+            past_key_values=None,
+            output_attentions=False,
+            output_hidden_states=None,
+            return_dict=False,
     ):
         """Forward pass through the ERNIE model.
 
@@ -2218,9 +2216,9 @@ class Ernie4_5Model(Ernie4_5PretrainedModel):
             )
             has_gradient = not hidden_states.stop_gradient
             if (
-                self.config.recompute
-                and self.config.recompute_granularity == "full"
-                and has_gradient
+                    self.config.recompute
+                    and self.config.recompute_granularity == "full"
+                    and has_gradient
             ):
                 layer_outputs = self.recompute_training(
                     decoder_layer,
@@ -2287,11 +2285,11 @@ class Ernie4_5Model(Ernie4_5PretrainedModel):
         )
 
     def _update_causal_mask(
-        self,
-        attention_mask: paddle.Tensor,
-        input_tensor: paddle.Tensor,
-        past_key_values: Optional[Tuple[Tuple[paddle.Tensor]]],
-        output_attentions: bool = False,
+            self,
+            attention_mask: paddle.Tensor,
+            input_tensor: paddle.Tensor,
+            past_key_values: Optional[Tuple[Tuple[paddle.Tensor]]],
+            output_attentions: bool = False,
     ):
         past_seen_tokens = (
             past_key_values[0][0].shape[1]
@@ -2325,12 +2323,12 @@ class Ernie4_5Model(Ernie4_5PretrainedModel):
 
     @staticmethod
     def _prepare_4d_causal_attention_mask_with_cache_position(
-        attention_mask,
-        sequence_length: int,
-        target_length: int,
-        dtype,
-        cache_position,
-        batch_size: int,
+            attention_mask,
+            sequence_length: int,
+            target_length: int,
+            dtype,
+            cache_position,
+            batch_size: int,
     ):
         if attention_mask is not None and attention_mask.dim() == 4:
             # In this case we assume that the mask comes already in inverted form and requires no inversion or slicing.

@@ -1,4 +1,3 @@
-
 pipeline_name: open_vocabulary_detection
 
 SubModules:

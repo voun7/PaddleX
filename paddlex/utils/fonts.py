@@ -50,7 +50,7 @@ def create_font(txt: str, sz: tuple, font_path: str) -> ImageFont:
 
 
 def create_font_vertical(
-    txt: str, sz: tuple, font_path: str, scale=1.2
+        txt: str, sz: tuple, font_path: str, scale=1.2
 ) -> ImageFont.FreeTypeFont:
     n = len(txt) if len(txt) > 0 else 1
     base_font_size = int(sz[1] / n * 0.8 * scale)

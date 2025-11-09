@@ -16,10 +16,6 @@ from typing import Any, List, Optional, Sequence, Tuple, Union
 
 import numpy as np
 
-from ....modules.object_detection.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ..base import BasePredictor
 from .processors import (
     DetPad,
     DetPostProcess,
@@ -33,24 +29,27 @@ from .processors import (
 )
 from .result import DetResult
 from .utils import STATIC_SHAPE_MODEL_LIST
+from ..base import BasePredictor
+from ...common.batch_sampler import ImageBatchSampler
+from ....modules.object_detection.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class DetPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
     register = FuncRegister(_FUNC_MAP)
 
     def __init__(
-        self,
-        *args,
-        img_size: Optional[Union[int, Tuple[int, int]]] = None,
-        threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
-        layout_merge_bboxes_mode: Optional[Union[str, dict]] = None,
-        **kwargs,
+            self,
+            *args,
+            img_size: Optional[Union[int, Tuple[int, int]]] = None,
+            threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
+            layout_merge_bboxes_mode: Optional[Union[str, dict]] = None,
+            **kwargs,
     ):
         """Initializes DetPredictor.
         Args:
@@ -71,7 +70,7 @@ class DetPredictor(BasePredictor):
 
         if img_size is not None:
             assert (
-                self.model_name not in STATIC_SHAPE_MODEL_LIST
+                    self.model_name not in STATIC_SHAPE_MODEL_LIST
             ), f"The model {self.model_name} is not supported set input shape"
             if isinstance(img_size, int):
                 img_size = (img_size, img_size)
@@ -87,7 +86,7 @@ class DetPredictor(BasePredictor):
                 layout_unclip_ratio = (layout_unclip_ratio, layout_unclip_ratio)
             elif isinstance(layout_unclip_ratio, (tuple, list)):
                 assert (
-                    len(layout_unclip_ratio) == 2
+                        len(layout_unclip_ratio) == 2
                 ), f"The length of `layout_unclip_ratio` should be 2."
             elif isinstance(layout_unclip_ratio, dict):
                 pass
@@ -201,12 +200,12 @@ class DetPredictor(BasePredictor):
             return [{"boxes": np.array(res)} for res in pred_box]
 
     def process(
-        self,
-        batch_data: List[Any],
-        threshold: Optional[Union[float, dict]] = None,
-        layout_nms: bool = False,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
-        layout_merge_bboxes_mode: Optional[Union[str, dict]] = None,
+            self,
+            batch_data: List[Any],
+            threshold: Optional[Union[float, dict]] = None,
+            layout_nms: bool = False,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
+            layout_merge_bboxes_mode: Optional[Union[str, dict]] = None,
     ):
         """
         Process a batch of data through the preprocessing, inference, and postprocessing.
@@ -243,7 +242,7 @@ class DetPredictor(BasePredictor):
             layout_nms=layout_nms or self.layout_nms,
             layout_unclip_ratio=layout_unclip_ratio or self.layout_unclip_ratio,
             layout_merge_bboxes_mode=layout_merge_bboxes_mode
-            or self.layout_merge_bboxes_mode,
+                                     or self.layout_merge_bboxes_mode,
         )
 
         return {
@@ -269,11 +268,11 @@ class DetPredictor(BasePredictor):
 
     @register("NormalizeImage")
     def build_normalize(
-        self,
-        norm_type=None,
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
-        is_scale=True,
+            self,
+            norm_type=None,
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+            is_scale=True,
     ):
         if is_scale:
             scale = 1.0 / 255.0

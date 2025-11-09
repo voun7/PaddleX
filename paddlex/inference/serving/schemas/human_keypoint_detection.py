@@ -17,8 +17,8 @@ from typing import Final, List, Optional, Tuple
 from pydantic import BaseModel
 from typing_extensions import TypeAlias
 
-from ..infra.models import PrimaryOperations
 from .shared import object_detection
+from ..infra.models import PrimaryOperations
 
 __all__ = [
     "INFER_ENDPOINT",

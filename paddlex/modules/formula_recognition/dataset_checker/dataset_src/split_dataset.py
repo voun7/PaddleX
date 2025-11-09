@@ -67,7 +67,7 @@ def split_dataset(dataset_root, train_rate, val_rate):
             return f"{tag} 数据集的比例应该在0~100之间."
 
         end = start + round(image_num * rate / 100)
-        if sum(rate_list[i + 1 :]) == 0:
+        if sum(rate_list[i + 1:]) == 0:
             end = image_num
 
         txt_file = os.path.abspath(os.path.join(dataset_root, tag + ".txt"))

@@ -25,10 +25,10 @@ if is_dep_available("opencv-contrib-python"):
 def check_image_size(input_):
     """check image size"""
     if not (
-        isinstance(input_, (list, tuple))
-        and len(input_) == 2
-        and isinstance(input_[0], int)
-        and isinstance(input_[1], int)
+            isinstance(input_, (list, tuple))
+            and len(input_) == 2
+            and isinstance(input_[0], int)
+            and isinstance(input_[1], int)
     ):
         raise TypeError(f"{input_} cannot represent a valid image size.")
 

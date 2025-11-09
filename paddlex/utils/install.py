@@ -23,9 +23,9 @@ from . import logging
 
 
 def install_packages_from_requirements_file(
-    requirements_file_path,
-    pip_install_opts=None,
-    constraints="base",
+        requirements_file_path,
+        pip_install_opts=None,
+        constraints="base",
 ):
     from .deps import BASE_DEP_SPECS, REQUIRED_DEP_SPECS
 

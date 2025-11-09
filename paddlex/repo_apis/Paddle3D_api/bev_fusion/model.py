@@ -15,30 +15,30 @@
 
 import os.path as osp
 
-from ....utils import logging
-from ....utils.misc import abspath
+from .runner import raise_unsupported_api_error
 from ...base import BaseModel
 from ...base.utils.arg import CLIArgument
-from .runner import raise_unsupported_api_error
+from ....utils import logging
+from ....utils.misc import abspath
 
 
 class BEVFusionModel(BaseModel):
 
     def train(
-        self,
-        batch_size=None,
-        learning_rate=None,
-        epochs_iters=None,
-        pretrained=None,
-        ips=None,
-        device="gpu",
-        resume_path=None,
-        dy2st=False,
-        amp="OFF",
-        num_workers=None,
-        use_vdl=True,
-        save_dir=None,
-        **kwargs,
+            self,
+            batch_size=None,
+            learning_rate=None,
+            epochs_iters=None,
+            pretrained=None,
+            ips=None,
+            device="gpu",
+            resume_path=None,
+            dy2st=False,
+            amp="OFF",
+            num_workers=None,
+            use_vdl=True,
+            save_dir=None,
+            **kwargs,
     ):
         if resume_path is not None:
             resume_path = abspath(resume_path)
@@ -121,14 +121,14 @@ class BEVFusionModel(BaseModel):
             )
 
     def evaluate(
-        self,
-        weight_path,
-        batch_size=None,
-        ips=None,
-        device="gpu",
-        amp="OFF",
-        num_workers=None,
-        **kwargs,
+            self,
+            weight_path,
+            batch_size=None,
+            ips=None,
+            device="gpu",
+            amp="OFF",
+            num_workers=None,
+            **kwargs,
     ):
         weight_path = abspath(weight_path)
 
@@ -223,16 +223,16 @@ class BEVFusionModel(BaseModel):
         return self.runner.infer(None, cli_args, device, infer_dir, None)
 
     def compression(
-        self,
-        weight_path,
-        ann_file=None,
-        class_names=None,
-        batch_size=None,
-        learning_rate=None,
-        epochs_iters=None,
-        device="gpu",
-        use_vdl=True,
-        save_dir=None,
-        **kwargs,
+            self,
+            weight_path,
+            ann_file=None,
+            class_names=None,
+            batch_size=None,
+            learning_rate=None,
+            epochs_iters=None,
+            device="gpu",
+            use_vdl=True,
+            save_dir=None,
+            **kwargs,
     ):
         raise_unsupported_api_error("compression", self.__class__)

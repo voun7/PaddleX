@@ -5,6 +5,7 @@ comments: true
 # PaddleX Pipelines (MLU)
 
 ## 1. Basic Pipelines
+
 <table>
   <tr>
     <th width="10%">Pipeline Name</th>
@@ -89,4 +90,5 @@ comments: true
 </table>
 
 ## 2. Featured Pipelines
+
 Not supported yet, please stay tuned!

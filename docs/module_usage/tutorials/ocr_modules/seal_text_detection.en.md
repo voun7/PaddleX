@@ -5,7 +5,14 @@ comments: true
 # Seal Text Detection Module Tutorial
 
 ## I. Overview
-The seal text detection module typically outputs multi-point bounding boxes around text regions, which are then passed as inputs to the distortion correction and text recognition modules for subsequent processing to identify the textual content of the seal. Recognizing seal text is an integral part of document processing and finds applications in various scenarios such as contract comparison, inventory access auditing, and invoice reimbursement verification. The seal text detection module serves as a subtask within OCR (Optical Character Recognition), responsible for locating and marking the regions containing seal text within an image. The performance of this module directly impacts the accuracy and efficiency of the entire seal text OCR system.
+
+The seal text detection module typically outputs multi-point bounding boxes around text regions, which are then passed
+as inputs to the distortion correction and text recognition modules for subsequent processing to identify the textual
+content of the seal. Recognizing seal text is an integral part of document processing and finds applications in various
+scenarios such as contract comparison, inventory access auditing, and invoice reimbursement verification. The seal text
+detection module serves as a subtask within OCR (Optical Character Recognition), responsible for locating and marking
+the regions containing seal text within an image. The performance of this module directly impacts the accuracy and
+efficiency of the entire seal text OCR system.
 
 ## II. Supported Model List
 
@@ -93,12 +100,17 @@ The seal text detection module typically outputs multi-point bounding boxes arou
     </tbody>
 </table>
 
-
 ## III. Quick Integration
-> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+
+> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to
+> the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
 
-Just a few lines of code can complete the inference of the Seal Text Detection module, allowing you to easily switch between models under this module. You can also integrate the model inference of the the Seal Text Detection module into your project. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png) to your local machine.
+Just a few lines of code can complete the inference of the Seal Text Detection module, allowing you to easily switch
+between models under this module. You can also integrate the model inference of the the Seal Text Detection module into
+your project. Before running the following code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png) to your local
+machine.
 
 ```python
 from paddlex import create_model
@@ -110,7 +122,9 @@ for res in output:
     res.save_to_json(save_path="./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 After running, the result is:
 
@@ -119,8 +133,10 @@ After running, the result is:
 ```
 
 The meanings of the parameters are as follows:
+
 - `input_path`: represents the path of the input image to be predicted
-- `dt_polys`: represents the predicted text detection boxes, where each text detection box contains multiple vertices of a polygon. Each vertex is a list of two elements, representing the x and y coordinates of the vertex respectively
+- `dt_polys`: represents the predicted text detection boxes, where each text detection box contains multiple vertices of
+  a polygon. Each vertex is a list of two elements, representing the x and y coordinates of the vertex respectively
 - `dt_scores`: represents the confidence scores of the predicted text detection boxes
 
 The visualization image is as follows:
@@ -129,7 +145,9 @@ The visualization image is as follows:
 
 The explanations of related methods and parameters are as follows:
 
-* `create_model` instantiates a text detection model (here we take `PP-OCRv4_server_seal_det` as an example), and the specific explanations are as follows:
+* `create_model` instantiates a text detection model (here we take `PP-OCRv4_server_seal_det` as an example), and the
+  specific explanations are as follows:
+
 <table>
 <thead>
 <tr>
@@ -251,9 +269,12 @@ The explanations of related methods and parameters are as follows:
 </tr>
 </table>
 
-* The `model_name` must be specified. After specifying `model_name`, the built-in model parameters of PaddleX will be used by default. On this basis, if `model_dir` is specified, the user-defined model will be used.
+* The `model_name` must be specified. After specifying `model_name`, the built-in model parameters of PaddleX will be
+  used by default. On this basis, if `model_dir` is specified, the user-defined model will be used.
 
-* The `predict()` method of the seal text detection model is called for inference prediction. The parameters of the `predict()` method include `input`, `batch_size`, `limit_side_len`, `limit_type`, `thresh`, `box_thresh`, `max_candidates`, `unclip_ratio`, and `use_dilation`. The specific descriptions are as follows:
+* The `predict()` method of the seal text detection model is called for inference prediction. The parameters of the
+  `predict()` method include `input`, `batch_size`, `limit_side_len`, `limit_type`, `thresh`, `box_thresh`,
+  `max_candidates`, `unclip_ratio`, and `use_dilation`. The specific descriptions are as follows:
 
 <table>
 <thead>
@@ -363,7 +384,8 @@ The explanations of related methods and parameters are as follows:
 </tr>
 </table>
 
-* Process the prediction results. Each sample's prediction result is a corresponding Result object, and it supports operations such as printing, saving as an image, and saving as a `json` file:
+* Process the prediction results. Each sample's prediction result is a corresponding Result object, and it supports
+  operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -426,7 +448,8 @@ The explanations of related methods and parameters are as follows:
 </tr>
 </table>
 
-* In addition, it also supports obtaining visual images with results and prediction results through attributes, as follows:
+* In addition, it also supports obtaining visual images with results and prediction results through attributes, as
+  follows:
 
 <table>
 <thead>
@@ -445,15 +468,23 @@ The explanations of related methods and parameters are as follows:
 </tr>
 </table>
 
-For more information on using PaddleX's single-model inference API, refer to the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using PaddleX's single-model inference API, refer to
+the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
 
-If you seek higher accuracy, you can leverage PaddleX's custom development capabilities to develop better Seal Text Detection models. Before developing a Seal Text Detection model with PaddleX, ensure you have installed PaddleOCR plugin for PaddleX. The installation process can be found in the custom development section of the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md).
+If you seek higher accuracy, you can leverage PaddleX's custom development capabilities to develop better Seal Text
+Detection models. Before developing a Seal Text Detection model with PaddleX, ensure you have installed PaddleOCR plugin
+for PaddleX. The installation process can be found in the custom development section of
+the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md).
 
 ### 4.1 Dataset Preparation
 
-Before model training, you need to prepare a dataset for the task. PaddleX provides data validation functionality for each module. <b>Only data that passes validation can be used for model training.</b> Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development. If you wish to use private datasets for model training, refer to [PaddleX Text Detection and Recognition Task Module Data Preparation Tutorial](../../../data_annotations/ocr_modules/text_detection_recognition.en.md).
+Before model training, you need to prepare a dataset for the task. PaddleX provides data validation functionality for
+each module. <b>Only data that passes validation can be used for model training.</b> Additionally, PaddleX provides demo
+datasets for each module, which you can use to complete subsequent development. If you wish to use private datasets for
+model training, refer
+to [PaddleX Text Detection and Recognition Task Module Data Preparation Tutorial](../../../data_annotations/ocr_modules/text_detection_recognition.en.md).
 
 #### 4.1.1 Demo Data Download
 
@@ -474,7 +505,10 @@ python main.py -c paddlex/configs/modules/seal_text_detection/PP-OCRv4_server_se
     -o Global.dataset_dir=./dataset/ocr_curve_det_dataset_examples
 ```
 
-After executing the above command, PaddleX will verify the dataset and collect basic information about it. Once the command runs successfully, a message saying `Check dataset passed !` will be printed in the log. The verification results will be saved in `./output/check_dataset_result.json`, and related outputs will be stored in the `./output/check_dataset` directory, including visual examples of sample images and a histogram of sample distribution.
+After executing the above command, PaddleX will verify the dataset and collect basic information about it. Once the
+command runs successfully, a message saying `Check dataset passed !` will be printed in the log. The verification
+results will be saved in `./output/check_dataset_result.json`, and related outputs will be stored in the
+`./output/check_dataset` directory, including visual examples of sample images and a histogram of sample distribution.
 
 
 <details><summary>👉 <b>Verification Result Details (click to expand)</b></summary>
@@ -529,6 +563,7 @@ After executing the above command, PaddleX will verify the dataset and collect b
 <p><img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/modules/curved_text_dec/01.png"/></p></details>
 
 #### 4.1.3 Dataset Format Conversion/Dataset Splitting (Optional)
+
 <details><summary>👉 <b>Details on Format Conversion/Dataset Splitting (Click to Expand)</b></summary>
 <p>After completing dataset verification, you can convert the dataset format or re-split the training/validation ratio by modifying the configuration file or appending hyperparameters.</p>
 <p><b>(1) Dataset Format Conversion</b></p>
@@ -568,7 +603,8 @@ CheckDataset:
 
 ### 4.2 Model Training
 
-Model training can be completed with just one command. Here, we use the Seal Text Detection model (PP-OCRv4_server_seal_det) as an example:
+Model training can be completed with just one command. Here, we use the Seal Text Detection model (
+PP-OCRv4_server_seal_det) as an example:
 
 ```bash
 python main.py -c paddlex/configs/modules/seal_text_detection/PP-OCRv4_server_seal_det.yaml \
@@ -578,11 +614,18 @@ python main.py -c paddlex/configs/modules/seal_text_detection/PP-OCRv4_server_se
 
 You need to follow these steps:
 
-* Specify the `.yaml` configuration file path for the model (here it's `PP-OCRv4_server_seal_det.yaml`,When training other models, you need to specify the corresponding configuration files. The relationship between the model and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
+* Specify the `.yaml` configuration file path for the model (here it's `PP-OCRv4_server_seal_det.yaml`,When training
+  other models, you need to specify the corresponding configuration files. The relationship between the model and
+  configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
 * Set the mode to model training: `-o Global.mode=train`
 * Specify the training dataset path: `-o Global.dataset_dir`
-* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file, or adjusted by appending parameters in the command line. For example, to train using the first two GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the [PaddleX Common Configuration Parameters Documentation](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file, or
+  adjusted by appending parameters in the command line. For example, to train using the first two GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to
+  the [PaddleX Common Configuration Parameters Documentation](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 <ul>
@@ -601,7 +644,9 @@ You need to follow these steps:
 </ul></details>
 
 ### 4.3 Model Evaluation
-After model training, you can evaluate the specified model weights on the validation set to verify model accuracy. Using PaddleX for model evaluation requires just one command:
+
+After model training, you can evaluate the specified model weights on the validation set to verify model accuracy. Using
+PaddleX for model evaluation requires just one command:
 
 ```bash
 python main.py -c paddlex/configs/modules/seal_text_detection/PP-OCRv4_server_seal_det.yaml \
@@ -615,7 +660,9 @@ Similar to model training, follow these steps:
 * Set the mode to model evaluation: `-o Global.mode=evaluate`
 * Specify the validation dataset path: `-o Global.dataset_dir`
 
-Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file. For more details, refer to the [PaddleX Common Configuration Parameters Documentation](../../instructions/config_parameters_common.en.md).
+Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file.
+For more details, refer to
+the [PaddleX Common Configuration Parameters Documentation](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 <p>When evaluating the model, you need to specify the model weight file path. Each configuration file has a default weight save path. If you need to change it, simply append the command line parameter, e.g., <code>-o Evaluate.weight_path=./output/best_model/best_model.pdparams</code>.</p>
@@ -625,11 +672,15 @@ Other related parameters can be set by modifying the `Global` and `Evaluate` fie
 </ul></details>
 
 ### 4.4 Model Inference and Integration
-After model training and evaluation, you can use the trained model weights for inference predictions or Python integration.
+
+After model training and evaluation, you can use the trained model weights for inference predictions or Python
+integration.
 
 #### 4.4.1 Model Inference
-To perform inference predictions via the command line, use the following command. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png) to your local machine.
 
+To perform inference predictions via the command line, use the following command. Before running the following code,
+please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png)
+to your local machine.
 
 ```bash
 python main.py -c paddlex/configs/modules/seal_text_detection/PP-OCRv4_server_seal_det.yaml \
@@ -646,7 +697,9 @@ Similar to model training and evaluation, the following steps are required:
 
 * Specify the model weights path: -o Predict.model_dir="./output/best_accuracy/inference"
 
-Specify the input data path: `-o Predict.inputh="..."` Other related parameters can be set by modifying the fields under Global and Predict in the `.yaml` configuration file. For details, refer to PaddleX Common Model Configuration File Parameter Description.
+Specify the input data path: `-o Predict.inputh="..."` Other related parameters can be set by modifying the fields under
+Global and Predict in the `.yaml` configuration file. For details, refer to PaddleX Common Model Configuration File
+Parameter Description.
 
 Alternatively, you can use the PaddleX wheel package for inference, easily integrating the model into your own projects.
 
@@ -656,10 +709,17 @@ The model can be directly integrated into the PaddleX pipeline or into your own 
 
 1. <b>Pipeline Integration</b>
 
-The document Seal Text Detection module can be integrated into PaddleX pipelines such as the [General OCR Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/OCR.en.md) and [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md). Simply replace the model path to update the text detection module of the relevant pipeline.
+The document Seal Text Detection module can be integrated into PaddleX pipelines such as
+the [General OCR Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/OCR.en.md)
+and [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md).
+Simply replace the model path to update the text detection module of the relevant pipeline.
 
 2. <b>Module Integration</b>
 
-The weights you produce can be directly integrated into the Seal Text Detection module. You can refer to the Python sample code in [Quick Integration](#iii-quick-integration) and just replace the model with the path to the model you trained.
+The weights you produce can be directly integrated into the Seal Text Detection module. You can refer to the Python
+sample code in [Quick Integration](#iii-quick-integration) and just replace the model with the path to the model you
+trained.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

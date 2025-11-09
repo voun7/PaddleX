@@ -13,20 +13,21 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import logging
+
 from ... import c_lib_wrap as C
-import cv2
 
 
 def vis_detection(
-    im_data,
-    det_result,
-    labels=[],
-    score_threshold=0.0,
-    line_size=1,
-    font_size=0.5,
-    font_color=[255, 255, 255],
-    font_thickness=1,
+        im_data,
+        det_result,
+        labels=[],
+        score_threshold=0.0,
+        line_size=1,
+        font_size=0.5,
+        font_color=[255, 255, 255],
+        font_thickness=1,
 ):
     """Show the visualized results for detection models
 
@@ -53,7 +54,7 @@ def vis_detection(
 
 
 def vis_perception(
-    im_data, det_result, config_file, score_threshold=0.0, line_size=1, font_size=0.5
+        im_data, det_result, config_file, score_threshold=0.0, line_size=1, font_size=0.5
 ):
     """Show the visualized results for 3d detection models
 
@@ -125,11 +126,11 @@ def vis_matting_alpha(im_data, matting_result, remove_small_connected_area=False
 
 
 def vis_matting(
-    im_data,
-    matting_result,
-    transparent_background=False,
-    transparent_threshold=0.99,
-    remove_small_connected_area=False,
+        im_data,
+        matting_result,
+        transparent_background=False,
+        transparent_threshold=0.99,
+        remove_small_connected_area=False,
 ):
     """Show the visualized results for matting models
 
@@ -150,7 +151,7 @@ def vis_matting(
 
 
 def swap_background_matting(
-    im_data, background, result, remove_small_connected_area=False
+        im_data, background, result, remove_small_connected_area=False
 ):
     logging.warning(
         "DEPRECATED: ultra_infer.vision.swap_background_matting is deprecated, please use ultra_infer.vision.swap_background function instead."
@@ -176,7 +177,7 @@ def swap_background_segmentation(im_data, background, background_label, result):
 
 
 def swap_background(
-    im_data, background, result, remove_small_connected_area=False, background_label=0
+        im_data, background, result, remove_small_connected_area=False, background_label=0
 ):
     """Swap the image background with MattingResult or SegmentationResult
 

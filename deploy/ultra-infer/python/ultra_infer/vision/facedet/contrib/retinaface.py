@@ -20,11 +20,11 @@ from .... import c_lib_wrap as C
 
 class RetinaFace(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a RetinaFace model exported by RetinaFace.
 
@@ -96,7 +96,7 @@ class RetinaFace(UltraInferModel):
             wh, (list, tuple)
         ), "The value to set `size` must be type of tuple or list."
         assert (
-            len(wh) == 2
+                len(wh) == 2
         ), "The value to set `size` must contains 2 elements means [width, height], but now it contains {} elements.".format(
             len(wh)
         )
@@ -108,7 +108,7 @@ class RetinaFace(UltraInferModel):
             value, (list, tuple)
         ), "The value to set `variance` must be type of tuple or list."
         assert (
-            len(value) == 2
+                len(value) == 2
         ), "The value to set `variance` must contains 2 elements".format(len(value))
         self._model.variance = value
 

@@ -127,24 +127,24 @@ def _split_keys_evenly(keys: list, n: int) -> list:
     for _ in range(n):
         part_size = base_size + 1 if extra > 0 else base_size
         extra -= 1
-        result.append(keys[index : index + part_size])
+        result.append(keys[index: index + part_size])
         index += part_size
 
     return result
 
 
 def _load_part_state_dict_from_safetensors(
-    keys,
-    checkpoint_file: Union[str, os.PathLike],
-    tensor_parallel_split_mapping,
-    fliter_dict_keys,
-    device,
-    quantization_linear_list=None,
-    quantization_config=None,
-    dtype=None,
-    return_numpy=False,
-    convert_from_hf=False,
-    transpose_weight_keys=None,
+        keys,
+        checkpoint_file: Union[str, os.PathLike],
+        tensor_parallel_split_mapping,
+        fliter_dict_keys,
+        device,
+        quantization_linear_list=None,
+        quantization_config=None,
+        dtype=None,
+        return_numpy=False,
+        convert_from_hf=False,
+        transpose_weight_keys=None,
 ):
     import paddle
     from safetensors import safe_open
@@ -168,9 +168,9 @@ def _load_part_state_dict_from_safetensors(
             # 1. non-merge ckpt loading dont have filter key.
             # 2. merge ckpt will skip quant scale by `fliter_dict_keys`
             if (
-                key.endswith(SYMMETRY_QUANT_SCALE)
-                or key.endswith(ASYMMETRY_QUANT_SCALE_MIN)
-                or key.endswith(ASYMMETRY_QUANT_SCALE_MAX)
+                    key.endswith(SYMMETRY_QUANT_SCALE)
+                    or key.endswith(ASYMMETRY_QUANT_SCALE_MIN)
+                    or key.endswith(ASYMMETRY_QUANT_SCALE_MAX)
             ):
                 continue
 
@@ -179,9 +179,9 @@ def _load_part_state_dict_from_safetensors(
 
             py_safe_slice_ = f.get_slice(key)
             if (
-                quantization_linear_list is not None
-                and key.split(".weight")[0] in quantization_linear_list
-                and not key.endswith("_scale")
+                    quantization_linear_list is not None
+                    and key.split(".weight")[0] in quantization_linear_list
+                    and not key.endswith("_scale")
             ):
                 raise NotImplementedError
             else:
@@ -216,9 +216,9 @@ def _load_part_state_dict_from_safetensors(
 
         for key in keys:
             if (
-                key.endswith(SYMMETRY_QUANT_SCALE)
-                or key.endswith(ASYMMETRY_QUANT_SCALE_MIN)
-                or key.endswith(ASYMMETRY_QUANT_SCALE_MAX)
+                    key.endswith(SYMMETRY_QUANT_SCALE)
+                    or key.endswith(ASYMMETRY_QUANT_SCALE_MIN)
+                    or key.endswith(ASYMMETRY_QUANT_SCALE_MAX)
             ):
                 scale = f.get_tensor(key)
                 if not return_numpy and device == "expected":
@@ -232,13 +232,13 @@ def _load_part_state_dict_from_safetensors(
 
 
 def load_state_dict(
-    checkpoint_file: Union[str, os.PathLike],
-    tensor_parallel_split_mapping=None,
-    fliter_dict_keys=None,
-    device="cpu",
-    ckpt_quant_stage="O0",
-    convert_from_hf=False,
-    transpose_weight_keys=None,
+        checkpoint_file: Union[str, os.PathLike],
+        tensor_parallel_split_mapping=None,
+        fliter_dict_keys=None,
+        device="cpu",
+        ckpt_quant_stage="O0",
+        convert_from_hf=False,
+        transpose_weight_keys=None,
 ):
     """
     Reads a PaddlePaddle checkpoint file, returning properly formatted errors if they arise.
@@ -272,7 +272,7 @@ _re_layer_prefix = re.compile(r"\.(\d+)\.")
 
 
 def _load_state_dict_into_model(
-    model_to_load, state_dict, start_prefix, convert_from_hf
+        model_to_load, state_dict, start_prefix, convert_from_hf
 ):
     # torch will cast dtype in load_state_dict, but paddle strictly check dtype
     _convert_state_dict_dtype_and_shape(state_dict, model_to_load, convert_from_hf)
@@ -323,8 +323,8 @@ def _convert_state_dict_dtype_and_shape(state_dict, model_to_load, convert_from_
             # confirm parameter cast is executed on the same device as model
             # TODO: cast(FP32 -> FP16) has diff on different devices, need to fix it
             if (
-                state_dict[key].is_floating_point()
-                and state_dict[key].dtype != value.dtype
+                    state_dict[key].is_floating_point()
+                    and state_dict[key].dtype != value.dtype
             ):
                 state_dict[key] = paddle.cast(state_dict.pop(key), value.dtype)
             # unified 0d and 1d tensor
@@ -334,14 +334,14 @@ def _convert_state_dict_dtype_and_shape(state_dict, model_to_load, convert_from_
 
 
 def _load_state_dict_into_meta_model(
-    model,
-    state_dict,
-    loaded_state_dict_keys,  # left for now but could be removed, see below
-    start_prefix,
-    expected_keys,
-    dtype=None,
-    is_safetensors=False,
-    keep_in_fp32_modules=None,
+        model,
+        state_dict,
+        loaded_state_dict_keys,  # left for now but could be removed, see below
+        start_prefix,
+        expected_keys,
+        dtype=None,
+        is_safetensors=False,
+        keep_in_fp32_modules=None,
 ):
     """
     This is somewhat similar to `_load_state_dict_into_model`, but deals with a model that has some or all of its
@@ -363,7 +363,7 @@ def _load_state_dict_into_meta_model(
             continue
 
         if param_name.startswith(start_prefix):
-            param_name = param_name[len(start_prefix) :]
+            param_name = param_name[len(start_prefix):]
 
         if param.place != paddle.framework._current_expected_place():
             param = param._copy_to(paddle.framework._current_expected_place(), False)
@@ -372,12 +372,12 @@ def _load_state_dict_into_meta_model(
         # # in int/uint/bool and not cast them.
         if dtype is not None and paddle.is_floating_point(param):
             if (
-                keep_in_fp32_modules is not None
-                and any(
-                    module_to_keep_in_fp32 in param_name
-                    for module_to_keep_in_fp32 in keep_in_fp32_modules
-                )
-                and (dtype == paddle.float16 or dtype == paddle.bfloat16)
+                    keep_in_fp32_modules is not None
+                    and any(
+                module_to_keep_in_fp32 in param_name
+                for module_to_keep_in_fp32 in keep_in_fp32_modules
+            )
+                    and (dtype == paddle.float16 or dtype == paddle.bfloat16)
             ):
                 param = param.astype(dtype=paddle.float32)
             else:
@@ -522,8 +522,8 @@ class PretrainedModel(
 
         # only execute when it's the base method
         if (
-            original_init.__module__ != "paddlenlp.transformers.model_utils"
-            and self.__class__.init_weights is PretrainedModel.init_weights
+                original_init.__module__ != "paddlenlp.transformers.model_utils"
+                and self.__class__.init_weights is PretrainedModel.init_weights
         ):
             self.init_weights()
 
@@ -705,7 +705,7 @@ class PretrainedModel(
 
         def fn(layer):
             if hasattr(layer, "enable_recompute") and (
-                layer.enable_recompute is False or layer.enable_recompute == 0
+                    layer.enable_recompute is False or layer.enable_recompute == 0
             ):
                 layer.enable_recompute = True
 
@@ -719,7 +719,7 @@ class PretrainedModel(
 
         def fn(layer):
             if hasattr(layer, "enable_recompute") and (
-                layer.enable_recompute is False or layer.enable_recompute == 0
+                    layer.enable_recompute is False or layer.enable_recompute == 0
             ):
                 layer.enable_recompute = True
 
@@ -742,12 +742,12 @@ class PretrainedModel(
                 if getattr(output_embeddings, "bias", None) is not None:
                     # need to pad
                     if (
-                        output_embeddings.weight.shape[0]
-                        > output_embeddings.bias.shape[0]
+                            output_embeddings.weight.shape[0]
+                            > output_embeddings.bias.shape[0]
                     ):
                         old_bias = output_embeddings.bias
                         pad_length = (
-                            output_embeddings.weight.shape[0] - old_bias.shape[0]
+                                output_embeddings.weight.shape[0] - old_bias.shape[0]
                         )
                         output_embeddings.bias = output_embeddings.create_parameter(
                             shape=[output_embeddings.weight.shape[0]],
@@ -766,8 +766,8 @@ class PretrainedModel(
                         output_embeddings.bias.set_value(new_bias)
                     # need to trim
                     elif (
-                        output_embeddings.weight.shape[0]
-                        < output_embeddings.bias.shape[0]
+                            output_embeddings.weight.shape[0]
+                            < output_embeddings.bias.shape[0]
                     ):
                         new_bias = output_embeddings.bias[
                             : output_embeddings.weight.shape[0]
@@ -805,7 +805,7 @@ class PretrainedModel(
         )
 
     def resize_token_embeddings(
-        self, new_num_tokens: Optional[int] = None
+            self, new_num_tokens: Optional[int] = None
     ) -> nn.Embedding:
         """
         Resizes input token embeddings matrix of the model according to new_num_tokens.
@@ -856,7 +856,7 @@ class PretrainedModel(
             self._update_init_config(arg.init_config, key, value)
 
     def _get_resized_embeddings(
-        self, old_embeddings: nn.Embedding, new_num_tokens: Optional[int] = None
+            self, old_embeddings: nn.Embedding, new_num_tokens: Optional[int] = None
     ) -> nn.Embedding:
         """
         Build a resized Embedding Module from a provided token Embedding Module. Increasing the size will add newly
@@ -912,16 +912,16 @@ class PretrainedModel(
 
     @classmethod
     def _resolve_model_file_path(
-        cls: Type[PretrainedModel],
-        pretrained_model_name_or_path: str,
-        from_hf_hub: bool = False,
-        from_aistudio: bool = False,
-        cache_dir: str | None = None,
-        subfolder: Optional[str] = "",
-        config: PretrainedConfig = None,
-        convert_from_torch: bool = False,
-        use_safetensors: bool | None = None,
-        variant=None,
+            cls: Type[PretrainedModel],
+            pretrained_model_name_or_path: str,
+            from_hf_hub: bool = False,
+            from_aistudio: bool = False,
+            cache_dir: str | None = None,
+            subfolder: Optional[str] = "",
+            config: PretrainedConfig = None,
+            convert_from_torch: bool = False,
+            use_safetensors: bool | None = None,
+            variant=None,
     ) -> str:
         """resolve model target file path from `` and `cache_dir`
 
@@ -955,7 +955,7 @@ class PretrainedModel(
             is_local = os.path.isdir(pretrained_model_name_or_path)
 
             def get_file_path(
-                pretrained_model_name_or_path, subfolder, SAFE_WEIGHTS_NAME, variant
+                    pretrained_model_name_or_path, subfolder, SAFE_WEIGHTS_NAME, variant
             ):
                 return os.path.join(
                     pretrained_model_name_or_path,
@@ -970,12 +970,12 @@ class PretrainedModel(
             # pretrained_model_name_or_path is dir
             elif is_local:
                 if use_safetensors is not False and os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        SAFE_WEIGHTS_INDEX_NAME,
-                        variant,
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            SAFE_WEIGHTS_INDEX_NAME,
+                            variant,
+                        )
                 ):
                     # Load from a sharded safetensors checkpoint
                     archive_file = get_file_path(
@@ -986,12 +986,12 @@ class PretrainedModel(
                     )
                     is_sharded = True
                 elif use_safetensors is not False and os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        SAFE_WEIGHTS_INDEX_NAME,
-                        weight_name_suffix(),
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            SAFE_WEIGHTS_INDEX_NAME,
+                            weight_name_suffix(),
+                        )
                 ):
                     # Load from a sharded safetensors checkpoint
                     archive_file = get_file_path(
@@ -1002,12 +1002,12 @@ class PretrainedModel(
                     )
                     is_sharded = True
                 elif use_safetensors is not False and os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        SAFE_WEIGHTS_NAME,
-                        variant,
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            SAFE_WEIGHTS_NAME,
+                            variant,
+                        )
                 ):
                     # Load from a safetensors checkpoint
                     archive_file = get_file_path(
@@ -1017,12 +1017,12 @@ class PretrainedModel(
                         variant,
                     )
                 elif use_safetensors is not False and os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        SAFE_WEIGHTS_NAME,
-                        weight_name_suffix(),
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            SAFE_WEIGHTS_NAME,
+                            weight_name_suffix(),
+                        )
                 ):
                     # Load from a safetensors checkpoint
                     archive_file = get_file_path(
@@ -1032,12 +1032,12 @@ class PretrainedModel(
                         weight_name_suffix(),
                     )
                 elif os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        PADDLE_WEIGHTS_INDEX_NAME,
-                        variant,
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            PADDLE_WEIGHTS_INDEX_NAME,
+                            variant,
+                        )
                 ):
                     # Load from a sharded PaddlePaddle checkpoint
                     archive_file = get_file_path(
@@ -1048,12 +1048,12 @@ class PretrainedModel(
                     )
                     is_sharded = True
                 elif os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        PADDLE_WEIGHTS_INDEX_NAME,
-                        weight_name_suffix(),
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            PADDLE_WEIGHTS_INDEX_NAME,
+                            weight_name_suffix(),
+                        )
                 ):
                     # Load from a sharded PaddlePaddle checkpoint for hybrid parallel model
                     archive_file = get_file_path(
@@ -1064,12 +1064,12 @@ class PretrainedModel(
                     )
                     is_sharded = True
                 elif os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        PADDLE_WEIGHTS_NAME,
-                        variant,
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            PADDLE_WEIGHTS_NAME,
+                            variant,
+                        )
                 ):
                     # Load from a PaddlePaddle checkpoint
                     archive_file = get_file_path(
@@ -1079,12 +1079,12 @@ class PretrainedModel(
                         variant,
                     )
                 elif os.path.isfile(
-                    get_file_path(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        PADDLE_WEIGHTS_NAME,
-                        weight_name_suffix(),
-                    )
+                        get_file_path(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            PADDLE_WEIGHTS_NAME,
+                            weight_name_suffix(),
+                        )
                 ):
                     # Load from a PaddlePaddle checkpoint for hybrid parallel model
                     archive_file = get_file_path(
@@ -1094,11 +1094,11 @@ class PretrainedModel(
                         weight_name_suffix(),
                     )
                 elif os.path.isfile(
-                    os.path.join(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        _add_variant(PYTORCH_WEIGHTS_INDEX_NAME, variant),
-                    )
+                        os.path.join(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            _add_variant(PYTORCH_WEIGHTS_INDEX_NAME, variant),
+                        )
                 ):
                     if from_hf_hub or convert_from_torch:
                         archive_file = os.path.join(
@@ -1112,11 +1112,11 @@ class PretrainedModel(
                             f" {pretrained_model_name_or_path}. Please set convert_from_torch=True in from_pretrained. eg, Model.from_pretrained(model_name, convert_from_torch=True) "
                         )
                 elif os.path.isfile(
-                    os.path.join(
-                        pretrained_model_name_or_path,
-                        subfolder,
-                        _add_variant(PYTORCH_WEIGHTS_NAME, variant),
-                    )
+                        os.path.join(
+                            pretrained_model_name_or_path,
+                            subfolder,
+                            _add_variant(PYTORCH_WEIGHTS_NAME, variant),
+                        )
                 ):
                     if from_hf_hub or convert_from_torch:
                         archive_file = os.path.join(
@@ -1223,20 +1223,20 @@ class PretrainedModel(
 
     @classmethod
     def _load_pretrained_model(
-        cls,
-        model: PretrainedModel,
-        state_dict: Dict[str, Tensor],
-        loaded_keys: List[str],
-        resolved_archive_file: Union[str, List] = [],
-        pretrained_model_name_or_path=None,
-        config=None,
-        ignore_mismatched_sizes=False,
-        low_cpu_mem_usage=False,
-        dtype=None,
-        keep_in_fp32_modules=None,
-        quantization_linear_list=None,
-        sharded_metadata=None,
-        convert_from_hf=False,
+            cls,
+            model: PretrainedModel,
+            state_dict: Dict[str, Tensor],
+            loaded_keys: List[str],
+            resolved_archive_file: Union[str, List] = [],
+            pretrained_model_name_or_path=None,
+            config=None,
+            ignore_mismatched_sizes=False,
+            low_cpu_mem_usage=False,
+            dtype=None,
+            keep_in_fp32_modules=None,
+            quantization_linear_list=None,
+            sharded_metadata=None,
+            convert_from_hf=False,
     ) -> Tuple[List[str]]:
         """load the state_dict into model, and do the following things:
 
@@ -1283,11 +1283,11 @@ class PretrainedModel(
                 s for s in expected_keys if not s.startswith(_prefix)
             ]
             expected_keys = [
-                s[len(_prefix) :] if s.startswith(_prefix) else s for s in expected_keys
+                s[len(_prefix):] if s.startswith(_prefix) else s for s in expected_keys
             ]
             if quantization_linear_list is not None:
                 quantization_linear_list = [
-                    s[len(_prefix) :] if s.startswith(_prefix) else s
+                    s[len(_prefix):] if s.startswith(_prefix) else s
                     for s in quantization_linear_list
                 ]
         elif add_prefix_to_model:
@@ -1309,7 +1309,7 @@ class PretrainedModel(
             for file in resolved_archive_file:
                 filename = os.path.split(file)[-1]
                 if not expected_keys_set.isdisjoint(
-                    set(sharded_metadata["file_map"][filename])
+                        set(sharded_metadata["file_map"][filename])
                 ):
                     new_archive_file.append(file)
                 else:
@@ -1337,8 +1337,8 @@ class PretrainedModel(
         if keep_in_fp32_modules is not None:
             for name, param in model.named_parameters():
                 if any(
-                    module_to_keep_in_fp32 in name
-                    for module_to_keep_in_fp32 in keep_in_fp32_modules
+                        module_to_keep_in_fp32 in name
+                        for module_to_keep_in_fp32 in keep_in_fp32_modules
                 ):
                     if param.dtype != paddle.float32:
                         param_fp32 = param.cast(dtype=paddle.float32)
@@ -1350,22 +1350,22 @@ class PretrainedModel(
         start_prefix = ""
         model_to_load = model
         if (
-            len(cls.base_model_prefix) > 0
-            and not hasattr(model, cls.base_model_prefix)
-            and has_prefix_module
+                len(cls.base_model_prefix) > 0
+                and not hasattr(model, cls.base_model_prefix)
+                and has_prefix_module
         ):
             start_prefix = cls.base_model_prefix + "."
         if (
-            len(cls.base_model_prefix) > 0
-            and hasattr(model, cls.base_model_prefix)
-            and not has_prefix_module
+                len(cls.base_model_prefix) > 0
+                and hasattr(model, cls.base_model_prefix)
+                and not has_prefix_module
         ):
             model_to_load = getattr(model, cls.base_model_prefix)
             base_model_expected_keys = list(model_to_load.state_dict().keys())
             if any(
-                key in expected_keys_not_prefixed
-                and key not in base_model_expected_keys
-                for key in loaded_keys
+                    key in expected_keys_not_prefixed
+                    and key not in base_model_expected_keys
+                    for key in loaded_keys
             ):
                 raise ValueError(
                     "The state dictionary of the model you are trying to load is corrupted. Are you sure it was "
@@ -1373,12 +1373,12 @@ class PretrainedModel(
                 )
 
         def _find_mismatched_keys(
-            state_dict,
-            model_state_dict,
-            loaded_keys,
-            add_prefix_to_model,
-            remove_prefix_from_model,
-            ignore_mismatched_sizes,
+                state_dict,
+                model_state_dict,
+                loaded_keys,
+                add_prefix_to_model,
+                remove_prefix_from_model,
+                ignore_mismatched_sizes,
         ):
             mismatched_keys = []
             if ignore_mismatched_sizes:
@@ -1395,9 +1395,9 @@ class PretrainedModel(
                         model_key = ".".join(checkpoint_key.split(".")[1:])
 
                     if (
-                        model_key in model_state_dict
-                        and state_dict[checkpoint_key].shape
-                        != model_state_dict[model_key].shape
+                            model_key in model_state_dict
+                            and state_dict[checkpoint_key].shape
+                            != model_state_dict[model_key].shape
                     ):
                         mismatched_keys.append(
                             (
@@ -1410,11 +1410,11 @@ class PretrainedModel(
             return mismatched_keys
 
         def _fuse_or_split_keys(
-            state_dict,
-            config,
-            loaded_keys,
-            pre_tensor_parallel_split=False,
-            resume_state_dict=None,
+                state_dict,
+                config,
+                loaded_keys,
+                pre_tensor_parallel_split=False,
+                resume_state_dict=None,
         ):
             if resume_state_dict is not None:
                 state_dict.update(resume_state_dict)
@@ -1480,9 +1480,9 @@ class PretrainedModel(
             for shard_file in resolved_archive_file:
                 pre_tensor_parallel_split = False
                 if (
-                    shard_file.endswith(".safetensors")
-                    and config.tensor_parallel_degree > 1
-                    and "tp" not in os.path.split(shard_file)[-1]
+                        shard_file.endswith(".safetensors")
+                        and config.tensor_parallel_degree > 1
+                        and "tp" not in os.path.split(shard_file)[-1]
                 ):
                     pre_tensor_parallel_split = True
                     assert loaded_keys is not None, "loaded_keys is not None."
@@ -1560,9 +1560,9 @@ class PretrainedModel(
                 )
 
                 if (
-                    config.tensor_parallel_degree > 1
-                    and ".tp" not in shard_file
-                    and not pre_tensor_parallel_split
+                        config.tensor_parallel_degree > 1
+                        and ".tp" not in shard_file
+                        and not pre_tensor_parallel_split
                 ):
                     logging.info("Converting state_dict to Tensor Parallel Format")
                     # ignore error for multi shard, since only parts of data
@@ -1652,7 +1652,7 @@ class PretrainedModel(
 
     @classmethod
     def from_pretrained(
-        cls, pretrained_model_name_or_path, *args, convert_from_hf=False, **kwargs
+            cls, pretrained_model_name_or_path, *args, convert_from_hf=False, **kwargs
     ):
         """
         Creates an instance of `PretrainedModel`. Model weights are loaded
@@ -1802,10 +1802,10 @@ class PretrainedModel(
 
         if convert_from_torch and state_dict is None:
             if (
-                resolved_archive_file.endswith(PYTORCH_WEIGHTS_NAME)
-                or resolved_archive_file.endswith(PYTORCH_WEIGHTS_INDEX_NAME)
-                or resolved_archive_file.endswith(SAFE_WEIGHTS_NAME)
-                or resolved_archive_file.endswith(SAFE_WEIGHTS_INDEX_NAME)
+                    resolved_archive_file.endswith(PYTORCH_WEIGHTS_NAME)
+                    or resolved_archive_file.endswith(PYTORCH_WEIGHTS_INDEX_NAME)
+                    or resolved_archive_file.endswith(SAFE_WEIGHTS_NAME)
+                    or resolved_archive_file.endswith(SAFE_WEIGHTS_INDEX_NAME)
             ):
                 # try to get the name-mapping info
                 convert_dir = os.path.dirname(resolved_archive_file)
@@ -1820,9 +1820,9 @@ class PretrainedModel(
                     cache_dir=convert_dir,
                 )
             elif (
-                resolved_archive_file.endswith(PADDLE_WEIGHTS_NAME)
-                or resolved_archive_file.endswith(PADDLE_WEIGHTS_INDEX_NAME)
-                or resolved_archive_file.endswith(".pdparams")
+                    resolved_archive_file.endswith(PADDLE_WEIGHTS_NAME)
+                    or resolved_archive_file.endswith(PADDLE_WEIGHTS_INDEX_NAME)
+                    or resolved_archive_file.endswith(".pdparams")
             ):
                 print(f"file: {resolved_archive_file} is paddle weight.")
             else:
@@ -1833,11 +1833,11 @@ class PretrainedModel(
         if not is_sharded and state_dict is None:
             # 4. loading non-sharded ckpt from the state dict
             if config.tensor_parallel_degree > 1 and resolved_archive_file.endswith(
-                "model_state.pdparams"
+                    "model_state.pdparams"
             ):
                 state_dict = cls.convert_tensor_parallel(resolved_archive_file, config)
             elif config.tensor_parallel_degree > 1 and resolved_archive_file.endswith(
-                "model.safetensors"
+                    "model.safetensors"
             ):
                 raise NotImplementedError
             else:
@@ -1858,7 +1858,7 @@ class PretrainedModel(
 
         # Check if `_keep_in_fp32_modules` is not None
         use_keep_in_fp32_modules = (cls._keep_in_fp32_modules is not None) and (
-            dtype == "float16" or dtype == "bfloat16"
+                dtype == "float16" or dtype == "bfloat16"
         )
 
         if state_dict is not None:
@@ -1989,8 +1989,8 @@ class PretrainedModel(
                 else:
                     for k, v in config["mp_config"]["parallelize_plan"].items():
                         assert (
-                            k
-                            not in final_config["mp_config"]["parallelize_plan"].keys()
+                                k
+                                not in final_config["mp_config"]["parallelize_plan"].keys()
                         ), f"sublayer mp_config should be a subset of model but got sublayer config {config['mp_config']} and model config {final_config['mp_config']}."
                         final_config["mp_config"]["parallelize_plan"][k] = v
             if "sp_config" in config and config["sp_config"] is not None:
@@ -1999,8 +1999,8 @@ class PretrainedModel(
                 else:
                     for k, v in config["sp_config"]["parallelize_plan"].items():
                         assert (
-                            k
-                            not in final_config["sp_config"]["parallelize_plan"].keys()
+                                k
+                                not in final_config["sp_config"]["parallelize_plan"].keys()
                         ), f"sublayer sp_config should be a subset of model but got sublayer config {config['sp_config']} and model config {final_config['sp_config']}."
                         final_config["sp_config"]["parallelize_plan"][k] = v
             if "pp_config" in config and config["pp_config"] is not None:
@@ -2023,8 +2023,8 @@ class PretrainedModel(
                         ]
 
         if (
-            final_config["pp_config"] is not None
-            and len(final_config["pp_config"]["split_spec"]) == 1
+                final_config["pp_config"] is not None
+                and len(final_config["pp_config"]["split_spec"]) == 1
         ):
             final_config["pp_config"]["split_spec"] = final_config["pp_config"][
                 "split_spec"
@@ -2060,22 +2060,22 @@ class PretrainedModel(
         }
 
         if (
-            "tensor_parallel" in auto_dist_degree
-            and auto_dist_degree["tensor_parallel"]
+                "tensor_parallel" in auto_dist_degree
+                and auto_dist_degree["tensor_parallel"]
         ):
             merged_config["mp_config"] is not None
             final_config["mp_config"] = merged_config["mp_config"]
 
         if (
-            "sequence_parallel" in auto_dist_degree
-            and auto_dist_degree["sequence_parallel"]
+                "sequence_parallel" in auto_dist_degree
+                and auto_dist_degree["sequence_parallel"]
         ):
             merged_config["sp_config"] is not None
             final_config["mp_config"] = merged_config["sp_config"]
 
         if (
-            "pipeline_parallel" in auto_dist_degree
-            and auto_dist_degree["pipeline_parallel"]
+                "pipeline_parallel" in auto_dist_degree
+                and auto_dist_degree["pipeline_parallel"]
         ):
             merged_config["pp_config"] is not None
             final_config["pp_config"] = merged_config["pp_config"]

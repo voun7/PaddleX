@@ -16,7 +16,7 @@ from typing import Any
 
 import numpy as np
 
-from .....utils.deps import function_requires_deps, is_dep_available
+from .._app import create_app, primary_operation
 from ...infra import utils as serving_utils
 from ...infra.config import AppConfig
 from ...infra.models import AIStudioResultResponse
@@ -25,7 +25,7 @@ from ...schemas.open_vocabulary_segmentation import (
     InferRequest,
     InferResult,
 )
-from .._app import create_app, primary_operation
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI

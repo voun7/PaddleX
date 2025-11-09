@@ -16,26 +16,26 @@ from __future__ import absolute_import
 
 import os
 from copy import deepcopy
-import numpy as np
-from typing import List
 from dataclasses import dataclass
+from typing import List
 
-from .... import UltraInferModel, ModelFormat
-from ....py_only.ts import PyOnlyTSModel
-from ....utils.misc import load_config
+import numpy as np
+
+from .... import ModelFormat
 from ....py_only import PyOnlyProcessorChain
 from ....py_only.ts import PyOnlyTSModel, processors as P
+from ....utils.misc import load_config
 
 
 class PyOnlyForecastingModel(PyOnlyTSModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        scaler_file=None,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            scaler_file=None,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         self._model_file = model_file
         self._params_file = params_file

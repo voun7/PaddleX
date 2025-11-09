@@ -18,9 +18,8 @@ import argparse
 import pprint
 import sys
 
-from tritonclient import grpc as triton_grpc
-
 from paddlex_hps_client import triton_request, utils
+from tritonclient import grpc as triton_grpc
 
 
 def main():

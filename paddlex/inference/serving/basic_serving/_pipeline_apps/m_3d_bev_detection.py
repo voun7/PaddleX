@@ -15,12 +15,12 @@
 import os
 from typing import Any, Dict, List
 
-from .....utils.deps import function_requires_deps, is_dep_available
+from .._app import create_app, primary_operation
 from ...infra import utils as serving_utils
 from ...infra.config import AppConfig
 from ...infra.models import AIStudioResultResponse
 from ...schemas.m_3d_bev_detection import INFER_ENDPOINT, InferRequest, InferResult
-from .._app import create_app, primary_operation
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI
@@ -61,7 +61,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
 
         objects: List[Dict[str, Any]] = []
         for box, label, score in zip(
-            result["boxes_3d"], result["labels_3d"], result["scores_3d"]
+                result["boxes_3d"], result["labels_3d"], result["scores_3d"]
         ):
             objects.append(
                 dict(

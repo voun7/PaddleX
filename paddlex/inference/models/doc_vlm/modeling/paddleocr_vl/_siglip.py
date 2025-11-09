@@ -42,19 +42,19 @@ import paddle
 import paddle.nn as nn
 import paddle.nn.functional as F
 
+from ._config import PaddleOCRVisionConfig, PaddleOCRVLConfig
 from ....common.vlm.activations import ACT2FN
 from ....common.vlm.transformers import PretrainedModel
 from ....common.vlm.transformers.model_outputs import (
     BaseModelOutput,
     BaseModelOutputWithPooling,
 )
-from ._config import PaddleOCRVisionConfig, PaddleOCRVLConfig
 
 
 def rotate_half(x):
     Dh = x.shape[-1]
     x1 = x[..., : Dh // 2]
-    x2 = x[..., Dh // 2 :]
+    x2 = x[..., Dh // 2:]
     return paddle.concat([-x2, x1], axis=-1)
 
 
@@ -68,7 +68,7 @@ def _ensure_cos_sin_dim(cos, sin, dim_needed):
         return cos, sin
     else:
         raise ValueError(
-            f"Unexpected cos/sin last-dim: {last}, expected {dim_needed} or {dim_needed//2}"
+            f"Unexpected cos/sin last-dim: {last}, expected {dim_needed} or {dim_needed // 2}"
         )
 
 
@@ -91,14 +91,14 @@ def apply_rotary_pos_emb_vision(q, k, cos, sin):
 
 
 def eager_attention_forward(
-    module,
-    query,
-    key,
-    value,
-    attention_mask,
-    scaling: float,
-    dropout: float = 0.0,
-    **kwargs,
+        module,
+        query,
+        key,
+        value,
+        attention_mask,
+        scaling: float,
+        dropout: float = 0.0,
+        **kwargs,
 ):
     attn_weights = paddle.matmul(query, key.transpose((0, 1, 3, 2))) * scaling
     if attention_mask is not None:
@@ -121,7 +121,7 @@ class SiglipAttention(nn.Layer):
         self.num_heads = config.num_attention_heads
         self.head_dim = self.embed_dim // self.num_heads
         assert self.head_dim * self.num_heads == self.embed_dim
-        self.scale = self.head_dim**-0.5
+        self.scale = self.head_dim ** -0.5
         self.dropout = getattr(config, "attention_dropout", 0.0)
         self.is_causal = False
 
@@ -131,12 +131,12 @@ class SiglipAttention(nn.Layer):
         self.out_proj = nn.Linear(self.embed_dim, self.embed_dim)
 
     def forward(
-        self,
-        hidden_states: paddle.Tensor,  # [B, L, D]
-        attention_mask: Optional[paddle.Tensor] = None,
-        output_attentions: Optional[bool] = False,
-        cu_seqlens: Optional[List[paddle.Tensor]] = None,
-        rope_emb: Optional[Tuple[paddle.Tensor, paddle.Tensor]] = None,  # (cos, sin)
+            self,
+            hidden_states: paddle.Tensor,  # [B, L, D]
+            attention_mask: Optional[paddle.Tensor] = None,
+            output_attentions: Optional[bool] = False,
+            cu_seqlens: Optional[List[paddle.Tensor]] = None,
+            rope_emb: Optional[Tuple[paddle.Tensor, paddle.Tensor]] = None,  # (cos, sin)
     ):
         B, L, D = hidden_states.shape
 
@@ -209,7 +209,7 @@ class SiglipVisionEmbeddings(nn.Layer):
         )
 
     def interpolate_pos_encoding(
-        self, embeddings, height: int, width: int, is_after_patchify: bool = False
+            self, embeddings, height: int, width: int, is_after_patchify: bool = False
     ):
 
         num_positions = self.position_embedding.weight.shape[0]
@@ -225,7 +225,7 @@ class SiglipVisionEmbeddings(nn.Layer):
             new_height = height // self.patch_size
             new_width = width // self.patch_size
 
-        sqrt_num_positions = paddle.to_tensor(num_positions**0.5, dtype=paddle.int64)
+        sqrt_num_positions = paddle.to_tensor(num_positions ** 0.5, dtype=paddle.int64)
         patch_pos_embed = patch_pos_embed.reshape(
             (1, sqrt_num_positions, sqrt_num_positions, dim)
         )
@@ -270,13 +270,13 @@ class SiglipVisionEmbeddings(nn.Layer):
         return position_embedding
 
     def forward(
-        self,
-        pixel_values: paddle.Tensor,  # [B, L, C, H, W]
-        position_ids: Optional[paddle.Tensor] = None,  # [B or 1, S]
-        image_grid_thw: Optional[
-            List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
-        ] = None,
-        interpolate_pos_encoding: bool = False,
+            self,
+            pixel_values: paddle.Tensor,  # [B, L, C, H, W]
+            position_ids: Optional[paddle.Tensor] = None,  # [B or 1, S]
+            image_grid_thw: Optional[
+                List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
+            ] = None,
+            interpolate_pos_encoding: bool = False,
     ) -> paddle.Tensor:
         if pixel_values.dim() == 5:
             assert position_ids is not None
@@ -301,15 +301,15 @@ class SiglipVisionEmbeddings(nn.Layer):
                 image_embedding_list = list()
 
                 assert (
-                    sum([np.prod(x) for x in flatten_image_grid_thw])
-                    == embeddings.shape[1]
+                        sum([np.prod(x) for x in flatten_image_grid_thw])
+                        == embeddings.shape[1]
                 ), (flatten_image_grid_thw, embeddings.shape)
                 embeddings = embeddings.squeeze(0)
                 tmp_embeddings = list()
                 for image_grid in image_grid_thw:
                     t, h, w = image_grid
                     end = start + t * h * w
-                    image_embeddings = embeddings[int(start) : int(end), :]
+                    image_embeddings = embeddings[int(start): int(end), :]
                     position_embedding = (
                         self.interpolate_pos_encoding(image_embeddings, h, w, True)
                         .squeeze(0)
@@ -355,14 +355,13 @@ class SiglipEncoderLayer(paddle.nn.Layer):
         self.mlp = SiglipMLP(config)
 
     def forward(
-        self,
-        hidden_states,
-        attention_mask,
-        output_attentions=False,
-        cu_seqlens=None,
-        rope_emb=None,
+            self,
+            hidden_states,
+            attention_mask,
+            output_attentions=False,
+            cu_seqlens=None,
+            rope_emb=None,
     ):
-
         residual = hidden_states
         ############################
         ln1_out = self.layer_norm1(hidden_states)
@@ -472,20 +471,20 @@ class SiglipEncoder(nn.Layer):
         return window_indices, cu_seqlens_within_windows
 
     def forward(
-        self,
-        inputs_embeds: paddle.Tensor,
-        attention_mask: Optional[paddle.Tensor] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        cu_seqlens: Optional[paddle.Tensor] = None,
-        image_grid_thw: Optional[
-            List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
-        ] = None,
-        height_position_ids: Optional[paddle.Tensor] = None,
-        width_position_ids: Optional[paddle.Tensor] = None,
-        use_rope: Optional[bool] = False,
-        window_size: Optional[int] = -1,
-        vision_or_text: str = "vision",
+            self,
+            inputs_embeds: paddle.Tensor,
+            attention_mask: Optional[paddle.Tensor] = None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            cu_seqlens: Optional[paddle.Tensor] = None,
+            image_grid_thw: Optional[
+                List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
+            ] = None,
+            height_position_ids: Optional[paddle.Tensor] = None,
+            width_position_ids: Optional[paddle.Tensor] = None,
+            use_rope: Optional[bool] = False,
+            window_size: Optional[int] = -1,
+            vision_or_text: str = "vision",
     ):
 
         vision_or_text = "vision"
@@ -515,8 +514,8 @@ class SiglipEncoder(nn.Layer):
         if use_rope is True:
             flatten_image_grid_thw = self.flatten_list(image_grid_thw)
             assert (
-                sum([np.prod(x) for x in flatten_image_grid_thw])
-                == hidden_states.shape[1]
+                    sum([np.prod(x) for x in flatten_image_grid_thw])
+                    == hidden_states.shape[1]
             ), (flatten_image_grid_thw, hidden_states.shape)
 
             if width_position_ids is None or height_position_ids is None:
@@ -561,13 +560,13 @@ class SiglipEncoder(nn.Layer):
             if use_window_attn:
                 flatten_image_grid_thw = self.flatten_list(image_grid_thw)
                 assert (
-                    sum(
-                        [
-                            np.prod(x.astype("float32").cpu().numpy())
-                            for x in flatten_image_grid_thw
-                        ]
-                    )
-                    == hidden_states.shape[1]
+                        sum(
+                            [
+                                np.prod(x.astype("float32").cpu().numpy())
+                                for x in flatten_image_grid_thw
+                            ]
+                        )
+                        == hidden_states.shape[1]
                 ), (flatten_image_grid_thw, hidden_states.shape)
 
                 window_indices, cu_seqlens_within_windows = self.build_window_index(
@@ -661,26 +660,26 @@ class SiglipVisionTransformer(nn.Layer):
             self.head = SiglipMultiheadAttentionPoolingHead(config)
 
     def forward(
-        self,
-        pixel_values,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        interpolate_pos_encoding: Optional[bool] = False,
-        attention_mask=None,
-        sample_indices=None,
-        image_indices=None,
-        position_ids=None,
-        height_position_ids=None,
-        width_position_ids=None,
-        cu_seqlens=None,
-        padding_mask=None,
-        vision_return_embed_list: Optional[bool] = False,
-        image_grid_thw: Optional[
-            List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
-        ] = None,
-        return_pooler_output: Optional[bool] = True,
-        use_rope: Optional[bool] = False,
-        window_size: Optional[bool] = -1,
+            self,
+            pixel_values,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            interpolate_pos_encoding: Optional[bool] = False,
+            attention_mask=None,
+            sample_indices=None,
+            image_indices=None,
+            position_ids=None,
+            height_position_ids=None,
+            width_position_ids=None,
+            cu_seqlens=None,
+            padding_mask=None,
+            vision_return_embed_list: Optional[bool] = False,
+            image_grid_thw: Optional[
+                List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
+            ] = None,
+            return_pooler_output: Optional[bool] = True,
+            use_rope: Optional[bool] = False,
+            window_size: Optional[bool] = -1,
     ) -> BaseModelOutputWithPooling:
         output_attentions = (
             output_attentions
@@ -828,21 +827,21 @@ class SiglipVisionModel(SiglipPreTrainedModel):
         return self.vision_model.embeddings.patch_embedding
 
     def forward(
-        self,
-        pixel_values,
-        sample_indices=None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        interpolate_pos_encoding: bool = False,
-        position_ids=None,
-        vision_return_embed_list: Optional[bool] = False,
-        image_grid_thw: Optional[
-            List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
-        ] = None,
-        cu_seqlens=None,
-        return_pooler_output: Optional[bool] = True,
-        use_rope: Optional[bool] = False,
-        window_size: Optional[bool] = -1,
+            self,
+            pixel_values,
+            sample_indices=None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            interpolate_pos_encoding: bool = False,
+            position_ids=None,
+            vision_return_embed_list: Optional[bool] = False,
+            image_grid_thw: Optional[
+                List[Union[Tuple[int, int, int], List[Tuple[int, int, int]]]]
+            ] = None,
+            cu_seqlens=None,
+            return_pooler_output: Optional[bool] = True,
+            use_rope: Optional[bool] = False,
+            window_size: Optional[bool] = -1,
     ) -> BaseModelOutputWithPooling:
         return self.vision_model(
             pixel_values=pixel_values,

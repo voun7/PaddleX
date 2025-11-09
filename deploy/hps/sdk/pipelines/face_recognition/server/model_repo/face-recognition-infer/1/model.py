@@ -14,10 +14,10 @@
 
 from typing import Any, Dict, List
 
-from paddlex.inference.pipelines.components import IndexData
+from common.base_model import BaseFaceRecognitionModel
 from paddlex_hps_server import schemas, utils
 
-from common.base_model import BaseFaceRecognitionModel
+from paddlex.inference.pipelines.components import IndexData
 
 
 class TritonPythonModel(BaseFaceRecognitionModel):

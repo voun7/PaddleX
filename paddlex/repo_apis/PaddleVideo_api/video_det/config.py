@@ -17,9 +17,9 @@ from typing import Union
 
 import yaml
 
-from ....utils.misc import abspath
-from ...base import BaseConfig
 from ..config_utils import merge_config
+from ...base import BaseConfig
+from ....utils.misc import abspath
 
 
 class VideoDetConfig(BaseConfig):
@@ -58,11 +58,11 @@ class VideoDetConfig(BaseConfig):
             yaml.dump(self.dict, f, default_flow_style=False, sort_keys=False)
 
     def update_dataset(
-        self,
-        dataset_path: str,
-        dataset_type: str = None,
-        *,
-        train_list_path: str = None,
+            self,
+            dataset_path: str,
+            dataset_type: str = None,
+            *,
+            train_list_path: str = None,
     ):
         """update dataset settings
 
@@ -126,8 +126,8 @@ class VideoDetConfig(BaseConfig):
             learning_rate (float): the learning rate value to set.
         """
         if (
-            self._dict["OPTIMIZER"]["learning_rate"].get("learning_rate", None)
-            is not None
+                self._dict["OPTIMIZER"]["learning_rate"].get("learning_rate", None)
+                is not None
         ):
             _cfg = {"OPTIMIZER.learning_rate.learning_rate": learning_rate}
         else:

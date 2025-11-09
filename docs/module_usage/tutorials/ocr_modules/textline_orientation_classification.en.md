@@ -5,7 +5,12 @@ comments: true
 # Text Line Orientation Classification Module Tutorial
 
 ## I. Overview
-The text line orientation classification module primarily distinguishes the orientation of text lines and corrects them using post-processing. In processes such as document scanning and license/certificate photography, to capture clearer images, the capture device may be rotated, resulting in text lines in various orientations. Standard OCR pipelines cannot handle such data well. By utilizing image classification technology, the orientation of text lines can be predetermined and adjusted, thereby enhancing the accuracy of OCR processing.
+
+The text line orientation classification module primarily distinguishes the orientation of text lines and corrects them
+using post-processing. In processes such as document scanning and license/certificate photography, to capture clearer
+images, the capture device may be rotated, resulting in text lines in various orientations. Standard OCR pipelines
+cannot handle such data well. By utilizing image classification technology, the orientation of text lines can be
+predetermined and adjusted, thereby enhancing the accuracy of OCR processing.
 
 ## II. Supported Model List
 
@@ -45,7 +50,10 @@ The text line orientation classification module primarily distinguishes the orie
 </tbody>
 </table>
 
-> ❗ **Note**: The text line orientation classification model was upgraded on May 26, 2025, and `PP-LCNet_x1_0_textline_ori` has been added. If you need to use the pre-upgrade model weights, please click the <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-LCNet_x0_25_textline_ori_infer.bak.tar">download link</a>.
+> ❗ **Note**: The text line orientation classification model was upgraded on May 26, 2025, and
+`PP-LCNet_x1_0_textline_ori` has been added. If you need to use the pre-upgrade model weights, please click
+> the <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-LCNet_x0_25_textline_ori_infer.bak.tar">
+> download link</a>.
 
 <strong>Test Environment Description:</strong>
 
@@ -98,9 +106,15 @@ The text line orientation classification module primarily distinguishes the orie
 
 ## III. Quick Integration
 
-> ❗ Before quick integration, please install the PaddleX wheel package first. For details, please refer to the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+> ❗ Before quick integration, please install the PaddleX wheel package first. For details, please refer to
+> the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
-After completing the installation of the wheel package, you can perform inference for the text line orientation classification module with just a few lines of code. You can switch models under this module at will, and you can also integrate the model inference of the text line orientation classification module into your project. Before running the following code, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/textline_rot180_demo.jpg) to your local machine. If the download link is not working, please check the validity of the URL and try again.
+After completing the installation of the wheel package, you can perform inference for the text line orientation
+classification module with just a few lines of code. You can switch models under this module at will, and you can also
+integrate the model inference of the text line orientation classification module into your project. Before running the
+following code, please download
+the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/textline_rot180_demo.jpg) to your
+local machine. If the download link is not working, please check the validity of the URL and try again.
 
 ```bash
 from paddlex import create_model
@@ -112,7 +126,9 @@ for res in output:
     res.save_to_json("./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 After running, the result obtained is:
 
@@ -127,13 +143,14 @@ The meanings of the running results parameters are as follows:
 - `class_ids`：Indicates the class ID of the prediction result.
 - `scores`：Indicates the confidence score of the prediction result.
 - `label_names`：Indicates the class name of the prediction result.
-The visualization image is as follows:
+  The visualization image is as follows:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/refs/heads/main/images/modules/textline_ori_classification/textline_rot180_demo_res.jpg">
 
 The explanations for the methods, parameters, etc., are as follows:
 
-* `create_model` instantiates a textline classification model (here, `PP-LCNet_x0_25_textline_ori` is used as an example), and the specific explanations are as follows:
+* `create_model` instantiates a textline classification model (here, `PP-LCNet_x0_25_textline_ori` is used as an
+  example), and the specific explanations are as follows:
 
 <table>
 <thead>
@@ -182,9 +199,11 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX are used. If `model_dir` is specified, the user-defined model is used.
+* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX are
+  used. If `model_dir` is specified, the user-defined model is used.
 
-* The `predict()` method of the text recognition model is called for inference prediction. The `predict()` method has parameters `input` and `batch_size`, which are explained as follows:
+* The `predict()` method of the text recognition model is called for inference prediction. The `predict()` method has
+  parameters `input` and `batch_size`, which are explained as follows:
 
 <table>
 <thead>
@@ -220,7 +239,8 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* The prediction results are processed, and the prediction result for each sample is of type `dict`. It supports operations such as printing, saving as an image, and saving as a `json` file:
+* The prediction results are processed, and the prediction result for each sample is of type `dict`. It supports
+  operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -283,7 +303,8 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* Additionally, it supports obtaining the visualization image with results and the prediction results through attributes, as follows:
+* Additionally, it supports obtaining the visualization image with results and the prediction results through
+  attributes, as follows:
 
 <table>
 <thead>
@@ -302,22 +323,36 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-For more information on using the PaddleX single-model inference API, refer to the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using the PaddleX single-model inference API, refer to
+the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
-If you aim for higher accuracy with existing models, you can leverage PaddleX's custom development capabilities to develop better text line orientation classification models. Before developing a text line orientation classification model with PaddleX, ensure that you have installed PaddleX's classification-related model training capabilities. The installation process can be found in the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md).
+
+If you aim for higher accuracy with existing models, you can leverage PaddleX's custom development capabilities to
+develop better text line orientation classification models. Before developing a text line orientation classification
+model with PaddleX, ensure that you have installed PaddleX's classification-related model training capabilities. The
+installation process can be found in
+the [PaddleX Local Installation Tutorial](../../../installation/installation.en.md).
 
 ### 4.1 Data Preparation
-Before model training, you need to prepare a dataset for the corresponding task module. PaddleX provides data validation functionality for each module, and <b>only data that passes validation can be used for model training</b>. Additionally, PaddleX provides demo datasets for each module, allowing you to complete subsequent development based on the official demo data. If you wish to use a private dataset for subsequent model training, refer to the [PaddleX Image Classification Task Module Data Preparation Tutorial](../../../data_annotations/cv_modules/image_classification.en.md).
+
+Before model training, you need to prepare a dataset for the corresponding task module. PaddleX provides data validation
+functionality for each module, and <b>only data that passes validation can be used for model training</b>. Additionally,
+PaddleX provides demo datasets for each module, allowing you to complete subsequent development based on the official
+demo data. If you wish to use a private dataset for subsequent model training, refer to
+the [PaddleX Image Classification Task Module Data Preparation Tutorial](../../../data_annotations/cv_modules/image_classification.en.md).
 
 #### 4.1.1 Demo Data Download
+
 You can download the demo dataset to a specified folder using the following command:
 
 ```bash
 wget https://paddle-model-ecology.bj.bcebos.com/paddlex/data/textline_orientation_example_data.tar -P ./dataset
 tar -xf ./dataset/textline_orientation_example_data.tar -C ./dataset/
 ```
+
 #### 4.1.2 Data Validation
+
 You can complete data validation with a single command:
 
 ```bash
@@ -325,7 +360,11 @@ python main.py -c paddlex/configs/modules/textline_orientation/PP-LCNet_x0_25_te
     -o Global.mode=check_dataset \
     -o Global.dataset_dir=./dataset/textline_orientation_example_data
 ```
-After executing the above command, PaddleX will validate the dataset and collect basic information about it. Upon successful execution, the log will print the message `Check dataset passed !`. The validation result file is saved in `./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory under the current directory, including visualized sample images and sample distribution histograms.
+
+After executing the above command, PaddleX will validate the dataset and collect basic information about it. Upon
+successful execution, the log will print the message `Check dataset passed !`. The validation result file is saved in
+`./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory under the
+current directory, including visualized sample images and sample distribution histograms.
 
 <details><summary>👉 <b>Details of Verification Results (Click to Expand)</b></summary>
 
@@ -383,7 +422,9 @@ After executing the above command, PaddleX will validate the dataset and collect
 <p><img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/modules/textline_ori_classification/01.png"></p></details>
 
 ### 4.1.3 Dataset Format Conversion / Dataset Splitting (Optional)
-After completing data validation, you can convert the dataset format and re-split the training/validation ratio of the dataset by **modifying the configuration file** or **adding hyperparameters**.
+
+After completing data validation, you can convert the dataset format and re-split the training/validation ratio of the
+dataset by **modifying the configuration file** or **adding hyperparameters**.
 
 <details><summary>👉 <b>Details on Format Conversion / Dataset Splitting (Click to Expand)</b></summary>
 
@@ -423,20 +464,31 @@ CheckDataset:
 </code></pre></details>
 
 ### 4.2 Model Training
-Model training can be completed with a single command. Here, the training of the text line orientation classification model (PP-LCNet_x1_0_textline_ori) is taken as an example:
+
+Model training can be completed with a single command. Here, the training of the text line orientation classification
+model (PP-LCNet_x1_0_textline_ori) is taken as an example:
 
 ```bash
 python main.py -c paddlex/configs/modules/textline_orientation/PP-LCNet_x0_25_textline_ori.yaml \
     -o Global.mode=train \
     -o Global.dataset_dir=./dataset/textline_orientation_example_data
 ```
+
 The following steps are required:
 
-* Specify the path to the `.yaml` configuration file for the model (here it is `PP-LCNet_x0_25_textline_ori.yaml`. When training other models, you need to specify the corresponding configuration file. The correspondence between models and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
+* Specify the path to the `.yaml` configuration file for the model (here it is `PP-LCNet_x0_25_textline_ori.yaml`. When
+  training other models, you need to specify the corresponding configuration file. The correspondence between models and
+  configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
 * Specify the mode as model training: `-o Global.mode=train`
 * Specify the path to the training dataset: `-o Global.dataset_dir`
-* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration file or by appending parameters in the command line. For example, to specify the first two GPUs for training: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the configuration file description for the corresponding task module of the model [PaddleX Common Model Configuration Parameters](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration
+  file or by appending parameters in the command line. For example, to specify the first two GPUs for training:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to the configuration file description for the
+  corresponding task module of the
+  model [PaddleX Common Model Configuration Parameters](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 
@@ -456,19 +508,24 @@ The following steps are required:
 </ul></details>
 
 ### **4.3 Model Evaluation**
-After completing model training, you can evaluate the specified model weights on the validation set to verify the model's accuracy. Using PaddleX for model evaluation can be done with a single command:
+
+After completing model training, you can evaluate the specified model weights on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation can be done with a single command:
 
 ```bash
 python main.py -c paddlex/configs/modules/textline_orientation/PP-LCNet_x0_25_textline_ori.yaml \
     -o Global.mode=evaluate \
     -o Global.dataset_dir=./dataset/textline_orientation_example_data
 ```
+
 Similar to model training, the following steps are required:
 
 * Specify the path to the model's `.yaml` configuration file (here it is `PP-LCNet_x0_25_textline_ori.yaml`)
 * Specify the mode as model evaluation: `-o Global.mode=evaluate`
 * Specify the path to the validation dataset: `-o Global.dataset_dir`
-Other related parameters can be set by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration file. For details, please refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration
+  file. For details, please refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 **More Details (Click to Expand)**</summary>
 
@@ -477,10 +534,16 @@ Other related parameters can be set by modifying the fields under `Global` and `
 <p>Upon completion of the model evaluation, an `evaluate_result.json` file will be produced, which records the evaluation results. Specifically, it records whether the evaluation task was completed normally and the model's evaluation metrics, including Top-1 Accuracy.</p></details>
 
 ### **4.4 Model Inference and Model Integration**
-After completing model training and evaluation, you can use the trained model weights for inference predictions or Python integration.
+
+After completing model training and evaluation, you can use the trained model weights for inference predictions or
+Python integration.
 
 #### 4.4.1 Model Inference
-Performing inference predictions through the command line requires only the following single command. Before running the following code, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/textline_rot180_demo.jpg) locally.
+
+Performing inference predictions through the command line requires only the following single command. Before running the
+following code, please download
+the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/textline_rot180_demo.jpg)
+locally.
 
 ```bash
 python main.py -c paddlex/configs/modules/textline_orientation/PP-LCNet_x0_25_textline_ori.yaml \
@@ -488,23 +551,33 @@ python main.py -c paddlex/configs/modules/textline_orientation/PP-LCNet_x0_25_te
     -o Predict.model_dir="./output/best_model/inference" \
     -o Predict.input="textline_rot180_demo.jpg"
 ```
+
 Similar to model training and evaluation, the following steps are required:
 
 * Specify the path to the model's `.yaml` configuration file (here it is `PP-LCNet_x0_25_textline_ori.yaml`)
 * Specify the mode as model inference prediction: `-o Global.mode=predict`
 * Specify the path to the model weights: `-o Predict.model_dir="./output/best_model/inference"`
 * Specify the path to the input data: `-o Predict.input="..."`
-Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration file. For details, please refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration
+  file. For details, please refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 #### 4.4.2 Model Integration
+
 The model can be directly integrated into the PaddleX pipeline or into your own project.
 
 1. **Pipeline Integration**
 
-The text line orientation classification module can be integrated into the [Document Scene Information Extraction v3 Pipeline (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md). Simply replace the model path to update the text line orientation classification module.
+The text line orientation classification module can be integrated into
+the [Document Scene Information Extraction v3 Pipeline (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md).
+Simply replace the model path to update the text line orientation classification module.
 
 2. **Module Integration**
 
-The weights you produce can be directly integrated into the text line orientation classification module. You can refer to the Python example code in [Quick Integration](##Quick-Integration) and only need to replace the model with the path to your trained model.
+The weights you produce can be directly integrated into the text line orientation classification module. You can refer
+to the Python example code in [Quick Integration](##Quick-Integration) and only need to replace the model with the path
+to your trained model.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

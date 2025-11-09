@@ -29,21 +29,21 @@ def is_flash_attn_available():
             from paddle.base import core
 
             def flash_attention_npu(
-                query,
-                key,
-                value,
-                dropout=0.0,
-                causal=False,
-                return_softmax=False,
-                *,
-                fixed_seed_offset=None,
-                rng_name="",
-                training=True,
-                name=None,
-                attn_mask=None,
-                is_varlen=False,
-                batch_size=None,
-                seq_length=None,
+                    query,
+                    key,
+                    value,
+                    dropout=0.0,
+                    causal=False,
+                    return_softmax=False,
+                    *,
+                    fixed_seed_offset=None,
+                    rng_name="",
+                    training=True,
+                    name=None,
+                    attn_mask=None,
+                    is_varlen=False,
+                    batch_size=None,
+                    seq_length=None,
             ):
 
                 is_triangle_upper_mask = True

@@ -19,7 +19,6 @@ from typing_extensions import TypeAlias
 
 __all__ = ["Size", "Mask"]
 
-
 Size: TypeAlias = Tuple[int, int]
 
 

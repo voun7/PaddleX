@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
 
 
 class VideoDetEvaluator(BaseEvaluator):

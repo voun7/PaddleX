@@ -37,7 +37,7 @@ class GetAnomaly:
         self.info_params = info_params
 
     def __call__(
-        self, ori_ts_list: List[Dict[str, Any]], pred_list: List[np.ndarray]
+            self, ori_ts_list: List[Dict[str, Any]], pred_list: List[np.ndarray]
     ) -> List[pd.DataFrame]:
         """
         Detects anomalies for a list of time series predictions.

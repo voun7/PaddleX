@@ -5,12 +5,12 @@ comments: true
 # PaddleX On-Device Deployment Demo Usage Guide
 
 - [PaddleX On-Device Deployment Demo Usage Guide](#paddlex-on-device-deployment-demo-usage-guide)
-  - [Installation Process and Usage](#installation-process-and-usage)
-    - [Environment Preparation](#environment-preparation)
-    - [Material Preparation](#material-preparation)
-    - [Deployment Steps](#deployment-steps)
-  - [Reference Materials](#reference-materials)
-  - [Feedback Section](#feedback-section)
+    - [Installation Process and Usage](#installation-process-and-usage)
+        - [Environment Preparation](#environment-preparation)
+        - [Material Preparation](#material-preparation)
+        - [Deployment Steps](#deployment-steps)
+    - [Reference Materials](#reference-materials)
+    - [Feedback Section](#feedback-section)
 
 This guide mainly introduces the operation method of the PaddleX edge deployment demo on the Android shell.
 This guide applies to 13 models across 7 modules:
@@ -97,33 +97,39 @@ This guide applies to 13 models across 7 modules:
 </table>
 
 <b>Note</b>
-- `GPU` refers to [mapping computations to GPU execution using OpenCL](https://www.paddlepaddle.org.cn/lite/develop/demo_guides/opencl.html) to fully utilize GPU hardware computing power and improve inference performance.
+
+- `GPU` refers
+  to [mapping computations to GPU execution using OpenCL](https://www.paddlepaddle.org.cn/lite/develop/demo_guides/opencl.html)
+  to fully utilize GPU hardware computing power and improve inference performance.
 
 ## Installation Process and Usage
 
 ### Environment Preparation
 
-1. Install CMake build tool locally and download the required version of NDK software package from the [Android NDK official website](https://developer.android.google.cn/ndk/downloads?hl=en). For example, if developing on a Mac, download the NDK software package for the Mac platform from the Android NDK official website.
+1. Install CMake build tool locally and download the required version of NDK software package from
+   the [Android NDK official website](https://developer.android.google.cn/ndk/downloads?hl=en). For example, if
+   developing on a Mac, download the NDK software package for the Mac platform from the Android NDK official website.
 
-    <b>Environment Requirements</b>
+   <b>Environment Requirements</b>
     - `CMake >= 3.10` (Minimum version not verified, recommend 3.20 and above)
     - `Android NDK >= r17c` (Minimum version not verified, recommend r20b and above)
 
-    <b>Tested Environment Used in This Guide</b>:
+   <b>Tested Environment Used in This Guide</b>:
     - `cmake == 3.20.0`
     - `android-ndk == r20b`
 
-2. Prepare an Android phone and enable USB debugging mode. Enable method: `Phone Settings -> Locate Developer Options -> Turn on Developer Options and USB Debugging Mode`.
+2. Prepare an Android phone and enable USB debugging mode. Enable method:
+   `Phone Settings -> Locate Developer Options -> Turn on Developer Options and USB Debugging Mode`.
 
 3. Install ADB tool on your computer for debugging. ADB installation methods:
 
-    3.1. For Mac:
+   3.1. For Mac:
 
     ```shell
     brew cask install android-platform-tools
     ```
 
-    3.2. For Linux:
+   3.2. For Linux:
 
     ```shell
     # Debian-based Linux distributions
@@ -134,17 +140,18 @@ This guide applies to 13 models across 7 modules:
     sudo yum install adb
     ```
 
-    3.3. For Windows:
+   3.3. For Windows:
 
-    Install ADB by downloading the ADB software package from Google's Android platform: [Link](https://developer.android.com/studio?hl=en)
+   Install ADB by downloading the ADB software package from Google's Android
+   platform: [Link](https://developer.android.com/studio?hl=en)
 
-    Open a terminal, connect your phone to the computer, and enter in the terminal:
+   Open a terminal, connect your phone to the computer, and enter in the terminal:
 
     ```shell
      adb devices
     ```
 
-    If there is an output from the device, it indicates that the installation was successful.
+   If there is an output from the device, it indicates that the installation was successful.
 
     ```shell
      List of devices attached
@@ -159,13 +166,14 @@ This guide applies to 13 models across 7 modules:
     git clone -b feature/paddle-x https://github.com/PaddlePaddle/Paddle-Lite-Demo.git PaddleX-Lite-Deploy
     ```
 
-2. Fill out the <b>survey</b> to download the compressed package, place the compressed package in the specified unzip directory, switch to the specified unzip directory, and execute the unzip command.
+2. Fill out the <b>survey</b> to download the compressed package, place the compressed package in the specified unzip
+   directory, switch to the specified unzip directory, and execute the unzip command.
     - [Object Detection Survey](https://paddle.wjx.cn/vm/OjV8gAb.aspx#)
     - [Semantic Segmentation Survey](https://paddle.wjx.cn/vm/Q2F1L37.aspx#)
     - [Image Classification Survey](https://paddle.wjx.cn/vm/rWPncBm.aspx#)
     - [OCR Survey](https://paddle.wjx.cn/vm/eaaBo0H.aspx#)
 
-    Below is an example of the unzip operation for object_detection. Refer to the table below for other pipelines.
+   Below is an example of the unzip operation for object_detection. Refer to the table below for other pipelines.
 
       ```shell
       # 1. Switch to the specified unzip directory
@@ -205,25 +213,39 @@ This guide applies to 13 models across 7 modules:
 
 ### Deployment Steps
 
-1. Switch the working directory to `PaddleX_Lite_Deploy/libs` and run the `download.sh` script to download the necessary Paddle Lite prediction library. This step only needs to be executed once to support each demo.
+1. Switch the working directory to `PaddleX_Lite_Deploy/libs` and run the `download.sh` script to download the necessary
+   Paddle Lite prediction library. This step only needs to be executed once to support each demo.
 
-2. Switch the working directory to `PaddleX_Lite_Deploy/{Task_Name}/assets`, run the `download.sh` script to download the [paddle_lite_opt tool](https://www.paddlepaddle.org.cn/lite/v2.10/user_guides/model_optimize_tool.html) optimized model, test images, label files, etc.
+2. Switch the working directory to `PaddleX_Lite_Deploy/{Task_Name}/assets`, run the `download.sh` script to download
+   the [paddle_lite_opt tool](https://www.paddlepaddle.org.cn/lite/v2.10/user_guides/model_optimize_tool.html) optimized
+   model, test images, label files, etc.
 
-3. Switch the working directory to `PaddleX_Lite_Deploy/{Task_Name}/android/shell/cxx/{Demo_Name}`, run the `build.sh` script to complete the compilation and execution of the executable file.
+3. Switch the working directory to `PaddleX_Lite_Deploy/{Task_Name}/android/shell/cxx/{Demo_Name}`, run the `build.sh`
+   script to complete the compilation and execution of the executable file.
 
-4. Switch the working directory to `PaddleX-Lite-Deploy/{Task_Name}/android/shell/cxx/{Demo_Name}`, run the `run.sh` script to complete the prediction on the edge.
+4. Switch the working directory to `PaddleX-Lite-Deploy/{Task_Name}/android/shell/cxx/{Demo_Name}`, run the `run.sh`
+   script to complete the prediction on the edge.
 
-    <b>Note</b>:
-    - `{Pipeline_Name}` and `{Demo_Name}` are placeholders. Refer to the table at the end of this section for specific values.
-    - `download.sh` and `run.sh` support passing in model names to specify models. If not specified, the default model will be used. Refer to the `Model_Name` column in the table at the end of this section for currently supported models.
-    - To use your own trained model, refer to the [Model Conversion Method](https://paddlepaddle.github.io/Paddle-Lite/develop/model_optimize_tool/) to obtain the `.nb` model, place it in the `PaddleX_Lite_Deploy/{Pipeline_Name}/assets/{Model_Name}` directory, where `{Model_Name}` is the model name, e.g., `PaddleX_Lite_Deploy/object_detection/assets/PicoDet-L`. Please note that converting static graph models in `.json` format to `.nb` format is currently not supported. When exporting a static graph model using PaddleX, please set the environment variable `FLAGS_json_format_model` to `0`.
+   <b>Note</b>:
+    - `{Pipeline_Name}` and `{Demo_Name}` are placeholders. Refer to the table at the end of this section for specific
+      values.
+    - `download.sh` and `run.sh` support passing in model names to specify models. If not specified, the default model
+      will be used. Refer to the `Model_Name` column in the table at the end of this section for currently supported
+      models.
+    - To use your own trained model, refer to
+      the [Model Conversion Method](https://paddlepaddle.github.io/Paddle-Lite/develop/model_optimize_tool/) to obtain
+      the `.nb` model, place it in the `PaddleX_Lite_Deploy/{Pipeline_Name}/assets/{Model_Name}` directory, where
+      `{Model_Name}` is the model name, e.g., `PaddleX_Lite_Deploy/object_detection/assets/PicoDet-L`. Please note that
+      converting static graph models in `.json` format to `.nb` format is currently not supported. When exporting a
+      static graph model using PaddleX, please set the environment variable `FLAGS_json_format_model` to `0`.
     - Before running the `build.sh` script, change the path specified by `NDK_ROOT` to the actual installed NDK path.
     - Keep ADB connected when running the `build.sh` script.
     - On Windows systems, you can use Git Bash to execute the deployment steps.
     - If compiling on a Windows system, set `CMAKE_SYSTEM_NAME` to `windows` in `CMakeLists.txt`.
     - If compiling on a Mac system, set `CMAKE_SYSTEM_NAME` to `darwin` in `CMakeLists.txt`.
 
-Below is an example for object_detection. For other demos, change the directories switched in steps 2 and 3 according to the table at the end of this section.
+Below is an example for object_detection. For other demos, change the directories switched in steps 2 and 3 according to
+the table at the end of this section.
 
 ```shell
 # 1. Download the necessary Paddle Lite prediction library
@@ -353,11 +375,14 @@ This section describes the deployment steps applicable to the demos listed in th
 
 <b>Note</b>
 
-- Currently, there is no demo for deploying the Layout Area Detection module on the edge, so the `picodet_detection` demo is reused to deploy the `PicoDet_layout_1x` model.
+- Currently, there is no demo for deploying the Layout Area Detection module on the edge, so the `picodet_detection`
+  demo is reused to deploy the `PicoDet_layout_1x` model.
 
 ## Reference Materials
 
-This guide only introduces the basic installation and usage process of the edge deployment demo. If you want to learn more detailed information, such as code introduction, code explanation, updating models, updating input and output preprocessing, updating prediction libraries, etc., please refer to the following documents:
+This guide only introduces the basic installation and usage process of the edge deployment demo. If you want to learn
+more detailed information, such as code introduction, code explanation, updating models, updating input and output
+preprocessing, updating prediction libraries, etc., please refer to the following documents:
 
 - [Object Detection](https://github.com/PaddlePaddle/Paddle-Lite-Demo/tree/feature/paddle-x/object_detection/android/shell/cxx/picodet_detection)
 - [Semantic Segmentation](https://github.com/PaddlePaddle/Paddle-Lite-Demo/blob/feature/paddle-x/semantic_segmentation/android/shell/cxx/semantic_segmentation/README.md)
@@ -366,4 +391,6 @@ This guide only introduces the basic installation and usage process of the edge 
 
 ## Feedback Section
 
-The edge deployment capabilities are continuously optimized. Welcome to submit [issue](https://github.com/PaddlePaddle/PaddleX/issues/new/choose) to report problems and needs, and we will follow up promptly.
+The edge deployment capabilities are continuously optimized. Welcome to
+submit [issue](https://github.com/PaddlePaddle/PaddleX/issues/new/choose) to report problems and needs, and we will
+follow up promptly.

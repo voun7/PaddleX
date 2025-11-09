@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from tqdm import trange
-import numpy as np
 import collections
-import os
 import math
+import os
 import time
+
+import numpy as np
+from tqdm import trange
 
 
 def eval_segmentation(model, data_dir, batch_size=1):
@@ -43,7 +44,7 @@ def eval_segmentation(model, data_dir, batch_size=1):
     im_list = []
     label_list = []
     for image_label_path, i in zip(
-        file_list, trange(image_num, desc="Inference Progress")
+            file_list, trange(image_num, desc="Inference Progress")
     ):
         if i == twenty_percent_image_num:
             start_time = time.time()

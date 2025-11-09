@@ -15,9 +15,8 @@
 import uuid
 from operator import attrgetter
 
-from paddlex_hps_server import schemas, utils
-
 from common.base_model import BaseFaceRecognitionModel
+from paddlex_hps_server import schemas, utils
 
 
 def _generate_index_key():

@@ -16,9 +16,9 @@ import os
 import tarfile
 from pathlib import Path
 
-from ...utils.flags import FLAGS_json_format_model
-from ..base import BaseTrainer
 from .model_list import MODELS
+from ..base import BaseTrainer
+from ...utils.flags import FLAGS_json_format_model
 
 
 class TSFCTrainer(BaseTrainer):
@@ -34,7 +34,7 @@ class TSFCTrainer(BaseTrainer):
         self.dump_config()
         train_args = self.get_train_kwargs()
         export_with_pir = (
-            self.global_config.get("export_with_pir", False) or FLAGS_json_format_model
+                self.global_config.get("export_with_pir", False) or FLAGS_json_format_model
         )
         train_args.update(
             {
@@ -48,7 +48,7 @@ class TSFCTrainer(BaseTrainer):
             train_args.update({"benchmark": self.benchmark_config})
         train_result = self.pdx_model.train(**train_args)
         assert (
-            train_result.returncode == 0
+                train_result.returncode == 0
         ), f"Encountered an unexpected error({train_result.returncode}) in \
 training!"
 

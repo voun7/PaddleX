@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import six
 import numpy as np
+import six
 
 
 def get_det_res(bboxes, bbox_nums, image_id, label_to_cat_id_map, bias=0):
@@ -78,7 +78,7 @@ def get_seg_res(masks, bboxes, mask_nums, image_id, label_to_cat_id_map):
     for i in range(len(mask_nums)):
         cur_image_id = int(image_id[i][0])
         det_nums = mask_nums[i]
-        mask_i = masks[k : k + det_nums]
+        mask_i = masks[k: k + det_nums]
         mask_i = strip_mask(mask_i)
         for j in range(det_nums):
             mask = mask_i[j].astype(np.uint8)

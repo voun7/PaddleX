@@ -75,7 +75,7 @@ class BEVFusionRunner(BaseRunner):
         return cp
 
     def compression(
-        self, config_path, train_cli_args, export_cli_args, device, train_save_dir
+            self, config_path, train_cli_args, export_cli_args, device, train_save_dir
     ):
         raise_unsupported_api_error("compression", self.__class__)
 

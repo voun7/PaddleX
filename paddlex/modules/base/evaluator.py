@@ -16,6 +16,7 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+from .build_model import build_model
 from ...utils.config import AttrDict
 from ...utils.device import (
     check_supported_device,
@@ -24,7 +25,6 @@ from ...utils.device import (
 )
 from ...utils.logging import *
 from ...utils.misc import AutoRegisterABCMetaClass
-from .build_model import build_model
 
 
 def build_evaluator(config: AttrDict) -> "BaseEvaluator":
@@ -117,7 +117,7 @@ class BaseEvaluator(ABC, metaclass=AutoRegisterABCMetaClass):
         # self.dump_config()
         evaluate_result = self.pdx_model.evaluate(**self.get_eval_kwargs())
         assert (
-            evaluate_result.returncode == 0
+                evaluate_result.returncode == 0
         ), f"Encountered an unexpected error({evaluate_result.returncode}) in \
 evaling!"
 

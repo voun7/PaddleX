@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from paddlex.inference.pipelines.components import IndexData
+from common.base_model import BaseFaceRecognitionModel
 from paddlex_hps_server import schemas
 
-from common.base_model import BaseFaceRecognitionModel
+from paddlex.inference.pipelines.components import IndexData
 
 
 class TritonPythonModel(BaseFaceRecognitionModel):

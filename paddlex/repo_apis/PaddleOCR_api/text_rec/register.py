@@ -15,10 +15,10 @@
 import os
 import os.path as osp
 
-from ...base.register import register_model_info, register_suite_info
 from .config import TextRecConfig
 from .model import TextRecModel
 from .runner import TextRecRunner
+from ...base.register import register_model_info, register_suite_info
 
 REPO_ROOT_PATH = os.environ.get("PADDLE_PDX_PADDLEOCR_PATH")
 PDX_CONFIG_DIR = osp.abspath(osp.join(osp.dirname(__file__), "..", "configs"))
@@ -50,7 +50,6 @@ register_model_info(
         "supported_apis": ["train", "evaluate", "predict", "export"],
     }
 )
-
 
 register_model_info(
     {
@@ -141,7 +140,6 @@ register_model_info(
         "supported_apis": ["train", "evaluate", "predict", "export"],
     }
 )
-
 
 register_model_info(
     {

@@ -17,9 +17,6 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 
-from ..layout_objects import LayoutBlock, LayoutRegion
-from ..setting import BLOCK_LABEL_MAP, XYCUT_SETTINGS
-from ..utils import calculate_overlap_ratio, calculate_projection_overlap_ratio
 from .utils import (
     calculate_discontinuous_projection,
     euclidean_insert,
@@ -40,10 +37,13 @@ from .utils import (
     update_vision_child_blocks,
     weighted_distance_insert,
 )
+from ..layout_objects import LayoutBlock, LayoutRegion
+from ..setting import BLOCK_LABEL_MAP, XYCUT_SETTINGS
+from ..utils import calculate_overlap_ratio, calculate_projection_overlap_ratio
 
 
 def pre_process(
-    region: LayoutRegion,
+        region: LayoutRegion,
 ) -> List:
     """
     Preprocess the layout for sorting purposes.
@@ -82,9 +82,9 @@ def pre_process(
             tolerance_len = block.short_side_length // 10
 
         block_center = (
-            block.bbox[region.direction_start_index]
-            + block.bbox[region.direction_end_index]
-        ) / 2
+                               block.bbox[region.direction_start_index]
+                               + block.bbox[region.direction_end_index]
+                       ) / 2
         center_offset = abs(block_center - region.direction_center_coordinate)
         is_centered = center_offset <= tolerance_len
         if is_centered:
@@ -106,12 +106,12 @@ def pre_process(
         for idx in pre_cut_block_idxes:
             block = block_map[idx]
             if (
-                block.order_label not in mask_labels
-                and block.secondary_direction == cut_direction
+                    block.order_label not in mask_labels
+                    and block.secondary_direction == cut_direction
             ):
                 if (
-                    block.secondary_direction_start_coordinate,
-                    block.secondary_direction_end_coordinate,
+                        block.secondary_direction_start_coordinate,
+                        block.secondary_direction_end_coordinate,
                 ) in discontinuous:
                     idx = discontinuous.index(
                         (
@@ -152,8 +152,8 @@ def pre_process(
             for interval in discontinuous[1:]:
                 gap_len = interval[0] - current_interval[1]
                 if (
-                    gap_len >= region.text_line_height * 3
-                    or blocks[0].label == "region"
+                        gap_len >= region.text_line_height * 3
+                        or blocks[0].label == "region"
                 ):
                     cut_coordinates.append(current_interval[1])
                 elif gap_len > region.text_line_height * 1.2:
@@ -210,8 +210,8 @@ def pre_process(
 
 
 def update_region_label(
-    block: LayoutBlock,
-    region: LayoutRegion,
+        block: LayoutBlock,
+        region: LayoutRegion,
 ) -> None:
     """
     Update the region label of a block based on its label and match the block with its children.
@@ -229,8 +229,8 @@ def update_region_label(
     elif block.label in BLOCK_LABEL_MAP["doc_title_labels"]:
         block.order_label = "doc_title"
     elif (
-        block.label in BLOCK_LABEL_MAP["paragraph_title_labels"]
-        and block.order_label is None
+            block.label in BLOCK_LABEL_MAP["paragraph_title_labels"]
+            and block.order_label is None
     ):
         block.order_label = "paragraph_title"
     elif block.label in BLOCK_LABEL_MAP["vision_labels"]:
@@ -264,9 +264,9 @@ def update_region_label(
 
 
 def get_layout_structure(
-    blocks: List[LayoutBlock],
-    region_direction: str,
-    region_secondary_direction: str,
+        blocks: List[LayoutBlock],
+        region_direction: str,
+        region_secondary_direction: str,
 ) -> Tuple[List[Dict[str, any]], bool]:
     """
     Determine the layout cross column of blocks.
@@ -308,8 +308,8 @@ def get_layout_structure(
             if match_projection_iou > 0:
                 for second_ref_idx, second_ref_block in enumerate(blocks):
                     if (
-                        second_ref_idx in [block_idx, ref_idx]
-                        or second_ref_block.order_label in mask_labels
+                            second_ref_idx in [block_idx, ref_idx]
+                            or second_ref_block.order_label in mask_labels
                     ):
                         continue
 
@@ -321,8 +321,8 @@ def get_layout_structure(
                             second_ref_block.order_label = "cross_layout"
                             break
                         if (
-                            block.order_label == "vision"
-                            or block.area < second_ref_block.area
+                                block.order_label == "vision"
+                                or block.area < second_ref_block.area
                         ):
                             block.order_label = "cross_layout"
                             break
@@ -345,23 +345,23 @@ def get_layout_structure(
                         )
                     )
                     if (
-                        second_match_projection_iou > 0
-                        and ref_match_projection_iou == 0
-                        and secondary_direction_ref_match_projection_overlap_ratio > 0
+                            second_match_projection_iou > 0
+                            and ref_match_projection_iou == 0
+                            and secondary_direction_ref_match_projection_overlap_ratio > 0
                     ):
                         if block.order_label in ["vision", "region"] or (
-                            ref_block.order_label == "normal_text"
-                            and second_ref_block.order_label == "normal_text"
-                            and ref_block.long_side_length
-                            > ref_block.text_line_height
-                            * XYCUT_SETTINGS.get(
-                                "cross_layout_ref_text_block_words_num_threshold", 8
-                            )
-                            and second_ref_block.long_side_length
-                            > second_ref_block.text_line_height
-                            * XYCUT_SETTINGS.get(
-                                "cross_layout_ref_text_block_words_num_threshold", 8
-                            )
+                                ref_block.order_label == "normal_text"
+                                and second_ref_block.order_label == "normal_text"
+                                and ref_block.long_side_length
+                                > ref_block.text_line_height
+                                * XYCUT_SETTINGS.get(
+                            "cross_layout_ref_text_block_words_num_threshold", 8
+                        )
+                                and second_ref_block.long_side_length
+                                > second_ref_block.text_line_height
+                                * XYCUT_SETTINGS.get(
+                            "cross_layout_ref_text_block_words_num_threshold", 8
+                        )
                         ):
                             block.order_label = (
                                 "cross_reference"
@@ -371,9 +371,9 @@ def get_layout_structure(
 
 
 def sort_by_xycut(
-    block_bboxes: List,
-    direction: str = "vertical",
-    min_gap: int = 1,
+        block_bboxes: List,
+        direction: str = "vertical",
+        min_gap: int = 1,
 ) -> List[int]:
     """
     Sort bounding boxes using recursive XY cut method based on the specified direction.
@@ -409,9 +409,9 @@ def sort_by_xycut(
 
 
 def match_unsorted_blocks(
-    sorted_blocks: List[LayoutBlock],
-    unsorted_blocks: List[LayoutBlock],
-    region: LayoutRegion,
+        sorted_blocks: List[LayoutBlock],
+        unsorted_blocks: List[LayoutBlock],
+        region: LayoutRegion,
 ) -> List[LayoutBlock]:
     """
     Match special blocks with the sorted blocks based on their region labels.
@@ -454,7 +454,7 @@ def match_unsorted_blocks(
 
 
 def xycut_enhanced(
-    region: LayoutRegion,
+        region: LayoutRegion,
 ) -> LayoutRegion:
     """
     xycut_enhance function performs the following steps:

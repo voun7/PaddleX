@@ -17,8 +17,8 @@ from typing import Dict, Final, List, Optional, Union
 from pydantic import BaseModel
 from typing_extensions import Literal
 
-from ..infra.models import PrimaryOperations
 from .shared import object_detection
+from ..infra.models import PrimaryOperations
 
 __all__ = [
     "INFER_ENDPOINT",

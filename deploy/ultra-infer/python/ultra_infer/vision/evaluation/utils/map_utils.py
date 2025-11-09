@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import os
 
 
 def draw_pr_curve(
-    precision,
-    recall,
-    iou=0.5,
-    out_dir="pr_curve",
-    file_name="precision_recall_curve.jpg",
+        precision,
+        recall,
+        iou=0.5,
+        out_dir="pr_curve",
+        file_name="precision_recall_curve.jpg",
 ):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)

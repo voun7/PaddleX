@@ -14,16 +14,15 @@
 
 import numpy as np
 
-from ....modules.multilingual_speech_recognition.model_list import MODELS
-from ....utils.download import download_and_extract
+from .result import WhisperResult
+from ..base import BasePredictor
 from ...common.batch_sampler import AudioBatchSampler
 from ...utils.io import AudioReader
-from ..base import BasePredictor
-from .result import WhisperResult
+from ....modules.multilingual_speech_recognition.model_list import MODELS
+from ....utils.download import download_and_extract
 
 
 class WhisperPredictor(BasePredictor):
-
     entities = MODELS
 
     def __init__(self, *args, **kwargs):
@@ -100,8 +99,8 @@ class WhisperPredictor(BasePredictor):
             "temperature_increment_on_fallback"
         ]
         if (
-            temperature_increment_on_fallback is not None
-            and temperature_increment_on_fallback != "None"
+                temperature_increment_on_fallback is not None
+                and temperature_increment_on_fallback != "None"
         ):
             temperature = tuple(
                 np.arange(

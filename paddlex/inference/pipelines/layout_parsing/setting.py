@@ -17,7 +17,7 @@ XYCUT_SETTINGS = {
     "child_block_overlap_ratio_threshold": 0.1,
     "edge_distance_compare_tolerance_len": 2,
     "distance_weight_map": {
-        "edge_weight": 10**4,
+        "edge_weight": 10 ** 4,
         "up_edge_weight": 1,
         "down_edge_weight": 0.0001,
     },

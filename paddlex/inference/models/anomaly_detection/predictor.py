@@ -16,14 +16,14 @@ from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 
-from ....modules.anomaly_detection.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import Normalize, Resize, ToBatch, ToCHWImage
 from .processors import MapToMask
 from .result import UadResult
+from ..base import BasePredictor
+from ..common import Normalize, Resize, ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.anomaly_detection.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class UadPredictor(BasePredictor):
@@ -109,7 +109,7 @@ class UadPredictor(BasePredictor):
 
     @register("Resize")
     def build_resize(
-        self, target_size, keep_ratio=False, size_divisor=None, interp="LINEAR"
+            self, target_size, keep_ratio=False, size_divisor=None, interp="LINEAR"
     ):
         assert target_size
         op = Resize(
@@ -122,9 +122,9 @@ class UadPredictor(BasePredictor):
 
     @register("Normalize")
     def build_normalize(
-        self,
-        mean=0.5,
-        std=0.5,
+            self,
+            mean=0.5,
+            std=0.5,
     ):
         op = Normalize(mean=mean, std=std)
         return "Normalize", op

@@ -15,6 +15,7 @@
 from abc import ABC
 from pathlib import Path
 
+from .build_model import build_model
 from ...utils import logging
 from ...utils.config import AttrDict
 from ...utils.device import (
@@ -24,7 +25,6 @@ from ...utils.device import (
 )
 from ...utils.flags import FLAGS_json_format_model
 from ...utils.misc import AutoRegisterABCMetaClass
-from .build_model import build_model
 
 
 def build_exportor(config: AttrDict) -> "BaseExportor":
@@ -102,7 +102,7 @@ class BaseExportor(ABC, metaclass=AutoRegisterABCMetaClass):
         self.update_config()
         export_result = self.pdx_model.export(**self.get_export_kwargs())
         assert (
-            export_result.returncode == 0
+                export_result.returncode == 0
         ), f"Encountered an unexpected error({export_result.returncode}) in \
 exporting!"
 
@@ -135,7 +135,7 @@ exporting!"
     def get_export_kwargs(self):
         """get key-value arguments of model export function"""
         export_with_pir = (
-            self.global_config.get("export_with_pir", False) or FLAGS_json_format_model
+                self.global_config.get("export_with_pir", False) or FLAGS_json_format_model
         )
         return {
             "weight_path": self.export_config.weight_path,

@@ -30,8 +30,8 @@ import requests
 from PIL import Image
 from typing_extensions import Literal, ParamSpec, TypeAlias, assert_never
 
-from ....utils.deps import function_requires_deps, is_dep_available
 from .models import ImageInfo, PDFInfo, PDFPageInfo
+from ....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("aiohttp"):
     import aiohttp
@@ -104,8 +104,8 @@ def infer_file_type(url: str) -> Optional[FileType]:
         if is_bos_url and url_parts.query:
             params = parse_qs(url_parts.query)
             if (
-                "responseContentDisposition" in params
-                and len(params["responseContentDisposition"]) == 1
+                    "responseContentDisposition" in params
+                    and len(params["responseContentDisposition"]) == 1
             ):
                 match_ = re.match(
                     r"attachment;filename=(.*)", params["responseContentDisposition"][0]
@@ -182,7 +182,7 @@ _lock = threading.Lock()
 
 @function_requires_deps("pypdfium2", "opencv-contrib-python")
 def read_pdf(
-    bytes_: bytes, max_num_imgs: Optional[int] = None
+        bytes_: bytes, max_num_imgs: Optional[int] = None
 ) -> Tuple[List[np.ndarray], PDFInfo]:
     images: List[np.ndarray] = []
     page_info_list: List[PDFPageInfo] = []
@@ -213,36 +213,36 @@ def read_pdf(
 
 @overload
 def file_to_images(
-    file_bytes: bytes,
-    file_type: Literal["IMAGE"],
-    *,
-    max_num_imgs: Optional[int] = ...,
+        file_bytes: bytes,
+        file_type: Literal["IMAGE"],
+        *,
+        max_num_imgs: Optional[int] = ...,
 ) -> Tuple[List[np.ndarray], ImageInfo]: ...
 
 
 @overload
 def file_to_images(
-    file_bytes: bytes,
-    file_type: Literal["PDF"],
-    *,
-    max_num_imgs: Optional[int] = ...,
+        file_bytes: bytes,
+        file_type: Literal["PDF"],
+        *,
+        max_num_imgs: Optional[int] = ...,
 ) -> Tuple[List[np.ndarray], PDFInfo]: ...
 
 
 @overload
 def file_to_images(
-    file_bytes: bytes,
-    file_type: Literal["IMAGE", "PDF"],
-    *,
-    max_num_imgs: Optional[int] = ...,
+        file_bytes: bytes,
+        file_type: Literal["IMAGE", "PDF"],
+        *,
+        max_num_imgs: Optional[int] = ...,
 ) -> Union[Tuple[List[np.ndarray], ImageInfo], Tuple[List[np.ndarray], PDFInfo]]: ...
 
 
 def file_to_images(
-    file_bytes: bytes,
-    file_type: Literal["IMAGE", "PDF"],
-    *,
-    max_num_imgs: Optional[int] = None,
+        file_bytes: bytes,
+        file_type: Literal["IMAGE", "PDF"],
+        *,
+        max_num_imgs: Optional[int] = None,
 ) -> Union[Tuple[List[np.ndarray], ImageInfo], Tuple[List[np.ndarray], PDFInfo]]:
     if file_type == "IMAGE":
         images = [image_bytes_to_array(file_bytes)]
@@ -283,7 +283,7 @@ async def get_raw_bytes_async(file: str, session: "aiohttp.ClientSession") -> by
 
 
 def call_async(
-    func: Callable[P, R], /, *args: P.args, **kwargs: P.kwargs
+        func: Callable[P, R], /, *args: P.args, **kwargs: P.kwargs
 ) -> Awaitable[R]:
     return asyncio.get_running_loop().run_in_executor(
         None, partial(func, *args, **kwargs)

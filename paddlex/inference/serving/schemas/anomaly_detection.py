@@ -16,8 +16,8 @@ from typing import Final, List, Optional
 
 from pydantic import BaseModel
 
-from ..infra.models import PrimaryOperations
 from .shared import image_segmentation
+from ..infra.models import PrimaryOperations
 
 __all__ = ["INFER_ENDPOINT", "InferRequest", "InferResult", "PRIMARY_OPERATIONS"]
 

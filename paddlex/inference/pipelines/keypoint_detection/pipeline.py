@@ -16,13 +16,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils.deps import pipeline_requires_extra
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
 from ...models.keypoint_detection.result import KptResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
+from ....utils.deps import pipeline_requires_extra
 
 Number = Union[int, float]
 
@@ -32,12 +32,12 @@ class _KeypointDetectionPipeline(BasePipeline):
     """Keypoint Detection pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """
         Initializes the class with given configurations and options.
@@ -79,7 +79,7 @@ class _KeypointDetectionPipeline(BasePipeline):
         self.kpt_input_size = self.kpt_model.input_size
 
     def _box_xyxy2cs(
-        self, bbox: Union[Number, np.ndarray], padding: float = 1.25
+            self, bbox: Union[Number, np.ndarray], padding: float = 1.25
     ) -> Tuple[np.ndarray, np.ndarray]:
         """
         Convert bounding box from (x1, y1, x2, y2) to center and scale.
@@ -107,10 +107,10 @@ class _KeypointDetectionPipeline(BasePipeline):
         return center, scale
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        det_threshold: Optional[float] = None,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            det_threshold: Optional[float] = None,
+            **kwargs,
     ) -> KptResult:
         """Predicts image classification results for the given input.
 

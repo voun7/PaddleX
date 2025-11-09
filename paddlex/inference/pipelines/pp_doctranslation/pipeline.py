@@ -19,13 +19,6 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
-from ...common.batch_sampler import MarkDownBatchSampler
-from ...utils.benchmark import benchmark
-from ...utils.hpi import HPIConfig
-from ...utils.pp_option import PaddlePredictorOption
-from ..base import BasePipeline
 from .result import DocumentResult, LatexResult, MarkdownResult
 from .utils import (
     split_original_texts,
@@ -33,6 +26,13 @@ from .utils import (
     translate_code_block,
     translate_html_block,
 )
+from ..base import BasePipeline
+from ...common.batch_sampler import MarkDownBatchSampler
+from ...utils.benchmark import benchmark
+from ...utils.hpi import HPIConfig
+from ...utils.pp_option import PaddlePredictorOption
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -45,13 +45,13 @@ class PP_DocTranslation_Pipeline(BasePipeline):
     entities = ["PP-DocTranslation"]
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
-        initial_predictor: bool = False,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            initial_predictor: bool = False,
     ) -> None:
         """Initializes the PP_Translation_Pipeline.
 
@@ -146,39 +146,39 @@ class PP_DocTranslation_Pipeline(BasePipeline):
         return
 
     def visual_predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_textline_orientation: Optional[bool] = None,
-        use_seal_recognition: Optional[bool] = None,
-        use_table_recognition: Optional[bool] = None,
-        use_formula_recognition: Optional[bool] = None,
-        use_chart_recognition: Optional[bool] = None,
-        use_region_detection: Optional[bool] = None,
-        layout_threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
-        seal_det_limit_side_len: Optional[int] = None,
-        seal_det_limit_type: Optional[str] = None,
-        seal_det_thresh: Optional[float] = None,
-        seal_det_box_thresh: Optional[float] = None,
-        seal_det_unclip_ratio: Optional[float] = None,
-        seal_rec_score_thresh: Optional[float] = None,
-        use_wired_table_cells_trans_to_html: bool = False,
-        use_wireless_table_cells_trans_to_html: bool = False,
-        use_table_orientation_classify: bool = True,
-        use_ocr_results_with_table_cells: bool = True,
-        use_e2e_wired_table_rec_model: bool = False,
-        use_e2e_wireless_table_rec_model: bool = True,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_textline_orientation: Optional[bool] = None,
+            use_seal_recognition: Optional[bool] = None,
+            use_table_recognition: Optional[bool] = None,
+            use_formula_recognition: Optional[bool] = None,
+            use_chart_recognition: Optional[bool] = None,
+            use_region_detection: Optional[bool] = None,
+            layout_threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
+            seal_det_limit_side_len: Optional[int] = None,
+            seal_det_limit_type: Optional[str] = None,
+            seal_det_thresh: Optional[float] = None,
+            seal_det_box_thresh: Optional[float] = None,
+            seal_det_unclip_ratio: Optional[float] = None,
+            seal_rec_score_thresh: Optional[float] = None,
+            use_wired_table_cells_trans_to_html: bool = False,
+            use_wireless_table_cells_trans_to_html: bool = False,
+            use_table_orientation_classify: bool = True,
+            use_ocr_results_with_table_cells: bool = True,
+            use_e2e_wired_table_rec_model: bool = False,
+            use_e2e_wireless_table_rec_model: bool = True,
+            **kwargs,
     ) -> dict:
         """
         This function takes an input image or a list of images and performs various visual
@@ -237,39 +237,38 @@ class PP_DocTranslation_Pipeline(BasePipeline):
             self.inintial_visual_predictor(self.config)
 
         for layout_parsing_result in self.layout_parsing_pipeline.predict(
-            input,
-            use_doc_orientation_classify=use_doc_orientation_classify,
-            use_doc_unwarping=use_doc_unwarping,
-            use_textline_orientation=use_textline_orientation,
-            use_seal_recognition=use_seal_recognition,
-            use_table_recognition=use_table_recognition,
-            use_formula_recognition=use_formula_recognition,
-            use_chart_recognition=use_chart_recognition,
-            use_region_detection=use_region_detection,
-            layout_threshold=layout_threshold,
-            layout_nms=layout_nms,
-            layout_unclip_ratio=layout_unclip_ratio,
-            layout_merge_bboxes_mode=layout_merge_bboxes_mode,
-            text_det_limit_side_len=text_det_limit_side_len,
-            text_det_limit_type=text_det_limit_type,
-            text_det_thresh=text_det_thresh,
-            text_det_box_thresh=text_det_box_thresh,
-            text_det_unclip_ratio=text_det_unclip_ratio,
-            text_rec_score_thresh=text_rec_score_thresh,
-            seal_det_box_thresh=seal_det_box_thresh,
-            seal_det_limit_side_len=seal_det_limit_side_len,
-            seal_det_limit_type=seal_det_limit_type,
-            seal_det_thresh=seal_det_thresh,
-            seal_det_unclip_ratio=seal_det_unclip_ratio,
-            seal_rec_score_thresh=seal_rec_score_thresh,
-            use_wired_table_cells_trans_to_html=use_wired_table_cells_trans_to_html,
-            use_wireless_table_cells_trans_to_html=use_wireless_table_cells_trans_to_html,
-            use_table_orientation_classify=use_table_orientation_classify,
-            use_ocr_results_with_table_cells=use_ocr_results_with_table_cells,
-            use_e2e_wired_table_rec_model=use_e2e_wired_table_rec_model,
-            use_e2e_wireless_table_rec_model=use_e2e_wireless_table_rec_model,
+                input,
+                use_doc_orientation_classify=use_doc_orientation_classify,
+                use_doc_unwarping=use_doc_unwarping,
+                use_textline_orientation=use_textline_orientation,
+                use_seal_recognition=use_seal_recognition,
+                use_table_recognition=use_table_recognition,
+                use_formula_recognition=use_formula_recognition,
+                use_chart_recognition=use_chart_recognition,
+                use_region_detection=use_region_detection,
+                layout_threshold=layout_threshold,
+                layout_nms=layout_nms,
+                layout_unclip_ratio=layout_unclip_ratio,
+                layout_merge_bboxes_mode=layout_merge_bboxes_mode,
+                text_det_limit_side_len=text_det_limit_side_len,
+                text_det_limit_type=text_det_limit_type,
+                text_det_thresh=text_det_thresh,
+                text_det_box_thresh=text_det_box_thresh,
+                text_det_unclip_ratio=text_det_unclip_ratio,
+                text_rec_score_thresh=text_rec_score_thresh,
+                seal_det_box_thresh=seal_det_box_thresh,
+                seal_det_limit_side_len=seal_det_limit_side_len,
+                seal_det_limit_type=seal_det_limit_type,
+                seal_det_thresh=seal_det_thresh,
+                seal_det_unclip_ratio=seal_det_unclip_ratio,
+                seal_rec_score_thresh=seal_rec_score_thresh,
+                use_wired_table_cells_trans_to_html=use_wired_table_cells_trans_to_html,
+                use_wireless_table_cells_trans_to_html=use_wireless_table_cells_trans_to_html,
+                use_table_orientation_classify=use_table_orientation_classify,
+                use_ocr_results_with_table_cells=use_ocr_results_with_table_cells,
+                use_e2e_wired_table_rec_model=use_e2e_wired_table_rec_model,
+                use_e2e_wireless_table_rec_model=use_e2e_wireless_table_rec_model,
         ):
-
             visual_predict_res = {
                 "layout_parsing_result": layout_parsing_result,
             }
@@ -314,7 +313,7 @@ class PP_DocTranslation_Pipeline(BasePipeline):
                 if chunk.strip():
                     translation_results.append(translate_func(chunk.strip()))
                     chunk = ""  # Clear the chunk
-                logging.info(f"Translating block {idx+1}/{len(md_blocks)}...")
+                logging.info(f"Translating block {idx + 1}/{len(md_blocks)}...")
                 translate_code_block(
                     block_content, chunk_size, translate_func, translation_results
                 )
@@ -323,11 +322,11 @@ class PP_DocTranslation_Pipeline(BasePipeline):
                     chunk += "\n\n" + block_content
                 else:
                     if chunk.strip():
-                        logging.info(f"Translating block {idx+1}/{len(md_blocks)}...")
+                        logging.info(f"Translating block {idx + 1}/{len(md_blocks)}...")
                         translation_results.append(translate_func(chunk.strip()))
                     chunk = block_content
             else:
-                logging.info(f"Translating block {idx+1}/{len(md_blocks)}...")
+                logging.info(f"Translating block {idx + 1}/{len(md_blocks)}...")
                 if chunk.strip():
                     translation_results.append(translate_func(chunk.strip()))
                     chunk = ""  # Clear the chunk
@@ -348,19 +347,19 @@ class PP_DocTranslation_Pipeline(BasePipeline):
         return "\n\n".join(translation_results)
 
     def translate(
-        self,
-        ori_md_info_list: List[Dict],
-        target_language: str = "zh",
-        chunk_size: int = 3000,
-        task_description: str = None,
-        output_format: str = None,
-        rules_str: str = None,
-        few_shot_demo_text_content: str = None,
-        few_shot_demo_key_value_list: str = None,
-        glossary: Dict = None,
-        llm_request_interval: float = 0.0,
-        chat_bot_config: Dict = None,
-        **kwargs,
+            self,
+            ori_md_info_list: List[Dict],
+            target_language: str = "zh",
+            chunk_size: int = 3000,
+            task_description: str = None,
+            output_format: str = None,
+            rules_str: str = None,
+            few_shot_demo_text_content: str = None,
+            few_shot_demo_key_value_list: str = None,
+            glossary: Dict = None,
+            llm_request_interval: float = 0.0,
+            chat_bot_config: Dict = None,
+            **kwargs,
     ):
         """
         Translate the given original text into the specified target language using the configured translation model.
@@ -396,8 +395,8 @@ class PP_DocTranslation_Pipeline(BasePipeline):
             chat_bot = self.chat_bot
 
         if (
-            isinstance(ori_md_info_list, list)
-            and ori_md_info_list[0].get("page_index") is not None
+                isinstance(ori_md_info_list, list)
+                and ori_md_info_list[0].get("page_index") is not None
         ):
             # for multi page pdf
             ori_md_info_list = [self.concatenate_markdown_pages(ori_md_info_list)]
@@ -472,7 +471,6 @@ class PP_DocTranslation_Pipeline(BasePipeline):
             )
 
         for ori_md in ori_md_info_list:
-
             original_texts = ori_md["markdown_texts"]
             md_blocks = split_original_texts(original_texts)
             target_language_texts = self.chunk_translate(
@@ -516,8 +514,8 @@ class PP_DocTranslation_Pipeline(BasePipeline):
 
             # Determine whether to add a space or a newline
             if (
-                not page_first_element_paragraph_start_flag
-                and not previous_page_last_element_paragraph_end_flag
+                    not page_first_element_paragraph_start_flag
+                    and not previous_page_last_element_paragraph_end_flag
             ):
                 last_char_of_markdown = markdown_texts[-1] if markdown_texts else ""
                 first_char_of_handler = (

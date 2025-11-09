@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import hashlib
+import logging
 import os
 import os.path as osp
 import shutil
-import requests
+import tarfile
 import time
 import zipfile
-import tarfile
-import hashlib
-import tqdm
-import logging
 
-from .utils.hub_model_server import model_server
+import requests
+import tqdm
+
 from .utils import hub_env as hubenv
+from .utils.hub_model_server import model_server
 
 DOWNLOAD_RETRY_LIMIT = 3
 
@@ -112,9 +113,9 @@ def download(url, path, rename=None, md5sum=None, show_progress=False):
         with open(tmp_fullname, "wb") as f:
             if total_size and show_progress:
                 for chunk in tqdm.tqdm(
-                    req.iter_content(chunk_size=1024),
-                    total=(int(total_size) + 1023) // 1024,
-                    unit="KB",
+                        req.iter_content(chunk_size=1024),
+                        total=(int(total_size) + 1023) // 1024,
+                        unit="KB",
                 ):
                     f.write(chunk)
             else:
@@ -239,7 +240,7 @@ def get_model_list(category: str = None):
 
 
 def download_model(
-    name: str, path: str = None, format: str = None, version: str = None
+        name: str, path: str = None, format: str = None, version: str = None
 ):
     """
     Download pre-trained model for UltraInfer inference engine.

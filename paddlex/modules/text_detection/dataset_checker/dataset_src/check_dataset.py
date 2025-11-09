@@ -58,7 +58,7 @@ def check(dataset_dir, output, sample_num=10):
                     if len(line.strip("\n")) < 1:
                         continue
                     assert (
-                        len(substr) == valid_num_parts or len(line.strip("\n")) <= 1
+                            len(substr) == valid_num_parts or len(line.strip("\n")) <= 1
                     ), f"Error in {line}, \
                                 The number of delimiter-separated items in each row in {file_list} \
                                 should be {valid_num_parts} (current delimiter is '{delim}')."
@@ -85,11 +85,11 @@ def check(dataset_dir, output, sample_num=10):
                     label = json.loads(label)
                     for item in label:
                         assert (
-                            "points" in item and "transcription" in item
+                                "points" in item and "transcription" in item
                         ), f"line {idx} is not in the correct format."
                         box = np.array(item["points"])
                         assert (
-                            box.shape[1] == 2
+                                box.shape[1] == 2
                         ), f"{box} in line {idx} is not in the correct format."
 
                         txt = item["transcription"]

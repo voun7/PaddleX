@@ -6,10 +6,10 @@ Global:
   output: "output"
 
 CheckDataset:
-  convert: 
+  convert:
     enable: False
     src_dataset_type: null
-  split: 
+  split:
     enable: False
     train_percent: null
     gallery_percent: null

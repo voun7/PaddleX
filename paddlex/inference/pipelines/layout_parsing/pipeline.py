@@ -16,20 +16,20 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
+from .result import LayoutParsingResult
+from .utils import get_sub_regions_ocr_res, sorted_layout_boxes
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
+from ..ocr.result import OCRResult
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...models.object_detection.result import DetResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from ..ocr.result import OCRResult
-from .result import LayoutParsingResult
-from .utils import get_sub_regions_ocr_res, sorted_layout_boxes
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -37,12 +37,12 @@ class _LayoutParsingPipeline(BasePipeline):
     """Layout Parsing Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the layout parsing pipeline.
 
@@ -104,13 +104,13 @@ class _LayoutParsingPipeline(BasePipeline):
         if (layout_nms := layout_det_config.get("layout_nms", None)) is not None:
             layout_kwargs["layout_nms"] = layout_nms
         if (
-            layout_unclip_ratio := layout_det_config.get("layout_unclip_ratio", None)
+                layout_unclip_ratio := layout_det_config.get("layout_unclip_ratio", None)
         ) is not None:
             layout_kwargs["layout_unclip_ratio"] = layout_unclip_ratio
         if (
-            layout_merge_bboxes_mode := layout_det_config.get(
-                "layout_merge_bboxes_mode", None
-            )
+                layout_merge_bboxes_mode := layout_det_config.get(
+                    "layout_merge_bboxes_mode", None
+                )
         ) is not None:
             layout_kwargs["layout_merge_bboxes_mode"] = layout_merge_bboxes_mode
         self.layout_det_model = self.create_model(layout_det_config, **layout_kwargs)
@@ -157,19 +157,19 @@ class _LayoutParsingPipeline(BasePipeline):
         return
 
     def get_layout_parsing_res(
-        self,
-        image: list,
-        layout_det_res: DetResult,
-        overall_ocr_res: OCRResult,
-        table_res_list: list,
-        seal_res_list: list,
-        formula_res_list: list,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
+            self,
+            image: list,
+            layout_det_res: DetResult,
+            overall_ocr_res: OCRResult,
+            table_res_list: list,
+            seal_res_list: list,
+            formula_res_list: list,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
     ) -> list:
         """
         Retrieves the layout parsing result based on the layout detection result, OCR result, and other recognition results.
@@ -207,7 +207,7 @@ class _LayoutParsingPipeline(BasePipeline):
             if label == "formula":
                 if len(formula_res_list) > 0:
                     assert (
-                        len(formula_res_list) > formula_index
+                            len(formula_res_list) > formula_index
                     ), f"The number of \
                         formula regions of layout parsing pipeline \
                         and formula recognition pipeline are different!"
@@ -218,7 +218,7 @@ class _LayoutParsingPipeline(BasePipeline):
             elif label == "table":
                 if len(table_res_list) > 0:
                     assert (
-                        len(table_res_list) > table_index
+                            len(table_res_list) > table_index
                     ), f"The number of \
                         table regions of layout parsing pipeline \
                         and table recognition pipeline are different!"
@@ -229,7 +229,7 @@ class _LayoutParsingPipeline(BasePipeline):
             elif label == "seal":
                 if len(seal_res_list) > 0:
                     assert (
-                        len(seal_res_list) > seal_index
+                            len(seal_res_list) > seal_index
                     ), f"The number of \
                         seal regions of layout parsing pipeline \
                         and seal recognition pipeline are different!"
@@ -276,7 +276,7 @@ class _LayoutParsingPipeline(BasePipeline):
         )
 
         for ocr_rec_box, ocr_rec_text in zip(
-            ocr_without_layout_boxes["rec_boxes"], ocr_without_layout_boxes["rec_texts"]
+                ocr_without_layout_boxes["rec_boxes"], ocr_without_layout_boxes["rec_texts"]
         ):
             single_box_res = {}
             single_box_res["block_bbox"] = ocr_rec_box
@@ -320,12 +320,12 @@ class _LayoutParsingPipeline(BasePipeline):
         return True
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Optional[bool],
-        use_doc_unwarping: Optional[bool],
-        use_seal_recognition: Optional[bool],
-        use_table_recognition: Optional[bool],
-        use_formula_recognition: Optional[bool],
+            self,
+            use_doc_orientation_classify: Optional[bool],
+            use_doc_unwarping: Optional[bool],
+            use_seal_recognition: Optional[bool],
+            use_table_recognition: Optional[bool],
+            use_formula_recognition: Optional[bool],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -364,31 +364,31 @@ class _LayoutParsingPipeline(BasePipeline):
         )
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_textline_orientation: Optional[bool] = None,
-        use_seal_recognition: Optional[bool] = None,
-        use_table_recognition: Optional[bool] = None,
-        use_formula_recognition: Optional[bool] = None,
-        layout_threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
-        seal_det_limit_side_len: Optional[int] = None,
-        seal_det_limit_type: Optional[str] = None,
-        seal_det_thresh: Optional[float] = None,
-        seal_det_box_thresh: Optional[float] = None,
-        seal_det_unclip_ratio: Optional[float] = None,
-        seal_rec_score_thresh: Optional[float] = None,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_textline_orientation: Optional[bool] = None,
+            use_seal_recognition: Optional[bool] = None,
+            use_table_recognition: Optional[bool] = None,
+            use_formula_recognition: Optional[bool] = None,
+            layout_threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
+            seal_det_limit_side_len: Optional[int] = None,
+            seal_det_limit_type: Optional[str] = None,
+            seal_det_thresh: Optional[float] = None,
+            seal_det_box_thresh: Optional[float] = None,
+            seal_det_unclip_ratio: Optional[float] = None,
+            seal_rec_score_thresh: Optional[float] = None,
+            **kwargs,
     ) -> LayoutParsingResult:
         """
         This function predicts the layout parsing result for the given input.

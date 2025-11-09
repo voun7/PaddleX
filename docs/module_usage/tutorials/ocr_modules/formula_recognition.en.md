@@ -5,7 +5,11 @@ comments: true
 # Formula Recognition Module Tutorial
 
 ## I. Overview
-The formula recognition module is a crucial component of OCR (Optical Character Recognition) systems, responsible for converting mathematical formulas in images into editable text or computer-readable formats. The performance of this module directly impacts the accuracy and efficiency of the entire OCR system. The module typically outputs LaTeX or MathML codes of mathematical formulas, which are then passed on to the text understanding module for further processing.
+
+The formula recognition module is a crucial component of OCR (Optical Character Recognition) systems, responsible for
+converting mathematical formulas in images into editable text or computer-readable formats. The performance of this
+module directly impacts the accuracy and efficiency of the entire OCR system. The module typically outputs LaTeX or
+MathML codes of mathematical formulas, which are then passed on to the text understanding module for further processing.
 
 ## II. Supported Model List
 
@@ -92,7 +96,9 @@ The formula recognition module is a crucial component of OCR (Optical Character 
 
 
 
-<b>Note: The above accuracy metrics are measured using an internally built formula recognition test set within PaddleX. The BLEU score of LaTeX_OCR_rec on the LaTeX-OCR formula recognition test set is 0.8821. All model GPU inference times are based on machines with Tesla V100 GPUs, with precision type FP32.</b>
+<b>Note: The above accuracy metrics are measured using an internally built formula recognition test set within PaddleX.
+The BLEU score of LaTeX_OCR_rec on the LaTeX-OCR formula recognition test set is 0.8821. All model GPU inference times
+are based on machines with Tesla V100 GPUs, with precision type FP32.</b>
 
 <strong>Test Environment Description:</strong>
 
@@ -144,9 +150,15 @@ The formula recognition module is a crucial component of OCR (Optical Character 
 </table>
 
 ## III. Quick Integration
-> ❗ Before quick integration, please install the PaddleX wheel package. For details, please refer to the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
-After installing the wheel package, you can complete the inference of the formula recognition module with just a few lines of code. You can switch models under this module at will, and you can also integrate the model inference of the formula recognition module into your project. Before running the following code, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_formula_rec_001.png) to your local machine.
+> ❗ Before quick integration, please install the PaddleX wheel package. For details, please refer to
+> the [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+
+After installing the wheel package, you can complete the inference of the formula recognition module with just a few
+lines of code. You can switch models under this module at will, and you can also integrate the model inference of the
+formula recognition module into your project. Before running the following code, please download
+the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_formula_rec_001.png) to
+your local machine.
 
 ```python
 from paddlex import create_model
@@ -158,7 +170,9 @@ for res in output:
     res.save_to_json(save_path="./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 After running, the result obtained is:
 
@@ -167,6 +181,7 @@ After running, the result obtained is:
 ````
 
 The meanings of the running results parameters are as follows:
+
 - `input_path`: Indicates the path to the input image of the formula to be predicted.
 - `page_index`：If the input is a PDF file, this indicates the current page number of the PDF. Otherwise, it is `None`
 - `rec_formula`: Indicates the predicted LaTeX source code of the formula image.
@@ -175,7 +190,11 @@ The visualization image is as follows:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/refs/heads/main/images/modules/formula_recog/general_formula_rec_001_res_paddleocr3.png">
 
-<b>Note: If you need to visualize the formula recognition pipeline, you need to run the following commands to install the LaTeX rendering environment. Currently, the formula recognition visualization pipeline only supports the Ubuntu environment; other environments are not supported at this time. For complex formulas, the LaTeX results may include some advanced representations that might not be displayed successfully in environments like Markdown:</b>
+<b>Note: If you need to visualize the formula recognition pipeline, you need to run the following commands to install
+the LaTeX rendering environment. Currently, the formula recognition visualization pipeline only supports the Ubuntu
+environment; other environments are not supported at this time. For complex formulas, the LaTeX results may include some
+advanced representations that might not be displayed successfully in environments like Markdown:</b>
+
 ```bash
 sudo apt-get update
 sudo apt-get install texlive texlive-latex-base texlive-xetex latex-cjk-all texlive-latex-extra -y
@@ -183,7 +202,9 @@ sudo apt-get install texlive texlive-latex-base texlive-xetex latex-cjk-all texl
 
 The explanations for the methods, parameters, etc., are as follows:
 
-* The `create_model` method instantiates the formula recognition model (here, `PP-FormulaNet_plus-M` is used as an example), and the specific explanations are as follows:
+* The `create_model` method instantiates the formula recognition model (here, `PP-FormulaNet_plus-M` is used as an
+  example), and the specific explanations are as follows:
+
 <table>
 <thead>
 <tr>
@@ -231,9 +252,11 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX are used. If `model_dir` is specified, the user-defined model is used.
+* The `model_name` must be specified. After specifying `model_name`, the default model parameters built into PaddleX are
+  used. If `model_dir` is specified, the user-defined model is used.
 
-* The `predict()` method of the formula recognition model is called for inference prediction. The `predict()` method has parameters `input` and `batch_size`, which are explained as follows:
+* The `predict()` method of the formula recognition model is called for inference prediction. The `predict()` method has
+  parameters `input` and `batch_size`, which are explained as follows:
 
 <table>
 <thead>
@@ -269,7 +292,8 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* The prediction results are processed, and the prediction result for each sample is of type `dict`. It supports operations such as printing, saving as an image, and saving as a `json` file:
+* The prediction results are processed, and the prediction result for each sample is of type `dict`. It supports
+  operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -332,7 +356,8 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-* Additionally, it supports obtaining the visualization image with results and the prediction results through attributes, as follows:
+* Additionally, it supports obtaining the visualization image with results and the prediction results through
+  attributes, as follows:
 
 <table>
 <thead>
@@ -351,15 +376,26 @@ The explanations for the methods, parameters, etc., are as follows:
 </tr>
 </table>
 
-For more information on using PaddleX's single-model inference API, refer to the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on using PaddleX's single-model inference API, refer to
+the [PaddleX Single Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Custom Development
-If you aim for higher accuracy with existing models, you can leverage PaddleX's custom development capabilities to develop better formula recognition models. Before developing formula recognition models with PaddleX, ensure you have installed the PaddleOCR-related model training plugins for PaddleX. The installation process can be found in the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
+
+If you aim for higher accuracy with existing models, you can leverage PaddleX's custom development capabilities to
+develop better formula recognition models. Before developing formula recognition models with PaddleX, ensure you have
+installed the PaddleOCR-related model training plugins for PaddleX. The installation process can be found in
+the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
 
 ### 4.1 Data Preparation
-Before model training, you need to prepare the corresponding dataset for the task module. PaddleX provides a data validation function for each module, and <b>only data that passes the validation can be used for model training</b>. Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development. If you wish to use private datasets for model training, refer to the [LaTeX-OCR Formula Recognition Project](https://github.com/lukas-blecher/LaTeX-OCR).
+
+Before model training, you need to prepare the corresponding dataset for the task module. PaddleX provides a data
+validation function for each module, and <b>only data that passes the validation can be used for model training</b>.
+Additionally, PaddleX provides demo datasets for each module, which you can use to complete subsequent development. If
+you wish to use private datasets for model training, refer to
+the [LaTeX-OCR Formula Recognition Project](https://github.com/lukas-blecher/LaTeX-OCR).
 
 #### 4.1.1 Demo Data Download
+
 You can download the demo dataset to a specified folder using the following command:
 
 ```bash
@@ -368,6 +404,7 @@ tar -xf ./dataset/ocr_rec_latexocr_dataset_example.tar -C ./dataset/
 ```
 
 #### 4.1.2 Data Validation
+
 A single command can complete data validation:
 
 ```bash
@@ -375,7 +412,11 @@ python main.py -c paddlex/configs/modules/formula_recognition/PP-FormulaNet_plus
     -o Global.mode=check_dataset \
     -o Global.dataset_dir=./dataset/ocr_rec_latexocr_dataset_example
 ```
-After executing the above command, PaddleX will validate the dataset and summarize its basic information. If the command runs successfully, it will print `Check dataset passed !` in the log. The validation results file is saved in `./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory in the current directory, including visual examples of sample images and sample distribution histograms.
+
+After executing the above command, PaddleX will validate the dataset and summarize its basic information. If the command
+runs successfully, it will print `Check dataset passed !` in the log. The validation results file is saved in
+`./output/check_dataset_result.json`, and related outputs are saved in the `./output/check_dataset` directory in the
+current directory, including visual examples of sample images and sample distribution histograms.
 <details><summary>👉 <b>Details of Validation Results (Click to Expand)</b></summary>
 
 <p>The specific content of the validation result file is:</p>
@@ -430,9 +471,10 @@ After executing the above command, PaddleX will validate the dataset and summari
 <p>Additionally, the dataset verification also analyzes the distribution of sample numbers across all categories in the dataset and generates a distribution histogram (<code>histogram.png</code>):
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/data_prepare/formula_recognition/01.jpg"></p></details>
 
-
 ### 4.1.3 Dataset Format Conversion / Dataset Splitting (Optional)
-After completing the data verification, you can convert the dataset format and re-split the training/validation ratio by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
+
+After completing the data verification, you can convert the dataset format and re-split the training/validation ratio
+by <b>modifying the configuration file</b> or <b>appending hyperparameters</b>.
 
 <details><summary>👉 <b>Details of Format Conversion / Dataset Splitting (Click to Expand)</b></summary>
 
@@ -500,29 +542,41 @@ CheckDataset:
 </code></pre></details>
 
 ### 4.2 Model Training
-Model training can be completed with a single command, taking the training of the formula recognition model PP-FormulaNet_plus-M as an example:
+
+Model training can be completed with a single command, taking the training of the formula recognition model
+PP-FormulaNet_plus-M as an example:
 
 ```bash
 FLAGS_json_format_model=1 python main.py -c paddlex/configs/modules/formula_recognition/PP-FormulaNet_plus-M.yaml  \
     -o Global.mode=train \
     -o Global.dataset_dir=./dataset/ocr_rec_latexocr_dataset_example
 ```
+
 The following steps are required:
 
-* Specify the `.yaml` configuration file path for the model (here it is `PP-FormulaNet_plus-M.yaml`,When training other models, you need to specify the corresponding configuration files. The relationship between the model and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
+* Specify the `.yaml` configuration file path for the model (here it is `PP-FormulaNet_plus-M.yaml`,When training other
+  models, you need to specify the corresponding configuration files. The relationship between the model and
+  configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md))
 * Set the mode to model training: `-o Global.mode=train`
 * Specify the path to the training dataset: `-o Global.dataset_dir`.
-* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file, or adjusted by appending parameters in the command line. For example, to specify training on the first two GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the configuration file instructions for the corresponding task module of the model [PaddleX Common Configuration File Parameters](../../instructions/config_parameters_common.en.md).
-*  Except for LaTeX_OCR_rec, the formula recognition models only support exporting models in JSON format. Therefore, during training, you need to set the parameter `FLAGS_json_format_model=1`.
-*  For the PP-FormulaNet-S, PP-FormulaNet-L, PP-FormulaNet_plus-S、PP-FormulaNet_plus-M、PP-FormulaNet_plus-L and UniMERNet models, additional Linux packages need to be installed during training. The specific command is as follows:
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the `Global` and `Train` fields in the `.yaml` configuration file, or
+  adjusted by appending parameters in the command line. For example, to specify training on the first two GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to the configuration file instructions for the
+  corresponding task module of the
+  model [PaddleX Common Configuration File Parameters](../../instructions/config_parameters_common.en.md).
+* Except for LaTeX_OCR_rec, the formula recognition models only support exporting models in JSON format. Therefore,
+  during training, you need to set the parameter `FLAGS_json_format_model=1`.
+* For the PP-FormulaNet-S, PP-FormulaNet-L, PP-FormulaNet_plus-S、PP-FormulaNet_plus-M、PP-FormulaNet_plus-L and UniMERNet
+  models, additional Linux packages need to be installed during training. The specific command is as follows:
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 ```bash
 sudo apt-get update
 sudo apt-get install libmagickwand-dev
 python -m pip install Wand
 ```
-
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 
@@ -541,51 +595,65 @@ python -m pip install Wand
 <li>Notice: Since Paddle 3.0.0, the format of storing static graph network structure has changed to json(the current<code>.json</code> file) from protobuf(the former<code>.pdmodel</code> file) to be compatible with PIR and more flexible and scalable.</li>
 </ul></details>
 
-
 ## <b>4.3 Model Evaluation</b>
-After completing model training, you can evaluate the specified model weight file on the validation set to verify the model's accuracy. Using PaddleX for model evaluation can be done with a single command:
+
+After completing model training, you can evaluate the specified model weight file on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation can be done with a single command:
 
 ```bash
 python main.py -c paddlex/configs/modules/formula_recognition/PP-FormulaNet_plus-M.yaml  \
     -o Global.mode=evaluate \
     -o Global.dataset_dir=./dataset/ocr_rec_latexocr_dataset_example
 ```
+
 Similar to model training, the following steps are required:
 
 * Specify the `.yaml` configuration file path for the model (here it is `PP-FormulaNet_plus-M.yaml`)
 * Set the mode to model evaluation: `-o Global.mode=evaluate`
 * Specify the path to the validation dataset: `-o Global.dataset_dir`.
-Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file, detailed instructions can be found in [PaddleX Common Configuration File Parameters](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the `Global` and `Evaluate` fields in the `.yaml` configuration file,
+  detailed instructions can be found
+  in [PaddleX Common Configuration File Parameters](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 <b>More Details (Click to Expand)</b></summary>
 
 <p>When evaluating the model, you need to specify the model weights file path. Each configuration file has a default weight save path built-in. If you need to change it, simply set it by appending a command line parameter, such as <code>-o Evaluate.weight_path=./output/best_accuracy/best_accuracy.pdparams</code>.</p>
 <p>After completing the model evaluation, an <code>evaluate_result.json</code> file will be produced, which records the evaluation results, specifically, whether the evaluation task was completed successfully and the model's evaluation metrics, including exp_rate；</p></details>
 
-
 ### <b>4.4 Model Inference and Integration</b>
-After completing model training and evaluation, you can use the trained model weights for inference prediction or Python integration.
 
+After completing model training and evaluation, you can use the trained model weights for inference prediction or Python
+integration.
 
 #### 4.4.1 Model Inference
-To perform inference prediction through the command line, simply use the following command. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_formula_rec_001.png) to your local machine.
+
+To perform inference prediction through the command line, simply use the following command. Before running the following
+code, please download
+the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_formula_rec_001.png) to your
+local machine.
+
 ```bash
 python main.py -c paddlex/configs/modules/formula_recognition/PP-FormulaNet_plus-M.yaml \
     -o Global.mode=predict \
     -o Predict.model_dir="./output/best_accuracy/inference" \
     -o Predict.input="general_formula_rec_001.png"
 ```
+
 Similar to model training and evaluation, the following steps are required:
 
 * Specify the `.yaml` configuration file path for the model (here it is `PP-FormulaNet_plus-M.yaml`)
 * Set the mode to model inference prediction: `-o Global.mode=predict`
 * Specify the model weights path: `-o Predict.model_dir="./output/best_accuracy/inference"`
 * Specify the input data path: `-o Predict.input="..."`.
-Other related parameters can be set by modifying the `Global` and `Predict` fields in the `.yaml` configuration file. For details, please refer to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
-
+  Other related parameters can be set by modifying the `Global` and `Predict` fields in the `.yaml` configuration file.
+  For details, please refer
+  to [PaddleX Common Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 #### 4.4.2 Model Integration
 
-The weights you produce can be directly integrated into the formula recognition module. Refer to the Python example code in [Quick Integration](#iii-quick-integration), and simply replace the model with the path to your trained model.
+The weights you produce can be directly integrated into the formula recognition module. Refer to the Python example code
+in [Quick Integration](#iii-quick-integration), and simply replace the model with the path to your trained model.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

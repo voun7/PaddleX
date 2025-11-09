@@ -21,7 +21,7 @@ import numpy as np
 from ......utils.deps import is_dep_available
 
 if all(
-    map(is_dep_available, ("einops", "torch", "transformers", "sglang", "flash-attn"))
+        map(is_dep_available, ("einops", "torch", "transformers", "sglang", "flash-attn"))
 ):
     import torch
     import torch.nn as nn
@@ -50,13 +50,14 @@ if all(
     )
     from transformers.utils import torch_int
 
+
     class Projector(nn.Module):
 
         def __init__(
-            self,
-            text_config,
-            vision_config,
-            prefix: str = "",
+                self,
+                text_config,
+                vision_config,
+                prefix: str = "",
         ):
             super().__init__()
             self.text_config = text_config
@@ -64,9 +65,9 @@ if all(
             self.merge_kernel_size = (2, 2)
 
             self.hidden_size = (
-                self.vision_config.hidden_size
-                * self.merge_kernel_size[0]
-                * self.merge_kernel_size[1]
+                    self.vision_config.hidden_size
+                    * self.merge_kernel_size[0]
+                    * self.merge_kernel_size[1]
             )
 
             self.pre_norm = torch.nn.LayerNorm(
@@ -79,9 +80,9 @@ if all(
             )
 
         def forward(
-            self,
-            image_features: torch.Tensor,
-            image_grid_thw: List[Tuple[int, int, int]],
+                self,
+                image_features: torch.Tensor,
+                image_grid_thw: List[Tuple[int, int, int]],
         ) -> torch.Tensor:
             m1, m2 = self.merge_kernel_size
             if isinstance(image_features, (list, tuple)):
@@ -116,6 +117,7 @@ if all(
 
             return hidden_states.view(*dims, -1)
 
+
     class SiglipVisionEmbeddings(nn.Module):
 
         def __init__(self, config):
@@ -147,11 +149,11 @@ if all(
             )
 
         def interpolate_pos_encoding(
-            self,
-            embeddings: torch.Tensor,
-            height: int,
-            width: int,
-            is_after_patchify: bool = False,
+                self,
+                embeddings: torch.Tensor,
+                height: int,
+                width: int,
+                is_after_patchify: bool = False,
         ) -> torch.Tensor:
 
             num_positions = self.position_embedding.weight.shape[0]
@@ -167,7 +169,7 @@ if all(
                 new_height = height // self.patch_size
                 new_width = width // self.patch_size
 
-            sqrt_num_positions = torch_int(num_positions**0.5)
+            sqrt_num_positions = torch_int(num_positions ** 0.5)
             patch_pos_embed = patch_pos_embed.reshape(
                 1, sqrt_num_positions, sqrt_num_positions, dim
             )
@@ -184,7 +186,7 @@ if all(
             return patch_pos_embed
 
         def fetch_position_embedding_lfu_cache(
-            self, embeddings, h, w, max_cache: int = 20
+                self, embeddings, h, w, max_cache: int = 20
         ):
             grid = (h, w)
             if grid in self.cache_position_embedding:
@@ -205,18 +207,18 @@ if all(
             return position_embedding
 
         def forward(
-            self,
-            pixel_values: torch.FloatTensor,
-            position_ids: Optional[torch.Tensor] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                pixel_values: torch.FloatTensor,
+                position_ids: Optional[torch.Tensor] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
-            interpolate_pos_encoding=False,
+                ] = None,
+                interpolate_pos_encoding=False,
         ) -> torch.Tensor:
             if pixel_values.dim() == 4:
                 pixel_values = pixel_values.unsqueeze(0)
@@ -264,26 +266,28 @@ if all(
                     f" {pixel_values.dim()}. Expected 4 or 5."
                 )
 
+
     def apply_rotary_pos_emb_flashatt(
-        q: torch.Tensor,
-        k: torch.Tensor,
-        cos: torch.Tensor,
-        sin: torch.Tensor,
+            q: torch.Tensor,
+            k: torch.Tensor,
+            cos: torch.Tensor,
+            sin: torch.Tensor,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         from sglang.srt.layers.rotary_embedding import apply_rotary_pos_emb
 
         q_embed, k_embed = apply_rotary_pos_emb(q, k, cos, sin)
         return q_embed, k_embed
 
+
     class SiglipAttention(nn.Module):
         """Multi-headed attention from 'Attention Is All You
         Need' paper."""
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.config = config
@@ -303,7 +307,7 @@ if all(
             self.head_dim = config.hidden_size // self.total_num_heads
             self.q_size = self.num_heads * self.head_dim
             self.kv_size = self.num_kv_heads * self.head_dim
-            self.scale = self.head_dim**-0.5
+            self.scale = self.head_dim ** -0.5
 
             self.qkv_proj = QKVParallelLinear(
                 hidden_size,
@@ -322,10 +326,10 @@ if all(
             )
 
         def forward(
-            self,
-            hidden_states: torch.Tensor,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+                self,
+                hidden_states: torch.Tensor,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         ) -> torch.Tensor:
             batch_size, seq_length, embed_dim = hidden_states.shape
 
@@ -359,6 +363,7 @@ if all(
             output, _ = self.out_proj(attn_output)
             return output
 
+
     class SigLIPRotaryEmbedding(nn.Module):
 
         def __init__(self, dim: int, theta: float = 10000.0) -> None:
@@ -369,8 +374,8 @@ if all(
 
         def rope_init(self):
             inv_freq = 1.0 / (
-                self.theta
-                ** (torch.arange(0, self.dim, 2, dtype=torch.float) / self.dim)
+                    self.theta
+                    ** (torch.arange(0, self.dim, 2, dtype=torch.float) / self.dim)
             )
             self.register_buffer("inv_freq", inv_freq, persistent=False)
 
@@ -383,13 +388,14 @@ if all(
             freqs = torch.outer(seq, self.inv_freq)
             return freqs
 
+
     class SiglipMLP(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ) -> None:
             super().__init__()
 
@@ -399,7 +405,7 @@ if all(
                 quantizable = True
             else:
                 quantizable = (
-                    config.hidden_size % 64 == 0 and config.intermediate_size % 64 == 0
+                        config.hidden_size % 64 == 0 and config.intermediate_size % 64 == 0
                 )
             self.fc1 = ColumnParallelLinear(
                 config.hidden_size,
@@ -420,13 +426,14 @@ if all(
             hidden_states, _ = self.fc2(hidden_states)
             return hidden_states
 
+
     class SiglipEncoderLayer(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.embed_dim = config.hidden_size
@@ -444,12 +451,11 @@ if all(
             )
 
         def forward(
-            self,
-            hidden_states: torch.Tensor,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+                self,
+                hidden_states: torch.Tensor,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         ) -> Tuple[torch.FloatTensor]:
-
             residual = hidden_states
 
             hidden_states = self.layer_norm1(hidden_states)
@@ -469,13 +475,14 @@ if all(
 
             return hidden_states
 
+
     class SiglipEncoder(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.config = config
@@ -505,19 +512,19 @@ if all(
             return tmp_image_grid_thw
 
         def forward(
-            self,
-            inputs_embeds,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                inputs_embeds,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
-            height_position_ids: Optional[torch.Tensor] = None,
-            width_position_ids: Optional[torch.Tensor] = None,
+                ] = None,
+                height_position_ids: Optional[torch.Tensor] = None,
+                width_position_ids: Optional[torch.Tensor] = None,
         ) -> BaseModelOutput:
             device = inputs_embeds.device
             hidden_states = inputs_embeds
@@ -556,13 +563,14 @@ if all(
                 )
             return hidden_states
 
+
     class SiglipVisionTransformer(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.config = config
@@ -577,21 +585,21 @@ if all(
             self.post_layernorm = nn.LayerNorm(embed_dim, eps=config.layer_norm_eps)
 
         def forward(
-            self,
-            pixel_values,
-            interpolate_pos_encoding: Optional[bool] = False,
-            position_ids: Optional[torch.Tensor] = None,
-            height_position_ids: Optional[torch.Tensor] = None,
-            width_position_ids: Optional[torch.Tensor] = None,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                pixel_values,
+                interpolate_pos_encoding: Optional[bool] = False,
+                position_ids: Optional[torch.Tensor] = None,
+                height_position_ids: Optional[torch.Tensor] = None,
+                width_position_ids: Optional[torch.Tensor] = None,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
+                ] = None,
         ) -> BaseModelOutputWithPooling:
 
             hidden_states = self.embeddings(
@@ -625,15 +633,16 @@ if all(
 
             return sample_hidden_state
 
+
     class SiglipVisionModel(nn.Module):
         config_class = "PaddleOCRVisionConfig"
         main_input_name = "pixel_values"
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
 
@@ -656,21 +665,20 @@ if all(
             return self.vision_model.embeddings.patch_embedding
 
         def forward(
-            self,
-            pixel_values,
-            interpolate_pos_encoding: bool = False,
-            position_ids: Optional[torch.Tensor] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                pixel_values,
+                interpolate_pos_encoding: bool = False,
+                position_ids: Optional[torch.Tensor] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
+                ] = None,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
         ) -> BaseModelOutputWithPooling:
-
             return self.vision_model(
                 pixel_values=pixel_values,
                 interpolate_pos_encoding=interpolate_pos_encoding,
@@ -678,6 +686,7 @@ if all(
                 image_grid_thw=image_grid_thw,
                 cu_seqlens=cu_seqlens,
             )
+
 
     class PaddleOCRVLForConditionalGeneration(Ernie4_5_ForCausalLM):
 
@@ -746,17 +755,17 @@ if all(
             return image_embeds
 
         def forward(
-            self,
-            input_ids: torch.Tensor,
-            positions: torch.Tensor,
-            forward_batch: ForwardBatch,
-            get_embedding: bool = False,
+                self,
+                input_ids: torch.Tensor,
+                positions: torch.Tensor,
+                forward_batch: ForwardBatch,
+                get_embedding: bool = False,
         ):
             if self.is_mrope_enabled:
                 positions = forward_batch.mrope_positions
             if not (
-                forward_batch.forward_mode.is_decode()
-                or not forward_batch.contains_image_inputs()
+                    forward_batch.forward_mode.is_decode()
+                    or not forward_batch.contains_image_inputs()
             ):
                 if self.is_mrope_enabled:
                     assert positions.ndim == 2 and positions.size(0) == 3, (
@@ -811,6 +820,7 @@ if all(
                         weight_loader(param, loaded_weight)
                     else:
                         raise KeyError(f"Parameter '{name}' not found in model.")
+
 
     # monkey patch
     def get_input_embeddings(self) -> nn.Embedding:

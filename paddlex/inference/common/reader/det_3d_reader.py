@@ -31,7 +31,6 @@ class _EasyDict(dict):
 
 
 class SampleMeta(_EasyDict):
-
     # yapf: disable
     __slots__ = [
         "camera_intrinsic",
@@ -46,6 +45,7 @@ class SampleMeta(_EasyDict):
         "time_lag",
         "ref_from_curr"
     ]
+
     # yapf: enable
 
     def __init__(self, **kwargs):
@@ -84,15 +84,15 @@ class Sample(_EasyDict):
 class ReadNuscenesData:
 
     def __init__(
-        self,
-        dataset_root="",
-        load_interval=1,
-        noise_sensor_type="camera",
-        drop_frames=False,
-        drop_set=[0, "discrete"],
-        modality="multimodal",
-        extrinsics_noise=False,
-        extrinsics_noise_type="single",
+            self,
+            dataset_root="",
+            load_interval=1,
+            noise_sensor_type="camera",
+            drop_frames=False,
+            drop_set=[0, "discrete"],
+            modality="multimodal",
+            extrinsics_noise=False,
+            extrinsics_noise_type="single",
     ):
 
         self.load_interval = load_interval
@@ -148,8 +148,8 @@ class ReadNuscenesData:
                             "sweeps"
                         ]
                         sample.timestamp = (
-                            self.noise_data[replace_file]["mmdet_info"]["timestamp"]
-                            / 1e6
+                                self.noise_data[replace_file]["mmdet_info"]["timestamp"]
+                                / 1e6
                         )
 
         cam_orders = [

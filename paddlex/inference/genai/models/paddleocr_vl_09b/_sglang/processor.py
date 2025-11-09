@@ -28,12 +28,13 @@ if all(map(is_dep_available, ("sglang", "torch"))):
         MultimodalSpecialTokens,
     )
 
+
     def smart_resize(
-        height: int,
-        width: int,
-        factor: int = 28,
-        min_pixels: int = 28 * 28 * 130,
-        max_pixels: int = 28 * 28 * 1280,
+            height: int,
+            width: int,
+            factor: int = 28,
+            min_pixels: int = 28 * 28 * 130,
+            max_pixels: int = 28 * 28 * 1280,
     ):
         """Rescales the image so that the following conditions are met:
 
@@ -68,6 +69,7 @@ if all(map(is_dep_available, ("sglang", "torch"))):
             w_bar = math.ceil(width * beta / factor) * factor
         return h_bar, w_bar
 
+
     def resize_image(image, min_pixels, max_pixels, factor) -> Image.Image:
         width, height = image.size
         resized_height, resized_width = smart_resize(
@@ -80,8 +82,10 @@ if all(map(is_dep_available, ("sglang", "torch"))):
         image = image.resize((resized_width, resized_height))
         return image
 
+
     async def resize_image_async(image, min_pixels, max_pixels, factor):
         return resize_image(image, min_pixels, max_pixels, factor)
+
 
     class PaddleOCRVLImageProcessor(BaseMultimodalProcessor):
 
@@ -92,7 +96,7 @@ if all(map(is_dep_available, ("sglang", "torch"))):
             self.MIN_PIXELS = image_processor_config.min_pixels
             self.MAX_PIXELS = image_processor_config.max_pixels
             self.IMAGE_FACTOR = (
-                image_processor_config.patch_size * image_processor_config.merge_size
+                    image_processor_config.patch_size * image_processor_config.merge_size
             )
 
             self.vision_start_token_id = hf_config.vision_start_token_id
@@ -103,12 +107,12 @@ if all(map(is_dep_available, ("sglang", "torch"))):
             ).build(_processor)
 
         async def process_mm_data_async(
-            self,
-            image_data: List[Union[str, bytes]],
-            input_text,
-            request_obj,
-            *args,
-            **kwargs,
+                self,
+                image_data: List[Union[str, bytes]],
+                input_text,
+                request_obj,
+                *args,
+                **kwargs,
         ):
             base_output = self.load_mm_data(
                 prompt=input_text,
@@ -154,21 +158,21 @@ if all(map(is_dep_available, ("sglang", "torch"))):
 
         @staticmethod
         def get_rope_index(
-            spatial_merge_size: int,
-            image_token_id: int,
-            video_token_id: int,
-            vision_start_token_id: int,
-            model_type: str,
-            tokens_per_second: Optional[int] = None,
-            input_ids: Optional[torch.LongTensor] = None,
-            image_grid_thw: Optional[torch.LongTensor] = None,
-            video_grid_thw: Optional[torch.LongTensor] = None,
-            second_per_grid_ts: Optional[torch.Tensor] = None,
-            **kwargs,
+                spatial_merge_size: int,
+                image_token_id: int,
+                video_token_id: int,
+                vision_start_token_id: int,
+                model_type: str,
+                tokens_per_second: Optional[int] = None,
+                input_ids: Optional[torch.LongTensor] = None,
+                image_grid_thw: Optional[torch.LongTensor] = None,
+                video_grid_thw: Optional[torch.LongTensor] = None,
+                second_per_grid_ts: Optional[torch.Tensor] = None,
+                **kwargs,
         ) -> Tuple[torch.Tensor, torch.Tensor]:
             mrope_position_deltas = []
             if input_ids is not None and (
-                image_grid_thw is not None or video_grid_thw is not None
+                    image_grid_thw is not None or video_grid_thw is not None
             ):
                 total_input_ids = input_ids
                 position_ids = torch.ones(
@@ -245,7 +249,7 @@ if all(map(is_dep_available, ("sglang", "torch"))):
                         )
 
                         time_tensor = (
-                            expanded_range * second_per_grid_t * tokens_per_second
+                                expanded_range * second_per_grid_t * tokens_per_second
                         )
 
                         time_tensor_long = time_tensor.long()

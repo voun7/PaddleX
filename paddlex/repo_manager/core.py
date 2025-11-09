@@ -15,13 +15,13 @@
 import sys
 from collections import OrderedDict
 
-from ..utils import logging
 from .meta import get_all_repo_names, get_repo_meta
 from .repo import (
     build_repo_group_getter,
     build_repo_group_installer,
     build_repo_instance,
 )
+from ..utils import logging
 
 __all__ = [
     "set_parent_dirs",
@@ -90,13 +90,13 @@ is_initialized = _GlobalContext.is_initialized
 
 
 def setup(
-    repo_names,
-    no_deps=False,
-    constraints=None,
-    platform=None,
-    update_repos=False,
-    use_local_repos=False,
-    deps_to_replace=None,
+        repo_names,
+        no_deps=False,
+        constraints=None,
+        platform=None,
+        update_repos=False,
+        use_local_repos=False,
+        deps_to_replace=None,
 ):
     """setup"""
     if update_repos and use_local_repos:

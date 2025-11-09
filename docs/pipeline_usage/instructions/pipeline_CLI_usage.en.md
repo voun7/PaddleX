@@ -4,7 +4,8 @@ comments: true
 
 # PaddleX Pipeline CLI Usage Instructions
 
-Before using the CLI command line for rapid inference of the pipeline, please ensure that you have completed the installation of PaddleX according to the [PaddleX Local Installation Tutorial](../../installation/installation.en.md).
+Before using the CLI command line for rapid inference of the pipeline, please ensure that you have completed the
+installation of PaddleX according to the [PaddleX Local Installation Tutorial](../../installation/installation.en.md).
 
 ## I. Usage Example
 
@@ -19,19 +20,27 @@ paddlex --pipeline image_classification \
         --save_path ./output/ \
         --topk 5
 ```
-This single step completes the inference prediction and saves the prediction results. Explanations for the relevant parameters are as follows:
 
-* `pipeline`: The name of the pipeline or the local path to the pipeline configuration file, such as the pipeline name "image_classification", or the path to the pipeline configuration file "path/to/image_classification.yaml";
-* `input`: The path to the data file to be predicted, supporting local file paths, local directories containing data files to be predicted, and file URL links;
-* `device`: Used to set the inference device. If set for GPU, you can specify the card number, such as "cpu", "gpu:2". By default, if a GPU is available, GPU 0 will be used; otherwise, the CPU will be used;
+This single step completes the inference prediction and saves the prediction results. Explanations for the relevant
+parameters are as follows:
+
+* `pipeline`: The name of the pipeline or the local path to the pipeline configuration file, such as the pipeline name "
+  image_classification", or the path to the pipeline configuration file "path/to/image_classification.yaml";
+* `input`: The path to the data file to be predicted, supporting local file paths, local directories containing data
+  files to be predicted, and file URL links;
+* `device`: Used to set the inference device. If set for GPU, you can specify the card number, such as "cpu", "gpu:2".
+  By default, if a GPU is available, GPU 0 will be used; otherwise, the CPU will be used;
 * `save_path`: The save path for prediction results. By default, the prediction results will not be saved;
 * `use_hpip`: Enable the high-performance inference plugin;
 * `hpi_config`: The high-performance inference configuration;
-* _`inference hyperparameters`_: Different pipelines support different inference hyperparameter settings. And the priority of this parameter is greater than the pipeline default configuration. Such as the image classification pipeline, it supports `topk` parameter. Please refer to the specific pipeline description document for details.
+* _`inference hyperparameters`_: Different pipelines support different inference hyperparameter settings. And the
+  priority of this parameter is greater than the pipeline default configuration. Such as the image classification
+  pipeline, it supports `topk` parameter. Please refer to the specific pipeline description document for details.
 
 ### 2. Custom Pipeline Configuration
 
-If you need to modify the pipeline, you can get the configuration file and modify it. Still taking the image classification pipeline as an example, the way to retrieve the configuration file is as follows:
+If you need to modify the pipeline, you can get the configuration file and modify it. Still taking the image
+classification pipeline as an example, the way to retrieve the configuration file is as follows:
 
 ```bash
 paddlex --get_pipeline_config image_classification
@@ -42,7 +51,8 @@ paddlex --get_pipeline_config image_classification
 # The pipeline config has been saved to: configs/image_classification.yaml
 ```
 
-After modifying the pipeline configuration file `configs/image_classification.yaml`, such as the content for the image classification configuration file:
+After modifying the pipeline configuration file `configs/image_classification.yaml`, such as the content for the image
+classification configuration file:
 
 ```yaml
 pipeline_name: image_classification
@@ -57,7 +67,8 @@ SubModules:
     topk: 5
 ```
 
-Once the modification is completed, you can use this configuration file to perform model pipeline inference prediction as follows:
+Once the modification is completed, you can use this configuration file to perform model pipeline inference prediction
+as follows:
 
 ```bash
 paddlex --pipeline configs/image_classification.yaml \

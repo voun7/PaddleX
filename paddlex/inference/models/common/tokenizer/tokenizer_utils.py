@@ -20,16 +20,14 @@ import itertools
 import json
 import os
 import re
-import unicodedata
 from collections import OrderedDict
 from dataclasses import asdict, dataclass
 from functools import lru_cache
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 
 import numpy as np
+import unicodedata
 
-from .....utils import logging
-from .....utils.deps import class_requires_deps, is_dep_available
 from .tokenizer_utils_base import (
     CHAT_TEMPLATE_CONFIG_NAME,
     AddedToken,
@@ -47,6 +45,8 @@ from .tokenizer_utils_base import (
 )
 from .utils import convert_to_dict_message, fn_args_to_dict
 from .vocab import Vocab
+from .....utils import logging
+from .....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("Jinja2"):
     from jinja2 import Template
@@ -82,10 +82,10 @@ class ChatTemplate:
         return jinja_env.from_string(chat_template)
 
     def render_conversation(
-        self,
-        conversation_data: Union[List[str], Dict[str, str]],
-        index: int = 0,
-        context_data: Dict[str, Any] = {},
+            self,
+            conversation_data: Union[List[str], Dict[str, str]],
+            index: int = 0,
+            context_data: Dict[str, Any] = {},
     ) -> List[str]:
         """
         Args:
@@ -102,7 +102,7 @@ class ChatTemplate:
 
         if isinstance(conversation_data, (list, tuple)):
             assert (
-                len(conversation_data) == 2
+                    len(conversation_data) == 2
             ), "Each round/turn of conversation must be two participants, eg: [user-query, bot-query]"
 
             conversation_data = {
@@ -120,7 +120,7 @@ class ChatTemplate:
         return one_turn_conversation
 
     def render_query(
-        self, query: str, index: int = 0, context_data: Dict[str, Union[int, str]] = {}
+            self, query: str, index: int = 0, context_data: Dict[str, Union[int, str]] = {}
     ):
         if self.query is None:
             return query
@@ -129,7 +129,7 @@ class ChatTemplate:
         return template.render(query=query, index=index, **context_data)
 
     def _init_context_data(
-        self, context_data: Dict[str, Union[int, str]] = {}
+            self, context_data: Dict[str, Union[int, str]] = {}
     ) -> Dict[str, Union[int, str]]:
         """init the context data for chat-template"""
         context_data["is_training"] = context_data.get("is_training", False)
@@ -143,9 +143,9 @@ class ChatTemplate:
         return template.render(**context_data)
 
     def __call__(
-        self,
-        conversations: Union[List[List[str]], str],
-        context_data: Dict[str, Union[int, str]] = {},
+            self,
+            conversations: Union[List[List[str]], str],
+            context_data: Dict[str, Union[int, str]] = {},
     ) -> str:
         """render the conversations by chat-template
 
@@ -209,7 +209,7 @@ def adapt_stale_fwd_patch(self, name, value):
         # by an instance of `StaticFunction`. And use string compare to avoid to
         # import fluid.
         if type(value).__name__.endswith(
-            "StaticFunction"
+                "StaticFunction"
         ) or self.forward.__class__.__name__.endswith("StaticFunction"):
             return value
         (
@@ -591,11 +591,11 @@ def _is_nonnormalized_char(char):
     """Check whether `chars` is a non-normalized character."""
     cp = ord(char)
     if (
-        (0xFF00 <= cp <= 0xFFEF)
-        or (0xFE50 <= cp <= 0xFE6B)  # Halfwidth and Fullwidth Forms
-        or (0x3358 <= cp <= 0x33FF)  # Small Form Variants
-        or (0x249C <= cp <= 0x24E9)  # CJK Compatibility
-        or (0x3200 <= cp <= 0x32FF)  # Enclosed Alphanumerics: Ⓛ ⒰
+            (0xFF00 <= cp <= 0xFFEF)
+            or (0xFE50 <= cp <= 0xFE6B)  # Halfwidth and Fullwidth Forms
+            or (0x3358 <= cp <= 0x33FF)  # Small Form Variants
+            or (0x249C <= cp <= 0x24E9)  # CJK Compatibility
+            or (0x3200 <= cp <= 0x32FF)  # Enclosed Alphanumerics: Ⓛ ⒰
     ):  # Enclosed CJK Letters and Months
         return True
 
@@ -606,10 +606,10 @@ def _is_nonnormalized_numeric(char):
     """Check whether `chars` is a non-normalized numeric character."""
     cp = ord(char)
     if (
-        (0x2460 <= cp <= 0x249B)
-        or (0x24EA <= cp <= 0x24FF)  #
-        or (0x2776 <= cp <= 0x2793)  #
-        or (0x2160 <= cp <= 0x217F)  # Enclosed Alphanumerics
+            (0x2460 <= cp <= 0x249B)
+            or (0x24EA <= cp <= 0x24FF)  #
+            or (0x2776 <= cp <= 0x2793)  #
+            or (0x2160 <= cp <= 0x217F)  # Enclosed Alphanumerics
     ):  # Number Forms
         return True
 
@@ -642,11 +642,11 @@ class ChatTemplateMixin:
     chat_template: Optional[ChatTemplate] = None
 
     def apply_chat_template(
-        self,
-        conversation: Union[List[List[str]], Dict[str, str], str],
-        tokenize: bool = True,
-        context_data: Dict[str, Any] = {},
-        **tokenizer_kwargs,
+            self,
+            conversation: Union[List[List[str]], Dict[str, str], str],
+            tokenize: bool = True,
+            context_data: Dict[str, Any] = {},
+            **tokenizer_kwargs,
     ):
         """apply chat_template rules to conversation which should not be batched data
 
@@ -678,9 +678,9 @@ class ChatTemplateMixin:
         return self(query, **tokenizer_kwargs)
 
     def _apply_chat_template_paddle(
-        self,
-        conversation: Union[List[List[str]], str],
-        context_data: Dict[str, Any] = {},
+            self,
+            conversation: Union[List[List[str]], str],
+            context_data: Dict[str, Any] = {},
     ):
         context_data = self.chat_template._init_context_data(context_data)
 
@@ -696,9 +696,9 @@ class ChatTemplateMixin:
         return query
 
     def _apply_chat_template(
-        self,
-        conversation: Union[List[List[str]], Dict[str, str], str],
-        add_generation_prompt=True,
+            self,
+            conversation: Union[List[List[str]], Dict[str, str], str],
+            add_generation_prompt=True,
     ):
         if isinstance(conversation, str):
             conversations = [{"role": "user", "content": conversation}]
@@ -737,10 +737,10 @@ class ChatTemplateMixin:
         return query
 
     def encode_chat_inputs(
-        self,
-        conversations: List[List[str]],
-        context_data: Dict[str, Any] = {},
-        **kwargs,
+            self,
+            conversations: List[List[str]],
+            context_data: Dict[str, Any] = {},
+            **kwargs,
     ):
         """Encodes conversation to pairs of token ids.
         Turn 0: bos + system + sep + user     bot + eos
@@ -767,7 +767,7 @@ class ChatTemplateMixin:
         return query
 
     def _encode_chat_inputs_paddle(
-        self, conversations: List[List[str]], context_data: Dict[str, Any] = {}
+            self, conversations: List[List[str]], context_data: Dict[str, Any] = {}
     ):
         context_data = self.chat_template._init_context_data(context_data)
         # encode system
@@ -796,11 +796,11 @@ class ChatTemplateMixin:
         return result
 
     def _encode_chat_inputs(
-        self,
-        conversations: List[List[str]],
-        context_data: Dict[str, Any] = {},
-        system: str = None,
-        add_generation_prompt=True,
+            self,
+            conversations: List[List[str]],
+            context_data: Dict[str, Any] = {},
+            system: str = None,
+            add_generation_prompt=True,
     ):
         result = {}
 
@@ -838,7 +838,7 @@ class ChatTemplateMixin:
                 add_generation_prompt=add_generation_prompt,
                 **self.special_tokens_map,
             )
-            ans_roundi = roundi_str[len(roundi_no_ans_str) :]
+            ans_roundi = roundi_str[len(roundi_no_ans_str):]
             ans.append(ans_roundi)
 
         non_learnable_parts = self._extract_non_learnable_parts(origin_msg, ans)
@@ -860,7 +860,7 @@ class ChatTemplateMixin:
         return result
 
     def _extract_non_learnable_parts(
-        self, origin_msg: List[Dict[str, str]], split_s: List[str]
+            self, origin_msg: List[Dict[str, str]], split_s: List[str]
     ):
         """Split the entire chat by specified words. Extract the non-learnable parts."""
         # distinguish and replace the special words in original string to an uncompiled form: Like | -> \|
@@ -946,7 +946,7 @@ class ChatTemplateMixin:
         super().save_resources(save_directory)
 
         if isinstance(
-            self.chat_template, ChatTemplate
+                self.chat_template, ChatTemplate
         ):  # Future remove if ChatTemplate is deprecated
             chat_template_file = os.path.join(save_directory, CHAT_TEMPLATE_CONFIG_NAME)
             with open(chat_template_file, "w", encoding="utf-8") as f:
@@ -1071,9 +1071,9 @@ class PretrainedTokenizer(
         return self.vocab_size + len(self.added_tokens_encoder)
 
     def _add_tokens(
-        self,
-        new_tokens: Union[List[str], List[AddedToken]],
-        special_tokens: bool = False,
+            self,
+            new_tokens: Union[List[str], List[AddedToken]],
+            special_tokens: bool = False,
     ) -> int:
         """
         Add a list of new tokens to the tokenizer class. If the new tokens are not in the vocabulary, they are added to
@@ -1106,17 +1106,17 @@ class PretrainedTokenizer(
             if not isinstance(token, str):
                 raise TypeError(f"Token {token} is not a string but a {type(token)}.")
             if (
-                not special_tokens
-                and hasattr(self, "do_lower_case")
-                and self.do_lower_case
+                    not special_tokens
+                    and hasattr(self, "do_lower_case")
+                    and self.do_lower_case
             ):
                 token = token.lower()
             if (
-                token != self.unk_token
-                and self.convert_tokens_to_ids(token)
-                == self.convert_tokens_to_ids(self.unk_token)
-                and token not in tokens_to_add
-                and token not in self.added_tokens_encoder.keys()
+                    token != self.unk_token
+                    and self.convert_tokens_to_ids(token)
+                    == self.convert_tokens_to_ids(self.unk_token)
+                    and token not in tokens_to_add
+                    and token not in self.added_tokens_encoder.keys()
             ):
                 tokens_to_add.append(token)
                 if self.verbose:
@@ -1157,9 +1157,9 @@ class PretrainedTokenizer(
         trie = Trie()
         for token in unique_no_split_tokens:
             if (
-                hasattr(self, "do_lower_case")
-                and self.do_lower_case
-                and token not in self.all_special_tokens
+                    hasattr(self, "do_lower_case")
+                    and self.do_lower_case
+                    and token not in self.all_special_tokens
             ):
                 trie.add(token.lower())
             else:
@@ -1342,12 +1342,12 @@ class PretrainedTokenizer(
 
     @staticmethod
     def load_vocabulary(
-        filepath,
-        unk_token=None,
-        pad_token=None,
-        bos_token=None,
-        eos_token=None,
-        **kwargs,
+            filepath,
+            unk_token=None,
+            pad_token=None,
+            bos_token=None,
+            eos_token=None,
+            **kwargs,
     ):
         """
         Instantiate an instance of `Vocab` from a file reserving all tokens
@@ -1403,7 +1403,7 @@ class PretrainedTokenizer(
                 f.write(token + "\n")
 
     def get_special_tokens_mask(
-        self, token_ids_0, token_ids_1=None, already_has_special_tokens=False
+            self, token_ids_0, token_ids_1=None, already_has_special_tokens=False
     ):
         """
         Retrieves sequence ids from a token list that has no special tokens added. This method is called when adding
@@ -1453,36 +1453,36 @@ class PretrainedTokenizer(
         )
 
     def _encode_plus(
-        self,
-        text: Union[TextInput, PreTokenizedInput, EncodedInput],
-        text_pair: Optional[Union[TextInput, PreTokenizedInput, EncodedInput]] = None,
-        add_special_tokens: bool = True,
-        padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
-        truncation_strategy: TruncationStrategy = TruncationStrategy.DO_NOT_TRUNCATE,
-        max_length: Optional[int] = None,
-        stride: int = 0,
-        is_split_into_words: bool = False,
-        pad_to_multiple_of: Optional[int] = None,
-        padding_side: Optional[Literal["right", "left"]] = None,
-        return_tensors: Optional[Union[str, TensorType]] = None,
-        return_position_ids: Optional[bool] = None,
-        return_token_type_ids: Optional[bool] = None,
-        return_attention_mask: Optional[bool] = None,
-        return_overflowing_tokens: bool = False,
-        return_special_tokens_mask: bool = False,
-        return_offsets_mapping: bool = False,
-        return_length: bool = False,
-        verbose: bool = True,
-        **kwargs,
+            self,
+            text: Union[TextInput, PreTokenizedInput, EncodedInput],
+            text_pair: Optional[Union[TextInput, PreTokenizedInput, EncodedInput]] = None,
+            add_special_tokens: bool = True,
+            padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
+            truncation_strategy: TruncationStrategy = TruncationStrategy.DO_NOT_TRUNCATE,
+            max_length: Optional[int] = None,
+            stride: int = 0,
+            is_split_into_words: bool = False,
+            pad_to_multiple_of: Optional[int] = None,
+            padding_side: Optional[Literal["right", "left"]] = None,
+            return_tensors: Optional[Union[str, TensorType]] = None,
+            return_position_ids: Optional[bool] = None,
+            return_token_type_ids: Optional[bool] = None,
+            return_attention_mask: Optional[bool] = None,
+            return_overflowing_tokens: bool = False,
+            return_special_tokens_mask: bool = False,
+            return_offsets_mapping: bool = False,
+            return_length: bool = False,
+            verbose: bool = True,
+            **kwargs,
     ) -> BatchEncoding:
         def get_input_ids(text):
             if isinstance(text, str):
                 tokens = self.tokenize(text, **kwargs)
                 return self.convert_tokens_to_ids(tokens)
             elif (
-                isinstance(text, (list, tuple))
-                and len(text) > 0
-                and isinstance(text[0], str)
+                    isinstance(text, (list, tuple))
+                    and len(text) > 0
+                    and isinstance(text[0], str)
             ):
                 if is_split_into_words:
                     tokens = list(
@@ -1497,9 +1497,9 @@ class PretrainedTokenizer(
                 else:
                     return self.convert_tokens_to_ids(text)
             elif (
-                isinstance(text, (list, tuple))
-                and len(text) > 0
-                and isinstance(text[0], int)
+                    isinstance(text, (list, tuple))
+                    and len(text) > 0
+                    and isinstance(text[0], int)
             ):
                 return text
             else:
@@ -1543,43 +1543,43 @@ class PretrainedTokenizer(
         )
 
     def _batch_encode_plus(
-        self,
-        batch_text_or_text_pairs: Union[
-            List[TextInput],
-            List[TextInputPair],
-            List[PreTokenizedInput],
-            List[PreTokenizedInputPair],
-            List[EncodedInput],
-            List[EncodedInputPair],
-        ],
-        add_special_tokens: bool = True,
-        padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
-        truncation_strategy: TruncationStrategy = TruncationStrategy.DO_NOT_TRUNCATE,
-        max_length: Optional[int] = None,
-        stride: int = 0,
-        is_split_into_words: bool = False,
-        pad_to_multiple_of: Optional[int] = None,
-        padding_side: Optional[Literal["right", "left"]] = None,
-        return_position_ids: Optional[bool] = None,
-        return_tensors: Optional[Union[str, TensorType]] = None,
-        return_token_type_ids: Optional[bool] = None,
-        return_attention_mask: Optional[bool] = None,
-        return_overflowing_tokens: bool = False,
-        return_special_tokens_mask: bool = False,
-        return_dict: bool = True,
-        return_offsets_mapping: bool = False,
-        return_length: bool = False,
-        verbose: bool = True,
-        **kwargs,
+            self,
+            batch_text_or_text_pairs: Union[
+                List[TextInput],
+                List[TextInputPair],
+                List[PreTokenizedInput],
+                List[PreTokenizedInputPair],
+                List[EncodedInput],
+                List[EncodedInputPair],
+            ],
+            add_special_tokens: bool = True,
+            padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
+            truncation_strategy: TruncationStrategy = TruncationStrategy.DO_NOT_TRUNCATE,
+            max_length: Optional[int] = None,
+            stride: int = 0,
+            is_split_into_words: bool = False,
+            pad_to_multiple_of: Optional[int] = None,
+            padding_side: Optional[Literal["right", "left"]] = None,
+            return_position_ids: Optional[bool] = None,
+            return_tensors: Optional[Union[str, TensorType]] = None,
+            return_token_type_ids: Optional[bool] = None,
+            return_attention_mask: Optional[bool] = None,
+            return_overflowing_tokens: bool = False,
+            return_special_tokens_mask: bool = False,
+            return_dict: bool = True,
+            return_offsets_mapping: bool = False,
+            return_length: bool = False,
+            verbose: bool = True,
+            **kwargs,
     ) -> BatchEncoding:
         def get_input_ids(text):
             if isinstance(text, str):
                 tokens = self.tokenize(text, **kwargs)
                 return self.convert_tokens_to_ids(tokens)
             elif (
-                isinstance(text, (list, tuple))
-                and len(text) > 0
-                and isinstance(text[0], str)
+                    isinstance(text, (list, tuple))
+                    and len(text) > 0
+                    and isinstance(text[0], str)
             ):
                 if is_split_into_words:
                     tokens = list(
@@ -1594,9 +1594,9 @@ class PretrainedTokenizer(
                 else:
                     return self.convert_tokens_to_ids(text)
             elif (
-                isinstance(text, (list, tuple))
-                and len(text) > 0
-                and isinstance(text[0], int)
+                    isinstance(text, (list, tuple))
+                    and len(text) > 0
+                    and isinstance(text[0], int)
             ):
                 return text
             else:
@@ -1609,7 +1609,7 @@ class PretrainedTokenizer(
             if not isinstance(ids_or_pair_ids, (list, tuple)):
                 ids, pair_ids = ids_or_pair_ids, None
             elif is_split_into_words and not isinstance(
-                ids_or_pair_ids[0], (list, tuple)
+                    ids_or_pair_ids[0], (list, tuple)
             ):
                 ids, pair_ids = ids_or_pair_ids, None
             else:
@@ -1662,26 +1662,26 @@ class PretrainedTokenizer(
         return batch_outputs
 
     def _batch_prepare_for_model(
-        self,
-        batch_ids_pairs: List[Union[PreTokenizedInputPair, Tuple[List[int], None]]],
-        add_special_tokens: bool = True,
-        padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
-        truncation_strategy: TruncationStrategy = TruncationStrategy.DO_NOT_TRUNCATE,
-        max_length: Optional[int] = None,
-        stride: int = 0,
-        pad_to_multiple_of: Optional[int] = None,
-        padding_side: Optional[Literal["right", "left"]] = None,
-        return_position_ids: Optional[bool] = None,
-        return_tensors: Optional[str] = None,
-        return_token_type_ids: Optional[bool] = None,
-        return_attention_mask: Optional[bool] = None,
-        return_overflowing_tokens: bool = False,
-        return_special_tokens_mask: bool = False,
-        return_dict: bool = True,
-        return_offsets_mapping: bool = False,
-        return_length: bool = False,
-        verbose: bool = True,
-        **kwargs,
+            self,
+            batch_ids_pairs: List[Union[PreTokenizedInputPair, Tuple[List[int], None]]],
+            add_special_tokens: bool = True,
+            padding_strategy: PaddingStrategy = PaddingStrategy.DO_NOT_PAD,
+            truncation_strategy: TruncationStrategy = TruncationStrategy.DO_NOT_TRUNCATE,
+            max_length: Optional[int] = None,
+            stride: int = 0,
+            pad_to_multiple_of: Optional[int] = None,
+            padding_side: Optional[Literal["right", "left"]] = None,
+            return_position_ids: Optional[bool] = None,
+            return_tensors: Optional[str] = None,
+            return_token_type_ids: Optional[bool] = None,
+            return_attention_mask: Optional[bool] = None,
+            return_overflowing_tokens: bool = False,
+            return_special_tokens_mask: bool = False,
+            return_dict: bool = True,
+            return_offsets_mapping: bool = False,
+            return_length: bool = False,
+            verbose: bool = True,
+            **kwargs,
     ) -> BatchEncoding:
         """
         Prepares a sequence of input id, or a pair of sequences of inputs ids so that it can be used by the model. It
@@ -1708,13 +1708,13 @@ class PretrainedTokenizer(
                     return_attention_mask = "attention_mask" in self.model_input_names
 
                 max_len_for_pair = (
-                    max_length
-                    - len(first_ids)
-                    - (
-                        self.num_special_tokens_to_add(pair=True)
-                        if add_special_tokens
-                        else 0
-                    )
+                        max_length
+                        - len(first_ids)
+                        - (
+                            self.num_special_tokens_to_add(pair=True)
+                            if add_special_tokens
+                            else 0
+                        )
                 )
 
                 text, text_pair = kwargs["batch_text_or_text_pairs"][example_id]
@@ -1729,10 +1729,10 @@ class PretrainedTokenizer(
                         length = max_len_for_pair
 
                     ids = first_ids
-                    pair_ids = second_ids[offset : offset + length]
+                    pair_ids = second_ids[offset: offset + length]
                     pair = bool(pair_ids is not None)
                     mapping = token_offset_mapping
-                    pair_mapping = token_pair_offset_mapping[offset : offset + length]
+                    pair_mapping = token_pair_offset_mapping[offset: offset + length]
                     if add_special_tokens:
                         offset_mapping = self.build_offset_mapping_with_special_tokens(
                             mapping, pair_mapping
@@ -1891,8 +1891,8 @@ class PretrainedTokenizer(
             # https://latin.stackexchange.com/questions/6168/how-and-when-did-we-get-two-forms-of-sigma
             if "σ" in token or "ς" in token:
                 start = (
-                    text[offset:].replace("ς", "σ").index(token.replace("ς", "σ"))
-                    + offset
+                        text[offset:].replace("ς", "σ").index(token.replace("ς", "σ"))
+                        + offset
                 )
             else:
 
@@ -1900,8 +1900,8 @@ class PretrainedTokenizer(
                 if token not in text[offset:]:
                     # check whether there are consecutive UNK tokens, eg: ['好', '[UNK]', '[UNK]', 'good']
                     if (
-                        index < len(split_tokens) - 1
-                        and split_tokens[index + 1] in self.all_special_tokens
+                            index < len(split_tokens) - 1
+                            and split_tokens[index + 1] in self.all_special_tokens
                     ):
                         start = offset
                         token = " "  # only contains one char
@@ -1990,8 +1990,8 @@ class PretrainedTokenizer(
             # https://latin.stackexchange.com/questions/6168/how-and-when-did-we-get-two-forms-of-sigma
             if "σ" in token or "ς" in token:
                 start = (
-                    text[offset:].replace("ς", "σ").index(token.replace("ς", "σ"))
-                    + offset
+                        text[offset:].replace("ς", "σ").index(token.replace("ς", "σ"))
+                        + offset
                 )
             else:
 
@@ -2028,12 +2028,12 @@ class PretrainedTokenizer(
         return token_mapping
 
     def _decode(
-        self,
-        token_ids: List[int],
-        skip_special_tokens: bool = False,
-        clean_up_tokenization_spaces: bool = True,
-        spaces_between_special_tokens: bool = True,
-        **kwargs,
+            self,
+            token_ids: List[int],
+            skip_special_tokens: bool = False,
+            clean_up_tokenization_spaces: bool = True,
+            spaces_between_special_tokens: bool = True,
+            **kwargs,
     ) -> str:
         if isinstance(token_ids, np.ndarray):
             token_ids = token_ids.tolist()
@@ -2092,10 +2092,10 @@ def _is_punctuation(char):
     # Punctuation class but we treat them as punctuation anyways, for
     # consistency.
     if (
-        (cp >= 33 and cp <= 47)
-        or (cp >= 58 and cp <= 64)
-        or (cp >= 91 and cp <= 96)
-        or (cp >= 123 and cp <= 126)
+            (cp >= 33 and cp <= 47)
+            or (cp >= 58 and cp <= 64)
+            or (cp >= 91 and cp <= 96)
+            or (cp >= 123 and cp <= 126)
     ):
         return True
     cat = unicodedata.category(char)
@@ -2108,7 +2108,7 @@ def _is_symbol(char):
     """Check whether CP is the codepoint of a Symbol character."""
     cp = ord(char)
     if unicodedata.category(char).startswith("S") or (
-        cp in [0x00AD, 0x00B2, 0x00BA, 0x3007, 0x00B5, 0x00D8, 0x014B, 0x01B1]
+            cp in [0x00AD, 0x00B2, 0x00BA, 0x3007, 0x00B5, 0x00D8, 0x014B, 0x01B1]
     ):
         return True
     return False

@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..image_classification import ClsEvaluator
 from .model_list import MODELS
+from ..image_classification import ClsEvaluator
 
 
 class ShiTuRecEvaluator(ClsEvaluator):

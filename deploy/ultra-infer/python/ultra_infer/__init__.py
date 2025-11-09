@@ -13,9 +13,9 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import logging
 import os
-import sys
 import platform
 
 # Create a symbol link to tensorrt library.
@@ -84,9 +84,9 @@ def should_import_paddle():
     if ("paddle2.4" in extra_version_info) or ("post24" in extra_version_info):
         paddle_version = get_paddle_version()
         if (
-            paddle_version != ""
-            and paddle_version <= "2.4.2"
-            and paddle_version != "0.0.0"
+                paddle_version != ""
+                and paddle_version <= "2.4.2"
+                and paddle_version != "0.0.0"
         ):
             return True
     return False
@@ -94,9 +94,9 @@ def should_import_paddle():
 
 def should_set_tensorrt():
     if (
-        with_gpu == "ON"
-        and enable_paddle_backend == "ON"
-        and enable_trt_backend == "ON"
+            with_gpu == "ON"
+            and enable_paddle_backend == "ON"
+            and enable_trt_backend == "ON"
     ):
         return True
     return False
@@ -139,7 +139,6 @@ try:
 except:
     pass
 
-
 from .c_lib_wrap import (
     ModelFormat,
     Backend,
@@ -168,14 +167,6 @@ def set_logger(enable_info=True, enable_warning=True):
     set_logger(enable_info, enable_warning)
 
 
-from .runtime import Runtime, RuntimeOption
-from .model import UltraInferModel
 from . import c_lib_wrap as C
-from . import vision
-from . import pipeline
-from . import text
-from . import ts
-from .download import download, download_and_decompress, download_model, get_model_list
-
 
 __version__ = version

@@ -14,10 +14,10 @@
 
 from typing import List
 
+from ..config_helper import PPDetConfigMixin
+from ...base import BaseConfig
 from ....utils import logging
 from ....utils.misc import abspath
-from ...base import BaseConfig
-from ..config_helper import PPDetConfigMixin
 
 
 class DetConfig(BaseConfig, PPDetConfigMixin):
@@ -49,16 +49,16 @@ class DetConfig(BaseConfig, PPDetConfigMixin):
         self.update_from_dict(dict_like_obj, self._dict)
 
     def update_dataset(
-        self,
-        dataset_path: str,
-        dataset_type: str = None,
-        *,
-        data_fields: List[str] = None,
-        image_dir: str = "images",
-        train_anno_path: str = "annotations/instance_train.json",
-        val_anno_path: str = "annotations/instance_val.json",
-        test_anno_path: str = "annotations/instance_val.json",
-        metric: str = "COCO",
+            self,
+            dataset_path: str,
+            dataset_type: str = None,
+            *,
+            data_fields: List[str] = None,
+            image_dir: str = "images",
+            train_anno_path: str = "annotations/instance_train.json",
+            val_anno_path: str = "annotations/instance_val.json",
+            test_anno_path: str = "annotations/instance_val.json",
+            metric: str = "COCO",
     ):
         """update dataset settings
 
@@ -113,13 +113,13 @@ class DetConfig(BaseConfig, PPDetConfigMixin):
         self.set_val("metric", metric)
 
     def _make_dataset_config(
-        self,
-        dataset_root_path: str,
-        data_fields: List[str,] = None,
-        image_dir: str = "images",
-        train_anno_path: str = "annotations/instance_train.json",
-        val_anno_path: str = "annotations/instance_val.json",
-        test_anno_path: str = "annotations/instance_val.json",
+            self,
+            dataset_root_path: str,
+            data_fields: List[str,] = None,
+            image_dir: str = "images",
+            train_anno_path: str = "annotations/instance_train.json",
+            val_anno_path: str = "annotations/instance_val.json",
+            test_anno_path: str = "annotations/instance_val.json",
     ) -> dict:
         """construct the dataset config that meets the format requirements
 
@@ -163,11 +163,11 @@ class DetConfig(BaseConfig, PPDetConfigMixin):
         }
 
     def update_ema(
-        self,
-        use_ema: bool,
-        ema_decay: float = 0.9999,
-        ema_decay_type: str = "exponential",
-        ema_filter_no_grad: bool = True,
+            self,
+            use_ema: bool,
+            ema_decay: float = 0.9999,
+            ema_decay_type: str = "exponential",
+            ema_filter_no_grad: bool = True,
     ):
         """update EMA setting
 
@@ -378,7 +378,7 @@ class DetConfig(BaseConfig, PPDetConfigMixin):
             pretrained_model (str): the local path or url of pretrained weight file to set.
         """
         if not pretrain_weights.startswith(
-            "http://"
+                "http://"
         ) and not pretrain_weights.startswith("https://"):
             pretrain_weights = abspath(pretrain_weights)
         self["pretrain_weights"] = pretrain_weights
@@ -393,8 +393,8 @@ class DetConfig(BaseConfig, PPDetConfigMixin):
         if "CenterNet" in self.model_name:
             for i in range(len(self["TrainReader"]["sample_transforms"])):
                 if (
-                    "Gt2CenterNetTarget"
-                    in self["TrainReader"]["sample_transforms"][i].keys()
+                        "Gt2CenterNetTarget"
+                        in self["TrainReader"]["sample_transforms"][i].keys()
                 ):
                     self["TrainReader"]["sample_transforms"][i]["Gt2CenterNetTarget"][
                         "num_classes"

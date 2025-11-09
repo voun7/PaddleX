@@ -16,9 +16,6 @@ from typing import Dict, List, Optional, Union
 
 import numpy as np
 
-from .....utils import logging
-from ....utils.benchmark import benchmark
-from ...common.vision.funcs import resize
 from .common import (
     BatchFeature,
     ChannelDimension,
@@ -37,6 +34,9 @@ from .common import (
     to_numpy_array,
     valid_images,
 )
+from ...common.vision.funcs import resize
+from ....utils.benchmark import benchmark
+from .....utils import logging
 
 OPENAI_CLIP_MEAN = [0.48145466, 0.4578275, 0.40821073]
 OPENAI_CLIP_STD = [0.26862954, 0.26130258, 0.27577711]
@@ -79,13 +79,13 @@ class Qwen2VLProcessor(object):
         self.image_processor.max_pixels = kwargs.get("max_pixels", 12845056)
 
     def preprocess(
-        self,
-        images: ImageInput = None,
-        text: Union[TextInput, List[TextInput]] = None,
-        padding: bool = False,
-        truncation: Union[bool, str] = None,
-        max_length: int = None,
-        return_tensors: Optional[Union[str, TensorType]] = TensorType.PADDLE,
+            self,
+            images: ImageInput = None,
+            text: Union[TextInput, List[TextInput]] = None,
+            padding: bool = False,
+            truncation: Union[bool, str] = None,
+            max_length: int = None,
+            return_tensors: Optional[Union[str, TensorType]] = TensorType.PADDLE,
     ):
         """
         Main method to prepare for the model one or several sequences(s) and image(s). This method forwards the `text`
@@ -141,7 +141,7 @@ class Qwen2VLProcessor(object):
             text = [text]
 
         if image_grid_thw is not None:
-            merge_length = self.image_processor.merge_size**2
+            merge_length = self.image_processor.merge_size ** 2
             index = 0
             for i in range(len(text)):
                 while "<|image_pad|>" in text[i]:
@@ -212,21 +212,21 @@ class Qwen2VLImageProcessor(object):
     """
 
     def __init__(
-        self,
-        do_resize: bool = True,
-        resample=None,
-        do_rescale: bool = True,
-        rescale_factor: float = 1 / 255.0,
-        do_normalize: bool = True,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_convert_rgb: bool = True,
-        min_pixels: int = 56 * 56,
-        max_pixels: int = 28 * 28 * 1280,
-        patch_size: int = 14,
-        temporal_patch_size: int = 2,
-        merge_size: int = 2,
-        **kwargs,
+            self,
+            do_resize: bool = True,
+            resample=None,
+            do_rescale: bool = True,
+            rescale_factor: float = 1 / 255.0,
+            do_normalize: bool = True,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_convert_rgb: bool = True,
+            min_pixels: int = 56 * 56,
+            max_pixels: int = 28 * 28 * 1280,
+            patch_size: int = 14,
+            temporal_patch_size: int = 2,
+            merge_size: int = 2,
+            **kwargs,
     ) -> None:
         super().__init__(**kwargs)
         import cv2
@@ -251,18 +251,18 @@ class Qwen2VLImageProcessor(object):
         self.image_std = np.array(image_std_)[None, None, ...]
 
     def _preprocess(
-        self,
-        images,
-        do_resize: bool = None,
-        resample: PILImageResampling = None,
-        do_rescale: bool = None,
-        rescale_factor: float = None,
-        do_normalize: bool = None,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_convert_rgb: bool = None,
-        data_format: Optional[ChannelDimension] = ChannelDimension.FIRST,
-        input_data_format: Optional[Union[str, ChannelDimension]] = None,
+            self,
+            images,
+            do_resize: bool = None,
+            resample: PILImageResampling = None,
+            do_rescale: bool = None,
+            rescale_factor: float = None,
+            do_normalize: bool = None,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_convert_rgb: bool = None,
+            data_format: Optional[ChannelDimension] = ChannelDimension.FIRST,
+            input_data_format: Optional[Union[str, ChannelDimension]] = None,
     ):
         """
         Preprocess an image or batch of images. Copy of the `preprocess` method from `CLIPImageProcessor`.
@@ -387,20 +387,20 @@ class Qwen2VLImageProcessor(object):
         return flatten_patches, (grid_t, grid_h, grid_w)
 
     def preprocess(
-        self,
-        images: ImageInput,
-        do_resize: bool = None,
-        size: Dict[str, int] = None,
-        resample: PILImageResampling = None,
-        do_rescale: bool = None,
-        rescale_factor: float = None,
-        do_normalize: bool = None,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_convert_rgb: bool = None,
-        return_tensors: Optional[Union[str, TensorType]] = None,
-        data_format: Optional[ChannelDimension] = ChannelDimension.FIRST,
-        input_data_format: Optional[Union[str, ChannelDimension]] = None,
+            self,
+            images: ImageInput,
+            do_resize: bool = None,
+            size: Dict[str, int] = None,
+            resample: PILImageResampling = None,
+            do_rescale: bool = None,
+            rescale_factor: float = None,
+            do_normalize: bool = None,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_convert_rgb: bool = None,
+            return_tensors: Optional[Union[str, TensorType]] = None,
+            data_format: Optional[ChannelDimension] = ChannelDimension.FIRST,
+            input_data_format: Optional[Union[str, ChannelDimension]] = None,
     ):
         """
         Args:
@@ -508,7 +508,7 @@ class PPDocBeeProcessor(Qwen2VLProcessor):
         PreProcess for PP-DocBee Series
         """
         assert (
-            isinstance(input_dicts, list) and len(input_dicts) == 1
+                isinstance(input_dicts, list) and len(input_dicts) == 1
         ), f"PP-DocBee series only supports batchsize of one, but received {len(input_dicts)} samples."
         input_dict = input_dicts[0]
         image = input_dict["image"]

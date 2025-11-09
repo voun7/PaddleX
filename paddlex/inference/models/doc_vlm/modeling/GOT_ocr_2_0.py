@@ -19,16 +19,16 @@ import paddle
 import paddle.nn as nn
 import paddle.nn.functional as F
 
-from ...common.vlm.transformers.model_outputs import CausalLMOutputWithPast
 from .qwen2 import Qwen2Config, Qwen2ForCausalLM, Qwen2Model
+from ...common.vlm.transformers.model_outputs import CausalLMOutputWithPast
 
 
 class MLPBlock(paddle.nn.Layer):
     def __init__(
-        self,
-        embedding_dim: int,
-        mlp_dim: int,
-        act: Type[paddle.nn.Layer] = paddle.nn.GELU,
+            self,
+            embedding_dim: int,
+            mlp_dim: int,
+            act: Type[paddle.nn.Layer] = paddle.nn.GELU,
     ) -> None:
         super().__init__()
         self.lin1 = nn.Linear(embedding_dim, mlp_dim)
@@ -60,23 +60,23 @@ class LayerNorm2d(paddle.nn.Layer):
 
 class ImageEncoderViT(paddle.nn.Layer):
     def __init__(
-        self,
-        img_size: int = 1024,
-        patch_size: int = 16,
-        in_chans: int = 3,
-        embed_dim: int = 768,
-        depth: int = 12,
-        num_heads: int = 12,
-        mlp_ratio: float = 4.0,
-        out_chans: int = 256,
-        qkv_bias: bool = True,
-        norm_layer: Type[nn.Layer] = nn.LayerNorm,
-        act_layer: Type[nn.Layer] = nn.GELU,
-        use_abs_pos: bool = True,
-        use_rel_pos: bool = False,
-        rel_pos_zero_init: bool = True,
-        window_size: int = 0,
-        global_attn_indexes: Tuple[int, ...] = (),
+            self,
+            img_size: int = 1024,
+            patch_size: int = 16,
+            in_chans: int = 3,
+            embed_dim: int = 768,
+            depth: int = 12,
+            num_heads: int = 12,
+            mlp_ratio: float = 4.0,
+            out_chans: int = 256,
+            qkv_bias: bool = True,
+            norm_layer: Type[nn.Layer] = nn.LayerNorm,
+            act_layer: Type[nn.Layer] = nn.GELU,
+            use_abs_pos: bool = True,
+            use_rel_pos: bool = False,
+            rel_pos_zero_init: bool = True,
+            window_size: int = 0,
+            global_attn_indexes: Tuple[int, ...] = (),
     ) -> None:
         """
         Args:
@@ -173,17 +173,17 @@ class Block(paddle.nn.Layer):
     """Transformer blocks with support of window attention and residual propagation blocks"""
 
     def __init__(
-        self,
-        dim: int,
-        num_heads: int,
-        mlp_ratio: float = 4.0,
-        qkv_bias: bool = True,
-        norm_layer: Type[nn.Layer] = nn.LayerNorm,
-        act_layer: Type[nn.Layer] = nn.GELU,
-        use_rel_pos: bool = False,
-        rel_pos_zero_init: bool = True,
-        window_size: int = 0,
-        input_size: Optional[Tuple[int, int]] = None,
+            self,
+            dim: int,
+            num_heads: int,
+            mlp_ratio: float = 4.0,
+            qkv_bias: bool = True,
+            norm_layer: Type[nn.Layer] = nn.LayerNorm,
+            act_layer: Type[nn.Layer] = nn.GELU,
+            use_rel_pos: bool = False,
+            rel_pos_zero_init: bool = True,
+            window_size: int = 0,
+            input_size: Optional[Tuple[int, int]] = None,
     ) -> None:
         """
         Args:
@@ -241,13 +241,13 @@ class Attention(paddle.nn.Layer):
     """Multi-head Attention block with relative position embeddings."""
 
     def __init__(
-        self,
-        dim: int,
-        num_heads: int = 8,
-        qkv_bias: bool = True,
-        use_rel_pos: bool = False,
-        rel_pos_zero_init: bool = True,
-        input_size: Optional[Tuple[int, int]] = None,
+            self,
+            dim: int,
+            num_heads: int = 8,
+            qkv_bias: bool = True,
+            use_rel_pos: bool = False,
+            rel_pos_zero_init: bool = True,
+            input_size: Optional[Tuple[int, int]] = None,
     ) -> None:
         """
         Args:
@@ -262,7 +262,7 @@ class Attention(paddle.nn.Layer):
         super().__init__()
         self.num_heads = num_heads
         head_dim = dim // num_heads
-        self.scale = head_dim**-0.5
+        self.scale = head_dim ** -0.5
 
         self.qkv = nn.Linear(dim, dim * 3, bias_attr=qkv_bias)
         self.proj = nn.Linear(dim, dim)
@@ -270,7 +270,7 @@ class Attention(paddle.nn.Layer):
         self.use_rel_pos = use_rel_pos
         if self.use_rel_pos:
             assert (
-                input_size is not None
+                    input_size is not None
             ), "Input size must be provided if using relative positional encoding."
             self.rel_pos_h = paddle.base.framework.EagerParamBase.from_tensor(
                 tensor=paddle.zeros(shape=[2 * input_size[0] - 1, head_dim])
@@ -308,7 +308,7 @@ class Attention(paddle.nn.Layer):
 
 
 def window_partition(
-    x: paddle.Tensor, window_size: int
+        x: paddle.Tensor, window_size: int
 ) -> Tuple[paddle.Tensor, Tuple[int, int]]:
     """
     Partition into non-overlapping windows with padding if needed.
@@ -336,10 +336,10 @@ def window_partition(
 
 
 def window_unpartition(
-    windows: paddle.Tensor,
-    window_size: int,
-    pad_hw: Tuple[int, int],
-    hw: Tuple[int, int],
+        windows: paddle.Tensor,
+        window_size: int,
+        pad_hw: Tuple[int, int],
+        hw: Tuple[int, int],
 ) -> paddle.Tensor:
     """
     Window unpartition into original sequences and removing padding.
@@ -394,12 +394,12 @@ def get_rel_pos(q_size: int, k_size: int, rel_pos: paddle.Tensor) -> paddle.Tens
 
 
 def add_decomposed_rel_pos(
-    attn: paddle.Tensor,
-    q: paddle.Tensor,
-    rel_pos_h: paddle.Tensor,
-    rel_pos_w: paddle.Tensor,
-    q_size: Tuple[int, int],
-    k_size: Tuple[int, int],
+        attn: paddle.Tensor,
+        q: paddle.Tensor,
+        rel_pos_h: paddle.Tensor,
+        rel_pos_w: paddle.Tensor,
+        q_size: Tuple[int, int],
+        k_size: Tuple[int, int],
 ) -> paddle.Tensor:
     """
     Calculate decomposed Relative Positional Embeddings from :paper:`mvitv2`.
@@ -426,9 +426,9 @@ def add_decomposed_rel_pos(
     rel_w = paddle.einsum("bhwc,wkc->bhwk", r_q, Rw)
 
     attn = (
-        attn.reshape([B, q_h, q_w, k_h, k_w])
-        + rel_h[:, :, :, :, None]
-        + rel_w[:, :, :, None, :]
+            attn.reshape([B, q_h, q_w, k_h, k_w])
+            + rel_h[:, :, :, :, None]
+            + rel_w[:, :, :, None, :]
     ).reshape([B, q_h * q_w, k_h * k_w])
 
     return attn
@@ -440,12 +440,12 @@ class PatchEmbed(paddle.nn.Layer):
     """
 
     def __init__(
-        self,
-        kernel_size: Tuple[int, int] = (16, 16),
-        stride: Tuple[int, int] = (16, 16),
-        padding: Tuple[int, int] = (0, 0),
-        in_chans: int = 3,
-        embed_dim: int = 768,
+            self,
+            kernel_size: Tuple[int, int] = (16, 16),
+            stride: Tuple[int, int] = (16, 16),
+            padding: Tuple[int, int] = (0, 0),
+            in_chans: int = 3,
+            embed_dim: int = 768,
     ) -> None:
         """
         Args:
@@ -475,11 +475,11 @@ DEFAULT_IM_END_TOKEN = "</img>"
 
 class Qwen2LMHead(nn.Layer):
     def __init__(
-        self,
-        config,
-        embedding_weights=None,
-        transpose_y=False,
-        tensor_parallel_output=1,
+            self,
+            config,
+            embedding_weights=None,
+            transpose_y=False,
+            tensor_parallel_output=1,
     ):
         super(Qwen2LMHead, self).__init__()
         self.config = config
@@ -533,17 +533,17 @@ class GOTQwenModel(Qwen2Model):
         self.mm_projector_vary = nn.Linear(1024, 1024)
 
     def forward(
-        self,
-        input_ids: paddle.Tensor = None,
-        attention_mask: Optional[paddle.Tensor] = None,
-        position_ids: Optional[paddle.Tensor] = None,
-        past_key_values: Optional[List[paddle.Tensor]] = None,
-        inputs_embeds: Optional[paddle.Tensor] = None,
-        use_cache: Optional[bool] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        images: Optional[paddle.Tensor] = None,
-        return_dict: Optional[bool] = None,
+            self,
+            input_ids: paddle.Tensor = None,
+            attention_mask: Optional[paddle.Tensor] = None,
+            position_ids: Optional[paddle.Tensor] = None,
+            past_key_values: Optional[List[paddle.Tensor]] = None,
+            inputs_embeds: Optional[paddle.Tensor] = None,
+            use_cache: Optional[bool] = None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            images: Optional[paddle.Tensor] = None,
+            return_dict: Optional[bool] = None,
     ):
         # HACK: replace back original embeddings for LLaVA pretraining
         orig_embeds_params = getattr(self, "orig_embeds_params", None)
@@ -559,9 +559,9 @@ class GOTQwenModel(Qwen2Model):
         vision_tower_high = getattr(self, "vision_tower_high", None)
 
         if (
-            vision_tower_high is not None
-            and (input_ids.shape[1] != 1 or self.training)
-            and images is not None
+                vision_tower_high is not None
+                and (input_ids.shape[1] != 1 or self.training)
+                and images is not None
         ):
             use_im_start_end = getattr(self.config, "use_im_start_end", -1)
 
@@ -610,19 +610,19 @@ class GOTQwenModel(Qwen2Model):
             use_im_start_end = True
             new_input_embeds = []
             for cur_input_ids, cur_input_embeds, cur_image_features in zip(
-                input_ids, inputs_embeds, image_features
+                    input_ids, inputs_embeds, image_features
             ):
                 if (cur_input_ids == im_patch_token).sum() == 0:
                     # multimodal LLM, but the current sample is not multimodal
                     cur_input_embeds = (
-                        cur_input_embeds + (0.0 * dummy_image_features).sum()
+                            cur_input_embeds + (0.0 * dummy_image_features).sum()
                     )
                     new_input_embeds.append(cur_input_embeds)
                     continue
 
                 if use_im_start_end:
                     if (cur_input_ids == im_start_token).sum() != (
-                        cur_input_ids == im_end_token
+                            cur_input_ids == im_end_token
                     ).sum():
                         raise ValueError(
                             "The number of image start tokens and image end tokens should be the same."
@@ -632,13 +632,13 @@ class GOTQwenModel(Qwen2Model):
                         0
                     ]
                     for image_start_token_pos, per_cur_image_features in zip(
-                        image_start_tokens, cur_image_features
+                            image_start_tokens, cur_image_features
                     ):
                         num_patches = per_cur_image_features.shape[0]
 
                         if (
-                            cur_input_ids[image_start_token_pos + num_patches + 1]
-                            != im_end_token
+                                cur_input_ids[image_start_token_pos + num_patches + 1]
+                                != im_end_token
                         ):
                             raise ValueError(
                                 "The image end token should follow the image start token."
@@ -649,7 +649,7 @@ class GOTQwenModel(Qwen2Model):
                                 cur_input_embeds[: image_start_token_pos + 1],
                                 per_cur_image_features,
                                 cur_input_embeds[
-                                    image_start_token_pos + num_patches + 1 :
+                                    image_start_token_pos + num_patches + 1:
                                 ],
                             ),
                             axis=0,
@@ -699,18 +699,18 @@ class GOTQwenForCausalLM(Qwen2ForCausalLM):
         return self.qwen2
 
     def forward(
-        self,
-        input_ids: paddle.Tensor = None,
-        attention_mask: Optional[paddle.Tensor] = None,
-        position_ids: Optional[paddle.Tensor] = None,
-        past_key_values: Optional[List[paddle.Tensor]] = None,
-        inputs_embeds: Optional[paddle.Tensor] = None,
-        labels: Optional[paddle.Tensor] = None,
-        use_cache: Optional[bool] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        images: Optional[paddle.Tensor] = None,
-        return_dict: Optional[bool] = None,
+            self,
+            input_ids: paddle.Tensor = None,
+            attention_mask: Optional[paddle.Tensor] = None,
+            position_ids: Optional[paddle.Tensor] = None,
+            past_key_values: Optional[List[paddle.Tensor]] = None,
+            inputs_embeds: Optional[paddle.Tensor] = None,
+            labels: Optional[paddle.Tensor] = None,
+            use_cache: Optional[bool] = None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            images: Optional[paddle.Tensor] = None,
+            return_dict: Optional[bool] = None,
     ):
         output_attentions = (
             output_attentions
@@ -769,12 +769,12 @@ class GOTQwenForCausalLM(Qwen2ForCausalLM):
         )
 
     def prepare_inputs_for_generation(
-        self,
-        input_ids,
-        past_key_values=None,
-        attention_mask=None,
-        inputs_embeds=None,
-        **kwargs
+            self,
+            input_ids,
+            past_key_values=None,
+            attention_mask=None,
+            inputs_embeds=None,
+            **kwargs
     ):
         batch_size, seq_length = input_ids.shape
         attention_mask = paddle.ones((batch_size, seq_length), dtype=paddle.bool)
@@ -791,7 +791,7 @@ class GOTQwenForCausalLM(Qwen2ForCausalLM):
             position_ids = attention_mask.astype(dtype="int64").cumsum(-1) - 1
             position_ids.masked_fill_(attention_mask == 0, 1)
             if past_key_values:
-                position_ids = position_ids[:, -input_ids.shape[1] :]
+                position_ids = position_ids[:, -input_ids.shape[1]:]
 
         # if `inputs_embeds` are passed, we only want to use them in the 1st generation step
         if inputs_embeds is not None and past_key_values is None:

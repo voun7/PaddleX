@@ -40,13 +40,13 @@ def prune_result(result: dict) -> dict:
 
 
 def postprocess_image(
-    image: np.array,
-    log_id: str,
-    filename: str,
-    *,
-    file_storage: Optional[Storage] = None,
-    return_url: bool = False,
-    max_img_size: Optional[Tuple[int, int]] = None,
+        image: np.array,
+        log_id: str,
+        filename: str,
+        *,
+        file_storage: Optional[Storage] = None,
+        return_url: bool = False,
+        max_img_size: Optional[Tuple[int, int]] = None,
 ) -> str:
     if return_url:
         if not file_storage:
@@ -76,12 +76,12 @@ def postprocess_image(
 
 
 def postprocess_images(
-    images: Dict[str, Union[Image, np.ndarray]],
-    log_id: str,
-    filename_template: str = "{key}.jpg",
-    file_storage: Optional[Storage] = None,
-    return_urls: bool = False,
-    max_img_size: Optional[Tuple[int, int]] = None,
+        images: Dict[str, Union[Image, np.ndarray]],
+        log_id: str,
+        filename_template: str = "{key}.jpg",
+        file_storage: Optional[Storage] = None,
+        return_urls: bool = False,
+        max_img_size: Optional[Tuple[int, int]] = None,
 ) -> Dict[str, str]:
     output_images: Dict[str, str] = {}
     for key, img in images.items():

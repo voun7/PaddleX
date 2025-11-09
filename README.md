@@ -19,21 +19,28 @@
 
 ## 🔍 Introduction
 
-PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePaddle framework. It integrates numerous **ready-to-use pre-trained models**, enabling **full-process development** from model training to inference, supporting **a variety of mainstream hardware** both domestic and international, and aiding AI developers in industrial practice.
-
+PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePaddle framework. It integrates numerous *
+*ready-to-use pre-trained models**, enabling **full-process development** from model training to inference, supporting *
+*a variety of mainstream hardware** both domestic and international, and aiding AI developers in industrial practice.
 
 ![PaddleX](https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/PaddleX_en.png)
 
-
 ## 🌟 Why PaddleX ?
 
-  🎨 **Rich Models One-click Call**: Integrate over **200 PaddlePaddle models** covering multiple key areas such as OCR, object detection, and time series forecasting into **33 pipelines**. Experience the model effects quickly through easy Python API calls. Also supports **39 modules** for easy model combination use by developers.
+🎨 **Rich Models One-click Call**: Integrate over **200 PaddlePaddle models** covering multiple key areas such as OCR,
+object detection, and time series forecasting into **33 pipelines**. Experience the model effects quickly through easy
+Python API calls. Also supports **39 modules** for easy model combination use by developers.
 
-  🚀 **High Efficiency and Low barrier of entry**: Achieve model **full-process development** based on graphical interfaces and unified commands, creating **8 featured model pipelines** that combine large and small models, semi-supervised learning of large models, and multi-model fusion, greatly reducing the cost of iterating models.
+🚀 **High Efficiency and Low barrier of entry**: Achieve model **full-process development** based on graphical interfaces
+and unified commands, creating **8 featured model pipelines** that combine large and small models, semi-supervised
+learning of large models, and multi-model fusion, greatly reducing the cost of iterating models.
 
-  🌐 **Flexible Deployment in Various Scenarios**: Support various deployment methods such as **high-performance inference**, **serving**, and **lite deployment** to ensure efficient operation and rapid response of models in different application scenarios.
+🌐 **Flexible Deployment in Various Scenarios**: Support various deployment methods such as **high-performance inference
+**, **serving**, and **lite deployment** to ensure efficient operation and rapid response of models in different
+application scenarios.
 
-  🔧 **Efficient Support for Mainstream Hardware**: Support seamless switching of various mainstream hardware such as NVIDIA GPUs, Kunlun XPU, Ascend NPU, and Cambricon MLU to ensure efficient operation.
+🔧 **Efficient Support for Mainstream Hardware**: Support seamless switching of various mainstream hardware such as
+NVIDIA GPUs, Kunlun XPU, Ascend NPU, and Cambricon MLU to ensure efficient operation.
 
 ## 📣 Recent Updates
 
@@ -46,76 +53,113 @@ PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePadd
 - **Deployment Capability Upgrades:**
     - **Fully supports PaddlePaddle framework versions 3.1.0 and 3.1.1.**
     - **High-performance inference supports CUDA 12, with backend options including Paddle Inference and ONNX Runtime.**
-    - **High-stability serving solution is fully open-sourced, enabling users to customize Docker images and SDKs as needed.**
-    - High-stability serving solution supports invocation via manually constructed HTTP requests, allowing client applications to be developed in any programming language.
+    - **High-stability serving solution is fully open-sourced, enabling users to customize Docker images and SDKs as
+      needed.**
+    - High-stability serving solution supports invocation via manually constructed HTTP requests, allowing client
+      applications to be developed in any programming language.
 
 - **Key Model Additions:**
-    - Added training, inference, and deployment support for PP-OCRv5 English, Thai, and Greek recognition models. **The PP-OCRv5 English model delivers an 11% improvement over the main PP-OCRv5 model in English scenarios, with the Thai model achieving an accuracy of 82.68% and the Greek model 89.28%.**
+    - Added training, inference, and deployment support for PP-OCRv5 English, Thai, and Greek recognition models. **The
+      PP-OCRv5 English model delivers an 11% improvement over the main PP-OCRv5 model in English scenarios, with the
+      Thai model achieving an accuracy of 82.68% and the Greek model 89.28%.**
 
 - **Benchmark Enhancements:**
-    - **All pipelines support fine-grained benchmarking, enabling the measurement of end-to-end inference time as well as per-layer and per-module latency data to assist with performance analysis.**
-    - **Added key metrics such as inference latency and memory usage for commonly used configurations on mainstream hardware to the documentation, providing deployment reference for users.**
+    - **All pipelines support fine-grained benchmarking, enabling the measurement of end-to-end inference time as well
+      as per-layer and per-module latency data to assist with performance analysis.**
+    - **Added key metrics such as inference latency and memory usage for commonly used configurations on mainstream
+      hardware to the documentation, providing deployment reference for users.**
 
 - **Bug Fixes:**
     - Fixed an issue where invalid input image file formats could cause recursive calls.
-    - Resolved ineffective parameter settings for chart recognition, seal recognition, and document pre-processing in the configuration files for the PP-DocTranslation and PP-StructureV3 pipelines.
+    - Resolved ineffective parameter settings for chart recognition, seal recognition, and document pre-processing in
+      the configuration files for the PP-DocTranslation and PP-StructureV3 pipelines.
     - Fixed an issue where PDF files were not properly closed after inference.
 
 - **Other Updates:**
-    - **Added support for Windows users with NVIDIA 50-series graphics cards; users can install the corresponding PaddlePaddle framework version as per the installation guide.**
+    - **Added support for Windows users with NVIDIA 50-series graphics cards; users can install the corresponding
+      PaddlePaddle framework version as per the installation guide.**
     - **The PP-OCR model series now supports returning coordinates for individual characters.**
     - The `model_name` parameter in `PaddlePredictorOption` has been moved to `PaddleInfer`, improving usability.
-    - Refactored the official model download logic, with new support for multiple model hosting platforms such as AIStudio and ModelScope.
-
+    - Refactored the official model download logic, with new support for multiple model hosting platforms such as
+      AIStudio and ModelScope.
 
 🔥🔥 **2025.6.28, PaddleX v3.1.0 Released**
 
 - **Key Models:**
-  - **Added PP-OCRv5 Multilingual Text Recognition Model**, supporting training and inference workflows for text recognition in 37 languages, including French, Spanish, Portuguese, Russian, Korean, and more. **Average precision increased by over 30%.**
-  - Upgraded **PP-Chart2Table model in PP-StructureV3**. Chart-to-table conversion capability further improved, with RMS-F1 on our internal evaluation set **increased by 9.36 percentage points (71.24% -> 80.60%)**.
+    - **Added PP-OCRv5 Multilingual Text Recognition Model**, supporting training and inference workflows for text
+      recognition in 37 languages, including French, Spanish, Portuguese, Russian, Korean, and more. **Average precision
+      increased by over 30%.**
+    - Upgraded **PP-Chart2Table model in PP-StructureV3**. Chart-to-table conversion capability further improved, with
+      RMS-F1 on our internal evaluation set **increased by 9.36 percentage points (71.24% -> 80.60%)**.
 - **Key Pipelines:**
-  - Added **document translation pipeline PP-DocTranslation** based on PP-StructureV3 and ERNIE 4.5 Turbo. Supports translation of Markdown documents, various complex-layout PDF documents, and document images, with results saved as Markdown format documents.
-
+    - Added **document translation pipeline PP-DocTranslation** based on PP-StructureV3 and ERNIE 4.5 Turbo. Supports
+      translation of Markdown documents, various complex-layout PDF documents, and document images, with results saved
+      as Markdown format documents.
 
 🔥🔥 **2025.5.20: PaddleX v3.0.0 Released**
 
 Core upgrades are as follows:
 
 - **Rich Model Library:**
-  - **Extensive Model Coverage:** PaddleX 3.0 includes **270+ models**, covering diverse scenarios such as image/video classification/detection/segmentation, OCR, speech recognition, time series analysis, and more.
-  - **Mature Solutions:** Built on this robust model library, PaddleX 3.0 offers **critical and production-ready AI solutions**, including general document parsing, key information extraction, document understanding, table recognition, and general image recognition.
+    - **Extensive Model Coverage:** PaddleX 3.0 includes **270+ models**, covering diverse scenarios such as image/video
+      classification/detection/segmentation, OCR, speech recognition, time series analysis, and more.
+    - **Mature Solutions:** Built on this robust model library, PaddleX 3.0 offers **critical and production-ready AI
+      solutions**, including general document parsing, key information extraction, document understanding, table
+      recognition, and general image recognition.
 
 - **Unified Inference API & Enhanced Deployment Capabilities:**
-  - **Standardized Inference Interface:** Reduces API fragmentation across model types, lowering the learning curve for users and accelerating enterprise adoption.
-  - **Multi-Model Composition:** Complex tasks can be efficiently tackled by combining different models, achieving synergistic performance (1+1>2).
-  - **Upgraded Deployment:** Unified commands now manage deployments for diverse models, supporting **multi-GPU inference** and **multi-instance serving deployments**.
+    - **Standardized Inference Interface:** Reduces API fragmentation across model types, lowering the learning curve
+      for users and accelerating enterprise adoption.
+    - **Multi-Model Composition:** Complex tasks can be efficiently tackled by combining different models, achieving
+      synergistic performance (1+1>2).
+    - **Upgraded Deployment:** Unified commands now manage deployments for diverse models, supporting **multi-GPU
+      inference** and **multi-instance serving deployments**.
 
 - **Full Compatibility with PaddlePaddle Framework 3.0:**
-  - **Leveraging New Paddle 3.0 Features:**
-    - Compiler-accelerated training: Enable by appending `-o Global.dy2st=True` to training commands. **Most GPU-based models see >10% speed gains, with some exceeding 30%.**
-    - Inference upgrades: Full adaptation to Paddle 3.0’s Program Intermediate Representation (PIR) enhances flexibility and compatibility. Static graph models now use `xxx.json` instead of `xxx.pdmodel`.
-  - **ONNX Model Support:** Seamless format conversion via the Paddle2ONNX plugin.
+    - **Leveraging New Paddle 3.0 Features:**
+        - Compiler-accelerated training: Enable by appending `-o Global.dy2st=True` to training commands. **Most
+          GPU-based models see >10% speed gains, with some exceeding 30%.**
+        - Inference upgrades: Full adaptation to Paddle 3.0’s Program Intermediate Representation (PIR) enhances
+          flexibility and compatibility. Static graph models now use `xxx.json` instead of `xxx.pdmodel`.
+    - **ONNX Model Support:** Seamless format conversion via the Paddle2ONNX plugin.
 
 - **Flagship Capabilities:**
-  - **PP-OCRv5:** Powers **multi-hardware inference, multi-backend support, and serving deployments** for this industry-leading OCR system.
-  - **PP-StructureV3:** Orchestrates **15+ models** in hybrid (serial/parallel) pipelines, achieving **SOTA accuracy on OmniDocBench**.
-  - **PP-ChatOCRv4:** Integrates with **PP-DocBee2 and ERNIE 4.5Turbo**, boosting key information extraction accuracy by **15.7 percentage points** over the previous generation.
+    - **PP-OCRv5:** Powers **multi-hardware inference, multi-backend support, and serving deployments** for this
+      industry-leading OCR system.
+    - **PP-StructureV3:** Orchestrates **15+ models** in hybrid (serial/parallel) pipelines, achieving **SOTA accuracy
+      on OmniDocBench**.
+    - **PP-ChatOCRv4:** Integrates with **PP-DocBee2 and ERNIE 4.5Turbo**, boosting key information extraction accuracy
+      by **15.7 percentage points** over the previous generation.
 
 - **Multi-Hardware Support:**
-  - **Broad Compatibility:** Training and inference supported on **NVIDIA, Intel, Apple M-series, Kunlunxin, Ascend, Cambricon, Hygon, Enflame**, and more.
-  - **Ascend-Optimized:** **200+ fully adapted models**, including **21 OM-accelerated inference models**, plus key solutions like PP-OCRv5 and PP-StructureV3.
-  - **Kunlunxin-Optimized:** Critical classification, detection, and OCR models (including PP-OCRv5) are fully supported.
-
+    - **Broad Compatibility:** Training and inference supported on **NVIDIA, Intel, Apple M-series, Kunlunxin, Ascend,
+      Cambricon, Hygon, Enflame**, and more.
+    - **Ascend-Optimized:** **200+ fully adapted models**, including **21 OM-accelerated inference models**, plus key
+      solutions like PP-OCRv5 and PP-StructureV3.
+    - **Kunlunxin-Optimized:** Critical classification, detection, and OCR models (including PP-OCRv5) are fully
+      supported.
 
 ## 🔠 Explanation of Pipeline
-PaddleX is dedicated to achieving pipeline-level model training, inference, and deployment. A pipeline refers to a series of predefined development processes for specific AI tasks, which includes a combination of single models (single-function modules) capable of independently completing a certain type of task.
+
+PaddleX is dedicated to achieving pipeline-level model training, inference, and deployment. A pipeline refers to a
+series of predefined development processes for specific AI tasks, which includes a combination of single models (
+single-function modules) capable of independently completing a certain type of task.
 
 ## 📊 What can PaddleX do？
 
+All pipelines of PaddleX support **online experience** on [AI Studio]((https://aistudio.baidu.com/overview)) and local *
+*fast inference**. You can quickly experience the effects of each pre-trained pipeline. If you are satisfied with the
+effects of the pre-trained pipeline, you can directly
+perform [high-performance inference](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/high_performance_inference.html) / [serving](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/serving.html) / [edge deployment](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/on_device_deployment.html)
+on the pipeline. If not satisfied, you can also **Custom Development** to improve the pipeline effect. For the complete
+pipeline development process, please refer to
+the [PaddleX pipeline Development Tool Local Use Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/pipeline_develop_guide.html).
 
-All pipelines of PaddleX support **online experience** on [AI Studio]((https://aistudio.baidu.com/overview)) and local **fast inference**. You can quickly experience the effects of each pre-trained pipeline. If you are satisfied with the effects of the pre-trained pipeline, you can directly perform [high-performance inference](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/high_performance_inference.html) / [serving](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/serving.html) / [edge deployment](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/on_device_deployment.html) on the pipeline. If not satisfied, you can also **Custom Development** to improve the pipeline effect. For the complete pipeline development process, please refer to the [PaddleX pipeline Development Tool Local Use Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/pipeline_develop_guide.html).
-
-In addition, PaddleX provides developers with a full-process efficient model training and deployment tool based on a [cloud-based GUI](https://aistudio.baidu.com/pipeline/mine). Developers **do not need code development**, just need to prepare a dataset that meets the pipeline requirements to **quickly start model training**. For details, please refer to the tutorial ["Developing Industrial-level AI Models with Zero Barrier"](https://aistudio.baidu.com/practical/introduce/546656605663301).
+In addition, PaddleX provides developers with a full-process efficient model training and deployment tool based on
+a [cloud-based GUI](https://aistudio.baidu.com/pipeline/mine). Developers **do not need code development**, just need to
+prepare a dataset that meets the pipeline requirements to **quickly start model training**. For details, please refer to
+the
+tutorial ["Developing Industrial-level AI Models with Zero Barrier"](https://aistudio.baidu.com/practical/introduce/546656605663301).
 
 <table>
     <tr>
@@ -461,7 +505,12 @@ In addition, PaddleX provides developers with a full-process efficient model tra
 
 </table>
 
-> ❗Note: The above capabilities are implemented based on GPU/CPU. PaddleX can also perform local inference and custom development on mainstream hardware such as Kunlunxin, Ascend, Cambricon, and HYGON. The table below details the support status of the pipelines. For specific supported model lists, please refer to the [Model List (Kunlunxin XPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_xpu.html)/[Model List (Ascend NPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_npu.html)/[Model List (Cambricon MLU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_mlu.html)/[Model List (HYGON DCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_dcu.html). We are continuously adapting more models and promoting the implementation of high-performance and serving on mainstream hardware.
+> ❗Note: The above capabilities are implemented based on GPU/CPU. PaddleX can also perform local inference and custom
+> development on mainstream hardware such as Kunlunxin, Ascend, Cambricon, and HYGON. The table below details the support
+> status of the pipelines. For specific supported model lists, please refer to
+> the [Model List (Kunlunxin XPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_xpu.html)/[Model List (Ascend NPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_npu.html)/[Model List (Cambricon MLU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_mlu.html)/[Model List (HYGON DCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_dcu.html).
+> We are continuously adapting more models and promoting the implementation of high-performance and serving on mainstream
+> hardware.
 
 🔥🔥 **Support for Domestic Hardware Capabilities**
 
@@ -587,12 +636,13 @@ In addition, PaddleX provides developers with a full-process efficient model tra
   </tr>
 </table>
 
-
 ## ⏭️ Quick Start
 
 ### 🛠️ Installation
 
-> ❗Before installing PaddleX, please ensure that you have a basic **Python runtime environment** (Note: Currently supports Python 3.8 to Python 3.12). The PaddleX 3.0.x version depends on PaddlePaddle version 3.0.0 and above. Please make sure the version compatibility is maintained before use.
+> ❗Before installing PaddleX, please ensure that you have a basic **Python runtime environment** (Note: Currently
+> supports Python 3.8 to Python 3.12). The PaddleX 3.0.x version depends on PaddlePaddle version 3.0.0 and above. Please
+> make sure the version compatibility is maintained before use.
 
 * **Installing PaddlePaddle**
 
@@ -606,7 +656,10 @@ python -m pip install paddlepaddle==3.0.0 -i https://www.paddlepaddle.org.cn/pac
 # gpu，requires GPU driver version ≥550.54.14 (Linux) or ≥550.54.14 (Windows)
  python -m pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
 ```
-> ❗No need to focus on the CUDA version on the physical machine, only the GPU driver version needs attention. For more information on PaddlePaddle Wheel versions, please refer to the [PaddlePaddle Official Website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation./docs/en/install/pip/linux-pip.html).
+
+> ❗No need to focus on the CUDA version on the physical machine, only the GPU driver version needs attention. For more
+> information on PaddlePaddle Wheel versions, please refer to
+> the [PaddlePaddle Official Website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation./docs/en/install/pip/linux-pip.html).
 
 * **Installing PaddleX**
 
@@ -614,8 +667,8 @@ python -m pip install paddlepaddle==3.0.0 -i https://www.paddlepaddle.org.cn/pac
 pip install "paddlex[base]"
 ```
 
-> ❗For more installation methods, refer to the [PaddleX Installation Guide](https://paddlepaddle.github.io/PaddleX/latest/en/installation/installation.html).
-
+> ❗For more installation methods, refer to
+> the [PaddleX Installation Guide](https://paddlepaddle.github.io/PaddleX/latest/en/installation/installation.html).
 
 ### 💻 CLI Usage
 
@@ -625,12 +678,16 @@ One command can quickly experience the pipeline effect, the unified CLI format i
 paddlex --pipeline [Pipeline Name] --input [Input Image] --device [Running Device]
 ```
 
-Each Pipeline in PaddleX corresponds to specific parameters, which you can view in the respective Pipeline documentation for detailed explanations. Each Pipeline requires specifying three necessary parameters:
+Each Pipeline in PaddleX corresponds to specific parameters, which you can view in the respective Pipeline documentation
+for detailed explanations. Each Pipeline requires specifying three necessary parameters:
+
 * `pipeline`: The name of the Pipeline or the configuration file of the Pipeline
 * `input`: The local path, directory, or URL of the input file (e.g., an image) to be processed
-* `device`: The hardware device and its index to use (e.g., `gpu:0` indicates using the 0th GPU), or you can choose to use NPU (`npu:0`), XPU (`xpu:0`), CPU (`cpu`), etc.
+* `device`: The hardware device and its index to use (e.g., `gpu:0` indicates using the 0th GPU), or you can choose to
+  use NPU (`npu:0`), XPU (`xpu:0`), CPU (`cpu`), etc.
 
-For example, using the  OCR pipeline:
+For example, using the OCR pipeline:
+
 ```bash
 paddlex --pipeline OCR \
         --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png \
@@ -640,6 +697,7 @@ paddlex --pipeline OCR \
         --save_path ./output \
         --device gpu:0
 ```
+
 <details>
   <summary><b>👉 Click to view the running result</b></summary>
 
@@ -659,47 +717,49 @@ The visualization result is as follows:
 
 </details>
 
-To use the command line for other pipelines, simply adjust the `pipeline` parameter to the name of the corresponding pipeline and modify the parameters accordingly. Below are the commands for each pipeline:
+To use the command line for other pipelines, simply adjust the `pipeline` parameter to the name of the corresponding
+pipeline and modify the parameters accordingly. Below are the commands for each pipeline:
 
 <details>
   <summary><b>👉 More CLI usage for pipelines</b></summary>
 
-| Pipeline Name                | Command                                                                                                                                                                                    |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| General Image Classification       | `paddlex --pipeline image_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_image_classification_001.jpg --device gpu:0 --save_path ./output/`                    |
-| General Object Detection         | `paddlex --pipeline object_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_object_detection_002.png --threshold 0.5 --save_path ./output/ --device gpu:0`                            |
-| General Instance Segmentation    | `paddlex --pipeline instance_segmentation --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_instance_segmentation_004.png --threshold 0.5 --save_path ./output --device gpu:0`                  |
-| General Semantic Segmentation    | `paddlex --pipeline semantic_segmentation --input https://paddle-model-ecology.bj.bcebos.com/paddlex/PaddleX3.0/application/semantic_segmentation/makassaridn-road_demo.png --target_size -1 --save_path ./output --device gpu:0` |
-| Image Multi-label Classification | `paddlex --pipeline image_multilabel_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_image_classification_001.jpg --save_path ./output --device gpu:0`        |
-| Small Object Detection           | `paddlex --pipeline small_object_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/small_object_detection.jpg --threshold 0.5 --save_path ./output --device gpu:0`                            |
-| Image Anomaly Detection          | `paddlex --pipeline anomaly_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/uad_grid.png --save_path ./output --device gpu:0`                                              |
-| Pedestrian Attribute Recognition | `paddlex --pipeline pedestrian_attribute_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/pedestrian_attribute_002.jpg --save_path ./output/ --device gpu:0`                                              |
-| Vehicle Attribute Recognition    | `paddlex --pipeline vehicle_attribute_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/vehicle_attribute_002.jpg --save_path ./output/ --device gpu:0`                                              |
-| 3D Multi-modal Fusion Detection  | `paddlex --pipeline 3d_bev_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/det_3d/demo_det_3d/nuscenes_demo_infer.tar --device gpu:0 --save_path ./output/`                    |
-| Human Keypoint Detection         | `paddlex --pipeline human_keypoint_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/keypoint_detection_001.jpg --det_threshold 0.5 --save_path ./output/ --device gpu:0`                    |
-| Open Vocabulary Detection        | `paddlex --pipeline open_vocabulary_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/open_vocabulary_detection.jpg --prompt "bus . walking man . rearview mirror ." --thresholds "{'text_threshold': 0.25, 'box_threshold': 0.3}" --save_path ./output --device gpu:0`                    |
-| Open Vocabulary Segmentation     | `paddlex --pipeline open_vocabulary_segmentation --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/open_vocabulary_segmentation.jpg --prompt_type box --prompt "[[112.9,118.4,513.8,382.1],[4.6,263.6,92.2,336.6],[592.4,260.9,607.2,294.2]]" --save_path ./output --device gpu:0`                    |
-| Rotated Object Detection         | `paddlex --pipeline rotated_object_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/rotated_object_detection_001.png --threshold 0.5 --save_path ./output --device gpu:0`                    |
-| General OCR                      | `paddlex --pipeline OCR --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --save_path ./output --device gpu:0`                                      |
-| Document Image Preprocessor      | `paddlex --pipeline doc_preprocessor --input https://paddle-model-ecology.bj.bcebos.com/paddlex/demo_image/doc_test_rotated.jpg --use_doc_orientation_classify True --use_doc_unwarping True --save_path ./output --device gpu:0`                                                      |
-| General Table Recognition        | `paddlex --pipeline table_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg --save_path ./output --device gpu:0`                                      |
-| General Table Recognition v2     | `paddlex --pipeline table_recognition_v2 --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg --save_path ./output --device gpu:0`                                      |
-| General Layout Parsing           | `paddlex --pipeline layout_parsing --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/demo_paper.png --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --save_path ./output --device gpu:0`                      |
-| General Layout Parsing v2        | `paddlex --pipeline PP-StrucutrV3 --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/pp_structure_v3_demo.png --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --save_path ./output --device gpu:0`                      |
-| Formula Recognition              | `paddlex --pipeline formula_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/demo_image/general_formula_recognition.png --use_layout_detection True --use_doc_orientation_classify False --use_doc_unwarping False --layout_threshold 0.5 --layout_nms True --layout_unclip_ratio  1.0 --layout_merge_bboxes_mode large --save_path ./output --device gpu:0`                                      |
-| Seal Text Recognition            | `paddlex --pipeline seal_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png --use_doc_orientation_classify False --use_doc_unwarping False --device gpu:0 --save_path ./output`                                      |
-| Time Series Forecasting       | `paddlex --pipeline ts_forecast --input https://paddle-model-ecology.bj.bcebos.com/paddlex/ts/demo_ts/ts_fc.csv --device gpu:0 --save_path ./output`                                                                   |
-| Time Series Anomaly Detection | `paddlex --pipeline ts_anomaly_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/ts/demo_ts/ts_ad.csv --device gpu:0 --save_path ./output`                                                                    |
-| Time Series Classification    | `paddlex --pipeline ts_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/ts/demo_ts/ts_cls.csv --device gpu:0 --save_path ./output`                                                                 |
-| Multilingual Speech Recognition   | `paddlex --pipeline multilingual_speech_recognition --input https://paddlespeech.bj.bcebos.com/PaddleAudio/zh.wav --save_path ./output --device gpu:0`                                      |
-| General Video Classification   | `paddlex --pipeline video_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/videos/demo_video/general_video_classification_001.mp4 --topk 5 --save_path ./output --device gpu:0`                     |
-| General Video Detection       | `paddlex --pipeline video_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/videos/demo_video/HorseRiding.avi --device gpu:0 --save_path ./output`                     |
+| Pipeline Name                    | Command                                                                                                                                                                                                                                                                                                                                                                            |
+|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| General Image Classification     | `paddlex --pipeline image_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_image_classification_001.jpg --device gpu:0 --save_path ./output/`                                                                                                                                                                                     |
+| General Object Detection         | `paddlex --pipeline object_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_object_detection_002.png --threshold 0.5 --save_path ./output/ --device gpu:0`                                                                                                                                                                             |
+| General Instance Segmentation    | `paddlex --pipeline instance_segmentation --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_instance_segmentation_004.png --threshold 0.5 --save_path ./output --device gpu:0`                                                                                                                                                                    |
+| General Semantic Segmentation    | `paddlex --pipeline semantic_segmentation --input https://paddle-model-ecology.bj.bcebos.com/paddlex/PaddleX3.0/application/semantic_segmentation/makassaridn-road_demo.png --target_size -1 --save_path ./output --device gpu:0`                                                                                                                                                  |
+| Image Multi-label Classification | `paddlex --pipeline image_multilabel_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_image_classification_001.jpg --save_path ./output --device gpu:0`                                                                                                                                                                           |
+| Small Object Detection           | `paddlex --pipeline small_object_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/small_object_detection.jpg --threshold 0.5 --save_path ./output --device gpu:0`                                                                                                                                                                              |
+| Image Anomaly Detection          | `paddlex --pipeline anomaly_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/uad_grid.png --save_path ./output --device gpu:0`                                                                                                                                                                                                                 |
+| Pedestrian Attribute Recognition | `paddlex --pipeline pedestrian_attribute_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/pedestrian_attribute_002.jpg --save_path ./output/ --device gpu:0`                                                                                                                                                                                 |
+| Vehicle Attribute Recognition    | `paddlex --pipeline vehicle_attribute_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/vehicle_attribute_002.jpg --save_path ./output/ --device gpu:0`                                                                                                                                                                                       |
+| 3D Multi-modal Fusion Detection  | `paddlex --pipeline 3d_bev_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/det_3d/demo_det_3d/nuscenes_demo_infer.tar --device gpu:0 --save_path ./output/`                                                                                                                                                                                                   |
+| Human Keypoint Detection         | `paddlex --pipeline human_keypoint_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/keypoint_detection_001.jpg --det_threshold 0.5 --save_path ./output/ --device gpu:0`                                                                                                                                                                       |
+| Open Vocabulary Detection        | `paddlex --pipeline open_vocabulary_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/open_vocabulary_detection.jpg --prompt "bus . walking man . rearview mirror ." --thresholds "{'text_threshold': 0.25, 'box_threshold': 0.3}" --save_path ./output --device gpu:0`                                                                         |
+| Open Vocabulary Segmentation     | `paddlex --pipeline open_vocabulary_segmentation --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/open_vocabulary_segmentation.jpg --prompt_type box --prompt "[[112.9,118.4,513.8,382.1],[4.6,263.6,92.2,336.6],[592.4,260.9,607.2,294.2]]" --save_path ./output --device gpu:0`                                                                        |
+| Rotated Object Detection         | `paddlex --pipeline rotated_object_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/rotated_object_detection_001.png --threshold 0.5 --save_path ./output --device gpu:0`                                                                                                                                                                      |
+| General OCR                      | `paddlex --pipeline OCR --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_002.png --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --save_path ./output --device gpu:0`                                                                                                                        |
+| Document Image Preprocessor      | `paddlex --pipeline doc_preprocessor --input https://paddle-model-ecology.bj.bcebos.com/paddlex/demo_image/doc_test_rotated.jpg --use_doc_orientation_classify True --use_doc_unwarping True --save_path ./output --device gpu:0`                                                                                                                                                  |
+| General Table Recognition        | `paddlex --pipeline table_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg --save_path ./output --device gpu:0`                                                                                                                                                                                                        |
+| General Table Recognition v2     | `paddlex --pipeline table_recognition_v2 --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg --save_path ./output --device gpu:0`                                                                                                                                                                                                     |
+| General Layout Parsing           | `paddlex --pipeline layout_parsing --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/demo_paper.png --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --save_path ./output --device gpu:0`                                                                                                                  |
+| General Layout Parsing v2        | `paddlex --pipeline PP-StrucutrV3 --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/pp_structure_v3_demo.png --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --save_path ./output --device gpu:0`                                                                                                         |
+| Formula Recognition              | `paddlex --pipeline formula_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/demo_image/general_formula_recognition.png --use_layout_detection True --use_doc_orientation_classify False --use_doc_unwarping False --layout_threshold 0.5 --layout_nms True --layout_unclip_ratio  1.0 --layout_merge_bboxes_mode large --save_path ./output --device gpu:0` |
+| Seal Text Recognition            | `paddlex --pipeline seal_recognition --input https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png --use_doc_orientation_classify False --use_doc_unwarping False --device gpu:0 --save_path ./output`                                                                                                                                              |
+| Time Series Forecasting          | `paddlex --pipeline ts_forecast --input https://paddle-model-ecology.bj.bcebos.com/paddlex/ts/demo_ts/ts_fc.csv --device gpu:0 --save_path ./output`                                                                                                                                                                                                                               |
+| Time Series Anomaly Detection    | `paddlex --pipeline ts_anomaly_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/ts/demo_ts/ts_ad.csv --device gpu:0 --save_path ./output`                                                                                                                                                                                                                      |
+| Time Series Classification       | `paddlex --pipeline ts_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/ts/demo_ts/ts_cls.csv --device gpu:0 --save_path ./output`                                                                                                                                                                                                                        |
+| Multilingual Speech Recognition  | `paddlex --pipeline multilingual_speech_recognition --input https://paddlespeech.bj.bcebos.com/PaddleAudio/zh.wav --save_path ./output --device gpu:0`                                                                                                                                                                                                                             |
+| General Video Classification     | `paddlex --pipeline video_classification --input https://paddle-model-ecology.bj.bcebos.com/paddlex/videos/demo_video/general_video_classification_001.mp4 --topk 5 --save_path ./output --device gpu:0`                                                                                                                                                                           |
+| General Video Detection          | `paddlex --pipeline video_detection --input https://paddle-model-ecology.bj.bcebos.com/paddlex/videos/demo_video/HorseRiding.avi --device gpu:0 --save_path ./output`                                                                                                                                                                                                              |
 
 </details>
 
 ### 📝 Python Script Usage
 
 A few lines of code can complete the quick inference of the pipeline, the unified Python script format is as follows:
+
 ```python
 from paddlex import create_pipeline
 
@@ -710,60 +770,65 @@ for res in output:
     res.save_to_img("./output/")
     res.save_to_json("./output/")
 ```
+
 The following steps are executed:
 
 * `create_pipeline()` instantiates the pipeline object
 * Passes the image and calls the `predict()` method of the pipeline object for inference prediction
 * Processes the prediction results
 
-To use the Python script for other pipelines, simply adjust the `pipeline` parameter in the `create_pipeline()` method to the name of the corresponding pipeline and modify the parameters accordingly. Below are the parameter names and detailed usage explanations for each pipeline:
+To use the Python script for other pipelines, simply adjust the `pipeline` parameter in the `create_pipeline()` method
+to the name of the corresponding pipeline and modify the parameters accordingly. Below are the parameter names and
+detailed usage explanations for each pipeline:
 
 <details>
   <summary>👉 More Python script usage for pipelines</summary>
 
-| pipeline Name           | Corresponding Parameter               | Detailed Explanation                                                                                                      |
-|-------------------------------|-------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| PP-ChatOCRv4-doc | `PP-ChatOCRv4-doc` | [PP-ChatOCRv4-doc Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v4.html) |
-| PP-ChatOCRv3-doc   | `PP-ChatOCRv3-doc` | [PP-ChatOCRv3-doc Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.html) |
-|  Image Classification       | `image_classification` | [ Image Classification Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_classification.html) |
-|  Object Detection       | `object_detection` | [ Object Detection Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/object_detection.html) |
-|  Instance Segmentation       | `instance_segmentation` | [ Instance Segmentation Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/instance_segmentation.html) |
-|  Semantic Segmentation       | `semantic_segmentation` | [ Semantic Segmentation Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/semantic_segmentation.html) |
-|  Image Multi-Label Classification | `multilabel_classification` | [ Image Multi-Label Classification Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_multi_label_classification.html) |
-| Small Object Detection         | `small_object_detection` | [Small Object Detection Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/small_object_detection.html) |
-| Image Anomaly Detection       | `image_classification` | [Image Anomaly Detection Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_anomaly_detection.html) |
-| Image Recognition       | `PP-ShiTuV2`                | [Image Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/general_image_recognition.html)                              |
-| Face Recognition       | `face_recognition`                | [Face Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/face_recognition.html)                              |
-| Pedestrian Attribute Recognition       | `pedestrian_attribute`                | [Pedestrian Attribute Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/pedestrian_attribute_recognition.html)                              |
-|Vehicle Attribute Recognition       | `vehicle_attribute`                | [Vehicle Attribute Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/vehicle_attribute_recognition.html)                              |
-| 3D Multi-modal Fusion Detection | `3d_bev_detection` | [Instructions for Using the 3D Multi-modal Fusion Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/3d_bev_detection.html#222-python-script-integration) |
-| Human Keypoint Detection | `human_keypoint_detection` | [Instructions for Using the Human Keypoint Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/human_keypoint_detection.html#222-python-script-integration) |
-| Open Vocabulary Detection | `open_vocabulary_detection` | [Instructions for Using the Open Vocabulary Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_detection.html#212-python-script-integration) |
-| Open Vocabulary Segmentation | `open_vocabulary_segmentation` | [Instructions for Using the Open Vocabulary Segmentation Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_segmentation.html#212-python-script-integration) |
-| Rotated Object Detection | `rotated_object_detection` | [Instructions for Using the Rotated Object Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/rotated_object_detection.html#212-python-script-integration) |
-| OCR | `OCR` | [Instructions for Using the General OCR Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/OCR.html#222-python-script-integration) |
-| Document Image Preprocessing | `doc_preprocessor` | [Instructions for Using the Document Image Preprocessing Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/doc_preprocessor.html#212-python-script-integration) |
-| General Table Recognition | `table_recognition` | [Instructions for Using the General Table Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/table_recognition.html#22-python-script-integration) |
-| General Table Recognition v2 | `table_recognition_v2` | [Instructions for Using the General Table Recognition v2 Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.html#22-python-script-integration) |
-| General Layout Parsing | `layout_parsing` | [Instructions for Using the General Layout Parsing Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/layout_parsing.html#22-python-script-integration) |
-| PP-StructureV3 | `PP-StructureV3` | [Instructions for Using the General Layout Parsing v2 Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/PP-StructureV3.html#22-python-script-integration) |
-| Formula Recognition | `formula_recognition` | [Instructions for Using the Formula Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/formula_recognition.html#22-python-script-integration) |
-| Seal Text Recognition | `seal_recognition` | [Instructions for Using the Seal Text Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/seal_recognition.html#22-python-script-integration) |
-| Time Series Forecasting | `ts_forecast` | [Instructions for Using the Time Series Forecasting Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_forecasting.html#222-python-script-integration) |
-| Time Series Anomaly Detection | `ts_anomaly_detection` | [Instructions for Using the Time Series Anomaly Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_anomaly_detection.html#222-python-script-integration) |
-| Time Series Classification | `ts_classification` | [Instructions for Using the Time Series Classification Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_classification.html#222-python-script-integration) |
-| Multilingual Speech Recognition | `multilingual_speech_recognition` | [Instructions for Using the Multilingual Speech Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/multilingual_speech_recognition.html#212-python-script-integration) |
-| General Video Classification | `video_classification` | [Instructions for Using the General Video Classification Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/video_classification.html#22-python-script-integration) |
-| General Video Detection | `video_detection` | [Instructions for Using the General Video Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/video_detection.html#212-python-script-integration) |
-| Document Understanding       | `doc_understanding`                           | [Instructions for Using the Document Understanding Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/vlm_pipelines/doc_understanding.html#211-python-script-integration)   |
+| pipeline Name                    | Corresponding Parameter           | Detailed Explanation                                                                                                                                                                                                                                    |
+|----------------------------------|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PP-ChatOCRv4-doc                 | `PP-ChatOCRv4-doc`                | [PP-ChatOCRv4-doc Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v4.html)                                  |
+| PP-ChatOCRv3-doc                 | `PP-ChatOCRv3-doc`                | [PP-ChatOCRv3-doc Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.html)                                  |
+| Image Classification             | `image_classification`            | [ Image Classification Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_classification.html)                                                                     |
+| Object Detection                 | `object_detection`                | [ Object Detection Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/object_detection.html)                                                                             |
+| Instance Segmentation            | `instance_segmentation`           | [ Instance Segmentation Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/instance_segmentation.html)                                                                   |
+| Semantic Segmentation            | `semantic_segmentation`           | [ Semantic Segmentation Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/semantic_segmentation.html)                                                                   |
+| Image Multi-Label Classification | `multilabel_classification`       | [ Image Multi-Label Classification Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_multi_label_classification.html)                                             |
+| Small Object Detection           | `small_object_detection`          | [Small Object Detection Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/small_object_detection.html)                                                                  |
+| Image Anomaly Detection          | `image_classification`            | [Image Anomaly Detection Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_anomaly_detection.html)                                                                |
+| Image Recognition                | `PP-ShiTuV2`                      | [Image Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/general_image_recognition.html)                                                                    |
+| Face Recognition                 | `face_recognition`                | [Face Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/face_recognition.html)                                                                              |
+| Pedestrian Attribute Recognition | `pedestrian_attribute`            | [Pedestrian Attribute Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/pedestrian_attribute_recognition.html)                                              |
+| Vehicle Attribute Recognition    | `vehicle_attribute`               | [Vehicle Attribute Recognition Pipeline Python Script Usage Instructions](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/vehicle_attribute_recognition.html)                                                    |
+| 3D Multi-modal Fusion Detection  | `3d_bev_detection`                | [Instructions for Using the 3D Multi-modal Fusion Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/3d_bev_detection.html#222-python-script-integration)                         |
+| Human Keypoint Detection         | `human_keypoint_detection`        | [Instructions for Using the Human Keypoint Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/human_keypoint_detection.html#222-python-script-integration)                        |
+| Open Vocabulary Detection        | `open_vocabulary_detection`       | [Instructions for Using the Open Vocabulary Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_detection.html#212-python-script-integration)                      |
+| Open Vocabulary Segmentation     | `open_vocabulary_segmentation`    | [Instructions for Using the Open Vocabulary Segmentation Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_segmentation.html#212-python-script-integration)                |
+| Rotated Object Detection         | `rotated_object_detection`        | [Instructions for Using the Rotated Object Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/rotated_object_detection.html#212-python-script-integration)                        |
+| OCR                              | `OCR`                             | [Instructions for Using the General OCR Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/OCR.html#222-python-script-integration)                                                         |
+| Document Image Preprocessing     | `doc_preprocessor`                | [Instructions for Using the Document Image Preprocessing Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/doc_preprocessor.html#212-python-script-integration)                           |
+| General Table Recognition        | `table_recognition`               | [Instructions for Using the General Table Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/table_recognition.html#22-python-script-integration)                              |
+| General Table Recognition v2     | `table_recognition_v2`            | [Instructions for Using the General Table Recognition v2 Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.html#22-python-script-integration)                        |
+| General Layout Parsing           | `layout_parsing`                  | [Instructions for Using the General Layout Parsing Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/layout_parsing.html#22-python-script-integration)                                    |
+| PP-StructureV3                   | `PP-StructureV3`                  | [Instructions for Using the General Layout Parsing v2 Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/PP-StructureV3.html#22-python-script-integration)                                 |
+| Formula Recognition              | `formula_recognition`             | [Instructions for Using the Formula Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/formula_recognition.html#22-python-script-integration)                                  |
+| Seal Text Recognition            | `seal_recognition`                | [Instructions for Using the Seal Text Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/seal_recognition.html#22-python-script-integration)                                   |
+| Time Series Forecasting          | `ts_forecast`                     | [Instructions for Using the Time Series Forecasting Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_forecasting.html#222-python-script-integration)                 |
+| Time Series Anomaly Detection    | `ts_anomaly_detection`            | [Instructions for Using the Time Series Anomaly Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_anomaly_detection.html#222-python-script-integration)     |
+| Time Series Classification       | `ts_classification`               | [Instructions for Using the Time Series Classification Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_classification.html#222-python-script-integration)           |
+| Multilingual Speech Recognition  | `multilingual_speech_recognition` | [Instructions for Using the Multilingual Speech Recognition Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/multilingual_speech_recognition.html#212-python-script-integration) |
+| General Video Classification     | `video_classification`            | [Instructions for Using the General Video Classification Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/video_classification.html#22-python-script-integration)                |
+| General Video Detection          | `video_detection`                 | [Instructions for Using the General Video Detection Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/video_detection.html#212-python-script-integration)                         |
+| Document Understanding           | `doc_understanding`               | [Instructions for Using the Document Understanding Pipeline Python Script](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/vlm_pipelines/doc_understanding.html#211-python-script-integration)                                |
+
 </details>
 
 ## 📖 Documentation
+
 <details open>
   <summary> <b> ⬇️ Installation </b></summary>
 
-  * [📦 PaddlePaddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/installation/paddlepaddle_install.html)
-  * [📦 PaddleX Installation](https://paddlepaddle.github.io/PaddleX/latest/en/installation/installation.html)
+* [📦 PaddlePaddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/installation/paddlepaddle_install.html)
+* [📦 PaddleX Installation](https://paddlepaddle.github.io/PaddleX/latest/en/installation/installation.html)
 
 </details>
 
@@ -775,7 +840,7 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 * <details open>
     <summary> <b> 📝 Information Extraction</b></summary>
 
-   * [📄 PP-ChatOCRv3 Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.html)
+    * [📄 PP-ChatOCRv3 Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.html)
     * [📄 PP-ChatOCRv4 Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v4.html)
 
 </details>
@@ -797,31 +862,31 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 * <details open>
     <summary> <b> 🎥 Computer Vision </b></summary>
 
-   * [🖼️ Image Classification Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_classification.html)
-   * [🎯 Object Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/object_detection.html)
-   * [📋 Instance Segmentation Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/instance_segmentation.html)
-   * [🗣️ Semantic Segmentation Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/semantic_segmentation.html)
-   * [🏷️ Multi-label Image Classification Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_multi_label_classification.html)
-   * [🔍 Small Object Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/small_object_detection.html)
-   * [🖼️ Image Anomaly Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_anomaly_detection.html)
-   * [🌐 3D Bev Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/3d_bev_detection.html)
-   * [🔍 Human Keypoint Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/human_keypoint_detection.html)
-   * [📚 Open Vocabulary Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_detection.html)
-   * [🎨 Open Vocabulary Segmentation Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_segmentation.html)
-   * [🔄 Rotated Object Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/rotated_object_detection.html)
-   * [🖼️ Image Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/general_image_recognition.html)
-   * [🚶‍♀️ Pedestrian Attribute Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/pedestrian_attribute.html)
-   * [🚗 Vehicle Attribute Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/vehicle_attribute.html)
-   * [🆔 Face Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/face_recognition.html)
+    * [🖼️ Image Classification Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_classification.html)
+    * [🎯 Object Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/object_detection.html)
+    * [📋 Instance Segmentation Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/instance_segmentation.html)
+    * [🗣️ Semantic Segmentation Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/semantic_segmentation.html)
+    * [🏷️ Multi-label Image Classification Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_multi_label_classification.html)
+    * [🔍 Small Object Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/small_object_detection.html)
+    * [🖼️ Image Anomaly Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_anomaly_detection.html)
+    * [🌐 3D Bev Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/3d_bev_detection.html)
+    * [🔍 Human Keypoint Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/human_keypoint_detection.html)
+    * [📚 Open Vocabulary Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_detection.html)
+    * [🎨 Open Vocabulary Segmentation Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/open_vocabulary_segmentation.html)
+    * [🔄 Rotated Object Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/rotated_object_detection.html)
+    * [🖼️ Image Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/general_image_recognition.html)
+    * [🚶‍♀️ Pedestrian Attribute Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/pedestrian_attribute.html)
+    * [🚗 Vehicle Attribute Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/vehicle_attribute.html)
+    * [🆔 Face Recognition Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/face_recognition.html)
 
 </details>
 
 * <details open>
     <summary> <b> ⏱️ Time Series Analysis</b> </summary>
 
-   * [📈 Time Series Forecasting Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_forecasting.html)
-   * [📉 Time Series Anomaly Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_anomaly_detection.html)
-   * [🕒 Time Series Classification Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_classification.html)
+    * [📈 Time Series Forecasting Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_forecasting.html)
+    * [📉 Time Series Anomaly Detection Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_anomaly_detection.html)
+    * [🕒 Time Series Classification Pipeline Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/time_series_pipelines/time_series_classification.html)
 
 </details>
 
@@ -839,15 +904,15 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 * <details open>
     <summary> <b> 🌐 Multimodal Vision-Language Model</b> </summary>
 
-   * [📝 Doc Understanding Pipeline Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/vlm_pipelines/doc_understanding.html)
+    * [📝 Doc Understanding Pipeline Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/vlm_pipelines/doc_understanding.html)
   </details>
 
 * <details open>
     <summary> <b>🔧 Related Instructions</b> </summary>
 
-   * [🖥️ PaddleX pipeline Command Line Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/instructions/pipeline_CLI_usage.html)
-  * [📝 PaddleX pipeline Python Script Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/instructions/pipeline_python_API.html)
-  * [🔎 Line-Parallel Inference](https://paddlepaddle.github.io/PaddleX/latest/pipeline_usage/instructions/parallel_inference.html)
+    * [🖥️ PaddleX pipeline Command Line Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/instructions/pipeline_CLI_usage.html)
+    * [📝 PaddleX pipeline Python Script Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/instructions/pipeline_python_API.html)
+    * [🔎 Line-Parallel Inference](https://paddlepaddle.github.io/PaddleX/latest/pipeline_usage/instructions/parallel_inference.html)
 
 </details>
 
@@ -859,27 +924,27 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 * <details open>
   <summary> <b> 🔍 OCR </b></summary>
 
-  * [📝 Text Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_detection.html)
-  * [🔖 Seal Text Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/seal_text_detection.html)
-  * [🔠 Text Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_recognition.html)
-  * [🗺️ Layout Parsing Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/layout_detection.html)
-  * [📊 Table Structure Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/table_structure_recognition.html)
-  * [📊 Table Cell Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/table_cells_detection.html)
-  * [📈 Table Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/table_classification.html)
-  * [📄 Document Image Orientation Classification Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/doc_img_orientation_classification.html)
-  * [🔧 Document Image Unwarp Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_image_unwarping.html)
-  * [📝 Text Line Orientation Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/textline_orientation_classification.html)
-  * [📐 Formula Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/formula_recognition.html)
+    * [📝 Text Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_detection.html)
+    * [🔖 Seal Text Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/seal_text_detection.html)
+    * [🔠 Text Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_recognition.html)
+    * [🗺️ Layout Parsing Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/layout_detection.html)
+    * [📊 Table Structure Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/table_structure_recognition.html)
+    * [📊 Table Cell Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/table_cells_detection.html)
+    * [📈 Table Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/table_classification.html)
+    * [📄 Document Image Orientation Classification Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/doc_img_orientation_classification.html)
+    * [🔧 Document Image Unwarp Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/text_image_unwarping.html)
+    * [📝 Text Line Orientation Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/textline_orientation_classification.html)
+    * [📐 Formula Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/ocr_modules/formula_recognition.html)
 
 </details>
 
 * <details open>
   <summary> <b> 🖼️ Image Classification </b></summary>
 
-  * [📂 Image Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/image_classification.html)
-  * [🏷️ Multi-label Image Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/image_multilabel_classification.html)
-  * [👤 Pedestrian Attribute Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/pedestrian_attribute_recognition.html)
-  * [🚗 Vehicle Attribute Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/vehicle_attribute_recognition.html)
+    * [📂 Image Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/image_classification.html)
+    * [🏷️ Multi-label Image Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/image_multilabel_classification.html)
+    * [👤 Pedestrian Attribute Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/pedestrian_attribute_recognition.html)
+    * [🚗 Vehicle Attribute Recognition Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/vehicle_attribute_recognition.html)
 
 </details>
 
@@ -894,65 +959,65 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 * <details open>
   <summary> <b> 🎯 Object Detection </b></summary>
 
-  * [🎯 Object Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/object_detection.html)
-  * [📏 Small Object Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/small_object_detection.html)
-  * [🧑‍🤝‍🧑 Face Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/face_detection.html)
-  * [🔍 Mainbody Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/mainbody_detection.html)
-  * [🚶 Pedestrian Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/human_detection.html)
-  * [🚶‍♂️ Human Keypoint Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/human_keypoint_detection.html)
-  * [🌐 Open-Vocabulary Object Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/open_vocabulary_detection.html)
+    * [🎯 Object Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/object_detection.html)
+    * [📏 Small Object Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/small_object_detection.html)
+    * [🧑‍🤝‍🧑 Face Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/face_detection.html)
+    * [🔍 Mainbody Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/mainbody_detection.html)
+    * [🚶 Pedestrian Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/human_detection.html)
+    * [🚶‍♂️ Human Keypoint Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/human_keypoint_detection.html)
+    * [🌐 Open-Vocabulary Object Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/open_vocabulary_detection.html)
 
 </details>
 
 * <details open>
   <summary> <b> 🖼️ Image Segmentation </b></summary>
 
-  * [🗺️ Semantic Segmentation Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/semantic_segmentation.html)
-  * [🔍 Instance Segmentation Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/instance_segmentation.html)
-  * [🚨 Image Anomaly Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/anomaly_detection.html)
-  * [🌐 Open-Vocabulary Segmentation Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/open_vocabulary_segmentation.html)
+    * [🗺️ Semantic Segmentation Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/semantic_segmentation.html)
+    * [🔍 Instance Segmentation Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/instance_segmentation.html)
+    * [🚨 Image Anomaly Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/anomaly_detection.html)
+    * [🌐 Open-Vocabulary Segmentation Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/open_vocabulary_segmentation.html)
 
 </details>
 
 * <details open>
   <summary> <b> ⏱️ Time Series Analysis </b></summary>
 
-  * [📈 Time Series Forecasting Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/time_series_modules/time_series_forecasting.html)
-  * [🚨 Time Series Anomaly Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/time_series_modules/time_series_anomaly_detection.html)
-  * [🕒 Time Series Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/time_series_modules/time_series_classification.html)
+    * [📈 Time Series Forecasting Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/time_series_modules/time_series_forecasting.html)
+    * [🚨 Time Series Anomaly Detection Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/time_series_modules/time_series_anomaly_detection.html)
+    * [🕒 Time Series Classification Module Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/time_series_modules/time_series_classification.html)
 
 </details>
 
 * <details open>
   <summary> <b> 🎤 Speech Recognition </b></summary>
 
-  * [🌐 Multilingual Speech Recognition Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/speech_modules/multilingual_speech_recognition.html)
+    * [🌐 Multilingual Speech Recognition Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/speech_modules/multilingual_speech_recognition.html)
 
 </details>
 
 * <details open>
   <summary> <b> 📦 3D  </b></summary>
 
-  * [📦 3D Multimodal Fusion Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/3d_bev_detection.html)
+    * [📦 3D Multimodal Fusion Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/3d_bev_detection.html)
 
 </details>
 
 * <details open>
   <summary> <b> 🌐 Multimodal Vision-Language Model </b></summary>
 
-  * [📝 Document Vision-Language Model Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/vlm_modules/doc_vlm.html)
-  * [📈 Chart Parsing Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/vlm_modules/chart_parsing.html)
+    * [📝 Document Vision-Language Model Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/vlm_modules/doc_vlm.html)
+    * [📈 Chart Parsing Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/vlm_modules/chart_parsing.html)
 
 </details>
 
 * <details open>
   <summary> <b> 📄 Related Instructions </b></summary>
 
-  * [📝 PaddleX Single Model Python Script Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/model_python_API.html)
-  * [📝 PaddleX General Model Configuration File Parameter Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/config_parameters_common.html)
-  * [📝 PaddleX Time Series Task Model Configuration File Parameter Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/config_parameters_time_series.html)
-  * [📝 PaddleX 3D Task Model Configuration File Parameter Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/config_parameters_3d.html)
-  * [📝 Model Inference Benchmark](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/benchmark.html)
+    * [📝 PaddleX Single Model Python Script Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/model_python_API.html)
+    * [📝 PaddleX General Model Configuration File Parameter Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/config_parameters_common.html)
+    * [📝 PaddleX Time Series Task Model Configuration File Parameter Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/config_parameters_time_series.html)
+    * [📝 PaddleX 3D Task Model Configuration File Parameter Instruction](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/config_parameters_3d.html)
+    * [📝 Model Inference Benchmark](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/instructions/benchmark.html)
 
 </details>
 
@@ -961,22 +1026,22 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 <details open>
   <summary> <b> 🏗️ Pipeline Deployment </b></summary>
 
-  * [🚀 PaddleX High-Performance Inference Guide](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/high_performance_inference.html)
-  * [🖥️ PaddleX Serving Guide](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/serving.html)
-  * [📱 PaddleX On-Device Deployment Guide](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/on_device_deployment.html)
-  * [🌐 Installation and Usage of the Paddle2ONNX Plugin](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/paddle2onnx.html)
+* [🚀 PaddleX High-Performance Inference Guide](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/high_performance_inference.html)
+* [🖥️ PaddleX Serving Guide](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/serving.html)
+* [📱 PaddleX On-Device Deployment Guide](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/on_device_deployment.html)
+* [🌐 Installation and Usage of the Paddle2ONNX Plugin](https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_deploy/paddle2onnx.html)
 
 </details>
 
 <details open>
   <summary> <b> 🖥️ Multi-Hardware Usage </b></summary>
 
-  * [🔧 Multi-Hardware Usage Guide](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/multi_devices_use_guide.html)
-  * [🖲️ DCU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_DCU.html)
-  * [🔲 MLU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_MLU.html)
-  * [💻 NPU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_NPU.html)
-  * [🔌 XPU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_XPU.html)
-  * [📱 GCU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_GCU.html)
+* [🔧 Multi-Hardware Usage Guide](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/multi_devices_use_guide.html)
+* [🖲️ DCU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_DCU.html)
+* [🔲 MLU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_MLU.html)
+* [💻 NPU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_NPU.html)
+* [🔌 XPU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_XPU.html)
+* [📱 GCU Paddle Installation](https://paddlepaddle.github.io/PaddleX/latest/en/other_devices_support/paddlepaddle_install_GCU.html)
 
 </details>
 
@@ -986,29 +1051,29 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 - <details open>
   <summary> <b> 💻 计算机视觉 </b></summary>
 
-  - [📂 Image Classification Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/image_classification.html)
-  - [📂 Image Feature Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/image_feature.html)
-  - [📂 Instance Segmentation Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/instance_segmentation.html)
-  - [📂 Multi-Label Classification Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/ml_classification.html)
-  - [📂 Object Detection Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/object_detection.html)
-  - [📂 Semantic Segmentation Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/semantic_segmentation.html)
+    - [📂 Image Classification Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/image_classification.html)
+    - [📂 Image Feature Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/image_feature.html)
+    - [📂 Instance Segmentation Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/instance_segmentation.html)
+    - [📂 Multi-Label Classification Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/ml_classification.html)
+    - [📂 Object Detection Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/object_detection.html)
+    - [📂 Semantic Segmentation Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/cv_modules/semantic_segmentation.html)
 
 </details>
 
 - <details open>
   <summary> <b> 🔍 OCR </b></summary>
 
-  - [📊 Table Structure Recognition Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/ocr_modules/table_recognition.html)
-  - [📰 Text Detection/Text Recognition Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/ocr_modules/text_detection_recognition.html)
+    - [📊 Table Structure Recognition Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/ocr_modules/table_recognition.html)
+    - [📰 Text Detection/Text Recognition Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/ocr_modules/text_detection_recognition.html)
 
 </details>
 
 - <details open>
   <summary> <b> 📉 时序分析 </b></summary>
 
-  - [📈 Time Series Anomaly Detection Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/time_series_modules/time_series_anomaly_detection.html)
-  - [📉Time Series Classification Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/time_series_modules/time_series_classification.html)
-  - [🕜 Time Series Forecasting Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/time_series_modules/time_series_forecasting.html)
+    - [📈 Time Series Anomaly Detection Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/time_series_modules/time_series_anomaly_detection.html)
+    - [📉Time Series Classification Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/time_series_modules/time_series_classification.html)
+    - [🕜 Time Series Forecasting Task Module](https://paddlepaddle.github.io/PaddleX/latest/en/data_annotations/time_series_modules/time_series_forecasting.html)
 
 </details>
 
@@ -1017,23 +1082,23 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 <details open>
   <summary> <b> 📑 Pipeline List </b></summary>
 
-  * [🖲️ PaddleX Pipelines (CPU/GPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list.html)
-  * [🔲 PaddleX Pipelines (DCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_dcu.html)
-  * [💻 PaddleX Pipelines (MLU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_mlu.html)
-  * [🔌 PaddleX Pipelines (NPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_npu.html)
-  * [📱 PaddleX Pipelines (XPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_xpu.html)
+* [🖲️ PaddleX Pipelines (CPU/GPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list.html)
+* [🔲 PaddleX Pipelines (DCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_dcu.html)
+* [💻 PaddleX Pipelines (MLU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_mlu.html)
+* [🔌 PaddleX Pipelines (NPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_npu.html)
+* [📱 PaddleX Pipelines (XPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/pipelines_list_xpu.html)
 
 </details>
 
 <details open>
   <summary> <b> 📄 Model List </b></summary>
 
-  * [🖲️ PaddleX Model List (CPU/GPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/models_list.html)
-  * [🔲 PaddleX Model List (Hygon DCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_dcu.html)
-  * [💻 PaddleX Model List (Cambricon MLU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_mlu.html)
-  * [🔌 PaddleX Model List (Huawei Ascend NPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_npu.html)
-  * [📱 PaddleX Model List (Kunlun XPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_xpu.html)
-  * [📺 PaddleX Model List (Enflame GCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_gcu.html)
+* [🖲️ PaddleX Model List (CPU/GPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/models_list.html)
+* [🔲 PaddleX Model List (Hygon DCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_dcu.html)
+* [💻 PaddleX Model List (Cambricon MLU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_mlu.html)
+* [🔌 PaddleX Model List (Huawei Ascend NPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_npu.html)
+* [📱 PaddleX Model List (Kunlun XPU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_xpu.html)
+* [📺 PaddleX Model List (Enflame GCU)](https://paddlepaddle.github.io/PaddleX/latest/en/support_list/model_list_gcu.html)
 
 </details>
 
@@ -1060,17 +1125,19 @@ To use the Python script for other pipelines, simply adjust the `pipeline` param
 
 </details>
 
-
-
-
 ## 🤔 FAQ
 
-For answers to some common questions about our project, please refer to the [FAQ](https://paddlepaddle.github.io/PaddleX/latest/en/FAQ.html). If your question has not been answered, please feel free to raise it in [Issues](https://github.com/PaddlePaddle/PaddleX/issues).
+For answers to some common questions about our project, please refer to
+the [FAQ](https://paddlepaddle.github.io/PaddleX/latest/en/FAQ.html). If your question has not been answered, please
+feel free to raise it in [Issues](https://github.com/PaddlePaddle/PaddleX/issues).
 
 ## 💬 Discussion
 
-We warmly welcome and encourage community members to raise questions, share ideas, and feedback in the [Discussions](https://github.com/PaddlePaddle/PaddleX/discussions) section. Whether you want to report a bug, discuss a feature request, seek help, or just want to keep up with the latest project news, this is a great platform.
+We warmly welcome and encourage community members to raise questions, share ideas, and feedback in
+the [Discussions](https://github.com/PaddlePaddle/PaddleX/discussions) section. Whether you want to report a bug,
+discuss a feature request, seek help, or just want to keep up with the latest project news, this is a great platform.
 
 ## 📄 License
 
-The release of this project is licensed under the [Apache 2.0 license](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta/LICENSE).
+The release of this project is licensed under
+the [Apache 2.0 license](https://github.com/PaddlePaddle/PaddleX/blob/release/3.0-beta/LICENSE).

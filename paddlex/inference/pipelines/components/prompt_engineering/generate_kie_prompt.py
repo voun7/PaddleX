@@ -79,14 +79,14 @@ class GenerateKIEPrompt(BaseGeneratePrompt):
         self.few_shot_demo_key_value_list = few_shot_demo_key_value_list
 
     def generate_prompt(
-        self,
-        text_content: str,
-        key_list: list,
-        task_description: str = None,
-        output_format: str = None,
-        rules_str: str = None,
-        few_shot_demo_text_content: str = None,
-        few_shot_demo_key_value_list: str = None,
+            self,
+            text_content: str,
+            key_list: list,
+            task_description: str = None,
+            output_format: str = None,
+            rules_str: str = None,
+            few_shot_demo_text_content: str = None,
+            few_shot_demo_key_value_list: str = None,
     ) -> str:
         """Generates a prompt based on the given parameters.
 

@@ -15,7 +15,7 @@ Global:
   re_ranking: False
   use_dali: False
   # used for static mode and model export
-  image_shape: [3, 224, 224]
+  image_shape: [ 3, 224, 224 ]
   save_inference_dir: ./inference
 
 # mixed precision
@@ -107,7 +107,7 @@ DataLoader:
             to_rgb: True
             channel_first: False
         - ResizeImage:
-            size: [224, 224]
+            size: [ 224, 224 ]
             return_numpy: False
             interpolation: bilinear
             backend: cv2
@@ -117,20 +117,20 @@ DataLoader:
             padding: 10
             backend: cv2
         - RandCropImageV2:
-            size: [224, 224]
+            size: [ 224, 224 ]
         - RandomRotation:
             prob: 0.5
             degrees: 90
             interpolation: bilinear
         - ResizeImage:
-            size: [224, 224]
+            size: [ 224, 224 ]
             return_numpy: False
             interpolation: bilinear
             backend: cv2
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.485, 0.456, 0.406]
-            std: [0.229, 0.224, 0.225]
+            mean: [ 0.485, 0.456, 0.406 ]
+            std: [ 0.229, 0.224, 0.225 ]
             order: hwc
     sampler:
       name: PKSampler
@@ -153,14 +153,14 @@ DataLoader:
               to_rgb: True
               channel_first: False
           - ResizeImage:
-              size: [224, 224]
+              size: [ 224, 224 ]
               return_numpy: False
               interpolation: bilinear
               backend: cv2
           - NormalizeImage:
               scale: 1.0/255.0
-              mean: [0.485, 0.456, 0.406]
-              std: [0.229, 0.224, 0.225]
+              mean: [ 0.485, 0.456, 0.406 ]
+              std: [ 0.229, 0.224, 0.225 ]
               order: hwc
       sampler:
         name: DistributedBatchSampler
@@ -181,14 +181,14 @@ DataLoader:
               to_rgb: True
               channel_first: False
           - ResizeImage:
-              size: [224, 224]
+              size: [ 224, 224 ]
               return_numpy: False
               interpolation: bilinear
               backend: cv2
           - NormalizeImage:
               scale: 1.0/255.0
-              mean: [0.485, 0.456, 0.406]
-              std: [0.229, 0.224, 0.225]
+              mean: [ 0.485, 0.456, 0.406 ]
+              std: [ 0.229, 0.224, 0.225 ]
               order: hwc
       sampler:
         name: DistributedBatchSampler
@@ -202,5 +202,5 @@ DataLoader:
 Metric:
   Eval:
     - Recallk:
-        topk: [1, 5]
-    - mAP: {}
+        topk: [ 1, 5 ]
+    - mAP: { }

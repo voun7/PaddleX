@@ -26,9 +26,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from ....common.vlm.transformers import PretrainedConfig
 from ......utils.device import parse_device
 from ......utils.env import get_paddle_cuda_version
-from ....common.vlm.transformers import PretrainedConfig
 
 
 class PaddleOCRVisionConfig(PretrainedConfig):
@@ -36,21 +36,21 @@ class PaddleOCRVisionConfig(PretrainedConfig):
     base_config_key = "vision_config"
 
     def __init__(
-        self,
-        hidden_size=768,
-        intermediate_size=3072,
-        num_hidden_layers=12,
-        num_attention_heads=12,
-        num_channels=3,
-        image_size=224,
-        patch_size=14,
-        hidden_act="gelu_pytorch_tanh",
-        layer_norm_eps=1e-6,
-        attention_dropout=0.0,
-        spatial_merge_size=2,
-        temporal_patch_size=2,
-        tokens_per_second=2,
-        **kwargs,
+            self,
+            hidden_size=768,
+            intermediate_size=3072,
+            num_hidden_layers=12,
+            num_attention_heads=12,
+            num_channels=3,
+            image_size=224,
+            patch_size=14,
+            hidden_act="gelu_pytorch_tanh",
+            layer_norm_eps=1e-6,
+            attention_dropout=0.0,
+            spatial_merge_size=2,
+            temporal_patch_size=2,
+            tokens_per_second=2,
+            **kwargs,
     ):
         super().__init__(**kwargs)
 
@@ -90,37 +90,37 @@ class PaddleOCRVLConfig(PretrainedConfig):
     }
 
     def __init__(
-        self,
-        vocab_size=32000,
-        hidden_size=768,
-        intermediate_size=11008,
-        max_position_embeddings=32768,
-        num_hidden_layers=2,
-        num_attention_heads=2,
-        image_token_id=101304,
-        video_token_id=101305,
-        vision_start_token_id=101306,
-        rope_scaling=None,
-        rms_norm_eps=1e-6,
-        use_cache=False,
-        use_flash_attention=False,
-        pad_token_id=0,
-        bos_token_id=1,
-        eos_token_id=2,
-        head_dim=128,
-        hidden_act="silu",
-        use_bias=False,
-        rope_theta=10000,
-        weight_share_add_bias=True,
-        ignored_index=-100,
-        attention_probs_dropout_prob=0.0,
-        hidden_dropout_prob=0.0,
-        compression_ratio: float = 1.0,
-        num_key_value_heads=None,
-        max_sequence_length=None,
-        tie_word_embeddings=False,
-        vision_config=None,
-        **kwargs,
+            self,
+            vocab_size=32000,
+            hidden_size=768,
+            intermediate_size=11008,
+            max_position_embeddings=32768,
+            num_hidden_layers=2,
+            num_attention_heads=2,
+            image_token_id=101304,
+            video_token_id=101305,
+            vision_start_token_id=101306,
+            rope_scaling=None,
+            rms_norm_eps=1e-6,
+            use_cache=False,
+            use_flash_attention=False,
+            pad_token_id=0,
+            bos_token_id=1,
+            eos_token_id=2,
+            head_dim=128,
+            hidden_act="silu",
+            use_bias=False,
+            rope_theta=10000,
+            weight_share_add_bias=True,
+            ignored_index=-100,
+            attention_probs_dropout_prob=0.0,
+            hidden_dropout_prob=0.0,
+            compression_ratio: float = 1.0,
+            num_key_value_heads=None,
+            max_sequence_length=None,
+            tie_word_embeddings=False,
+            vision_config=None,
+            **kwargs,
     ):
         import paddle
 

@@ -21,17 +21,6 @@ from typing import Any, Dict, Optional, Tuple, Union
 import numpy as np
 from PIL import Image
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ...utils.benchmark import benchmark
-from ...utils.hpi import HPIConfig
-from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from ..layout_parsing.utils import gather_imgs
 from .result import PaddleOCRVLBlock, PaddleOCRVLResult
 from .uilts import (
     convert_otsl_to_html,
@@ -42,6 +31,17 @@ from .uilts import (
     truncate_repetitive_content,
     untokenize_figure_of_table,
 )
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
+from ..layout_parsing.utils import gather_imgs
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ...utils.benchmark import benchmark
+from ...utils.hpi import HPIConfig
+from ...utils.pp_option import PaddlePredictorOption
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 IMAGE_LABELS = ["image", "header_image", "footer_image", "seal"]
 
@@ -51,12 +51,12 @@ class _PaddleOCRVLPipeline(BasePipeline):
     """_PaddleOCRVLPipeline Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: Optional[str] = None,
-        pp_option: Optional[PaddlePredictorOption] = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: Optional[str] = None,
+            pp_option: Optional[PaddlePredictorOption] = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """
         Initializes the class with given configurations and options.
@@ -95,7 +95,7 @@ class _PaddleOCRVLPipeline(BasePipeline):
             )
             model_name = layout_det_config.get("model_name", None)
             assert (
-                model_name is not None and model_name == "PP-DocLayoutV2"
+                    model_name is not None and model_name == "PP-DocLayoutV2"
             ), "model_name must be PP-DocLayoutV2"
             layout_kwargs = {}
             if (threshold := layout_det_config.get("threshold", None)) is not None:
@@ -103,15 +103,15 @@ class _PaddleOCRVLPipeline(BasePipeline):
             if (layout_nms := layout_det_config.get("layout_nms", None)) is not None:
                 layout_kwargs["layout_nms"] = layout_nms
             if (
-                layout_unclip_ratio := layout_det_config.get(
-                    "layout_unclip_ratio", None
-                )
+                    layout_unclip_ratio := layout_det_config.get(
+                        "layout_unclip_ratio", None
+                    )
             ) is not None:
                 layout_kwargs["layout_unclip_ratio"] = layout_unclip_ratio
             if (
-                layout_merge_bboxes_mode := layout_det_config.get(
-                    "layout_merge_bboxes_mode", None
-                )
+                    layout_merge_bboxes_mode := layout_det_config.get(
+                        "layout_merge_bboxes_mode", None
+                    )
             ) is not None:
                 layout_kwargs["layout_merge_bboxes_mode"] = layout_merge_bboxes_mode
             self.layout_det_model = self.create_model(
@@ -138,12 +138,12 @@ class _PaddleOCRVLPipeline(BasePipeline):
         self.vl_rec_model.close()
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Union[bool, None],
-        use_doc_unwarping: Union[bool, None],
-        use_layout_detection: Union[bool, None],
-        use_chart_recognition: Union[bool, None],
-        format_block_content: Union[bool, None],
+            self,
+            use_doc_orientation_classify: Union[bool, None],
+            use_doc_unwarping: Union[bool, None],
+            use_layout_detection: Union[bool, None],
+            use_chart_recognition: Union[bool, None],
+            format_block_content: Union[bool, None],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -200,12 +200,12 @@ class _PaddleOCRVLPipeline(BasePipeline):
         return True
 
     def get_layout_parsing_results(
-        self,
-        images,
-        layout_det_results,
-        imgs_in_doc,
-        use_chart_recognition=False,
-        vlm_kwargs=None,
+            self,
+            images,
+            layout_det_results,
+            imgs_in_doc,
+            use_chart_recognition=False,
+            vlm_kwargs=None,
     ):
         blocks = []
         block_imgs = []
@@ -217,7 +217,7 @@ class _PaddleOCRVLPipeline(BasePipeline):
             IMAGE_LABELS if use_chart_recognition else IMAGE_LABELS + ["chart"]
         )
         for i, (image, layout_det_res, imgs_in_doc_for_img) in enumerate(
-            zip(images, layout_det_results, imgs_in_doc)
+                zip(images, layout_det_results, imgs_in_doc)
         ):
             layout_det_res = filter_overlap_boxes(layout_det_res)
             boxes = layout_det_res["boxes"]
@@ -298,7 +298,7 @@ class _PaddleOCRVLPipeline(BasePipeline):
                         result_str = ""
                     result_str = truncate_repetitive_content(result_str)
                     if ("\\(" in result_str and "\\)" in result_str) or (
-                        "\\[" in result_str and "\\]" in result_str
+                            "\\[" in result_str and "\\]" in result_str
                     ):
                         result_str = result_str.replace("$", "")
 
@@ -346,26 +346,26 @@ class _PaddleOCRVLPipeline(BasePipeline):
         return parsing_res_lists, table_res_lists, imgs_in_doc
 
     def predict(
-        self,
-        input: Union[str, list[str], np.ndarray, list[np.ndarray]],
-        use_doc_orientation_classify: Union[bool, None] = False,
-        use_doc_unwarping: Union[bool, None] = False,
-        use_layout_detection: Union[bool, None] = None,
-        use_chart_recognition: Union[bool, None] = None,
-        layout_threshold: Optional[Union[float, dict]] = None,
-        layout_nms: Optional[bool] = None,
-        layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
-        layout_merge_bboxes_mode: Optional[str] = None,
-        use_queues: Optional[bool] = None,
-        prompt_label: Optional[Union[str, None]] = None,
-        format_block_content: Union[bool, None] = None,
-        repetition_penalty: Optional[float] = None,
-        temperature: Optional[float] = None,
-        top_p: Optional[float] = None,
-        min_pixels: Optional[int] = None,
-        max_pixels: Optional[int] = None,
-        max_new_tokens: Optional[int] = None,
-        **kwargs,
+            self,
+            input: Union[str, list[str], np.ndarray, list[np.ndarray]],
+            use_doc_orientation_classify: Union[bool, None] = False,
+            use_doc_unwarping: Union[bool, None] = False,
+            use_layout_detection: Union[bool, None] = None,
+            use_chart_recognition: Union[bool, None] = None,
+            layout_threshold: Optional[Union[float, dict]] = None,
+            layout_nms: Optional[bool] = None,
+            layout_unclip_ratio: Optional[Union[float, Tuple[float, float], dict]] = None,
+            layout_merge_bboxes_mode: Optional[str] = None,
+            use_queues: Optional[bool] = None,
+            prompt_label: Optional[Union[str, None]] = None,
+            format_block_content: Union[bool, None] = None,
+            repetition_penalty: Optional[float] = None,
+            temperature: Optional[float] = None,
+            top_p: Optional[float] = None,
+            min_pixels: Optional[int] = None,
+            max_pixels: Optional[int] = None,
+            max_new_tokens: Optional[int] = None,
+            **kwargs,
     ) -> PaddleOCRVLResult:
         """
         Predicts the layout parsing result for the given input.
@@ -427,9 +427,9 @@ class _PaddleOCRVLPipeline(BasePipeline):
                 new_batch_size = len(batch_data)
 
             for idx in range(0, len(batch_data), new_batch_size):
-                instances = batch_data.instances[idx : idx + new_batch_size]
-                input_paths = batch_data.input_paths[idx : idx + new_batch_size]
-                page_indexes = batch_data.page_indexes[idx : idx + new_batch_size]
+                instances = batch_data.instances[idx: idx + new_batch_size]
+                input_paths = batch_data.input_paths[idx: idx + new_batch_size]
+                page_indexes = batch_data.page_indexes[idx: idx + new_batch_size]
 
                 image_arrays = self.img_reader(instances)
 
@@ -521,14 +521,14 @@ class _PaddleOCRVLPipeline(BasePipeline):
             )
 
             for (
-                input_path,
-                page_index,
-                doc_preprocessor_image,
-                doc_preprocessor_res,
-                layout_det_res,
-                table_res_list,
-                parsing_res_list,
-                imgs_in_doc_for_img,
+                    input_path,
+                    page_index,
+                    doc_preprocessor_image,
+                    doc_preprocessor_res,
+                    layout_det_res,
+                    table_res_list,
+                    parsing_res_list,
+                    imgs_in_doc_for_img,
             ) in zip(
                 input_paths,
                 page_indexes,
@@ -591,12 +591,12 @@ class _PaddleOCRVLPipeline(BasePipeline):
                         break
                     try:
                         for results_cv in _process_cv(
-                            item[1],
-                            (
-                                self.layout_det_model.batch_sampler.batch_size
-                                if model_settings["use_layout_detection"]
-                                else None
-                            ),
+                                item[1],
+                                (
+                                        self.layout_det_model.batch_sampler.batch_size
+                                        if model_settings["use_layout_detection"]
+                                        else None
+                                ),
                         ):
                             queue_cv.put((True, results_cv))
                     except Exception as e:
@@ -614,7 +614,7 @@ class _PaddleOCRVLPipeline(BasePipeline):
                     num_boxes = 0
                     while True:
                         remaining_time = MAX_QUEUE_DELAY_SECS - (
-                            time.time() - start_time
+                                time.time() - start_time
                         )
                         if remaining_time <= 0:
                             break

@@ -15,6 +15,7 @@
 from typing import TYPE_CHECKING, Optional
 
 import numpy as np
+
 from paddlex.inference.serving.infra.models import (
     AIStudioNoResultResponse,
     AIStudioResultResponse,
@@ -48,7 +49,7 @@ Output = Response
 
 
 def create_aistudio_output_without_result(
-    error_code: int, error_msg: str, *, log_id: Optional[str] = None
+        error_code: int, error_msg: str, *, log_id: Optional[str] = None
 ) -> AIStudioOutputWithoutResult:
     if log_id is None:
         log_id = generate_log_id()
@@ -59,7 +60,7 @@ def create_aistudio_output_without_result(
 
 
 def create_aistudio_output_with_result(
-    result: ResultT, log_id: Optional[str] = None
+        result: ResultT, log_id: Optional[str] = None
 ) -> AIStudioOutputWithResult[ResultT]:
     if log_id is None:
         log_id = generate_log_id()

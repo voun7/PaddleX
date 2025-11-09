@@ -13,11 +13,11 @@
 # limitations under the License.
 
 from __future__ import absolute_import
-import logging
-from .... import UltraInferModel, ModelFormat
-from .... import c_lib_wrap as C
+
 from ...common import ProcessorManager
 from ...detection.ppdet import PicoDet
+from .... import UltraInferModel, ModelFormat
+from .... import c_lib_wrap as C
 
 
 class PPShiTuV2Detector(PicoDet):
@@ -75,12 +75,12 @@ class PPShiTuV2RecognizerPostprocessor:
 
 class PPShiTuV2Recognizer(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a image PPShiTuV2Recognizer model exported by PaddleClas.
 

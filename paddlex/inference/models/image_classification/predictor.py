@@ -16,14 +16,14 @@ from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 
-from ....modules.image_classification.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import Normalize, Resize, ResizeByShort, ToBatch, ToCHWImage
 from .processors import Crop, Topk
 from .result import TopkResult
+from ..base import BasePredictor
+from ..common import Normalize, Resize, ResizeByShort, ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.image_classification.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class ClasPredictor(BasePredictor):
@@ -35,7 +35,7 @@ class ClasPredictor(BasePredictor):
     register = FuncRegister(_FUNC_MAP)
 
     def __init__(
-        self, topk: Union[int, None] = None, *args: List, **kwargs: Dict
+            self, topk: Union[int, None] = None, *args: List, **kwargs: Dict
     ) -> None:
         """Initializes ClasPredictor.
 
@@ -90,7 +90,7 @@ class ClasPredictor(BasePredictor):
         return preprocessors, infer, postprocessors
 
     def process(
-        self, batch_data: List[Union[str, np.ndarray]], topk: Union[int, None] = None
+            self, batch_data: List[Union[str, np.ndarray]], topk: Union[int, None] = None
     ) -> Dict[str, Any]:
         """
         Process a batch of data through the preprocessing, inference, and postprocessing.
@@ -125,7 +125,7 @@ class ClasPredictor(BasePredictor):
     @register("ResizeImage")
     # TODO(gaotingquan): backend & interpolation
     def build_resize(
-        self, resize_short=None, size=None, backend="cv2", interpolation="LINEAR"
+            self, resize_short=None, size=None, backend="cv2", interpolation="LINEAR"
     ):
         assert resize_short or size
         if resize_short:
@@ -150,12 +150,12 @@ class ClasPredictor(BasePredictor):
 
     @register("NormalizeImage")
     def build_normalize(
-        self,
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
-        scale=1 / 255,
-        order="",
-        channel_num=3,
+            self,
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+            scale=1 / 255,
+            order="",
+            channel_num=3,
     ):
         assert channel_num == 3
         assert order == ""

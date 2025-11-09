@@ -186,9 +186,9 @@ def check_dict_keys(to_checked_dict, standard_dict, escape_list=None):
             return False
 
         if (
-            isinstance(standard_dict[key], dict)
-            and isinstance(to_checked_dict[key], dict)
-            and key not in escape_list
+                isinstance(standard_dict[key], dict)
+                and isinstance(to_checked_dict[key], dict)
+                and key not in escape_list
         ):
             return check_dict_keys(
                 to_checked_dict[key], standard_dict[key], escape_list

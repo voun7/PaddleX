@@ -4,15 +4,24 @@ comments: true
 
 # PaddleX 3.0 General OCR Pipeline — License Plate Recognition Tutorial
 
-PaddleX provides a rich set of pipelines, each consisting of one or more models that work together to solve specific scenario tasks. All PaddleX pipelines support quick trials, and if the results do not meet expectations, you can also fine-tune the models with private data. PaddleX provides Python APIs to easily integrate pipelines into personal projects. Before use, you need to install PaddleX. For installation instructions, refer to [PaddleX Installation](../installation/installation.en.md). This tutorial introduces the usage of the pipeline tool with a license plate recognition task as an example.
+PaddleX provides a rich set of pipelines, each consisting of one or more models that work together to solve specific
+scenario tasks. All PaddleX pipelines support quick trials, and if the results do not meet expectations, you can also
+fine-tune the models with private data. PaddleX provides Python APIs to easily integrate pipelines into personal
+projects. Before use, you need to install PaddleX. For installation instructions, refer
+to [PaddleX Installation](../installation/installation.en.md). This tutorial introduces the usage of the pipeline tool
+with a license plate recognition task as an example.
 
 ## 1. Select a Pipeline
 
-First, choose the corresponding PaddleX pipeline based on your task scenario. For license plate recognition, this task falls under text detection, corresponding to PaddleX's Universal OCR pipeline. If you are unsure about the correspondence between tasks and pipelines, you can refer to the [Pipeline List](../support_list/pipelines_list.en.md) supported by PaddleX to understand the capabilities of relevant pipelines.
+First, choose the corresponding PaddleX pipeline based on your task scenario. For license plate recognition, this task
+falls under text detection, corresponding to PaddleX's Universal OCR pipeline. If you are unsure about the
+correspondence between tasks and pipelines, you can refer to the [Pipeline List](../support_list/pipelines_list.en.md)
+supported by PaddleX to understand the capabilities of relevant pipelines.
 
 ## 2. Quick Start
 
-PaddleX offers two ways to experience the pipeline: one is through the PaddleX wheel package locally, and the other is on the <b>Baidu AIStudio Community</b>.
+PaddleX offers two ways to experience the pipeline: one is through the PaddleX wheel package locally, and the other is
+on the <b>Baidu AIStudio Community</b>.
 
 - Local Experience:
     ```bash
@@ -20,7 +29,8 @@ PaddleX offers two ways to experience the pipeline: one is through the PaddleX w
         --input https://paddle-model-ecology.bj.bcebos.com/paddlex/PaddleX3.0/doc_images/practical_tutorial/OCR/case1.jpg
     ```
 
-- AIStudio Community Experience: Go to [Baidu AIStudio Community](https://aistudio.baidu.com/pipeline/mine), click "Create Pipeline", and create a <b>Universal OCR</b> pipeline for a quick trial.
+- AIStudio Community Experience: Go to [Baidu AIStudio Community](https://aistudio.baidu.com/pipeline/mine), click "
+  Create Pipeline", and create a <b>Universal OCR</b> pipeline for a quick trial.
 
 Quick trial output example:
 <center>
@@ -29,11 +39,15 @@ Quick trial output example:
 
 </center>
 
-After experiencing the pipeline, determine if it meets your expectations (including accuracy, speed, etc.), and whether the models included in the pipeline need further fine-tuning. If the speed or accuracy of the models does not meet expectations, select replaceable models for continued testing to determine satisfaction. If the final results are unsatisfactory, fine-tune the models.
+After experiencing the pipeline, determine if it meets your expectations (including accuracy, speed, etc.), and whether
+the models included in the pipeline need further fine-tuning. If the speed or accuracy of the models does not meet
+expectations, select replaceable models for continued testing to determine satisfaction. If the final results are
+unsatisfactory, fine-tune the models.
 
 ## 3. Select a Model
 
-PaddleX provides 4 end-to-end text detection models. For details, refer to the [Model List](../support_list/models_list.en.md). The benchmarks of the models are as follows:
+PaddleX provides 4 end-to-end text detection models. For details, refer to
+the [Model List](../support_list/models_list.en.md). The benchmarks of the models are as follows:
 
 <table>
 <thead>
@@ -82,14 +96,22 @@ PaddleX provides 4 end-to-end text detection models. For details, refer to the [
 </tbody>
 </table>
 
-In short, the models listed from top to bottom have faster inference speeds, while from bottom to top, they have higher accuracy. This tutorial uses the `PP-OCRv4_server` model as an example to complete a full model development process. Depending on your actual usage scenario, choose a suitable model for training. After training, evaluate the appropriate model weights within the pipeline and use them in practical scenarios.
+In short, the models listed from top to bottom have faster inference speeds, while from bottom to top, they have higher
+accuracy. This tutorial uses the `PP-OCRv4_server` model as an example to complete a full model development process.
+Depending on your actual usage scenario, choose a suitable model for training. After training, evaluate the appropriate
+model weights within the pipeline and use them in practical scenarios.
 
 ## 4. Data Preparation and Validation
+
 ### 4.1 Data Preparation
 
-This tutorial uses the "License Plate Recognition Dataset" as an example dataset. You can obtain the example dataset using the following commands. If you use your own annotated dataset, you need to adjust it according to the PaddleX format requirements to meet PaddleX's data format specifications. For information on data format, you can refer to [PaddleX Text Detection/Text Recognition Task Module Data Annotation Tutorial](../data_annotations/ocr_modules/text_detection_recognition.en.md).
+This tutorial uses the "License Plate Recognition Dataset" as an example dataset. You can obtain the example dataset
+using the following commands. If you use your own annotated dataset, you need to adjust it according to the PaddleX
+format requirements to meet PaddleX's data format specifications. For information on data format, you can refer
+to [PaddleX Text Detection/Text Recognition Task Module Data Annotation Tutorial](../data_annotations/ocr_modules/text_detection_recognition.en.md).
 
 Dataset acquisition commands:
+
 ```bash
 cd /path/to/paddlex
 wget https://paddle-model-ecology.bj.bcebos.com/paddlex/data/ccpd_text_det.tar -P ./dataset
@@ -106,7 +128,11 @@ python main.py -c paddlex/configs/modules/text_detection/PP-OCRv4_server_det.yam
     -o Global.dataset_dir=./dataset/ccpd_text_det
 ```
 
-After executing the above command, PaddleX will validate the dataset and collect basic information about it. Upon successful execution, the log will print "Check dataset passed !" information, and relevant outputs will be saved in the current directory's `./output/check_dataset` directory, including visualized sample images and sample distribution histograms. The validation result file is saved in `./output/check_dataset_result.json`, and the specific content of the validation result file is
+After executing the above command, PaddleX will validate the dataset and collect basic information about it. Upon
+successful execution, the log will print "Check dataset passed !" information, and relevant outputs will be saved in the
+current directory's `./output/check_dataset` directory, including visualized sample images and sample distribution
+histograms. The validation result file is saved in `./output/check_dataset_result.json`, and the specific content of the
+validation result file is
 
 ```
 {
@@ -149,14 +175,18 @@ After executing the above command, PaddleX will validate the dataset and collect
 }
 ```
 
-In the above verification results, `check_pass` being `True` indicates that the dataset format meets the requirements. Explanations for other indicators are as follows:
+In the above verification results, `check_pass` being `True` indicates that the dataset format meets the requirements.
+Explanations for other indicators are as follows:
 
 - `attributes.train_samples`: The number of samples in the training set of this dataset is 5769;
 - `attributes.val_samples`: The number of samples in the validation set of this dataset is 1001;
-- `attributes.train_sample_paths`: A list of relative paths to the visualization images of samples in the training set of this dataset;
-- `attributes.val_sample_paths`: A list of relative paths to the visualization images of samples in the validation set of this dataset;
+- `attributes.train_sample_paths`: A list of relative paths to the visualization images of samples in the training set
+  of this dataset;
+- `attributes.val_sample_paths`: A list of relative paths to the visualization images of samples in the validation set
+  of this dataset;
 
-Additionally, the dataset verification also analyzes the distribution of sample numbers across all categories in the dataset and plots a histogram (`histogram.png`):
+Additionally, the dataset verification also analyzes the distribution of sample numbers across all categories in the
+dataset and plots a histogram (`histogram.png`):
 <center>
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/practical_tutorials/ocr/02.png" width=600>
@@ -165,25 +195,34 @@ Additionally, the dataset verification also analyzes the distribution of sample 
 
 <b>Note</b>: Only data that passes the verification can be used for training and evaluation.
 
-
 ### 4.3 Dataset Splitting (Optional)
 
-If you need to convert the dataset format or re-split the dataset, you can set it by modifying the configuration file or appending hyperparameters.
+If you need to convert the dataset format or re-split the dataset, you can set it by modifying the configuration file or
+appending hyperparameters.
 
-Parameters related to dataset verification can be set by modifying the fields under `CheckDataset` in the configuration file. Examples of some parameters in the configuration file are as follows:
+Parameters related to dataset verification can be set by modifying the fields under `CheckDataset` in the configuration
+file. Examples of some parameters in the configuration file are as follows:
 
 * `CheckDataset`:
     * `split`:
-        * `enable`: Whether to re-split the dataset. Set to `True` to perform dataset format conversion, default is `False`;
-        * `train_percent`: If re-splitting the dataset, you need to set the percentage of the training set, which is an integer between 0-100, ensuring the sum with `val_percent` is 100;
-        * `val_percent`: If re-splitting the dataset, you need to set the percentage of the validation set, which is an integer between 0-100, ensuring the sum with `train_percent` is 100;
+        * `enable`: Whether to re-split the dataset. Set to `True` to perform dataset format conversion, default is
+          `False`;
+        * `train_percent`: If re-splitting the dataset, you need to set the percentage of the training set, which is an
+          integer between 0-100, ensuring the sum with `val_percent` is 100;
+        * `val_percent`: If re-splitting the dataset, you need to set the percentage of the validation set, which is an
+          integer between 0-100, ensuring the sum with `train_percent` is 100;
 
-During data splitting, the original annotation files will be renamed to `xxx.bak` in their original paths. The above parameters also support being set by appending command-line arguments, for example, to re-split the dataset and set the training and validation set ratios: `-o CheckDataset.split.enable=True -o CheckDataset.split.train_percent=80 -o CheckDataset.split.val_percent=20`.
+During data splitting, the original annotation files will be renamed to `xxx.bak` in their original paths. The above
+parameters also support being set by appending command-line arguments, for example, to re-split the dataset and set the
+training and validation set ratios:
+`-o CheckDataset.split.enable=True -o CheckDataset.split.train_percent=80 -o CheckDataset.split.val_percent=20`.
 
 ## 5. Model Training and Evaluation
+
 ### 5.1 Model Training
 
-Before training, ensure you have verified the dataset. To complete PaddleX model training, simply use the following command:
+Before training, ensure you have verified the dataset. To complete PaddleX model training, simply use the following
+command:
 
 ```bash
 python main.py -c paddlex/configs/modules/text_detection/PP-OCRv4_server_det.yaml \
@@ -191,36 +230,51 @@ python main.py -c paddlex/configs/modules/text_detection/PP-OCRv4_server_det.yam
     -o Global.dataset_dir=./dataset/ccpd_text_det
 ```
 
-PaddleX supports modifying training hyperparameters, single-machine single/multi-GPU training, etc., by modifying the configuration file or appending command line parameters.
+PaddleX supports modifying training hyperparameters, single-machine single/multi-GPU training, etc., by modifying the
+configuration file or appending command line parameters.
 
-Each model in PaddleX provides a configuration file for model development to set relevant parameters. Parameters related to model training can be set by modifying the fields under `Train` in the configuration file. Some example explanations of the parameters in the configuration file are as follows:
+Each model in PaddleX provides a configuration file for model development to set relevant parameters. Parameters related
+to model training can be set by modifying the fields under `Train` in the configuration file. Some example explanations
+of the parameters in the configuration file are as follows:
 
 * `Global`:
-    * `mode`: Mode, supporting dataset verification (`check_dataset`), model training (`train`), and model evaluation (`evaluate`);
-    * `device`: Training device, options include `cpu`, `gpu`, `xpu`, `npu`, `mlu`. For multi-GPU training, specify card numbers, e.g., `gpu:0,1,2,3`;
+    * `mode`: Mode, supporting dataset verification (`check_dataset`), model training (`train`), and model evaluation (
+      `evaluate`);
+    * `device`: Training device, options include `cpu`, `gpu`, `xpu`, `npu`, `mlu`. For multi-GPU training, specify card
+      numbers, e.g., `gpu:0,1,2,3`;
 * `Train`: Training hyperparameter settings;
     * `epochs_iters`: Number of training epochs;
     * `learning_rate`: Training learning rate;
 
-For more hyperparameter introductions, please refer to [PaddleX General Model Configuration File Parameter Explanation](../module_usage/instructions/config_parameters_common.en.md).
+For more hyperparameter introductions, please refer
+to [PaddleX General Model Configuration File Parameter Explanation](../module_usage/instructions/config_parameters_common.en.md).
 
 <b>Note</b>:
-- The above parameters can be set by appending command line arguments, e.g., specifying the mode as model training: `-o Global.mode=train`; specifying the first 2 GPUs for training: `-o Global.device=gpu:0,1`; setting the number of training epochs to 10: `-o Train.epochs_iters=10`.
-- During model training, PaddleX automatically saves model weight files, defaulting to `output`. To specify a save path, use the `-o Global.output` field in the configuration file.
-- PaddleX shields you from the concepts of dynamic graph weights and static graph weights. During model training, both dynamic and static graph weights are produced. During model inference, static graph weights are selected by default.
+
+- The above parameters can be set by appending command line arguments, e.g., specifying the mode as model training:
+  `-o Global.mode=train`; specifying the first 2 GPUs for training: `-o Global.device=gpu:0,1`; setting the number of
+  training epochs to 10: `-o Train.epochs_iters=10`.
+- During model training, PaddleX automatically saves model weight files, defaulting to `output`. To specify a save path,
+  use the `-o Global.output` field in the configuration file.
+- PaddleX shields you from the concepts of dynamic graph weights and static graph weights. During model training, both
+  dynamic and static graph weights are produced. During model inference, static graph weights are selected by default.
 
 <b>Training Output Explanation</b>:
 
-After completing model training, all outputs are saved in the specified output directory (default is `./output/`), typically including:
+After completing model training, all outputs are saved in the specified output directory (default is `./output/`),
+typically including:
 
-* train_result.json: Training result record file, recording whether the training task completed normally, as well as the output weight metrics, related file paths, etc.;
+* train_result.json: Training result record file, recording whether the training task completed normally, as well as the
+  output weight metrics, related file paths, etc.;
 * train.log: Training log file, recording model metric changes, loss changes, etc., during training;
 * config.yaml: Training configuration file, recording the hyperparameter configuration for this training session;
-* .pdparams, .pdopt, .pdstates, .pdiparams, .pdmodel: Model weight-related files, including network parameters, optimizer, static graph network parameters, static graph network structure, etc.;
+* .pdparams, .pdopt, .pdstates, .pdiparams, .pdmodel: Model weight-related files, including network parameters,
+  optimizer, static graph network parameters, static graph network structure, etc.;
 
 ### 5.2 Model Evaluation
 
-After completing model training, you can evaluate the specified model weights file on the validation set to verify the model's accuracy. Using PaddleX for model evaluation requires only one command:
+After completing model training, you can evaluate the specified model weights file on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation requires only one command:
 
 ```bash
 python main.py -c paddlex/configs/modules/text_detection/PP-OCRv4_server_det.yaml \
@@ -228,19 +282,29 @@ python main.py -c paddlex/configs/modules/text_detection/PP-OCRv4_server_det.yam
     -o Global.dataset_dir=./dataset/ccpd_text_det
 ```
 
-Similar to model training, model evaluation supports setting through modifying the configuration file or appending command-line parameters.
+Similar to model training, model evaluation supports setting through modifying the configuration file or appending
+command-line parameters.
 
-<b>Note</b>: When evaluating the model, you need to specify the model weights file path. Each configuration file has a default weight save path built-in. If you need to change it, simply set it by appending a command-line parameter, such as `-o Evaluate.weight_path=./output/best_accuracy/best_accuracy.pdparams`.
+<b>Note</b>: When evaluating the model, you need to specify the model weights file path. Each configuration file has a
+default weight save path built-in. If you need to change it, simply set it by appending a command-line parameter, such
+as `-o Evaluate.weight_path=./output/best_accuracy/best_accuracy.pdparams`.
 
 ### 5.3 Model Tuning
 
-After learning about model training and evaluation, we can improve the model's accuracy by adjusting hyperparameters. By reasonably adjusting the number of training epochs, you can control the depth of model training to avoid overfitting or underfitting. The setting of the learning rate is related to the speed and stability of model convergence. Therefore, when optimizing model performance, it is essential to carefully consider the values of these two parameters and adjust them flexibly according to the actual situation to achieve the best training effect.
+After learning about model training and evaluation, we can improve the model's accuracy by adjusting hyperparameters. By
+reasonably adjusting the number of training epochs, you can control the depth of model training to avoid overfitting or
+underfitting. The setting of the learning rate is related to the speed and stability of model convergence. Therefore,
+when optimizing model performance, it is essential to carefully consider the values of these two parameters and adjust
+them flexibly according to the actual situation to achieve the best training effect.
 
 It is recommended to follow the controlled variable method when debugging parameters:
 
-1. First, fix the number of training epochs to 10, the batch size to 8, the number of GPUs to 4, and the total batch size to 32.
+1. First, fix the number of training epochs to 10, the batch size to 8, the number of GPUs to 4, and the total batch
+   size to 32.
 2. Start four experiments based on the PP-OCRv4_server_det model with learning rates of: 0.00005, 0.0001, 0.0005, 0.001.
-3. You can find that Experiment 4 with a learning rate of 0.001 has the highest accuracy, and by observing the validation set score, the accuracy continues to increase in the last few epochs. Therefore, increasing the number of training epochs to 20 will further improve the model accuracy.
+3. You can find that Experiment 4 with a learning rate of 0.001 has the highest accuracy, and by observing the
+   validation set score, the accuracy continues to increase in the last few epochs. Therefore, increasing the number of
+   training epochs to 20 will further improve the model accuracy.
 
 Learning Rate Exploration Results:
 <center>
@@ -278,7 +342,8 @@ Learning Rate Exploration Results:
 </table>
 </center>
 
-Next, based on a learning rate of 0.001, we can increase the number of training epochs. Comparing Experiments [4, 5] below, it can be seen that increasing the number of training epochs further improves the model accuracy.
+Next, based on a learning rate of 0.001, we can increase the number of training epochs. Comparing Experiments [4, 5]
+below, it can be seen that increasing the number of training epochs further improves the model accuracy.
 <center>
 
 <table>
@@ -304,11 +369,14 @@ Next, based on a learning rate of 0.001, we can increase the number of training 
 </table>
 </center>
 
-<b>Note: This tutorial is designed for 4 GPUs. If you only have 1 GPU, you can complete the experiment by adjusting the number of training GPUs, but the final metrics may not align with the above indicators, which is normal.</b>
+<b>Note: This tutorial is designed for 4 GPUs. If you only have 1 GPU, you can complete the experiment by adjusting the
+number of training GPUs, but the final metrics may not align with the above indicators, which is normal.</b>
 
 ## 6. pipeline Testing
 
-Replace the model in the pipeline with the fine-tuned model for testing. You can obtain the OCR production configuration file and load the configuration file for prediction. You can execute the following command to save the results in `my_path`:
+Replace the model in the pipeline with the fine-tuned model for testing. You can obtain the OCR production configuration
+file and load the configuration file for prediction. You can execute the following command to save the results in
+`my_path`:
 
 ```bash
 paddlex --get_pipeline_config OCR --save_path ./my_path
@@ -353,7 +421,10 @@ This will generate prediction results under `./output`, where the prediction res
 </center>
 
 ## 7. Development Integration/Deployment
-If the general OCR pipeline meets your requirements for inference speed and accuracy in the pipeline, you can proceed directly with development integration/deployment.
+
+If the general OCR pipeline meets your requirements for inference speed and accuracy in the pipeline, you can proceed
+directly with development integration/deployment.
+
 1. Directly apply the trained model in your Python project. You can refer to the following example:
 
 ```python
@@ -371,12 +442,26 @@ output = pipeline.predict(
     res.save_to_json(save_path="./output/")
 
 ```
-For more parameters, please refer to the [General OCR Pipeline Usage Tutorial](../pipeline_usage/tutorials/ocr_pipelines/OCR.en.md).
+
+For more parameters, please refer to
+the [General OCR Pipeline Usage Tutorial](../pipeline_usage/tutorials/ocr_pipelines/OCR.en.md).
 
 1. Additionally, PaddleX offers three other deployment methods, detailed as follows:
 
-* high-performance inference: In actual production environments, many applications have stringent standards for deployment strategy performance metrics (especially response speed) to ensure efficient system operation and smooth user experience. To this end, PaddleX provides high-performance inference plugins aimed at deeply optimizing model inference and pre/post-processing for significant end-to-end process acceleration. For detailed high-performance inference procedures, please refer to the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md).
-* Serving Deployment: Serving Deployment is a common deployment form in actual production environments. By encapsulating inference functions as services, clients can access these services through network requests to obtain inference results. PaddleX supports users in achieving cost-effective serving deployment of pipelines. For detailed serving deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../pipeline_deploy/serving.en.md).
-* On-Device Deployment: Edge deployment is a method that places computing and data processing capabilities directly on user devices, allowing devices to process data without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to the [PaddleX On-Device Deployment Guide](../pipeline_deploy/on_device_deployment.en.md).
+* high-performance inference: In actual production environments, many applications have stringent standards for
+  deployment strategy performance metrics (especially response speed) to ensure efficient system operation and smooth
+  user experience. To this end, PaddleX provides high-performance inference plugins aimed at deeply optimizing model
+  inference and pre/post-processing for significant end-to-end process acceleration. For detailed high-performance
+  inference procedures, please refer to
+  the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.en.md).
+* Serving Deployment: Serving Deployment is a common deployment form in actual production environments. By encapsulating
+  inference functions as services, clients can access these services through network requests to obtain inference
+  results. PaddleX supports users in achieving cost-effective serving deployment of pipelines. For detailed serving
+  deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../pipeline_deploy/serving.en.md).
+* On-Device Deployment: Edge deployment is a method that places computing and data processing capabilities directly on
+  user devices, allowing devices to process data without relying on remote servers. PaddleX supports deploying models on
+  edge devices such as Android. For detailed edge deployment procedures, please refer to
+  the [PaddleX On-Device Deployment Guide](../pipeline_deploy/on_device_deployment.en.md).
 
-You can select the appropriate deployment method for your model pipeline according to your needs, and proceed with subsequent AI application integration.
+You can select the appropriate deployment method for your model pipeline according to your needs, and proceed with
+subsequent AI application integration.

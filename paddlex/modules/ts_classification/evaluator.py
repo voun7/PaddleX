@@ -16,8 +16,8 @@
 import tarfile
 from pathlib import Path
 
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
 
 
 class TSCLSEvaluator(BaseEvaluator):

@@ -18,9 +18,9 @@ import random
 import numpy as np
 from PIL import Image
 
-from .....utils.deps import function_requires_deps, is_dep_available
 from ....common.result import BaseCVResult, JsonMixin
 from ....utils.color_map import get_colormap
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -111,7 +111,6 @@ class SAMSegResult(BaseCVResult):
     """Save Result Transform for SAM"""
 
     def __init__(self, data: dict) -> None:
-
         data["masks"] = [mask.squeeze(0) for mask in list(data["masks"])]
 
         prompts = data["prompts"]

@@ -15,9 +15,9 @@
 import abc
 from concurrent.futures import ThreadPoolExecutor
 
-from ...utils import device as device_utils
-from ..common.batch_sampler import ImageBatchSampler
 from .base import BasePipeline
+from ..common.batch_sampler import ImageBatchSampler
+from ...utils import device as device_utils
 
 
 class MultiDeviceSimpleInferenceExecutor(object):
@@ -32,10 +32,10 @@ class MultiDeviceSimpleInferenceExecutor(object):
         return self._pipelines
 
     def execute(
-        self,
-        input,
-        *args,
-        **kwargs,
+            self,
+            input,
+            *args,
+            **kwargs,
     ):
         with ThreadPoolExecutor(max_workers=len(self._pipelines)) as pool:
             input_batches = self._batch_sampler(input)
@@ -74,10 +74,10 @@ class MultiDeviceSimpleInferenceExecutor(object):
 
 class AutoParallelSimpleInferencePipeline(BasePipeline):
     def __init__(
-        self,
-        config,
-        *args,
-        **kwargs,
+            self,
+            config,
+            *args,
+            **kwargs,
     ):
         super().__init__(*args, **kwargs)
 
@@ -114,10 +114,10 @@ class AutoParallelSimpleInferencePipeline(BasePipeline):
             return getattr(self._pipeline, name)
 
     def predict(
-        self,
-        input,
-        *args,
-        **kwargs,
+            self,
+            input,
+            *args,
+            **kwargs,
     ):
         if self._multi_device_inference:
             yield from self._executor.execute(

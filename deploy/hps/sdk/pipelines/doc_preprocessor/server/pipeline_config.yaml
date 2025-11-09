@@ -1,4 +1,3 @@
-
 pipeline_name: doc_preprocessor
 
 use_doc_orientation_classify: True

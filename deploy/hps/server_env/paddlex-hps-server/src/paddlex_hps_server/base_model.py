@@ -16,11 +16,11 @@ import json
 import time
 import uuid
 
+from pydantic import ValidationError
+
 from paddlex import create_pipeline
 from paddlex.inference import load_pipeline_config
 from paddlex.utils.device import constr_device
-from pydantic import ValidationError
-
 from . import constants, env, logging, protocol
 from .config import create_app_config
 from .lazy_mods import pb_utils

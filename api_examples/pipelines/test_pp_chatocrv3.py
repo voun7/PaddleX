@@ -42,7 +42,6 @@ for res in visual_predict_res:
     layout_parsing_result.save_to_xlsx("./output")
     layout_parsing_result.save_to_html("./output")
 
-
 pipeline.save_visual_info_list(
     visual_info_list, "./res_visual_info/tmp_visual_info.json"
 )

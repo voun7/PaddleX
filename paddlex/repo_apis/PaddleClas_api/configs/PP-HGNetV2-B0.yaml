@@ -12,7 +12,7 @@ Global:
   print_batch_step: 10
   use_visualdl: False
   # used for static mode and model export
-  image_shape: [3, 224, 224]
+  image_shape: [ 3, 224, 224 ]
   save_inference_dir: ./inference
   # training model under @to_static
   to_static: False
@@ -33,7 +33,7 @@ Arch:
   name: PPHGNetV2_B0
   class_num: 1000
   pretrained: True # ssld pretrained
- 
+
 # loss function config for traing/eval process
 Loss:
   Train:
@@ -81,8 +81,8 @@ DataLoader:
             img_size: 224
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.485, 0.456, 0.406]
-            std: [0.229, 0.224, 0.225]
+            mean: [ 0.485, 0.456, 0.406 ]
+            std: [ 0.229, 0.224, 0.225 ]
             order: ''
         - RandomErasing:
             EPSILON: 0.25
@@ -103,7 +103,7 @@ DataLoader:
       use_shared_memory: True
 
   Eval:
-    dataset: 
+    dataset:
       name: ImageNetDataset
       image_root: ./dataset/ILSVRC2012/
       cls_label_path: ./dataset/ILSVRC2012/val_list.txt
@@ -119,8 +119,8 @@ DataLoader:
             size: 224
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.485, 0.456, 0.406]
-            std: [0.229, 0.224, 0.225]
+            mean: [ 0.485, 0.456, 0.406 ]
+            std: [ 0.229, 0.224, 0.225 ]
             order: ''
     sampler:
       name: DistributedBatchSampler
@@ -146,8 +146,8 @@ Infer:
         size: 224
     - NormalizeImage:
         scale: 1.0/255.0
-        mean: [0.485, 0.456, 0.406]
-        std: [0.229, 0.224, 0.225]
+        mean: [ 0.485, 0.456, 0.406 ]
+        std: [ 0.229, 0.224, 0.225 ]
         order: ''
     - ToCHWImage:
   PostProcess:
@@ -158,7 +158,7 @@ Infer:
 Metric:
   Train:
     - TopkAcc:
-        topk: [1, 5]
+        topk: [ 1, 5 ]
   Eval:
     - TopkAcc:
-        topk: [1, 5]
+        topk: [ 1, 5 ]

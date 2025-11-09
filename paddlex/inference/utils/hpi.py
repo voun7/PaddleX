@@ -24,11 +24,11 @@ from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated, TypeAlias
 
+from .misc import is_mkldnn_available
+from .model_paths import ModelPaths
 from ...utils.deps import function_requires_deps, is_paddle2onnx_plugin_available
 from ...utils.env import get_paddle_cuda_version, get_paddle_version
 from ...utils.flags import USE_PIR_TRT
-from .misc import is_mkldnn_available
-from .model_paths import ModelPaths
 
 
 class PaddleInferenceInfo(BaseModel):
@@ -98,7 +98,7 @@ ModelFormat: TypeAlias = Literal["paddle", "onnx", "om"]
 @lru_cache(1)
 def _get_hpi_model_info_collection():
     with importlib.resources.open_text(
-        __package__, "hpi_model_info_collection.json", encoding="utf-8"
+            __package__, "hpi_model_info_collection.json", encoding="utf-8"
     ) as f:
         hpi_model_info_collection = json.load(f)
     return hpi_model_info_collection
@@ -106,8 +106,8 @@ def _get_hpi_model_info_collection():
 
 @function_requires_deps("ultra-infer")
 def suggest_inference_backend_and_config(
-    hpi_config: HPIConfig,
-    model_paths: ModelPaths,
+        hpi_config: HPIConfig,
+        model_paths: ModelPaths,
 ) -> Union[Tuple[InferenceBackend, Dict[str, Any]], Tuple[None, str]]:
     # TODO: The current strategy is naive. It would be better to consider
     # additional important factors, such as NVIDIA GPU compute capability and
@@ -129,21 +129,21 @@ def suggest_inference_backend_and_config(
     if "paddle" in model_paths:
         available_backends.append("paddle")
     if (
-        is_built_with_openvino()
-        and is_onnx_model_available
-        and hpi_config.device_type == "cpu"
+            is_built_with_openvino()
+            and is_onnx_model_available
+            and hpi_config.device_type == "cpu"
     ):
         available_backends.append("openvino")
     if (
-        is_built_with_ort()
-        and is_onnx_model_available
-        and hpi_config.device_type in ("cpu", "gpu")
+            is_built_with_ort()
+            and is_onnx_model_available
+            and hpi_config.device_type in ("cpu", "gpu")
     ):
         available_backends.append("onnxruntime")
     if (
-        is_built_with_trt()
-        and is_onnx_model_available
-        and hpi_config.device_type == "gpu"
+            is_built_with_trt()
+            and is_onnx_model_available
+            and hpi_config.device_type == "gpu"
     ):
         available_backends.append("tensorrt")
     if is_built_with_om() and "om" in model_paths and hpi_config.device_type == "npu":
@@ -206,10 +206,10 @@ def suggest_inference_backend_and_config(
 
     # XXX
     if not (
-        USE_PIR_TRT
-        and importlib.util.find_spec("tensorrt")
-        and ctypes.util.find_library("nvinfer")
-        and hpi_config.device_type == "gpu"
+            USE_PIR_TRT
+            and importlib.util.find_spec("tensorrt")
+            and ctypes.util.find_library("nvinfer")
+            and hpi_config.device_type == "gpu"
     ):
         for pb in supported_pseudo_backends[:]:
             if pb.startswith("paddle_tensorrt"):

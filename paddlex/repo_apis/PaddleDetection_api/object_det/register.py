@@ -15,10 +15,10 @@
 import os
 import os.path as osp
 
-from ...base.register import register_model_info, register_suite_info
 from .config import DetConfig
 from .model import DetModel
 from .runner import DetRunner
+from ...base.register import register_model_info, register_suite_info
 
 REPO_ROOT_PATH = os.environ.get("PADDLE_PDX_PADDLEDETECTION_PATH")
 PDX_CONFIG_DIR = osp.abspath(osp.join(osp.dirname(__file__), "..", "configs"))
@@ -366,7 +366,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "FasterRCNN-ResNet34-FPN",
@@ -381,7 +380,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -398,7 +396,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "FasterRCNN-ResNet50-FPN",
@@ -414,7 +411,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "FasterRCNN-ResNet50-vd-FPN",
@@ -429,7 +425,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -448,7 +443,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "FasterRCNN-ResNet101",
@@ -463,7 +457,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -480,7 +473,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "FasterRCNN-ResNeXt101-vd-FPN",
@@ -495,7 +487,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -512,7 +503,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "Cascade-FasterRCNN-ResNet50-FPN",
@@ -527,7 +517,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -546,7 +535,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "PicoDet-XS",
@@ -561,7 +549,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -578,7 +565,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "FCOS-ResNet50",
@@ -593,7 +579,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -610,7 +595,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "PP-YOLOE-L_vehicle",
@@ -625,7 +609,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -642,7 +625,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "PP-ShiTuV2_det",
@@ -657,7 +639,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -674,7 +655,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "PP-YOLOE-S_human",
@@ -689,7 +669,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -706,7 +685,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "CenterNet-ResNet50",
@@ -721,7 +699,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -738,7 +715,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "PP-YOLOE_plus_SOD-S",
@@ -754,7 +730,6 @@ register_model_info(
     }
 )
 
-
 register_model_info(
     {
         "model_name": "PP-YOLOE_plus_SOD-largesize-L",
@@ -769,7 +744,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {
@@ -845,7 +819,6 @@ register_model_info(
         },
     }
 )
-
 
 register_model_info(
     {

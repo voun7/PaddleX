@@ -6,7 +6,7 @@ Global:
   print_batch_step: 20
   save_model_dir: ./output/rec_ppocr_v4_hgnet
   save_epoch_step: 10
-  eval_batch_step: [0, 2000]
+  eval_batch_step: [ 0, 2000 ]
   cal_metric_during_train: true
   pretrained_model: https://paddleocr.bj.bcebos.com/pretrained/ch_PP-OCRv4_rec_server_trained.pdparams
   checkpoints:
@@ -19,7 +19,7 @@ Global:
   use_space_char: true
   distributed: true
   save_res_path: ./output/rec/predicts_ppocrv3.txt
-  d2s_train_image_shape: [3,48,320]
+  d2s_train_image_shape: [ 3,48,320 ]
 
 Optimizer:
   name: Adam
@@ -49,7 +49,7 @@ Architecture:
             dims: 120
             depth: 2
             hidden_dims: 120
-            kernel_size: [1, 3]
+            kernel_size: [ 1, 3 ]
             use_guide: True
           Head:
             fc_decay: 0.00001
@@ -63,7 +63,7 @@ Loss:
     - CTCLoss:
     - NRTRLoss:
 
-PostProcess:  
+PostProcess:
   name: CTCLabelDecode
 
 Metric:
@@ -77,32 +77,32 @@ Train:
     data_dir: ./train_data/
     ext_op_transform_idx: 1
     label_file_list:
-    - ./train_data/train_list.txt
+      - ./train_data/train_list.txt
     transforms:
-    - DecodeImage:
-        img_mode: BGR
-        channel_first: false
-    - RecConAug:
-        prob: 0.5
-        ext_data_num: 2
-        image_shape: [48, 320, 3]
-        max_text_length: *max_text_length
-    - RecAug:
-    - MultiLabelEncode:
-        gtc_encode: NRTRLabelEncode
-    - KeepKeys:
-        keep_keys:
-        - image
-        - label_ctc
-        - label_gtc
-        - length
-        - valid_ratio
+      - DecodeImage:
+          img_mode: BGR
+          channel_first: false
+      - RecConAug:
+          prob: 0.5
+          ext_data_num: 2
+          image_shape: [ 48, 320, 3 ]
+          max_text_length: *max_text_length
+      - RecAug:
+      - MultiLabelEncode:
+          gtc_encode: NRTRLabelEncode
+      - KeepKeys:
+          keep_keys:
+            - image
+            - label_ctc
+            - label_gtc
+            - length
+            - valid_ratio
   sampler:
     name: MultiScaleSampler
-    scales: [[320, 32], [320, 48], [320, 64]]
+    scales: [ [ 320, 32 ], [ 320, 48 ], [ 320, 64 ] ]
     first_bs: 8
     fix_bs: false
-    divided_factor: [8, 16] # w, h
+    divided_factor: [ 8, 16 ] # w, h
     is_training: True
   loader:
     shuffle: true
@@ -114,22 +114,22 @@ Eval:
     name: TextRecDataset
     data_dir: ./train_data
     label_file_list:
-    - ./train_data/val_list.txt
+      - ./train_data/val_list.txt
     transforms:
-    - DecodeImage:
-        img_mode: BGR
-        channel_first: false
-    - MultiLabelEncode:
-        gtc_encode: NRTRLabelEncode
-    - RecResizeImg:
-        image_shape: [3, 48, 320]
-    - KeepKeys:
-        keep_keys:
-        - image
-        - label_ctc
-        - label_gtc
-        - length
-        - valid_ratio
+      - DecodeImage:
+          img_mode: BGR
+          channel_first: false
+      - MultiLabelEncode:
+          gtc_encode: NRTRLabelEncode
+      - RecResizeImg:
+          image_shape: [ 3, 48, 320 ]
+      - KeepKeys:
+          keep_keys:
+            - image
+            - label_ctc
+            - label_gtc
+            - length
+            - valid_ratio
   loader:
     shuffle: false
     drop_last: false

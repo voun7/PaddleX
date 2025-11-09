@@ -26,7 +26,7 @@ def convert_to_dict_message(conversation: List[List[str]]):
     conversations = []
     for index, item in enumerate(conversation):
         assert (
-            1 <= len(item) <= 2
+                1 <= len(item) <= 2
         ), "Each Rounds in conversation should have 1 or 2 elements."
         if isinstance(item[0], str):
             conversations.append({"role": "user", "content": item[0]})
@@ -54,7 +54,7 @@ def fn_args_to_dict(func, *args, **kwargs):
     init_dict = dict(zip(spec_args, args))
     # add default argument values
     kwargs_dict = (
-        dict(zip(spec_args[-len(spec_defaults) :], spec_defaults))
+        dict(zip(spec_args[-len(spec_defaults):], spec_defaults))
         if spec_defaults
         else {}
     )

@@ -17,10 +17,10 @@ import copy
 import PIL
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.deps import class_requires_deps, is_dep_available
-from ....utils.fonts import PINGFANG_FONT
 from ...common.result import BaseCVResult, JsonMixin
 from ...utils.color_map import font_colormap, get_colormap
+from ....utils.deps import class_requires_deps, is_dep_available
+from ....utils.fonts import PINGFANG_FONT
 
 if is_dep_available("opencv-contrib-python"):
     import cv2

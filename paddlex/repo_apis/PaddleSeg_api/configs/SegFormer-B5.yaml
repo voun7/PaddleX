@@ -19,7 +19,7 @@ train_dataset:
       max_scale_factor: 2.0
       scale_step_size: 0.25
     - type: RandomPaddingCrop
-      crop_size: [1024, 512]
+      crop_size: [ 1024, 512 ]
     - type: RandomHorizontalFlip
     - type: RandomDistort
       brightness_range: 0.4
@@ -52,4 +52,4 @@ lr_scheduler:
 loss:
   types:
     - type: CrossEntropyLoss
-  coef: [1]
+  coef: [ 1 ]

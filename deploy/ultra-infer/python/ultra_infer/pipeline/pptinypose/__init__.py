@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 from ... import c_lib_wrap as C
 
 
@@ -24,7 +25,7 @@ class PPTinyPose(object):
         :param pptinypose_model: (ultra_infer.vision.keypointdetection.PPTinyPose)Initialized pptinypose model object
         """
         assert (
-            det_model is not None or pptinypose_model is not None
+                det_model is not None or pptinypose_model is not None
         ), "The det_model and pptinypose_model cannot be None."
         self._pipeline = C.pipeline.PPTinyPose(
             det_model._model, pptinypose_model._model

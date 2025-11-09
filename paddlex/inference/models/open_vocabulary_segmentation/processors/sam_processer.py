@@ -15,14 +15,14 @@
 from copy import deepcopy
 from typing import List, Optional, Tuple, Union
 
-import numpy as np
 import PIL
+import numpy as np
 
 from ....utils.benchmark import benchmark
 
 
 def _get_preprocess_shape(
-    oldh: int, oldw: int, long_side_length: int
+        oldh: int, oldw: int, long_side_length: int
 ) -> Tuple[int, int]:
     """Compute the output size given input size and target long side length."""
     scale = long_side_length * 1.0 / max(oldh, oldw)
@@ -35,11 +35,11 @@ def _get_preprocess_shape(
 class SAMProcessor(object):
 
     def __init__(
-        self,
-        size: Optional[Union[List[int], int]] = None,
-        image_mean: Union[float, List[float]] = [123.675, 116.28, 103.53],
-        image_std: Union[float, List[float]] = [58.395, 57.12, 57.375],
-        **kwargs,
+            self,
+            size: Optional[Union[List[int], int]] = None,
+            image_mean: Union[float, List[float]] = [123.675, 116.28, 103.53],
+            image_std: Union[float, List[float]] = [58.395, 57.12, 57.375],
+            **kwargs,
     ) -> None:
 
         size = size if size is not None else 1024
@@ -59,12 +59,12 @@ class SAMProcessor(object):
         self.prompt_processor = SamPromptProcessor(self.size)
 
     def preprocess(
-        self,
-        images,
-        *,
-        point_prompt=None,
-        box_prompt=None,
-        **kwargs,
+            self,
+            images,
+            *,
+            point_prompt=None,
+            box_prompt=None,
+            **kwargs,
     ):
 
         if point_prompt is not None and box_prompt is not None:
@@ -127,13 +127,13 @@ class SamPromptProcessor(object):
     """Constructs a Sam prompt processor."""
 
     def __init__(
-        self,
-        size: int = 1024,
+            self,
+            size: int = 1024,
     ):
         self.size = size
 
     def apply_coords(
-        self, coords: np.ndarray, original_size: Tuple[int, ...]
+            self, coords: np.ndarray, original_size: Tuple[int, ...]
     ) -> np.ndarray:
         """Expects a numpy array of length 2 in the final dimension. Requires the
         original image size in (H, W) format.
@@ -148,7 +148,7 @@ class SamPromptProcessor(object):
         return coords
 
     def apply_boxes(
-        self, boxes: np.ndarray, original_size: Tuple[int, ...]
+            self, boxes: np.ndarray, original_size: Tuple[int, ...]
     ) -> np.ndarray:
         """Expects a numpy array shape Nx4. Requires the original image size
         in (H, W) format.
@@ -157,11 +157,11 @@ class SamPromptProcessor(object):
         return boxes.reshape([-1, 4])
 
     def __call__(
-        self,
-        original_size,
-        point_coords=None,
-        box=None,
-        **kwargs,
+            self,
+            original_size,
+            point_coords=None,
+            box=None,
+            **kwargs,
     ):
         if point_coords is not None and box is not None:
             raise ValueError(
@@ -182,11 +182,11 @@ class SamImageProcessor(object):
     """Constructs a Sam image processor."""
 
     def __init__(
-        self,
-        size: Union[List[int], int] = None,
-        image_mean: Union[float, List[float]] = [0.5, 0.5, 0.5],
-        image_std: Union[float, List[float]] = [0.5, 0.5, 0.5],
-        **kwargs,
+            self,
+            size: Union[List[int], int] = None,
+            image_mean: Union[float, List[float]] = [0.5, 0.5, 0.5],
+            image_std: Union[float, List[float]] = [0.5, 0.5, 0.5],
+            **kwargs,
     ) -> None:
 
         size = size if size is not None else 1024
@@ -219,8 +219,8 @@ class SamImageProcessor(object):
         return self.preprocess(images)
 
     def preprocess(
-        self,
-        images,
+            self,
+            images,
     ):
         """Preprocess an image or a batch of images with a same shape."""
         import paddle

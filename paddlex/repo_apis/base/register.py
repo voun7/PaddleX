@@ -84,8 +84,8 @@ class Registry(object):
     def is_compatible_with(self, registry):
         """is_compatible_with"""
         return (
-            self.required_keys == registry.required_keys
-            and self.primary_key == registry.primary_key
+                self.required_keys == registry.required_keys
+                and self.primary_key == registry.primary_key
         )
 
     def __str__(self):

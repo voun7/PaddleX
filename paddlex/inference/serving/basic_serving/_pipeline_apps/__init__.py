@@ -15,8 +15,8 @@
 import importlib
 from typing import Any, Dict
 
-from .....utils.deps import function_requires_deps, is_dep_available
 from ...infra.config import create_app_config
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI

@@ -4,7 +4,9 @@ comments: true
 
 # PaddleX Serving Guide
 
-Serving is a common deployment strategy in real-world production environments. By encapsulating inference functions into services, clients can access these services via network requests to obtain inference results. PaddleX supports various solutions for serving pipelines.
+Serving is a common deployment strategy in real-world production environments. By encapsulating inference functions into
+services, clients can access these services via network requests to obtain inference results. PaddleX supports various
+solutions for serving pipelines.
 
 Demonstration of PaddleX pipeline serving:
 
@@ -13,9 +15,12 @@ Demonstration of PaddleX pipeline serving:
 To address different user needs, PaddleX offers multiple pipeline serving solutions:
 
 - **Basic serving**: A simple and easy-to-use serving solution with low development costs.
-- **High-stability serving**: Built on [NVIDIA Triton Inference Server](https://developer.nvidia.com/triton-inference-server). Compared to basic serving, this solution offers higher stability and allows users to adjust configurations to optimize performance.
+- **High-stability serving**: Built
+  on [NVIDIA Triton Inference Server](https://developer.nvidia.com/triton-inference-server). Compared to basic serving,
+  this solution offers higher stability and allows users to adjust configurations to optimize performance.
 
-**It is recommended to first use the basic serving solution for quick verification**, and then evaluate whether to try more complex solutions based on actual needs.
+**It is recommended to first use the basic serving solution for quick verification**, and then evaluate whether to try
+more complex solutions based on actual needs.
 
 <b>Note</b>
 
@@ -54,7 +59,10 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
 ```
 
-`--pipeline` can be specified as the official pipeline name or the path to a local pipeline configuration file. PaddleX builds the pipeline and deploys it as a service. If you need to adjust configurations (such as model paths, batch size, device for deployment, etc.), please refer to the <b>"Model Application"</b> section in [General Image Classification Pipeline Tutorial](../pipeline_usage/tutorials/cv_pipelines/image_classification.en.md).
+`--pipeline` can be specified as the official pipeline name or the path to a local pipeline configuration file. PaddleX
+builds the pipeline and deploys it as a service. If you need to adjust configurations (such as model paths, batch size,
+device for deployment, etc.), please refer to the <b>"Model Application"</b> section
+in [General Image Classification Pipeline Tutorial](../pipeline_usage/tutorials/cv_pipelines/image_classification.en.md).
 
 The command-line options related to serving are as follows:
 
@@ -94,9 +102,12 @@ The command-line options related to serving are as follows:
 </table>
 </table>
 
-In application scenarios where strict requirements are placed on service response time, the PaddleX high-performance inference plugin can be used to accelerate model inference and pre/post-processing, thereby reducing response time and increasing throughput.
+In application scenarios where strict requirements are placed on service response time, the PaddleX high-performance
+inference plugin can be used to accelerate model inference and pre/post-processing, thereby reducing response time and
+increasing throughput.
 
-To use the PaddleX high-performance inference plugin, please refer to the [PaddleX High-Performance Inference Guide](./high_performance_inference.en.md).
+To use the PaddleX high-performance inference plugin, please refer to
+the [PaddleX High-Performance Inference Guide](./high_performance_inference.en.md).
 
 You can use the `--use_hpip` flag to enable the high-performance inference plugin. An example is as follows:
 
@@ -106,7 +117,9 @@ paddlex --serve --pipeline image_classification --use_hpip
 
 ### 1.3 Invoke the Service
 
-The "Development Integration/Deployment" section in each pipeline’s tutorial provides API references and multi-language invocation examples for the service. You can find the tutorials for each pipeline [here](../pipeline_usage/pipeline_develop_guide.en.md).
+The "Development Integration/Deployment" section in each pipeline’s tutorial provides API references and multi-language
+invocation examples for the service. You can find the tutorials for each
+pipeline [here](../pipeline_usage/pipeline_develop_guide.en.md).
 
 ## 2. High-Stability Serving
 
@@ -262,17 +275,24 @@ Find the high-stability serving SDK corresponding to the pipeline in the table b
 </table>
 </details>
 
-For manual packaging, please refer to [the `hps` project documentation](https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/hps/README_en.md#2-pipeline-material-packaging).
+For manual packaging, please refer to [the
+`hps` project documentation](https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/hps/README_en.md#2-pipeline-material-packaging).
 
 ### 2.2 Adjust Configurations
 
-The `server/pipeline_config.yaml` file of the the high-stability serving SDK is the pipeline configuration file. Users can modify this file to set the model directory to use, etc.
+The `server/pipeline_config.yaml` file of the the high-stability serving SDK is the pipeline configuration file. Users
+can modify this file to set the model directory to use, etc.
 
-In addition, the PaddleX high-stability serving solution is built on NVIDIA Triton Inference Server, allowing users to modify the configuration files of Triton Inference Server.
+In addition, the PaddleX high-stability serving solution is built on NVIDIA Triton Inference Server, allowing users to
+modify the configuration files of Triton Inference Server.
 
-In the `server/model_repo/{endpoint name}` directory of the high-stability serving SDK, you can find one or more `config*.pbtxt` files. If a `config_{device type}.pbtxt` file exists in the directory, please modify the configuration file corresponding to the desired device type. Otherwise, please modify `config.pbtxt`.
+In the `server/model_repo/{endpoint name}` directory of the high-stability serving SDK, you can find one or more
+`config*.pbtxt` files. If a `config_{device type}.pbtxt` file exists in the directory, please modify the configuration
+file corresponding to the desired device type. Otherwise, please modify `config.pbtxt`.
 
-A common requirement is to adjust the number of execution instances. To achieve this, you need to modify the `instance_group` setting in the configuration file, using `count` to specify the number of instances placed on each device, `kind` to specify the device type, and `gpus` to specify the GPU IDs. An example is as follows:
+A common requirement is to adjust the number of execution instances. To achieve this, you need to modify the
+`instance_group` setting in the configuration file, using `count` to specify the number of instances placed on each
+device, `kind` to specify the device type, and `gpus` to specify the GPU IDs. An example is as follows:
 
 - Place 4 instances on GPU 0:
 
@@ -303,7 +323,8 @@ A common requirement is to adjust the number of execution instances. To achieve 
     ]
     ```
 
-For more configuration details, please refer to the [Triton Inference Server documentation](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/model_configuration.html).
+For more configuration details, please refer to
+the [Triton Inference Server documentation](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/model_configuration.html).
 
 ### 2.3 Run the Server
 
@@ -323,7 +344,8 @@ First, pull the Docker image as needed:
     docker pull ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlex/hps:paddlex3.3-cpu
     ```
 
-If you need to build the image on your own, please refer to [the `hps` project documentation](https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/hps/README_en.md#1-image-building)
+If you need to build the image on your own, please refer to [the
+`hps` project documentation](https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/hps/README_en.md#1-image-building)
 
 With the image prepared, navigate to the `server` directory and execute the following command to run the server:
 
@@ -344,9 +366,13 @@ docker run \
 
 - The deployment device type can be `cpu` or `gpu`, and the CPU-only image supports only `cpu`.
 - If CPU deployment is required, there is no need to specify `--gpus`.
-- If you need to enter the container for debugging, you can replace `/bin/bash server.sh` in the command with `/bin/bash`. Then execute `/bin/bash server.sh` inside the container.
-- If you want the server to run in the background, you can replace `-it` in the command with `-d`. After the container starts, you can view the container logs with `docker logs -f {container ID}`.
-- Add `-e PADDLEX_HPS_USE_HPIP=1` to use the PaddleX high-performance inference plugin to accelerate the pipeline inference process. Please refer to the [PaddleX High-Performance Inference Guide](./high_performance_inference.en.md) for more information.
+- If you need to enter the container for debugging, you can replace `/bin/bash server.sh` in the command with
+  `/bin/bash`. Then execute `/bin/bash server.sh` inside the container.
+- If you want the server to run in the background, you can replace `-it` in the command with `-d`. After the container
+  starts, you can view the container logs with `docker logs -f {container ID}`.
+- Add `-e PADDLEX_HPS_USE_HPIP=1` to use the PaddleX high-performance inference plugin to accelerate the pipeline
+  inference process. Please refer to the [PaddleX High-Performance Inference Guide](./high_performance_inference.en.md)
+  for more information.
 
 You may observe output similar to the following:
 
@@ -358,15 +384,19 @@ I1216 11:37:21.643494 35 http_server.cc:167] Started Metrics Service at 0.0.0.0:
 
 ### 2.4 Invoke the Service
 
-Users can call the pipeline service through the Python client provided by the SDK or by manually constructing HTTP requests (with no restriction on client programming languages).
+Users can call the pipeline service through the Python client provided by the SDK or by manually constructing HTTP
+requests (with no restriction on client programming languages).
 
-
-The services deployed using the high-stability serving solution offer the primary operations that match those of the basic serving solution. For each primary operation, the endpoint names and the request and response data fields are consistent with the basic serving solution. Please refer to the "Development Integration/Deployment" section in the tutorials for each pipeline. The tutorials for each pipeline can be found [here](../pipeline_usage/pipeline_develop_guide.en.md).
-
+The services deployed using the high-stability serving solution offer the primary operations that match those of the
+basic serving solution. For each primary operation, the endpoint names and the request and response data fields are
+consistent with the basic serving solution. Please refer to the "Development Integration/Deployment" section in the
+tutorials for each pipeline. The tutorials for each pipeline can be
+found [here](../pipeline_usage/pipeline_develop_guide.en.md).
 
 #### 2.4.1 Use Python Client
 
-Navigate to the `client` directory of the high-stability serving SDK, and run the following command to install dependencies:
+Navigate to the `client` directory of the high-stability serving SDK, and run the following command to install
+dependencies:
 
 ```bash
 # It is recommended to install in a virtual environment
@@ -376,15 +406,20 @@ python -m pip install paddlex_hps_client-*.whl
 
 The Python client currently supports Python versions 3.8 to 3.12.
 
-The `client.py` script in the `client` directory contains examples of how to call the service and provides a command-line interface.
+The `client.py` script in the `client` directory contains examples of how to call the service and provides a
+command-line interface.
 
 #### 2.4.2 Manually Construct HTTP Requests
 
-The following method demonstrates how to call the service using the HTTP interface in scenarios where the Python client is not applicable.
+The following method demonstrates how to call the service using the HTTP interface in scenarios where the Python client
+is not applicable.
 
-First, you need to manually construct the HTTP request body. The request body must be in JSON format and contains the following fields:
+First, you need to manually construct the HTTP request body. The request body must be in JSON format and contains the
+following fields:
 
-- `inputs`: Input tensor information. The input tensor name `name` is uniformly set to `input`, the shape is `[1, 1]`, and the data type `datatype` is `BYTES`. The  tensor data `data` contains a single JSON string, and the content of this JSON should follow the pipeline-specific format (consistent with the basic serving solution).
+- `inputs`: Input tensor information. The input tensor name `name` is uniformly set to `input`, the shape is `[1, 1]`,
+  and the data type `datatype` is `BYTES`. The tensor data `data` contains a single JSON string, and the content of this
+  JSON should follow the pipeline-specific format (consistent with the basic serving solution).
 - `outputs`: Output tensor information. The output tensor name `name` is uniformly set to `output`.
 
 Taking the general OCR pipeline as an example, the constructed request body is as follows:
@@ -394,7 +429,10 @@ Taking the general OCR pipeline as an example, the constructed request body is a
   "inputs": [
     {
       "name": "input",
-      "shape": [1, 1],
+      "shape": [
+        1,
+        1
+      ],
       "datatype": "BYTES",
       "data": [
         "{\"file\":\"https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_001.png\",\"visualize\":false}"
@@ -409,7 +447,9 @@ Taking the general OCR pipeline as an example, the constructed request body is a
 }
 ```
 
-Send the constructed request body to the corresponding HTTP inference endpoint of the service. By default, the service listens on HTTP port `8000`, and the inference request URL follows the format `http://{hostname}:8000/v2/models/{endpoint name}/infer`.
+Send the constructed request body to the corresponding HTTP inference endpoint of the service. By default, the service
+listens on HTTP port `8000`, and the inference request URL follows the format
+`http://{hostname}:8000/v2/models/{endpoint name}/infer`.
 
 Using the general OCR pipeline as an example, the following is a `curl` command to send the request:
 
@@ -435,4 +475,5 @@ Finally, the response from the service needs to be parsed. The raw response body
 }
 ```
 
-`outputs[0].data[0]` is a JSON string. The internal fields follow the same format as the response body in the basic serving solution. For detailed parsing rules, please refer to the usage guide for each specific pipeline.
+`outputs[0].data[0]` is a JSON string. The internal fields follow the same format as the response body in the basic
+serving solution. For detailed parsing rules, please refer to the usage guide for each specific pipeline.

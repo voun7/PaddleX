@@ -91,12 +91,12 @@ class BlazeFacePostprocessor:
 
 class BlazeFace(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        config_file="",
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file="",
+            config_file="",
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a BlazeFace model exported by BlazeFace.
 

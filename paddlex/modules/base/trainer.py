@@ -15,6 +15,8 @@
 import os
 from abc import ABC, abstractmethod
 
+from .build_model import build_model
+from .utils.cinn_setting import CINN_WHITELIST, enable_cinn_backend
 from ...utils.config import AttrDict
 from ...utils.device import (
     check_supported_device,
@@ -23,8 +25,6 @@ from ...utils.device import (
 )
 from ...utils.flags import DISABLE_CINN_MODEL_WL, FLAGS_json_format_model
 from ...utils.misc import AutoRegisterABCMetaClass
-from .build_model import build_model
-from .utils.cinn_setting import CINN_WHITELIST, enable_cinn_backend
 
 
 def build_trainer(config: AttrDict) -> "BaseTrainer":
@@ -76,7 +76,7 @@ class BaseTrainer(ABC, metaclass=AutoRegisterABCMetaClass):
         if self.benchmark_config is not None:
             train_args.update({"benchmark": self.benchmark_config})
         export_with_pir = (
-            self.global_config.get("export_with_pir", False) or FLAGS_json_format_model
+                self.global_config.get("export_with_pir", False) or FLAGS_json_format_model
         )
         train_args.update(
             {
@@ -90,15 +90,15 @@ class BaseTrainer(ABC, metaclass=AutoRegisterABCMetaClass):
 
         # apply CINN when model is supported
         if (
-            not DISABLE_CINN_MODEL_WL
-            and self.train_config.get("dy2st", False)
-            and self.global_config.model in CINN_WHITELIST
+                not DISABLE_CINN_MODEL_WL
+                and self.train_config.get("dy2st", False)
+                and self.global_config.model in CINN_WHITELIST
         ):
             enable_cinn_backend()
 
         train_result = self.pdx_model.train(**train_args)
         assert (
-            train_result.returncode == 0
+                train_result.returncode == 0
         ), f"Encountered an unexpected error({train_result.returncode}) in \
 training!"
 

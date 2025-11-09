@@ -16,10 +16,10 @@
 import os
 from abc import ABC, abstractmethod
 
+from .utils import build_res_dict
 from ....utils.config import AttrDict
 from ....utils.logging import info
 from ....utils.misc import AutoRegisterABCMetaClass
-from .utils import build_res_dict
 
 
 def build_dataset_checker(config: AttrDict) -> "BaseDatasetChecker":

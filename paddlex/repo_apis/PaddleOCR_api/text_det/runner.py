@@ -13,15 +13,15 @@
 # limitations under the License.
 
 
-from ...base.utils.subprocess import CompletedProcess
 from ..text_rec.runner import TextRecRunner
+from ...base.utils.subprocess import CompletedProcess
 
 
 class TextDetRunner(TextRecRunner):
     """Text Detection Runner"""
 
     def predict(
-        self, config_path: str, cli_args: list, device: str
+            self, config_path: str, cli_args: list, device: str
     ) -> CompletedProcess:
         """run predicting using dynamic mode
 

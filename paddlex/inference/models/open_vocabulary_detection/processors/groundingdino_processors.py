@@ -15,11 +15,11 @@
 import os
 from typing import Dict, List, Optional, Tuple, Union
 
-import numpy as np
 import PIL
+import numpy as np
 
-from ....utils.benchmark import benchmark
 from ...common.tokenizer.bert_tokenizer import BertTokenizer
+from ....utils.benchmark import benchmark
 
 
 def _max_by_axis(the_list):
@@ -31,18 +31,18 @@ def _max_by_axis(the_list):
 
 
 def _text_pad_batch_data(
-    insts,
-    pad_idx=0,
-    max_seq_len=None,
-    return_pos=False,
-    return_input_mask=False,
-    return_max_len=False,
-    return_num_token=False,
-    return_seq_lens=False,
-    pad_2d_pos_ids=False,
-    pad_segment_id=False,
-    select=False,
-    extract=False,
+        insts,
+        pad_idx=0,
+        max_seq_len=None,
+        return_pos=False,
+        return_input_mask=False,
+        return_max_len=False,
+        return_num_token=False,
+        return_seq_lens=False,
+        pad_2d_pos_ids=False,
+        pad_segment_id=False,
+        select=False,
+        extract=False,
 ):
     """Pad the instances to the max sequence length in batch, and generate the
     corresponding position data and attention bias.
@@ -97,10 +97,10 @@ class GroundingDINOPostProcessor(object):
     """PostProcessors for GroundingDINO"""
 
     def __init__(
-        self,
-        tokenizer,
-        box_threshold: float = 0.3,
-        text_threshold: float = 0.25,
+            self,
+            tokenizer,
+            box_threshold: float = 0.3,
+            text_threshold: float = 0.25,
     ):
         """Init Function for GroundingDINO PostProcessor
 
@@ -114,14 +114,14 @@ class GroundingDINOPostProcessor(object):
         self.text_threshold = text_threshold
 
     def __call__(
-        self,
-        pred_boxes,
-        pred_logits,
-        prompt,
-        src_images,
-        box_threshold=None,
-        text_threshold=None,
-        **kwargs,
+            self,
+            pred_boxes,
+            pred_logits,
+            prompt,
+            src_images,
+            box_threshold=None,
+            text_threshold=None,
+            **kwargs,
     ):
         import paddle
 
@@ -154,13 +154,13 @@ class GroundingDINOPostProcessor(object):
         return rst_boxes
 
     def postprocess(
-        self,
-        pred_logits,
-        pred_boxes,
-        src_prompt,
-        src_image,
-        box_threshold,
-        text_threshold,
+            self,
+            pred_logits,
+            pred_boxes,
+            src_prompt,
+            src_image,
+            box_threshold,
+            text_threshold,
     ):
         """Post Process for prediction result of single image."""
         import paddle
@@ -213,16 +213,16 @@ class GroundingDINOProcessor(object):
     """Image and Text Processors for GroundingDINO"""
 
     def __init__(
-        self,
-        model_dir,
-        text_max_words: int = 256,
-        image_do_resize: bool = True,
-        image_target_size: Union[Tuple[int], int] = (800, 1333),
-        image_do_normalize: bool = True,
-        image_mean: Union[float, List[float]] = [0.485, 0.456, 0.406],
-        image_std: Union[float, List[float]] = [0.229, 0.224, 0.225],
-        image_do_nested: bool = True,
-        **kwargs,
+            self,
+            model_dir,
+            text_max_words: int = 256,
+            image_do_resize: bool = True,
+            image_target_size: Union[Tuple[int], int] = (800, 1333),
+            image_do_normalize: bool = True,
+            image_mean: Union[float, List[float]] = [0.485, 0.456, 0.406],
+            image_std: Union[float, List[float]] = [0.229, 0.224, 0.225],
+            image_do_nested: bool = True,
+            **kwargs,
     ):
         self.text_processor = GroundingDinoTextProcessor(text_max_words)
         self.image_processor = GroundingDinoImageProcessor(
@@ -238,12 +238,11 @@ class GroundingDINOProcessor(object):
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_dir)
 
     def __call__(
-        self,
-        images: List[PIL.Image.Image],
-        text: str,
-        **kwargs,
+            self,
+            images: List[PIL.Image.Image],
+            text: str,
+            **kwargs,
     ):
-
         self.prompt = self.text_processor.pre_caption(text)
         input_ids = self.tokenizer([self.prompt]).input_ids
         special_tokens = self.tokenizer.convert_tokens_to_ids(
@@ -269,15 +268,15 @@ class GroundingDinoTextProcessor(object):
     """Constructs a GroundingDino text processor."""
 
     def __init__(
-        self,
-        max_words: int = 256,
+            self,
+            max_words: int = 256,
     ):
         self.max_words = max_words
 
     def __call__(
-        self,
-        input_ids,
-        special_tokens_list,
+            self,
+            input_ids,
+            special_tokens_list,
     ):
         """Preprocess the text with tokenization."""
         import paddle
@@ -318,7 +317,7 @@ class GroundingDinoTextProcessor(object):
         return caption
 
     def generate_masks_with_special_tokens_and_transfer_map(
-        self, tokenized, special_tokens_list
+            self, tokenized, special_tokens_list
     ):
         """Generate attention mask between each pair of special tokens
         Args:
@@ -354,9 +353,9 @@ class GroundingDinoTextProcessor(object):
                 position_ids[row, col] = 0
             else:
                 attention_mask[
-                    row, previous_col + 1 : col + 1, previous_col + 1 : col + 1
+                    row, previous_col + 1: col + 1, previous_col + 1: col + 1
                 ] = True
-                position_ids[row, previous_col + 1 : col + 1] = paddle.arange(
+                position_ids[row, previous_col + 1: col + 1] = paddle.arange(
                     0, col - previous_col
                 )
                 c2t_maski = paddle.zeros(
@@ -364,7 +363,7 @@ class GroundingDinoTextProcessor(object):
                         num_token,
                     ]
                 ).cast(paddle.bool)
-                c2t_maski[previous_col + 1 : col] = True
+                c2t_maski[previous_col + 1: col] = True
                 cate_to_token_mask_list[row].append(c2t_maski)
             previous_col = col
 
@@ -376,13 +375,13 @@ class GroundingDinoImageProcessor(object):
     """Constructs a GroundingDino image processor."""
 
     def __init__(
-        self,
-        do_resize: bool = True,
-        target_size: Union[Tuple[int], int] = (800, 1333),
-        do_normalize: bool = True,
-        image_mean: Union[float, List[float]] = [0.485, 0.456, 0.406],
-        image_std: Union[float, List[float]] = [0.229, 0.224, 0.225],
-        do_nested: bool = True,
+            self,
+            do_resize: bool = True,
+            target_size: Union[Tuple[int], int] = (800, 1333),
+            do_normalize: bool = True,
+            image_mean: Union[float, List[float]] = [0.485, 0.456, 0.406],
+            image_std: Union[float, List[float]] = [0.229, 0.224, 0.225],
+            do_nested: bool = True,
     ) -> None:
 
         if isinstance(target_size, int):
@@ -456,15 +455,15 @@ class GroundingDinoImageProcessor(object):
         return tensor, mask
 
     def preprocess(
-        self,
-        images,
-        do_resize: Optional[bool] = None,
-        target_size: Optional[Dict[str, int]] = None,
-        do_normalize: Optional[bool] = None,
-        image_mean: Optional[Union[float, List[float]]] = None,
-        image_std: Optional[Union[float, List[float]]] = None,
-        do_nested: bool = None,
-        **kwargs,
+            self,
+            images,
+            do_resize: Optional[bool] = None,
+            target_size: Optional[Dict[str, int]] = None,
+            do_normalize: Optional[bool] = None,
+            image_mean: Optional[Union[float, List[float]]] = None,
+            image_std: Optional[Union[float, List[float]]] = None,
+            do_nested: bool = None,
+            **kwargs,
     ):
         """Preprocess an image or batch of images."""
         import paddle.vision.transforms as T

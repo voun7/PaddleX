@@ -16,8 +16,8 @@ from typing import Union
 
 import yaml
 
-from ....utils.misc import abspath
 from ...base import BaseConfig
+from ....utils.misc import abspath
 
 
 class ClsConfig(BaseConfig):
@@ -62,11 +62,11 @@ class ClsConfig(BaseConfig):
             yaml.dump(self.dict, f, default_flow_style=False, sort_keys=False)
 
     def update_dataset(
-        self,
-        dataset_path: str,
-        dataset_type: str = None,
-        *,
-        train_list_path: str = None,
+            self,
+            dataset_path: str,
+            dataset_type: str = None,
+            *,
+            train_list_path: str = None,
     ):
         """update dataset settings
 
@@ -441,7 +441,7 @@ indicating that no pretrained model to be used."
         Args:
             device (str): the running device setting
         """
-        self.update([f'Global.use_gpu={device.split(":")[0]=="gpu"}'])
+        self.update([f'Global.use_gpu={device.split(":")[0] == "gpu"}'])
 
     def _update_enable_mkldnn(self, enable_mkldnn: bool):
         """update whether to enable MKLDNN

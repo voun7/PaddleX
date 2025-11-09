@@ -7,7 +7,8 @@
 
 ## 1. Instructions
 
-The Benchmark feature calculates the average execution time of all operations during end-to-end pipeline inference and provides summary information. The time unit is milliseconds.
+The Benchmark feature calculates the average execution time of all operations during end-to-end pipeline inference and
+provides summary information. The time unit is milliseconds.
 
 The benchmark feature needs to be enabled via environment variables as follows:
 
@@ -56,7 +57,8 @@ The following table describes the methods and parameters related to pipeline inf
 
 **Note**:
 
-* For the Benchmark feature of single model inference, refer to [Model Inference Benchmark](../../module_usage/instructions/benchmark.en.md).
+* For the Benchmark feature of single model inference, refer
+  to [Model Inference Benchmark](../../module_usage/instructions/benchmark.en.md).
 
 ## 2. Usage Examples
 

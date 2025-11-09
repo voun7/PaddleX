@@ -24,18 +24,17 @@ from typing import List, Optional
 
 import numpy as np
 
+from .result import DocVLMResult
+from ..base import BasePredictor
+from ...common.batch_sampler import DocVLMBatchSampler
+from ...utils.misc import is_bfloat16_available
 from ....modules.doc_vlm.model_list import MODELS
 from ....utils import logging
 from ....utils.deps import require_genai_client_plugin
 from ....utils.device import TemporaryDeviceChanger
-from ...common.batch_sampler import DocVLMBatchSampler
-from ...utils.misc import is_bfloat16_available
-from ..base import BasePredictor
-from .result import DocVLMResult
 
 
 class DocVLMPredictor(BasePredictor):
-
     entities = MODELS
     model_group = {
         "PP-DocBee": {"PP-DocBee-2B", "PP-DocBee-7B"},
@@ -59,8 +58,8 @@ class DocVLMPredictor(BasePredictor):
             self.infer, self.processor = self._build(**kwargs)
 
             if (
-                self.model_name == "PaddleOCR-VL-0.9B"
-                and self.batch_sampler.batch_size > 1
+                    self.model_name == "PaddleOCR-VL-0.9B"
+                    and self.batch_sampler.batch_size > 1
             ):
                 logging.warning(
                     "Currently, the PaddleOCR-VL-0.9B local model only supports batch size of 1. The batch size will be updated to 1."
@@ -153,17 +152,17 @@ class DocVLMPredictor(BasePredictor):
         return model, processor
 
     def process(
-        self,
-        data: List[dict],
-        max_new_tokens: Optional[int] = None,
-        skip_special_tokens: Optional[bool] = None,
-        repetition_penalty: Optional[float] = None,
-        temperature: Optional[float] = None,
-        top_p: Optional[float] = None,
-        min_pixels: Optional[int] = None,
-        max_pixels: Optional[int] = None,
-        use_cache: Optional[bool] = None,
-        **kwargs,
+            self,
+            data: List[dict],
+            max_new_tokens: Optional[int] = None,
+            skip_special_tokens: Optional[bool] = None,
+            repetition_penalty: Optional[float] = None,
+            temperature: Optional[float] = None,
+            top_p: Optional[float] = None,
+            min_pixels: Optional[int] = None,
+            max_pixels: Optional[int] = None,
+            use_cache: Optional[bool] = None,
+            **kwargs,
     ):
         """
         Process a batch of data through the preprocessing, inference, and postprocessing.
@@ -371,15 +370,15 @@ class DocVLMPredictor(BasePredictor):
         return rst_dict
 
     def _genai_client_process(
-        self,
-        data,
-        max_new_tokens,
-        skip_special_tokens,
-        repetition_penalty,
-        temperature,
-        top_p,
-        min_pixels,
-        max_pixels,
+            self,
+            data,
+            max_new_tokens,
+            skip_special_tokens,
+            repetition_penalty,
+            temperature,
+            top_p,
+            min_pixels,
+            max_pixels,
     ):
         lock = Lock()
 
@@ -432,9 +431,9 @@ class DocVLMPredictor(BasePredictor):
             kwargs["extra_body"] = {}
             if skip_special_tokens is not None:
                 if self._genai_client.backend in (
-                    "fastdeploy-server",
-                    "vllm-server",
-                    "sglang-server",
+                        "fastdeploy-server",
+                        "vllm-server",
+                        "sglang-server",
                 ):
                     kwargs["extra_body"]["skip_special_tokens"] = skip_special_tokens
                 else:

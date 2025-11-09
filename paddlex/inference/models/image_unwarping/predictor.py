@@ -16,13 +16,13 @@ from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 
-from ....modules.image_unwarping.model_list import MODELS
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import Normalize, ToBatch, ToCHWImage
 from .processors import DocTrPostProcess
 from .result import DocTrResult
+from ..base import BasePredictor
+from ..common import Normalize, ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.image_unwarping.model_list import MODELS
 
 
 class WarpPredictor(BasePredictor):

@@ -22,13 +22,13 @@ class ClsRunner(BaseRunner):
     """Cls Runner"""
 
     def train(
-        self,
-        config_path: str,
-        cli_args: list,
-        device: str,
-        ips: str,
-        save_dir: str,
-        do_eval=True,
+            self,
+            config_path: str,
+            cli_args: list,
+            device: str,
+            ips: str,
+            save_dir: str,
+            do_eval=True,
     ) -> CompletedProcess:
         """train model
 
@@ -57,7 +57,7 @@ class ClsRunner(BaseRunner):
         )
 
     def evaluate(
-        self, config_path: str, cli_args: list, device: str, ips: str
+            self, config_path: str, cli_args: list, device: str, ips: str
     ) -> CompletedProcess:
         """run model evaluating
 
@@ -81,7 +81,7 @@ class ClsRunner(BaseRunner):
         return cp
 
     def predict(
-        self, config_path: str, cli_args: list, device: str
+            self, config_path: str, cli_args: list, device: str
     ) -> CompletedProcess:
         """run predicting using dynamic mode
 
@@ -98,7 +98,7 @@ class ClsRunner(BaseRunner):
         return self.run_cmd(cmd, switch_wdir=True, echo=True, silent=False)
 
     def export(
-        self, config_path: str, cli_args: list, device: str, save_dir: str = None
+            self, config_path: str, cli_args: list, device: str, save_dir: str = None
     ) -> CompletedProcess:
         """run exporting
 
@@ -142,12 +142,12 @@ class ClsRunner(BaseRunner):
         return self.run_cmd(cmd, switch_wdir="deploy", echo=True, silent=False)
 
     def compression(
-        self,
-        config_path: str,
-        train_cli_args: list,
-        export_cli_args: list,
-        device: str,
-        train_save_dir: str,
+            self,
+            config_path: str,
+            train_cli_args: list,
+            export_cli_args: list,
+            device: str,
+            train_save_dir: str,
     ) -> CompletedProcess:
         """run compression model
 

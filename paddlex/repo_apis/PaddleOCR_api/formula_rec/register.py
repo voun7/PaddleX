@@ -15,10 +15,10 @@
 import os
 import os.path as osp
 
-from ...base.register import register_model_info, register_suite_info
 from .config import FormulaRecConfig
 from .model import FormulaRecModel
 from .runner import FormulaRecRunner
+from ...base.register import register_model_info, register_suite_info
 
 REPO_ROOT_PATH = os.environ.get("PADDLE_PDX_PADDLEOCR_PATH")
 PDX_CONFIG_DIR = osp.abspath(osp.join(osp.dirname(__file__), "..", "configs"))
@@ -32,7 +32,6 @@ register_suite_info(
         "runner_root_path": REPO_ROOT_PATH,
     }
 )
-
 
 register_model_info(
     {
@@ -51,7 +50,6 @@ register_model_info(
         "supported_apis": ["train", "evaluate", "predict", "export", "infer"],
     }
 )
-
 
 register_model_info(
     {

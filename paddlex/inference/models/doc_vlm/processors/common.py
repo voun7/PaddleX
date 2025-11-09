@@ -18,12 +18,12 @@ from collections import UserDict
 from io import BytesIO
 from typing import Any, Dict, List, Optional, Tuple, Union
 
+import PIL.Image
 import numpy as np
 import paddle
-import PIL.Image
 import requests
-from packaging import version
 from PIL import Image
+from packaging import version
 
 from ...common.tokenizer.tokenizer_utils_base import ExplicitEnum
 
@@ -50,7 +50,6 @@ if version.parse(version.parse(PIL.__version__).base_version) >= version.parse("
     PILImageResampling = PIL.Image.Resampling
 else:
     PILImageResampling = PIL.Image
-
 
 ImageInput = Union[
     "PIL.Image.Image",
@@ -81,9 +80,9 @@ class TensorType(ExplicitEnum):
 
 def is_valid_image(img):
     return (
-        isinstance(img, PIL.Image.Image)
-        or isinstance(img, np.ndarray)
-        or is_paddle_tensor(img)
+            isinstance(img, PIL.Image.Image)
+            or isinstance(img, np.ndarray)
+            or is_paddle_tensor(img)
     )
 
 
@@ -197,7 +196,7 @@ def get_channel_dimension_axis(image: np.ndarray) -> int:
 
 
 def get_image_size(
-    image: np.ndarray, channel_dim: ChannelDimension = None
+        image: np.ndarray, channel_dim: ChannelDimension = None
 ) -> Tuple[int, int]:
     """
     Returns the (height, width) dimensions of the image.
@@ -240,9 +239,9 @@ def convert_to_rgb(image: ImageInput) -> ImageInput:
 
 
 def to_channel_dimension_format(
-    image: np.ndarray,
-    channel_dim: Union[ChannelDimension, str],
-    input_channel_dim: Optional[Union[ChannelDimension, str]] = None,
+        image: np.ndarray,
+        channel_dim: Union[ChannelDimension, str],
+        input_channel_dim: Optional[Union[ChannelDimension, str]] = None,
 ) -> np.ndarray:
     """
     Converts `image` to the channel dimension format specified by `channel_dim`.
@@ -290,9 +289,9 @@ class BatchFeature(UserDict):
     """
 
     def __init__(
-        self,
-        data: Optional[Dict[str, Any]] = None,
-        tensor_type: Union[None, str, TensorType] = None,
+            self,
+            data: Optional[Dict[str, Any]] = None,
+            tensor_type: Union[None, str, TensorType] = None,
     ):
         super().__init__(data)
         self.convert_to_tensors(tensor_type=tensor_type)
@@ -389,7 +388,7 @@ class PaddingStrategy(ExplicitEnum):
 
 
 def extract_vision_info(
-    conversations: Union[List[dict], List[List[dict]]]
+        conversations: Union[List[dict], List[List[dict]]]
 ) -> List[dict]:
     vision_infos = []
     if isinstance(conversations[0], dict):
@@ -399,16 +398,16 @@ def extract_vision_info(
             if isinstance(message["content"], list):
                 for ele in message["content"]:
                     if (
-                        "image" in ele
-                        or "image_url" in ele
-                        or ele["type"] in ("image", "image_url")
+                            "image" in ele
+                            or "image_url" in ele
+                            or ele["type"] in ("image", "image_url")
                     ):
                         vision_infos.append(ele)
     return vision_infos
 
 
 def process_vision_info(
-    conversations: Union[List[dict], List[List[dict]]],
+        conversations: Union[List[dict], List[List[dict]]],
 ) -> Tuple[
     Union[List[Image.Image], None, List[Union[paddle.Tensor, List[Image.Image]]], None]
 ]:
@@ -425,11 +424,11 @@ def process_vision_info(
 
 
 def fetch_image(
-    ele: Dict[str, Union[str, Image.Image]],
-    size_factor: Optional[int] = None,
-    min_pixels: Optional[int] = None,
-    max_pixels: Optional[int] = None,
-    max_ratio: Optional[float] = None,
+        ele: Dict[str, Union[str, Image.Image]],
+        size_factor: Optional[int] = None,
+        min_pixels: Optional[int] = None,
+        max_pixels: Optional[int] = None,
+        max_ratio: Optional[float] = None,
 ) -> Image.Image:
     if not isinstance(ele, dict):
         ele = {"image": ele}
@@ -460,10 +459,10 @@ def fetch_image(
     image = image_obj.convert("RGB")
 
     if (
-        size_factor is not None
-        and min_pixels is not None
-        and max_pixels is not None
-        and max_ratio is not None
+            size_factor is not None
+            and min_pixels is not None
+            and max_pixels is not None
+            and max_ratio is not None
     ):
         do_resize = True
     else:
@@ -513,12 +512,12 @@ def floor_by_factor(number: int, factor: int) -> int:
 
 
 def smart_resize(
-    height: int,
-    width: int,
-    factor: int,
-    min_pixels: int,
-    max_pixels: int,
-    max_ratio: float,
+        height: int,
+        width: int,
+        factor: int,
+        min_pixels: int,
+        max_pixels: int,
+        max_ratio: float,
 ) -> Tuple[int, int]:
     """
     Rescales the image so that the following conditions are met:
@@ -558,9 +557,9 @@ def make_batched_images(images) -> List[List[ImageInput]]:
         list: A list of images.
     """
     if (
-        isinstance(images, (list, tuple))
-        and isinstance(images[0], (list, tuple))
-        and is_valid_image(images[0][0])
+            isinstance(images, (list, tuple))
+            and isinstance(images[0], (list, tuple))
+            and is_valid_image(images[0][0])
     ):
         return [img for img_list in images for img in img_list]
 

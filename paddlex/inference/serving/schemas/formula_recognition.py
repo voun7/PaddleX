@@ -16,8 +16,8 @@ from typing import Dict, Final, List, Optional, Tuple, Union
 
 from pydantic import BaseModel
 
-from ..infra.models import DataInfo, PrimaryOperations
 from .shared import ocr
+from ..infra.models import DataInfo, PrimaryOperations
 
 __all__ = [
     "INFER_ENDPOINT",

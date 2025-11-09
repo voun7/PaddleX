@@ -1,4 +1,3 @@
-
 pipeline_name: 3d_bev_detection
 
 SubModules:

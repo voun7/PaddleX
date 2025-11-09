@@ -16,17 +16,19 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import copy
 import sys
+
 import numpy as np
-from .map_utils import draw_pr_curve
+
+from . import fd_logging as logging
 from .json_results import (
     get_det_res,
     get_det_poly_res,
     get_seg_res,
     get_solov2_segm_res,
 )
-from . import fd_logging as logging
-import copy
+from .map_utils import draw_pr_curve
 
 
 def loadRes(coco_obj, anns):
@@ -58,7 +60,7 @@ def loadRes(coco_obj, anns):
     assert isinstance(anns) == list, "results in not an array of objects"
     annsImgIds = [ann["image_id"] for ann in anns]
     assert set(annsImgIds) == (
-        set(annsImgIds) & set(coco_obj.getImgIds())
+            set(annsImgIds) & set(coco_obj.getImgIds())
     ), "Results do not correspond to current coco set"
     if "caption" in anns[0]:
         imgIds = set([img["id"] for img in res.dataset["images"]]) & set(
@@ -143,12 +145,12 @@ def get_infer_results(outs, catid, bias=0):
 
 
 def cocoapi_eval(
-    anns,
-    style,
-    coco_gt=None,
-    anno_file=None,
-    max_dets=(100, 300, 1000),
-    classwise=False,
+        anns,
+        style,
+        coco_gt=None,
+        anno_file=None,
+        max_dets=(100, 300, 1000),
+        classwise=False,
 ):
     """
     Args:

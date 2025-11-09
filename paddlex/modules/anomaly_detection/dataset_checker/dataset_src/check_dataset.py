@@ -19,11 +19,11 @@ import os.path as osp
 import numpy as np
 from PIL import Image
 
+from .utils.visualizer import visualize
 from .....utils.deps import function_requires_deps, is_dep_available
 from .....utils.errors import DatasetFileNotFoundError
 from .....utils.file_interface import custom_open
 from .....utils.logging import info
-from .utils.visualizer import visualize
 
 if is_dep_available("opencv-contrib-python"):
     import cv2

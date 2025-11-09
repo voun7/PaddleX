@@ -64,8 +64,8 @@ class LayoutParsingResult(BaseCVResult, HtmlMixin, XlsxMixin):
                 res_img_dict[key] = sub_seal_res_dict["ocr_res_img"]
 
         if (
-            model_settings["use_formula_recognition"]
-            and len(self["formula_res_list"]) > 0
+                model_settings["use_formula_recognition"]
+                and len(self["formula_res_list"]) > 0
         ):
             for sno in range(len(self["formula_res_list"])):
                 formula_res = self["formula_res_list"][sno]
@@ -107,8 +107,8 @@ class LayoutParsingResult(BaseCVResult, HtmlMixin, XlsxMixin):
                 seal_res = self["seal_res_list"][sno]
                 data["seal_res_list"].append(seal_res.str["res"])
         if (
-            model_settings["use_formula_recognition"]
-            and len(self["formula_res_list"]) > 0
+                model_settings["use_formula_recognition"]
+                and len(self["formula_res_list"]) > 0
         ):
             data["formula_res_list"] = []
             for sno in range(len(self["formula_res_list"])):
@@ -149,8 +149,8 @@ class LayoutParsingResult(BaseCVResult, HtmlMixin, XlsxMixin):
                 seal_res = self["seal_res_list"][sno]
                 data["seal_res_list"].append(seal_res.json["res"])
         if (
-            model_settings["use_formula_recognition"]
-            and len(self["formula_res_list"]) > 0
+                model_settings["use_formula_recognition"]
+                and len(self["formula_res_list"]) > 0
         ):
             data["formula_res_list"] = []
             for sno in range(len(self["formula_res_list"])):

@@ -22,7 +22,7 @@ import numpy as np
 from .....utils.deps import is_dep_available
 
 if all(
-    map(is_dep_available, ("einops", "torch", "transformers", "vllm", "flash-attn"))
+        map(is_dep_available, ("einops", "torch", "transformers", "vllm", "flash-attn"))
 ):
     import torch
     import torch.nn as nn
@@ -87,12 +87,13 @@ if all(
     from vllm.multimodal.profiling import BaseDummyInputsBuilder
     from vllm.sequence import IntermediateTensors
 
+
     def smart_resize(
-        height: int,
-        width: int,
-        factor: int = 28,
-        min_pixels: int = 28 * 28 * 130,
-        max_pixels: int = 28 * 28 * 1280,
+            height: int,
+            width: int,
+            factor: int = 28,
+            min_pixels: int = 28 * 28 * 130,
+            max_pixels: int = 28 * 28 * 1280,
     ):
         """Rescales the image so that the following conditions are met:
 
@@ -128,6 +129,7 @@ if all(
             w_bar = math.ceil(width * beta / factor) * factor
         return h_bar, w_bar
 
+
     class PaddleOCRVLProcessingInfo(BaseProcessingInfo):
 
         def get_hf_config(self):
@@ -143,11 +145,11 @@ if all(
             return {"image": None}
 
         def get_num_image_tokens(
-            self,
-            *,
-            image_width: int,
-            image_height: int,
-            image_processor,
+                self,
+                *,
+                image_width: int,
+                image_height: int,
+                image_processor,
         ) -> int:
             if image_processor is None:
                 image_processor = self.get_image_processor()
@@ -177,7 +179,7 @@ if all(
             grid_w = preprocessed_size.width // patch_size
 
             num_patches = grid_t * grid_h * grid_w
-            num_image_tokens = num_patches // (merge_size**2)
+            num_image_tokens = num_patches // (merge_size ** 2)
 
             return num_image_tokens
 
@@ -185,6 +187,7 @@ if all(
             hf_config = self.get_hf_config()
             image_size = hf_config.vision_config.image_size
             return ImageSize(height=image_size, width=image_size)
+
 
     class PaddleOCRVLDummyInputsBuilder(
         BaseDummyInputsBuilder[PaddleOCRVLProcessingInfo]
@@ -199,9 +202,9 @@ if all(
             return image_token * num_images
 
         def get_dummy_mm_data(
-            self,
-            seq_len: int,
-            mm_counts: Mapping[str, int],
+                self,
+                seq_len: int,
+                mm_counts: Mapping[str, int],
         ) -> MultiModalDataDict:
             num_images = mm_counts.get("image", 0)
 
@@ -215,16 +218,17 @@ if all(
                 )
             }
 
+
     class PaddleOCRVLMultiModalProcessor(
         BaseMultiModalProcessor[PaddleOCRVLProcessingInfo]
     ):
 
         def _call_hf_processor(
-            self,
-            prompt: str,
-            mm_data: Mapping[str, object],
-            mm_kwargs: Mapping[str, object],
-            tok_kwargs: Mapping[str, object],
+                self,
+                prompt: str,
+                mm_data: Mapping[str, object],
+                mm_kwargs: Mapping[str, object],
+                tok_kwargs: Mapping[str, object],
         ) -> BatchFeature:
             if mm_data:
                 processed_outputs = self.info.ctx.call_hf_processor(
@@ -243,9 +247,9 @@ if all(
             return processed_outputs
 
         def _get_mm_fields_config(
-            self,
-            hf_inputs: BatchFeature,
-            hf_processor_mm_kwargs: Mapping[str, object],
+                self,
+                hf_inputs: BatchFeature,
+                hf_processor_mm_kwargs: Mapping[str, object],
         ) -> Mapping[str, MultiModalFieldConfig]:
             return dict(
                 pixel_values=MultiModalFieldConfig.batched("image"),
@@ -253,10 +257,10 @@ if all(
             )
 
         def _get_prompt_updates(
-            self,
-            mm_items: MultiModalDataItems,
-            hf_processor_mm_kwargs: Mapping[str, object],
-            out_mm_kwargs: MultiModalKwargs,
+                self,
+                mm_items: MultiModalDataItems,
+                hf_processor_mm_kwargs: Mapping[str, object],
+                out_mm_kwargs: MultiModalKwargs,
         ) -> Sequence[PromptUpdate]:
             image_processor = self.info.get_image_processor(**hf_processor_mm_kwargs)
             hf_config = self.info.get_hf_config()
@@ -284,13 +288,14 @@ if all(
                 ),
             ]
 
+
     class Projector(nn.Module):
 
         def __init__(
-            self,
-            text_config,
-            vision_config,
-            prefix: str = "",
+                self,
+                text_config,
+                vision_config,
+                prefix: str = "",
         ):
             super().__init__()
             self.text_config = text_config
@@ -298,9 +303,9 @@ if all(
             self.merge_kernel_size = (2, 2)
 
             self.hidden_size = (
-                self.vision_config.hidden_size
-                * self.merge_kernel_size[0]
-                * self.merge_kernel_size[1]
+                    self.vision_config.hidden_size
+                    * self.merge_kernel_size[0]
+                    * self.merge_kernel_size[1]
             )
 
             self.pre_norm = torch.nn.LayerNorm(
@@ -313,9 +318,9 @@ if all(
             )
 
         def forward(
-            self,
-            image_features: torch.Tensor,
-            image_grid_thw: List[Tuple[int, int, int]],
+                self,
+                image_features: torch.Tensor,
+                image_grid_thw: List[Tuple[int, int, int]],
         ) -> torch.Tensor:
             m1, m2 = self.merge_kernel_size
             if isinstance(image_features, (list, tuple)):
@@ -350,6 +355,7 @@ if all(
 
             return hidden_states.view(*dims, -1)
 
+
     class SiglipVisionEmbeddings(nn.Module):
 
         def __init__(self, config):
@@ -381,11 +387,11 @@ if all(
             )
 
         def interpolate_pos_encoding(
-            self,
-            embeddings: torch.Tensor,
-            height: int,
-            width: int,
-            is_after_patchify: bool = False,
+                self,
+                embeddings: torch.Tensor,
+                height: int,
+                width: int,
+                is_after_patchify: bool = False,
         ) -> torch.Tensor:
 
             num_positions = self.position_embedding.weight.shape[0]
@@ -401,7 +407,7 @@ if all(
                 new_height = height // self.patch_size
                 new_width = width // self.patch_size
 
-            sqrt_num_positions = torch_int(num_positions**0.5)
+            sqrt_num_positions = torch_int(num_positions ** 0.5)
             patch_pos_embed = patch_pos_embed.reshape(
                 1, sqrt_num_positions, sqrt_num_positions, dim
             )
@@ -418,7 +424,7 @@ if all(
             return patch_pos_embed
 
         def fetch_position_embedding_lfu_cache(
-            self, embeddings, h, w, max_cache: int = 20
+                self, embeddings, h, w, max_cache: int = 20
         ):
             grid = (h, w)
             if grid in self.cache_position_embedding:
@@ -439,18 +445,18 @@ if all(
             return position_embedding
 
         def forward(
-            self,
-            pixel_values: torch.FloatTensor,
-            position_ids: Optional[torch.Tensor] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                pixel_values: torch.FloatTensor,
+                position_ids: Optional[torch.Tensor] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
-            interpolate_pos_encoding=False,
+                ] = None,
+                interpolate_pos_encoding=False,
         ) -> torch.Tensor:
             if pixel_values.dim() == 4:
                 pixel_values = pixel_values.unsqueeze(0)
@@ -498,6 +504,7 @@ if all(
                     f" {pixel_values.dim()}. Expected 4 or 5."
                 )
 
+
     def rotate_half(x: torch.Tensor, interleaved: bool = False) -> torch.Tensor:
         if not interleaved:
             x1, x2 = x.chunk(2, dim=-1)
@@ -508,8 +515,9 @@ if all(
                 torch.stack((-x2, x1), dim=-1), "... d two -> ... (d two)", two=2
             )
 
+
     def apply_rotary_emb_torch(
-        x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, interleaved: bool = False
+            x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, interleaved: bool = False
     ) -> torch.Tensor:
         """
         x: (batch_size, seqlen, nheads, headdim)
@@ -531,11 +539,12 @@ if all(
             dim=-1,
         )
 
+
     def apply_rotary_pos_emb_flashatt(
-        q: torch.Tensor,
-        k: torch.Tensor,
-        cos: torch.Tensor,
-        sin: torch.Tensor,
+            q: torch.Tensor,
+            k: torch.Tensor,
+            cos: torch.Tensor,
+            sin: torch.Tensor,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         cos = cos.chunk(2, dim=-1)[0].contiguous()
         sin = sin.chunk(2, dim=-1)[0].contiguous()
@@ -548,15 +557,16 @@ if all(
         k_embed = apply_rotary_emb(k.float(), cos.float(), sin.float()).type_as(k)
         return q_embed, k_embed
 
+
     class SiglipAttention(nn.Module):
         """Multi-headed attention from 'Attention Is All You
         Need' paper."""
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.config = config
@@ -576,7 +586,7 @@ if all(
             self.head_dim = config.hidden_size // self.total_num_heads
             self.q_size = self.num_heads * self.head_dim
             self.kv_size = self.num_kv_heads * self.head_dim
-            self.scale = self.head_dim**-0.5
+            self.scale = self.head_dim ** -0.5
 
             self.qkv_proj = QKVParallelLinear(
                 hidden_size,
@@ -606,10 +616,10 @@ if all(
                 )
 
         def forward(
-            self,
-            hidden_states: torch.Tensor,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+                self,
+                hidden_states: torch.Tensor,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         ) -> torch.Tensor:
             batch_size, seq_length, embed_dim = hidden_states.shape
 
@@ -680,6 +690,7 @@ if all(
             output, _ = self.out_proj(context_layer)
             return output
 
+
     class SigLIPRotaryEmbedding(nn.Module):
 
         def __init__(self, dim: int, theta: float = 10000.0) -> None:
@@ -690,8 +701,8 @@ if all(
 
         def rope_init(self):
             inv_freq = 1.0 / (
-                self.theta
-                ** (torch.arange(0, self.dim, 2, dtype=torch.float) / self.dim)
+                    self.theta
+                    ** (torch.arange(0, self.dim, 2, dtype=torch.float) / self.dim)
             )
             self.register_buffer("inv_freq", inv_freq, persistent=False)
 
@@ -704,13 +715,14 @@ if all(
             freqs = torch.outer(seq, self.inv_freq)
             return freqs
 
+
     class SiglipMLP(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ) -> None:
             super().__init__()
 
@@ -723,7 +735,7 @@ if all(
                 # For other quantization, we require the hidden size to be a
                 # multiple of 64
                 quantizable = (
-                    config.hidden_size % 64 == 0 and config.intermediate_size % 64 == 0
+                        config.hidden_size % 64 == 0 and config.intermediate_size % 64 == 0
                 )
             self.fc1 = ColumnParallelLinear(
                 config.hidden_size,
@@ -744,13 +756,14 @@ if all(
             hidden_states, _ = self.fc2(hidden_states)
             return hidden_states
 
+
     class SiglipEncoderLayer(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.embed_dim = config.hidden_size
@@ -768,12 +781,11 @@ if all(
             )
 
         def forward(
-            self,
-            hidden_states: torch.Tensor,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+                self,
+                hidden_states: torch.Tensor,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                rope_emb: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
         ) -> Tuple[torch.FloatTensor]:
-
             residual = hidden_states
 
             hidden_states = self.layer_norm1(hidden_states)
@@ -793,13 +805,14 @@ if all(
 
             return hidden_states
 
+
     class SiglipEncoder(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.config = config
@@ -829,19 +842,19 @@ if all(
             return tmp_image_grid_thw
 
         def forward(
-            self,
-            inputs_embeds,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                inputs_embeds,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
-            height_position_ids: Optional[torch.Tensor] = None,
-            width_position_ids: Optional[torch.Tensor] = None,
+                ] = None,
+                height_position_ids: Optional[torch.Tensor] = None,
+                width_position_ids: Optional[torch.Tensor] = None,
         ) -> BaseModelOutput:
             device = inputs_embeds.device
             hidden_states = inputs_embeds
@@ -881,13 +894,14 @@ if all(
                 )
             return hidden_states
 
+
     class SiglipVisionTransformer(nn.Module):
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
             self.config = config
@@ -902,21 +916,21 @@ if all(
             self.post_layernorm = nn.LayerNorm(embed_dim, eps=config.layer_norm_eps)
 
         def forward(
-            self,
-            pixel_values,
-            interpolate_pos_encoding: Optional[bool] = False,
-            position_ids: Optional[torch.Tensor] = None,
-            height_position_ids: Optional[torch.Tensor] = None,
-            width_position_ids: Optional[torch.Tensor] = None,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                pixel_values,
+                interpolate_pos_encoding: Optional[bool] = False,
+                position_ids: Optional[torch.Tensor] = None,
+                height_position_ids: Optional[torch.Tensor] = None,
+                width_position_ids: Optional[torch.Tensor] = None,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
+                ] = None,
         ) -> BaseModelOutputWithPooling:
 
             hidden_states = self.embeddings(
@@ -950,15 +964,16 @@ if all(
 
             return sample_hidden_state
 
+
     class SiglipVisionModel(nn.Module):
         config_class = "PaddleOCRVisionConfig"
         main_input_name = "pixel_values"
 
         def __init__(
-            self,
-            config,
-            quant_config: Optional[QuantizationConfig] = None,
-            prefix: str = "",
+                self,
+                config,
+                quant_config: Optional[QuantizationConfig] = None,
+                prefix: str = "",
         ):
             super().__init__()
 
@@ -981,19 +996,19 @@ if all(
             return self.vision_model.embeddings.patch_embedding
 
         def forward(
-            self,
-            pixel_values,
-            interpolate_pos_encoding: bool = False,
-            position_ids: Optional[torch.Tensor] = None,
-            image_grid_thw: Optional[
-                List[
-                    Union[
-                        Tuple[int, int, int],
-                        List[Tuple[int, int, int]],
+                self,
+                pixel_values,
+                interpolate_pos_encoding: bool = False,
+                position_ids: Optional[torch.Tensor] = None,
+                image_grid_thw: Optional[
+                    List[
+                        Union[
+                            Tuple[int, int, int],
+                            List[Tuple[int, int, int]],
+                        ]
                     ]
-                ]
-            ] = None,
-            cu_seqlens: Optional[List[torch.Tensor]] = None,
+                ] = None,
+                cu_seqlens: Optional[List[torch.Tensor]] = None,
         ) -> BaseModelOutputWithPooling:
 
             return self.vision_model(
@@ -1020,7 +1035,7 @@ if all(
                 if "head.mlp" in name or "head.probe" in name:
                     continue
                 if self.quant_config is not None and (
-                    scale_name := self.quant_config.get_cache_scale(name)
+                        scale_name := self.quant_config.get_cache_scale(name)
                 ):
                     param = params_dict[scale_name]
                     weight_loader = getattr(
@@ -1035,9 +1050,9 @@ if all(
                     loaded_params.add(scale_name)
                     continue
                 for (
-                    param_name,
-                    weight_name,
-                    shard_id,
+                        param_name,
+                        weight_name,
+                        shard_id,
                 ) in stacked_params_mapping:
                     if weight_name not in name:
                         continue
@@ -1067,6 +1082,7 @@ if all(
                     weight_loader(param, loaded_weight)
                 loaded_params.add(name)
             return loaded_params
+
 
     @MULTIMODAL_REGISTRY.register_processor(
         PaddleOCRVLMultiModalProcessor,
@@ -1098,9 +1114,9 @@ if all(
                     layer.self_attn.rotary_emb.is_neox_style = True
 
         def compute_logits(
-            self,
-            hidden_states: torch.Tensor,
-            sampling_metadata,
+                self,
+                hidden_states: torch.Tensor,
+                sampling_metadata,
         ) -> Optional[torch.Tensor]:
             logits = self.logits_processor(
                 self.lm_head, hidden_states, sampling_metadata
@@ -1112,12 +1128,12 @@ if all(
             return self.model
 
         def forward(
-            self,
-            input_ids: torch.Tensor,
-            positions: torch.Tensor,
-            intermediate_tensors: Optional[IntermediateTensors] = None,
-            inputs_embeds: Optional[torch.Tensor] = None,
-            **kwargs,
+                self,
+                input_ids: torch.Tensor,
+                positions: torch.Tensor,
+                intermediate_tensors: Optional[IntermediateTensors] = None,
+                inputs_embeds: Optional[torch.Tensor] = None,
+                **kwargs,
         ):
             if intermediate_tensors is not None:
                 inputs_embeds = None
@@ -1183,9 +1199,9 @@ if all(
             return multimodal_embeddings
 
         def get_input_embeddings(
-            self,
-            input_ids: torch.Tensor,
-            multimodal_embeddings: Optional[NestedTensors] = None,
+                self,
+                input_ids: torch.Tensor,
+                multimodal_embeddings: Optional[NestedTensors] = None,
         ) -> torch.Tensor:
             inputs_embeds = self.language_model.get_input_embeddings(input_ids)
 

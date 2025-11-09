@@ -324,7 +324,6 @@ ALL_MODELS = [
     "cyrillic_PP-OCRv5_mobile_rec",
 ]
 
-
 OCR_MODELS = [
     "arabic_PP-OCRv3_mobile_rec",
     "chinese_cht_PP-OCRv3_mobile_rec",
@@ -417,7 +416,7 @@ class _BaseModelHoster(ABC):
 
     def get_model(self, model_name):
         assert (
-            model_name in self.model_list
+                model_name in self.model_list
         ), f"The model {model_name} is not supported on hosting {self.__class__.__name__}!"
 
         model_dir = self._save_dir / f"{model_name}"
@@ -604,7 +603,7 @@ class _ModelManager:
                     logging.warning(
                         f"Encountering exception when download model from {hoster.alias}: \n{e}, will try to download from other model sources: `{hosters[idx + 1].alias}`."
                     )
-                    return self._download_from_hoster(hosters[idx + 1 :], model_name)
+                    return self._download_from_hoster(hosters[idx + 1:], model_name)
         raise Exception(
             f"No model source is available for model `{model_name}`! Please check model name and network, or use local model files!"
         )

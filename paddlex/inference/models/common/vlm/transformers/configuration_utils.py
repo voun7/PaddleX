@@ -22,8 +22,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import paddle
 
-from ......utils import logging
 from ..utils import CONFIG_NAME, LEGACY_CONFIG_NAME, resolve_file_path
+from ......utils import logging
 
 _re_configuration_file = re.compile(r"config\.(.*)\.json")
 
@@ -46,7 +46,7 @@ def attribute_map(config: PretrainedConfig, kwargs: Dict[str, Any]) -> Dict[str,
 
 
 def convert_to_legacy_config(
-    attribute_map: Dict[str, str], config: Dict[str, Any]
+        attribute_map: Dict[str, str], config: Dict[str, Any]
 ) -> Dict[str, Any]:
     """
     works when there are different fields between huggingface and paddle
@@ -448,7 +448,7 @@ class PretrainedConfig:
         kwargs = set_expected_keys(self, llm_meta, kwargs)
         if self.sequence_parallel:
             assert (
-                self.tensor_parallel_degree > 1
+                    self.tensor_parallel_degree > 1
             ), f"senquence-parallel only works in tensor parallel, got tensor parallel degree={self.tensor_parallel_degree}"
 
         self.chunk_size_feed_forward = kwargs.pop("chunk_size_feed_forward", 0)
@@ -529,8 +529,8 @@ class PretrainedConfig:
             "multi_label_classification",
         )
         if (
-            self.problem_type is not None
-            and self.problem_type not in allowed_problem_types
+                self.problem_type is not None
+                and self.problem_type not in allowed_problem_types
         ):
             raise ValueError(
                 f"The config parameter `problem_type` was not understood: received {self.problem_type} "
@@ -595,8 +595,8 @@ class PretrainedConfig:
         """
         for parameter_name, default_value in self._get_generation_defaults().items():
             if (
-                hasattr(self, parameter_name)
-                and getattr(self, parameter_name) != default_value
+                    hasattr(self, parameter_name)
+                    and getattr(self, parameter_name) != default_value
             ):
                 return True
         return False
@@ -628,16 +628,16 @@ class PretrainedConfig:
     @num_labels.setter
     def num_labels(self, num_labels: int):
         if (
-            not hasattr(self, "id2label")
-            or self.id2label is None
-            or len(self.id2label) != num_labels
+                not hasattr(self, "id2label")
+                or self.id2label is None
+                or len(self.id2label) != num_labels
         ):
             self.id2label = {i: f"LABEL_{i}" for i in range(num_labels)}
             self.label2id = dict(zip(self.id2label.values(), self.id2label.keys()))
 
     @classmethod
     def from_pretrained(
-        cls, pretrained_model_name_or_path: Union[str, os.PathLike], **kwargs
+            cls, pretrained_model_name_or_path: Union[str, os.PathLike], **kwargs
     ) -> PretrainedConfig:
         r"""
         Instantiate a [`PretrainedConfig`] (or a derived class) from a pretrained model configuration.
@@ -674,7 +674,7 @@ class PretrainedConfig:
 
     @classmethod
     def get_config_dict(
-        cls, pretrained_model_name_or_path: Union[str, os.PathLike], **kwargs
+            cls, pretrained_model_name_or_path: Union[str, os.PathLike], **kwargs
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """
         From a `pretrained_model_name_or_path`, resolve to a dictionary of parameters, to be used for instantiating a
@@ -721,7 +721,7 @@ class PretrainedConfig:
 
     @classmethod
     def _get_config_dict(
-        cls, pretrained_model_name_or_path: Union[str, os.PathLike], **kwargs
+            cls, pretrained_model_name_or_path: Union[str, os.PathLike], **kwargs
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         cache_dir = kwargs.pop("cache_dir", None)
         from_hf_hub = kwargs.pop("from_hf_hub", False)
@@ -795,9 +795,9 @@ class PretrainedConfig:
         config_dict = flatten_model_config(config_dict)
 
         if (
-            "model_type" in config_dict
-            and hasattr(cls, "model_type")
-            and config_dict["model_type"] != cls.model_type
+                "model_type" in config_dict
+                and hasattr(cls, "model_type")
+                and config_dict["model_type"] != cls.model_type
         ):
             logging.warning(
                 f"You are using a model of type {config_dict['model_type']} to instantiate a model of type "
@@ -817,7 +817,7 @@ class PretrainedConfig:
             id2label = kwargs["id2label"] if kwargs["id2label"] is not None else []
             if len(id2label) != num_labels:
                 raise ValueError(
-                    f"You passed along `num_labels={num_labels }` with an incompatible id to label map: "
+                    f"You passed along `num_labels={num_labels}` with an incompatible id to label map: "
                     f"{kwargs['id2label']}. Since those arguments are inconsistent with each other, you should remove "
                     "one of them."
                 )
@@ -885,10 +885,10 @@ class PretrainedConfig:
         # only serialize values that differ from the default config
         for key, value in config_dict.items():
             if (
-                key not in default_config_dict
-                or key == "paddlenlp_version"
-                or value != default_config_dict[key]
-                or (key in class_config_dict and value != class_config_dict[key])
+                    key not in default_config_dict
+                    or key == "paddlenlp_version"
+                    or value != default_config_dict[key]
+                    or (key in class_config_dict and value != class_config_dict[key])
             ):
                 serializable_config_dict[key] = value
 

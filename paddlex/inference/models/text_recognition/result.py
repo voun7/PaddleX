@@ -17,8 +17,8 @@ import copy
 import PIL
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.fonts import SIMFANG_FONT
 from ...common.result import BaseCVResult, JsonMixin
+from ....utils.fonts import SIMFANG_FONT
 
 
 class TextRecResult(BaseCVResult):

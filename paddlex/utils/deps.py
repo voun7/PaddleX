@@ -40,7 +40,7 @@ def _get_extra_name_and_remove_extra_marker(dep_spec):
     # XXX: Not sure if this is correct
     m = _EXTRA_PATTERN.search(dep_spec)
     if m:
-        return m.group(1), dep_spec[: m.start()] + dep_spec[m.end() :]
+        return m.group(1), dep_spec[: m.start()] + dep_spec[m.end():]
     else:
         return None, dep_spec
 
@@ -70,7 +70,7 @@ def _get_base_dep_specs(required_only=False):
     for dep_spec in importlib.metadata.requires("paddlex"):
         extra_name, dep_spec = _get_extra_name_and_remove_extra_marker(dep_spec)
         if (required_only and extra_name is None) or (
-            not required_only and (extra_name is None or extra_name == "base")
+                not required_only and (extra_name is None or extra_name == "base")
         ):
             dep_spec = dep_spec.rstrip()
             req = Requirement(dep_spec)
@@ -92,8 +92,8 @@ def get_dep_version(dep):
 @lru_cache()
 def is_dep_available(dep, /, check_version=False):
     if (
-        dep in ("paddlepaddle", "paddle-custom-device", "ultra-infer", "fastdeploy")
-        and check_version
+            dep in ("paddlepaddle", "paddle-custom-device", "ultra-infer", "fastdeploy")
+            and check_version
     ):
         raise ValueError(
             "`check_version` is not allowed to be `True` for `paddlepaddle`, `paddle-custom-device`, `ultra-infer`, and `fastdeploy`."

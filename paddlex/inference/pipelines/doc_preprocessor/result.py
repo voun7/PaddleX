@@ -16,8 +16,8 @@ from typing import Dict
 
 from PIL import Image, ImageDraw
 
-from ....utils.fonts import PINGFANG_FONT, create_font
 from ...common.result import BaseCVResult, JsonMixin
+from ....utils.fonts import PINGFANG_FONT, create_font
 
 
 class DocPreprocessorResult(BaseCVResult):

@@ -149,7 +149,7 @@ def extract(file_path, extd_dir, print_progress=True):
 
 
 def download_and_extract(
-    url, save_dir, dst_name, print_progress=True, overwrite=False, no_interm_dir=True
+        url, save_dir, dst_name, print_progress=True, overwrite=False, no_interm_dir=True
 ):
     """download and extract"""
     # NOTE: `url` MUST come from a trusted source, since we do not provide a solution
@@ -186,6 +186,6 @@ def download_and_extract(
                 extd_file = extd_dir
 
             if not os.path.exists(dst_path) or not os.path.samefile(
-                extd_file, dst_path
+                    extd_file, dst_path
             ):
                 shutil.move(extd_file, dst_path)

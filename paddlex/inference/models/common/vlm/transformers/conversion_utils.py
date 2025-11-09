@@ -20,9 +20,9 @@ import numpy as np
 import paddle
 from numpy import ndarray, transpose
 
-from ......utils import logging
 from ..distributed import distributed_allgather, distributed_gather
 from ..utils import device_guard, get_env_device
+from ......utils import logging
 
 if TYPE_CHECKING:
     from .configuration_utils import PretrainedConfig
@@ -74,7 +74,7 @@ class StateDictNameMapping:
             return np.reshape(tensor, [shape[0], -1])
         if self.action == "split":
             assert (
-                self.index is not None
+                    self.index is not None
             ), "when action is `split`, index field is required."
             # FIXME if the order of split starts from index=2, no tensor left.
             if self.index < 2:
@@ -130,11 +130,11 @@ class ConversionMixin:
 
     @classmethod
     def get_tensor_parallel_convert_actions(
-        cls,
-        config: PretrainedConfig,
-        loaded_state_dict_keys,
-        is_split=True,
-        ignore_error=False,
+            cls,
+            config: PretrainedConfig,
+            loaded_state_dict_keys,
+            is_split=True,
+            ignore_error=False,
     ):
         name_action_mappings = cls._get_tensor_parallel_mappings(
             config, is_split=is_split
@@ -148,11 +148,11 @@ class ConversionMixin:
 
     @classmethod
     def convert_tensor_parallel(
-        cls,
-        weight_file: str,
-        config: PretrainedConfig,
-        state_dict=None,
-        ignore_error=False,
+            cls,
+            weight_file: str,
+            config: PretrainedConfig,
+            state_dict=None,
+            ignore_error=False,
     ) -> None:
         """the entry of converting config and converting model file
 
@@ -239,7 +239,7 @@ class ConversionMixin:
 
     @classmethod
     def _get_tensor_parallel_mappings(
-        cls, config: PretrainedConfig, is_split=True
+            cls, config: PretrainedConfig, is_split=True
     ) -> List[StateDictNameMapping]:
         """get name mapping of PretrainedModel
 
@@ -280,7 +280,7 @@ class ConversionMixin:
 
     @classmethod
     def convert_fuse_and_split(
-        cls, config: PretrainedConfig, state_dict, tp_actions=None
+            cls, config: PretrainedConfig, state_dict, tp_actions=None
     ):
         loaded_keys = state_dict.keys()
         # collect and convert fuse/split action
@@ -330,11 +330,11 @@ class ConversionMixin:
 
     @classmethod
     def get_fuse_or_split_param_convert_actions(
-        cls,
-        config: PretrainedConfig,
-        loaded_state_dict_keys,
-        is_fuse=True,
-        ignore_error=False,
+            cls,
+            config: PretrainedConfig,
+            loaded_state_dict_keys,
+            is_fuse=True,
+            ignore_error=False,
     ):
         name_action_mappings = cls._get_fuse_or_split_param_mappings(config, is_fuse)
         state_keys_map = cls._resolve_prefix_keys_for_fuse_and_split(
@@ -363,7 +363,7 @@ class ConversionMixin:
 
     @classmethod
     def _get_fuse_or_split_param_mappings(
-        cls, config: PretrainedConfig, is_fuse=True
+            cls, config: PretrainedConfig, is_fuse=True
     ) -> List[StateDictNameMapping]:
         """get fused parameter mapping of PretrainedModel
 
@@ -381,7 +381,7 @@ class ConversionMixin:
 
     @staticmethod
     def _resolve_prefix_keys_for_fuse_and_split(
-        state_keys_base, state_keys_real, ignore_error=False, is_fuse=True
+            state_keys_base, state_keys_real, ignore_error=False, is_fuse=True
     ):
         state_keys_map = {}
 

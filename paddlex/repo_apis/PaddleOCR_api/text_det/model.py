@@ -14,23 +14,23 @@
 
 import os
 
-from ....utils.device import parse_device
-from ....utils.misc import abspath
+from ..text_rec.model import TextRecModel
 from ...base.utils.arg import CLIArgument
 from ...base.utils.subprocess import CompletedProcess
-from ..text_rec.model import TextRecModel
+from ....utils.device import parse_device
+from ....utils.misc import abspath
 
 
 class TextDetModel(TextRecModel):
     """Text Detection Model"""
 
     def infer(
-        self,
-        model_dir: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs
+            self,
+            model_dir: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs
     ) -> CompletedProcess:
         """predict image using infernece model
 

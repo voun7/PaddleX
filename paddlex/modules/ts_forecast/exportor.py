@@ -14,9 +14,9 @@
 
 from pathlib import Path
 
-from ...utils import logging
-from ..base import BaseExportor
 from .model_list import MODELS
+from ..base import BaseExportor
+from ...utils import logging
 
 
 class TSFCExportor(BaseExportor):

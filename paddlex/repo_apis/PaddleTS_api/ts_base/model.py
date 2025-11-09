@@ -14,31 +14,31 @@
 
 import os
 
-from ....utils.device import parse_device
-from ....utils.errors import raise_unsupported_api_error
-from ....utils.misc import abspath
 from ...base import BaseModel
 from ...base.utils.arg import CLIArgument
 from ...base.utils.subprocess import CompletedProcess
+from ....utils.device import parse_device
+from ....utils.errors import raise_unsupported_api_error
+from ....utils.misc import abspath
 
 
 class TSModel(BaseModel):
     """TS Model"""
 
     def train(
-        self,
-        batch_size: int = None,
-        learning_rate: float = None,
-        epochs_iters: int = None,
-        ips: str = None,
-        device: str = "gpu",
-        resume_path: str = None,
-        dy2st: bool = False,
-        amp: str = "OFF",
-        num_workers: int = None,
-        use_vdl: bool = False,
-        save_dir: str = None,
-        **kwargs,
+            self,
+            batch_size: int = None,
+            learning_rate: float = None,
+            epochs_iters: int = None,
+            ips: str = None,
+            device: str = "gpu",
+            resume_path: str = None,
+            dy2st: bool = False,
+            amp: str = "OFF",
+            num_workers: int = None,
+            use_vdl: bool = False,
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """train self
 
@@ -123,14 +123,14 @@ class TSModel(BaseModel):
             return self.runner.train(config_path, cli_args, device, ips, save_dir)
 
     def evaluate(
-        self,
-        weight_path: str,
-        batch_size: int = None,
-        ips: str = None,
-        device: str = "gpu",
-        amp: str = "OFF",
-        num_workers: int = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            batch_size: int = None,
+            ips: str = None,
+            device: str = "gpu",
+            amp: str = "OFF",
+            num_workers: int = None,
+            **kwargs,
     ) -> CompletedProcess:
         """evaluate self using specified weight
 
@@ -175,12 +175,12 @@ class TSModel(BaseModel):
             return cp
 
     def predict(
-        self,
-        weight_path: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs,
+            self,
+            weight_path: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs,
     ) -> CompletedProcess:
         """predict using specified weight
 
@@ -220,7 +220,7 @@ class TSModel(BaseModel):
             return self.runner.predict(config_path, cli_args, device)
 
     def export(
-        self, weight_path: str, save_dir: str = None, device: str = "gpu", **kwargs
+            self, weight_path: str, save_dir: str = None, device: str = "gpu", **kwargs
     ):
         """export"""
         if not weight_path.startswith(("http://", "https://")):
@@ -251,26 +251,26 @@ class TSModel(BaseModel):
             return self.runner.export(config_path, cli_args, device)
 
     def infer(
-        self,
-        model_dir: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs,
+            self,
+            model_dir: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs,
     ):
         """infer"""
         raise_unsupported_api_error("infer", self.__class__)
 
     def compression(
-        self,
-        weight_path: str,
-        batch_size=None,
-        learning_rate=None,
-        epochs_iters=None,
-        device: str = "gpu",
-        use_vdl=True,
-        save_dir=None,
-        **kwargs,
+            self,
+            weight_path: str,
+            batch_size=None,
+            learning_rate=None,
+            epochs_iters=None,
+            device: str = "gpu",
+            use_vdl=True,
+            save_dir=None,
+            **kwargs,
     ):
         """compression"""
         raise_unsupported_api_error("compression", self.__class__)

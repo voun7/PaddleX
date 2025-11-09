@@ -6,7 +6,7 @@ Global:
   print_batch_step: 10
   save_model_dir: ./output/rec_ppocr_v3
   save_epoch_step: 3
-  eval_batch_step: [0, 2000]
+  eval_batch_step: [ 0, 2000 ]
   cal_metric_during_train: true
   pretrained_model:
   checkpoints:
@@ -19,7 +19,7 @@ Global:
   use_space_char: true
   distributed: true
   save_res_path: ./output/rec/predicts_ppocrv3.txt
-  d2s_train_image_shape: [3,48,320]
+  d2s_train_image_shape: [ 3,48,320 ]
 
 Optimizer:
   name: Adam
@@ -41,9 +41,9 @@ Architecture:
   Backbone:
     name: MobileNetV1Enhance
     scale: 0.5
-    last_conv_stride: [1, 2]
+    last_conv_stride: [ 1, 2 ]
     last_pool_type: avg
-    last_pool_kernel_size: [2, 2]
+    last_pool_kernel_size: [ 2, 2 ]
   Head:
     name: MultiHead
     head_list:
@@ -66,7 +66,7 @@ Loss:
     - CTCLoss:
     - SARLoss:
 
-PostProcess:  
+PostProcess:
   name: CTCLabelDecode
 
 Metric:
@@ -80,27 +80,27 @@ Train:
     data_dir: ./train_data/
     ext_op_transform_idx: 1
     label_file_list:
-    - ./train_data/train_list.txt
+      - ./train_data/train_list.txt
     transforms:
-    - DecodeImage:
-        img_mode: BGR
-        channel_first: false
-    - RecConAug:
-        prob: 0.5
-        ext_data_num: 2
-        image_shape: [48, 320, 3]
-        max_text_length: *max_text_length
-    - RecAug:
-    - MultiLabelEncode:
-    - RecResizeImg:
-        image_shape: [3, 48, 320]
-    - KeepKeys:
-        keep_keys:
-        - image
-        - label_ctc
-        - label_sar
-        - length
-        - valid_ratio
+      - DecodeImage:
+          img_mode: BGR
+          channel_first: false
+      - RecConAug:
+          prob: 0.5
+          ext_data_num: 2
+          image_shape: [ 48, 320, 3 ]
+          max_text_length: *max_text_length
+      - RecAug:
+      - MultiLabelEncode:
+      - RecResizeImg:
+          image_shape: [ 3, 48, 320 ]
+      - KeepKeys:
+          keep_keys:
+            - image
+            - label_ctc
+            - label_sar
+            - length
+            - valid_ratio
   loader:
     shuffle: true
     batch_size_per_card: 128
@@ -111,21 +111,21 @@ Eval:
     name: SimpleDataSet
     data_dir: ./train_data
     label_file_list:
-    - ./train_data/val_list.txt
+      - ./train_data/val_list.txt
     transforms:
-    - DecodeImage:
-        img_mode: BGR
-        channel_first: false
-    - MultiLabelEncode:
-    - RecResizeImg:
-        image_shape: [3, 48, 320]
-    - KeepKeys:
-        keep_keys:
-        - image
-        - label_ctc
-        - label_sar
-        - length
-        - valid_ratio
+      - DecodeImage:
+          img_mode: BGR
+          channel_first: false
+      - MultiLabelEncode:
+      - RecResizeImg:
+          image_shape: [ 3, 48, 320 ]
+      - KeepKeys:
+          keep_keys:
+            - image
+            - label_ctc
+            - label_sar
+            - length
+            - valid_ratio
   loader:
     shuffle: false
     drop_last: false

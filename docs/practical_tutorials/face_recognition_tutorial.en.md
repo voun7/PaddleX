@@ -4,15 +4,25 @@ comments: true
 
 # PaddleX 3.0 Face Recognition Pipeline —— Cartoon Face Recognition Tutorial
 
-PaddleX provides a rich set of model pipelines, which are composed of one or more models. Each pipeline is designed to solve specific task problems in certain scenarios. All pipelines provided by PaddleX support quick experience. If the effect does not meet expectations, fine-tuning the model with private data is also supported. Moreover, PaddleX provides Python APIs for easy integration into personal projects. Before using it, you need to install PaddleX. For installation methods, please refer to [PaddleX Installation](../installation/installation.md). This tutorial uses a cartoon face recognition task as an example to introduce the usage process of the pipeline tool.
+PaddleX provides a rich set of model pipelines, which are composed of one or more models. Each pipeline is designed to
+solve specific task problems in certain scenarios. All pipelines provided by PaddleX support quick experience. If the
+effect does not meet expectations, fine-tuning the model with private data is also supported. Moreover, PaddleX provides
+Python APIs for easy integration into personal projects. Before using it, you need to install PaddleX. For installation
+methods, please refer to [PaddleX Installation](../installation/installation.md). This tutorial uses a cartoon face
+recognition task as an example to introduce the usage process of the pipeline tool.
 
 ## 1. Selecting the Pipeline
 
-Firstly, you need to select the corresponding PaddleX pipeline based on your task scenario. For face recognition, the corresponding pipeline is the Face Recognition Pipeline. If you are unsure about the relationship between the task and the pipeline, you can refer to the [Pipeline List](../support_list/pipelines_list.md) supported by PaddleX to understand the capabilities of each pipeline.
+Firstly, you need to select the corresponding PaddleX pipeline based on your task scenario. For face recognition, the
+corresponding pipeline is the Face Recognition Pipeline. If you are unsure about the relationship between the task and
+the pipeline, you can refer to the [Pipeline List](../support_list/pipelines_list.md) supported by PaddleX to understand
+the capabilities of each pipeline.
 
 ## 2. Quick Experience
 
-In the PaddleX Face Recognition Pipeline, the model weights provided by the official are trained based on real face data. We first use a real face demonstration dataset for experience. PaddleX provides the following quick experience methods, which can be directly experienced locally through Python APIs.
+In the PaddleX Face Recognition Pipeline, the model weights provided by the official are trained based on real face
+data. We first use a real face demonstration dataset for experience. PaddleX provides the following quick experience
+methods, which can be directly experienced locally through Python APIs.
 
 * Local experience method for real face data:
 
@@ -89,7 +99,9 @@ This tutorial uses a real face demonstration dataset as an example. You can down
 ## 3. Construction of Face Feature Database
 
 ### 3.1 Data Preparation
-This tutorial uses a real face demonstration dataset as an example. You can download the official real face demonstration dataset and extract it to your local directory. The command is as follows:
+
+This tutorial uses a real face demonstration dataset as an example. You can download the official real face
+demonstration dataset and extract it to your local directory. The command is as follows:
 
 ```bash
 wget https://paddle-model-ecology.bj.bcebos.com/paddlex/data/face_demo_gallery.tar
@@ -114,7 +126,9 @@ data_root             # Root directory of the dataset, the directory name can be
 ```
 
 ### 3.2 Construction of Face Feature Database
-PaddleX provides a simple command for database construction. It only takes a few lines of code to build and save the face feature database:
+
+PaddleX provides a simple command for database construction. It only takes a few lines of code to build and save the
+face feature database:
 
 ```python
 from paddlex import create_pipeline
@@ -127,9 +141,16 @@ index_data.save("face_index")
 ```
 
 ## 4. Adding and Removing from the Face Feature Database
-The quality of the face feature database is crucial for the results of face recognition. For cases where the recognition effect is poor, such as under specific lighting conditions or at specific shooting angles, it is necessary to collect and add corresponding images to the feature database. Additionally, when new identities are added, the corresponding face images need to be included in the face feature database. Conversely, for incorrect indices or identities that need to be removed, the corresponding indices should be deleted from the face feature database.
 
-PaddleX provides simple commands for adjusting the face feature database. To add images to the face feature database, you can call the `append_index` method; to remove indices, you can call the `remove_index` method. For the face recognition dataset in this tutorial, the commands for adjusting the face feature database are as follows:
+The quality of the face feature database is crucial for the results of face recognition. For cases where the recognition
+effect is poor, such as under specific lighting conditions or at specific shooting angles, it is necessary to collect
+and add corresponding images to the feature database. Additionally, when new identities are added, the corresponding
+face images need to be included in the face feature database. Conversely, for incorrect indices or identities that need
+to be removed, the corresponding indices should be deleted from the face feature database.
+
+PaddleX provides simple commands for adjusting the face feature database. To add images to the face feature database,
+you can call the `append_index` method; to remove indices, you can call the `remove_index` method. For the face
+recognition dataset in this tutorial, the commands for adjusting the face feature database are as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -144,10 +165,15 @@ index_data.save("face_index_add")
 ```
 
 Note:
-1. The default "HNSW32" index method does not support deleting indexes, so "Flat" is used. For details on the differences between various index methods, please refer to the [Face Recognition Pipeline Tutorial](../pipeline_usage/tutorials/cv_pipelines/face_recognition.md#223-adding-and-deleting-operations-of-face-feature-library);
-2. For detailed descriptions of the parameters in the commands, please refer to the [Face Recognition Pipeline Tutorial](../pipeline_usage/tutorials/cv_pipelines/face_recognition.md#223-adding-and-deleting-operations-of-face-feature-library).
 
-After deleting and adding features to the base library using the above methods, test the different base libraries generated with the example images in sequence again:
+1. The default "HNSW32" index method does not support deleting indexes, so "Flat" is used. For details on the
+   differences between various index methods, please refer to
+   the [Face Recognition Pipeline Tutorial](../pipeline_usage/tutorials/cv_pipelines/face_recognition.md#223-adding-and-deleting-operations-of-face-feature-library);
+2. For detailed descriptions of the parameters in the commands, please refer to
+   the [Face Recognition Pipeline Tutorial](../pipeline_usage/tutorials/cv_pipelines/face_recognition.md#223-adding-and-deleting-operations-of-face-feature-library).
+
+After deleting and adding features to the base library using the above methods, test the different base libraries
+generated with the example images in sequence again:
 
 ```python
 from paddlex import create_pipeline
@@ -170,7 +196,9 @@ The visualization of the prediction results is as follows:
 ## 5. Training and Fine-Tuning a Face Detection Model with Cartoon Data
 
 ### 5.1 Model Selection
-PaddleX provides 4 face detection models. For details, please refer to the [Model List](../support_list/models_list.md). The benchmark of some face detection models is as follows:
+
+PaddleX provides 4 face detection models. For details, please refer to the [Model List](../support_list/models_list.md).
+The benchmark of some face detection models is as follows:
 
 <table>
 <thead>
@@ -226,7 +254,10 @@ PaddleX provides 4 face detection models. For details, please refer to the [Mode
 
 ### 5.2 Data Preparation and Verification
 
-This tutorial uses the Cartoon Face Detection Dataset as an example dataset, which can be obtained using the following command. If you use your own labeled dataset, you need to adjust it according to the format requirements of PaddleX to meet the data format requirements of PaddleX. For details on data format, please refer to the [PaddleX Object Detection Task Module Data Preparation Tutorial](../data_annotations/cv_modules/object_detection.md).
+This tutorial uses the Cartoon Face Detection Dataset as an example dataset, which can be obtained using the following
+command. If you use your own labeled dataset, you need to adjust it according to the format requirements of PaddleX to
+meet the data format requirements of PaddleX. For details on data format, please refer to
+the [PaddleX Object Detection Task Module Data Preparation Tutorial](../data_annotations/cv_modules/object_detection.md).
 
 Dataset acquisition command:
 
@@ -244,7 +275,11 @@ python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S_face.ya
     -o Global.dataset_dir=./dataset/cartoonface_coco_examples
 ```
 
-After executing the above command, PaddleX will verify the dataset and count the basic information of the dataset. After the command runs successfully, the information `Check dataset passed !` will be printed in the log, and the related output will be saved in the `./output/check_dataset` directory under the current directory. The output directory includes visualized sample images and sample distribution histograms. The verification result file is saved in `./output/check_dataset_result.json`, and the specific content of the verification result file is
+After executing the above command, PaddleX will verify the dataset and count the basic information of the dataset. After
+the command runs successfully, the information `Check dataset passed !` will be printed in the log, and the related
+output will be saved in the `./output/check_dataset` directory under the current directory. The output directory
+includes visualized sample images and sample distribution histograms. The verification result file is saved in
+`./output/check_dataset_result.json`, and the specific content of the verification result file is
 
 ```json
 {
@@ -288,14 +323,17 @@ After executing the above command, PaddleX will verify the dataset and count the
 }
 ```
 
-In the above verification results, `check_pass` being `True` indicates that the dataset format meets the requirements. The explanations for the other metrics are as follows:
+In the above verification results, `check_pass` being `True` indicates that the dataset format meets the requirements.
+The explanations for the other metrics are as follows:
+
 * `attributes.num_classes`: This dataset contains only one category, which is human faces.
 * `attributes.train_samples`: The number of training samples in this dataset is 2000.
 * `attributes.val_samples`: The number of validation samples in this dataset is 500.
 * `attributes.train_sample_paths`: This is a list of relative paths to the visualized training samples.
 * `attributes.val_sample_paths`: This is a list of relative paths to the visualized validation samples.
 
-Additionally, the dataset verification has analyzed the distribution of annotation counts for all categories in the dataset and generated a histogram (histogram.png):
+Additionally, the dataset verification has analyzed the distribution of annotation counts for all categories in the
+dataset and generated a histogram (histogram.png):
 <center>
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/practical_tutorials/face_recognition/03.png" width=600>
@@ -306,26 +344,37 @@ Additionally, the dataset verification has analyzed the distribution of annotati
 
 ### Dataset Format Conversion / Dataset Splitting (Optional)
 
-If you need to convert the dataset format or re-split the dataset, you can set this by modifying the configuration file or appending hyperparameters.
+If you need to convert the dataset format or re-split the dataset, you can set this by modifying the configuration file
+or appending hyperparameters.
 
-Parameters related to dataset verification can be set by modifying the fields under `CheckDataset` in the configuration file. Some example explanations of the parameters in the configuration file are as follows:
+Parameters related to dataset verification can be set by modifying the fields under `CheckDataset` in the configuration
+file. Some example explanations of the parameters in the configuration file are as follows:
 
 * `CheckDataset`:
     * `convert`:
-        * `enable`: Whether to perform dataset format conversion. If set to `True`, the dataset format will be converted. The default is `False`.
-        * `src_dataset_type`: If dataset format conversion is performed, you need to specify the source dataset format. The available source formats are `LabelMe` and `VOC`.
+        * `enable`: Whether to perform dataset format conversion. If set to `True`, the dataset format will be
+          converted. The default is `False`.
+        * `src_dataset_type`: If dataset format conversion is performed, you need to specify the source dataset format.
+          The available source formats are `LabelMe` and `VOC`.
     * `split`:
-        * `enable`: Whether to re-split the dataset. If set to `True`, the dataset will be re-split. The default is `False`.
-        * `train_percent`: If re-splitting the dataset, you need to set the percentage of the training set. This should be an integer  between0 and 100, and it must sum to 100 with `val_percent`.
-        * `val_percent`: If re-splitting the dataset, you need to set the percentage of the validation set. This should be an integer between 0 and 100, and it must sum to 100 with `train_percent`.
+        * `enable`: Whether to re-split the dataset. If set to `True`, the dataset will be re-split. The default is
+          `False`.
+        * `train_percent`: If re-splitting the dataset, you need to set the percentage of the training set. This should
+          be an integer between0 and 100, and it must sum to 100 with `val_percent`.
+        * `val_percent`: If re-splitting the dataset, you need to set the percentage of the validation set. This should
+          be an integer between 0 and 100, and it must sum to 100 with `train_percent`.
 
-Both data conversion and data splitting can be enabled simultaneously. For data splitting, the original annotation file will be renamed to `xxx.bak` in the original path. These parameters can also be set by appending command-line arguments, for example, to re-split the dataset and set the training and validation set ratios: `-o CheckDataset.split.enable=True -o CheckDataset.split.train_percent=80 -o CheckDataset.split.val_percent=20`.
+Both data conversion and data splitting can be enabled simultaneously. For data splitting, the original annotation file
+will be renamed to `xxx.bak` in the original path. These parameters can also be set by appending command-line arguments,
+for example, to re-split the dataset and set the training and validation set ratios:
+`-o CheckDataset.split.enable=True -o CheckDataset.split.train_percent=80 -o CheckDataset.split.val_percent=20`.
 
 ### 5.3 Model Training and Evaluation
 
 #### Model Training
 
-Before training, please ensure that you have verified the dataset. To complete the training of a PaddleX model, you only need the following command:
+Before training, please ensure that you have verified the dataset. To complete the training of a PaddleX model, you only
+need the following command:
 
 ```bash
 python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S_face.yaml \
@@ -334,37 +383,52 @@ python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S_face.ya
     -o Train.epochs_iters=10
 ```
 
-In PaddleX, model training supports functions such as modifying training hyperparameters and single-machine single-card/multi-card training. You only need to modify the configuration file or append command-line parameters.
+In PaddleX, model training supports functions such as modifying training hyperparameters and single-machine
+single-card/multi-card training. You only need to modify the configuration file or append command-line parameters.
 
-Each model in PaddleX provides a configuration file for model development, which is used to set related parameters. Parameters related to model training can be set by modifying the fields under `Train` in the configuration file. Some examples of parameters in the configuration file are as follows:
+Each model in PaddleX provides a configuration file for model development, which is used to set related parameters.
+Parameters related to model training can be set by modifying the fields under `Train` in the configuration file. Some
+examples of parameters in the configuration file are as follows:
 
 * `Global`:
-    * `mode`: Mode, supports data validation (`check_dataset`), model training (`train`), and model evaluation (`evaluate`);
-    * `device`: Training device, options include `cpu`, `gpu`, `xpu`, `npu`, `mlu`. Except for `cpu`, multi-card training can specify card numbers, such as: `gpu:0,1,2,3`;
+    * `mode`: Mode, supports data validation (`check_dataset`), model training (`train`), and model evaluation (
+      `evaluate`);
+    * `device`: Training device, options include `cpu`, `gpu`, `xpu`, `npu`, `mlu`. Except for `cpu`, multi-card
+      training can specify card numbers, such as: `gpu:0,1,2,3`;
 * `Train`: Training hyperparameter settings;
     * `epochs_iters`: Setting for the number of training epochs;
     * `learning_rate`: Setting for the training learning rate;
 
-For more information on hyperparameters, please refer to [PaddleX General Model Configuration File Parameter Description](../module_usage/instructions/config_parameters_common.md).
+For more information on hyperparameters, please refer
+to [PaddleX General Model Configuration File Parameter Description](../module_usage/instructions/config_parameters_common.md).
 
 <b>Note:</b>
 
-- The above parameters can be set by appending command-line parameters. For example, to specify the mode as model training: `-o Global.mode=train`; to specify training on the first 2 GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`.
-- During model training, PaddleX automatically saves the model weight files, with the default directory being `output`. If you need to specify a save path, you can use the `-o Global.output` field in the configuration file.
-- PaddleX abstracts away the concepts of dynamic graph weights and static graph weights for you. During model training, both dynamic graph and static graph weights are generated. By default, static graph weights are used for model inference.
+- The above parameters can be set by appending command-line parameters. For example, to specify the mode as model
+  training: `-o Global.mode=train`; to specify training on the first 2 GPUs: `-o Global.device=gpu:0,1`; to set the
+  number of training epochs to 10: `-o Train.epochs_iters=10`.
+- During model training, PaddleX automatically saves the model weight files, with the default directory being `output`.
+  If you need to specify a save path, you can use the `-o Global.output` field in the configuration file.
+- PaddleX abstracts away the concepts of dynamic graph weights and static graph weights for you. During model training,
+  both dynamic graph and static graph weights are generated. By default, static graph weights are used for model
+  inference.
 
 <b>Training Output Explanation:</b>
 
-After completing model training, all outputs are saved in the specified output directory (default is `./output/`). The usual outputs include:
+After completing model training, all outputs are saved in the specified output directory (default is `./output/`). The
+usual outputs include:
 
-* `train_result.json`: Training result record file, which records whether the training task was completed normally, as well as the weight metrics, related file paths, etc.;
+* `train_result.json`: Training result record file, which records whether the training task was completed normally, as
+  well as the weight metrics, related file paths, etc.;
 * `train.log`: Training log file, which records the changes in model metrics and loss during the training process;
 * `config.yaml`: Training configuration file, which records the hyperparameter settings for this training session;
-* `.pdparams`, `.pdema`, `.pdopt.pdstate`, `.pdiparams`, `.pdmodel`: Model weight-related files, including network parameters, optimizer, EMA, static graph network parameters, static graph network structure, etc.;
+* `.pdparams`, `.pdema`, `.pdopt.pdstate`, `.pdiparams`, `.pdmodel`: Model weight-related files, including network
+  parameters, optimizer, EMA, static graph network parameters, static graph network structure, etc.;
 
 #### Model Evaluation
 
-After completing model training, you can evaluate the specified model weight file on the validation set to verify the model's accuracy. To perform model evaluation using PaddleX, you only need one command:
+After completing model training, you can evaluate the specified model weight file on the validation set to verify the
+model's accuracy. To perform model evaluation using PaddleX, you only need one command:
 
 ```bash
 python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S.yaml \
@@ -372,16 +436,24 @@ python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S.yaml \
     -o Global.dataset_dir=./dataset/cartoonface_coco_examples
 ```
 
-<b>Note:</b> When evaluating the model, you need to specify the path to the model weight file. Each configuration file has a default weight save path built-in. If you need to change it, you can simply set it by adding a command-line parameter, such as `-o Evaluate.weight_path=./output/best_model/best_model.pdparams`.
+<b>Note:</b> When evaluating the model, you need to specify the path to the model weight file. Each configuration file
+has a default weight save path built-in. If you need to change it, you can simply set it by adding a command-line
+parameter, such as `-o Evaluate.weight_path=./output/best_model/best_model.pdparams`.
 
 ### 5.4 Model Tuning
 
-After learning about model training and evaluation, we can improve the model's accuracy by adjusting hyperparameters. By reasonably adjusting the number of training epochs, you can control the depth of model training to avoid overfitting or underfitting. The learning rate setting is related to the speed and stability of model convergence. Therefore, when optimizing model performance, it is essential to carefully consider the values of these two parameters and flexibly adjust them according to the actual situation to achieve the best training results.
+After learning about model training and evaluation, we can improve the model's accuracy by adjusting hyperparameters. By
+reasonably adjusting the number of training epochs, you can control the depth of model training to avoid overfitting or
+underfitting. The learning rate setting is related to the speed and stability of model convergence. Therefore, when
+optimizing model performance, it is essential to carefully consider the values of these two parameters and flexibly
+adjust them according to the actual situation to achieve the best training results.
 
 It is recommended to follow the control variable method when debugging parameters:
+
 1. First, fix the training iteration to 10 and batch size to 4.
 2. Based on the PP-YOLOE_plus-S_face model, start two experiments with learning rates of 0.001 and 0.0001, respectively.
-3. It can be observed that the highest accuracy configuration in Experiment 2 is with a learning rate of 0.0001. On this training hyperparameter basis, increase the number of training epochs to 20, and you can achieve better accuracy.
+3. It can be observed that the highest accuracy configuration in Experiment 2 is with a learning rate of 0.0001. On this
+   training hyperparameter basis, increase the number of training epochs to 20, and you can achieve better accuracy.
 
 Learning rate exploration experiment results:
 <center>
@@ -453,11 +525,16 @@ Changing epoch experiment results:
 </table>
 </center>
 
-<b>Note: This tutorial is for a 4-GPU setup. If you only have one GPU, you can adjust the number of training GPUs to complete this experiment. However, the final metrics may not align with the above metrics, which is a normal situation.</b>
+<b>Note: This tutorial is for a 4-GPU setup. If you only have one GPU, you can adjust the number of training GPUs to
+complete this experiment. However, the final metrics may not align with the above metrics, which is a normal
+situation.</b>
 
 ### 5.5 Model Inference
 
-After completing model training, evaluation, and fine-tuning, you can use the model weights that satisfy your metrics for inference prediction. To perform inference prediction via the command line, you only need the following command. We use the cartoon face demonstration data with poor performance from the official model weights in the previous [Quick Experience](#2-Quick Experience) for inference.
+After completing model training, evaluation, and fine-tuning, you can use the model weights that satisfy your metrics
+for inference prediction. To perform inference prediction via the command line, you only need the following command. We
+use the cartoon face demonstration data with poor performance from the official model weights in the
+previous [Quick Experience](#2-Quick Experience) for inference.
 
 ```bash
 python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S.yaml \
@@ -466,7 +543,8 @@ python main.py -c paddlex/configs/modules/face_detection/PP-YOLOE_plus-S.yaml \
     -o Predict.input="cartoonface_demo_gallery/test_images/cartoon_demo.jpg"
 ```
 
-The prediction results can be generated under `./output` through the above instructions, and the prediction result of `cartoon_demo.jpg` is as follows:
+The prediction results can be generated under `./output` through the above instructions, and the prediction result of
+`cartoon_demo.jpg` is as follows:
 <center>
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/practical_tutorials/face_recognition/04.jpg" width="600"/>
@@ -474,10 +552,15 @@ The prediction results can be generated under `./output` through the above instr
 </center>
 
 ## 6. Fine-tuning Face Feature Model with Cartoon Data
-During the training process of PaddleX, the path of the best model will be saved to `output/best_model/inference`. Before starting the experiment in this section, please note to save the optimal weights from previous experiments to another path to avoid being overwritten by new experiments.
+
+During the training process of PaddleX, the path of the best model will be saved to `output/best_model/inference`.
+Before starting the experiment in this section, please note to save the optimal weights from previous experiments to
+another path to avoid being overwritten by new experiments.
 
 ### 6.1 Model Selection
-PaddleX provides 2 face feature models. For details, please refer to the [Model List](../support_list/models_list.md). The benchmark of the face feature models is as follows:
+
+PaddleX provides 2 face feature models. For details, please refer to the [Model List](../support_list/models_list.md).
+The benchmark of the face feature models is as follows:
 
 <table>
 <thead>
@@ -518,7 +601,10 @@ PaddleX provides 2 face feature models. For details, please refer to the [Model 
 
 ### 6.2 Data Preparation and Verification
 
-This tutorial uses the Cartoon Face Recognition Dataset as the example dataset, which can be obtained through the following command. If you use your own labeled dataset, you need to adjust it according to the format requirements of PaddleX to meet the data format requirements of PaddleX. For details on data format, please refer to the [Face Feature Module Tutorial Document](../module_usage/tutorials/cv_modules/face_feature.md#414-Face Feature Module Dataset Organization).
+This tutorial uses the Cartoon Face Recognition Dataset as the example dataset, which can be obtained through the
+following command. If you use your own labeled dataset, you need to adjust it according to the format requirements of
+PaddleX to meet the data format requirements of PaddleX. For details on data format, please refer to
+the [Face Feature Module Tutorial Document](../module_usage/tutorials/cv_modules/face_feature.md#414-Face Feature Module Dataset Organization).
 
 Dataset acquisition command:
 
@@ -537,7 +623,11 @@ python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
     -o Global.dataset_dir=./dataset/cartoonface_rec_examples
 ```
 
-After executing the above command, PaddleX will verify the dataset and collect basic information about the dataset. Upon successful execution of the command, the message `Check dataset passed !` will be printed in the log. The related outputs will be saved in the `./output/check_dataset` directory under the current directory, which includes visualized example sample images. The verification result file is saved in `./output/check_dataset_result.json`, and the specific content of the verification result file is
+After executing the above command, PaddleX will verify the dataset and collect basic information about the dataset. Upon
+successful execution of the command, the message `Check dataset passed !` will be printed in the log. The related
+outputs will be saved in the `./output/check_dataset` directory under the current directory, which includes visualized
+example sample images. The verification result file is saved in `./output/check_dataset_result.json`, and the specific
+content of the verification result file is
 
 ```json
 {
@@ -582,13 +672,19 @@ After executing the above command, PaddleX will verify the dataset and collect b
 }
 ```
 
-The above verification results indicate that `check_pass` being `True` means the dataset format meets the requirements. The explanations for other metrics are as follows:
-* `attributes.train_num_classes`: The training set of this dataset contains 5006 face classes, and this number of classes is the number that needs to be passed for subsequent training;
-* `attributes.val_num_classes`: The validation set of the face feature model only has two classes, 0 and 1, representing that two face images do not belong to the same identity and belong to the same identity, respectively;
+The above verification results indicate that `check_pass` being `True` means the dataset format meets the requirements.
+The explanations for other metrics are as follows:
+
+* `attributes.train_num_classes`: The training set of this dataset contains 5006 face classes, and this number of
+  classes is the number that needs to be passed for subsequent training;
+* `attributes.val_num_classes`: The validation set of the face feature model only has two classes, 0 and 1, representing
+  that two face images do not belong to the same identity and belong to the same identity, respectively;
 * `attributes.train_samples`: The number of samples in the training set of this dataset is 77934;
 * `attributes.val_samples`: The number of samples in the validation set of this dataset is 8000;
-* `attributes.train_sample_paths`: The list of relative paths for visualizing the samples in the training set of this dataset;
-* `attributes.val_sample_paths`: The list of relative paths for visualizing the samples in the validation set of this dataset;
+* `attributes.train_sample_paths`: The list of relative paths for visualizing the samples in the training set of this
+  dataset;
+* `attributes.val_sample_paths`: The list of relative paths for visualizing the samples in the validation set of this
+  dataset;
 
 Note: Only data that has passed the data verification can be used for training and evaluation.
 
@@ -596,7 +692,8 @@ Note: Only data that has passed the data verification can be used for training a
 
 #### Model Training
 
-Before training, please ensure that you have verified the dataset. To complete the training of the PaddleX model, simply use the following command:
+Before training, please ensure that you have verified the dataset. To complete the training of the PaddleX model, simply
+use the following command:
 
 ```bash
 python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
@@ -606,35 +703,52 @@ python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
     -o Train.log_interval=50
 ```
 
-In PaddleX, model training supports features such as modifying training hyperparameters and single-machine single-card/multi-card training. You only need to modify the configuration file or append command-line parameters.
+In PaddleX, model training supports features such as modifying training hyperparameters and single-machine
+single-card/multi-card training. You only need to modify the configuration file or append command-line parameters.
 
-Each model in PaddleX provides a configuration file for model development to set relevant parameters. Parameters related to model training can be set by modifying the fields under `Train` in the configuration file. Some examples of parameters in the configuration file are as follows:
+Each model in PaddleX provides a configuration file for model development to set relevant parameters. Parameters related
+to model training can be set by modifying the fields under `Train` in the configuration file. Some examples of
+parameters in the configuration file are as follows:
 
 * `Global`:
-    * `mode`: Mode, supports data validation (`check_dataset`), model training (`train`), and model evaluation (`evaluate`);
-    * `device`: Training device, options include `cpu`, `gpu`, `xpu`, `npu`, `mlu`. Except for `cpu`, multi-card training can specify card numbers, such as: `gpu:0,1,2,3`;
+    * `mode`: Mode, supports data validation (`check_dataset`), model training (`train`), and model evaluation (
+      `evaluate`);
+    * `device`: Training device, options include `cpu`, `gpu`, `xpu`, `npu`, `mlu`. Except for `cpu`, multi-card
+      training can specify card numbers, such as: `gpu:0,1,2,3`;
 * `Train`: Training hyperparameter settings;
     * `epochs_iters`: Setting for the number of training epochs;
     * `learning_rate`: Setting for the training learning rate;
 
-For more information on hyperparameters, please refer to [PaddleX General Model Configuration File Parameter Description](../module_usage/instructions/config_parameters_common.md)
+For more information on hyperparameters, please refer
+to [PaddleX General Model Configuration File Parameter Description](../module_usage/instructions/config_parameters_common.md)
 
 <b>Note:</b>
 
-- The above parameters can be set by appending command-line parameters, such as specifying the mode as model training: `-o Global.mode=train`; specifying training on the first 2 GPUs: `-o Global.device=gpu:0,1`; setting the number of training epochs to 50: `-o Train.epochs_iters=50`.
-- During model training, PaddleX will automatically save the model weight, files with the default directory being `output`. If you need to specify a save path, you can use the `-o Global.output` field in the configuration file.
-- PaddleX hides the concept of dynamic graph weights and static graph weights from you. During model training, both dynamic graph and static graph weights will be generated. By default, static graph weights are used for model inference.
+- The above parameters can be set by appending command-line parameters, such as specifying the mode as model training:
+  `-o Global.mode=train`; specifying training on the first 2 GPUs: `-o Global.device=gpu:0,1`; setting the number of
+  training epochs to 50: `-o Train.epochs_iters=50`.
+- During model training, PaddleX will automatically save the model weight, files with the default directory being
+  `output`. If you need to specify a save path, you can use the `-o Global.output` field in the configuration file.
+- PaddleX hides the concept of dynamic graph weights and static graph weights from you. During model training, both
+  dynamic graph and static graph weights will be generated. By default, static graph weights are used for model
+  inference.
 
 Training output explanation:
 
-After completing model training, all outputs are saved in the specified output directory (default is ./output/), and typically include the following:
-* `train_result.json`: Training result record file, which records whether the training task was completed normally, as well as the metrics of the generated weights and relevant file paths;
+After completing model training, all outputs are saved in the specified output directory (default is ./output/), and
+typically include the following:
+
+* `train_result.json`: Training result record file, which records whether the training task was completed normally, as
+  well as the metrics of the generated weights and relevant file paths;
 * `train.log`: Training log file, which records changes in model metrics and loss during the training process;
 * `config.yaml`: Training configuration file, which records the hyperparameter settings for this training session;
-* `.pdparams`, `.pdema`, `.pdopt.pdstate`, `.pdiparams`, `.pdmodel`: Model weight-related files, including network parameters, optimizer, EMA, static graph network parameters, and static graph network structure;
+* `.pdparams`, `.pdema`, `.pdopt.pdstate`, `.pdiparams`, `.pdmodel`: Model weight-related files, including network
+  parameters, optimizer, EMA, static graph network parameters, and static graph network structure;
 
 #### Model Evaluation
-After completing model training, you can evaluate the specified model weight file on the validation set to verify the model's accuracy. To perform model evaluation using PaddleX, you only need a single command:
+
+After completing model training, you can evaluate the specified model weight file on the validation set to verify the
+model's accuracy. To perform model evaluation using PaddleX, you only need a single command:
 
 ```bash
 python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
@@ -645,13 +759,30 @@ python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
 
 ### 5.4 Model Tuning
 
-The face feature model in PaddleX is trained based on the ArcFace loss function. In addition to learning rate and number of training epochs, the margin parameter in the ArcFace loss function is a key hyperparameter. It enhances the separability between classes by introducing a fixed angular margin in the angular space, thereby improving the model's discriminative ability. In our model tuning experiments, we mainly focus on experimenting with the margin parameter.
+The face feature model in PaddleX is trained based on the ArcFace loss function. In addition to learning rate and number
+of training epochs, the margin parameter in the ArcFace loss function is a key hyperparameter. It enhances the
+separability between classes by introducing a fixed angular margin in the angular space, thereby improving the model's
+discriminative ability. In our model tuning experiments, we mainly focus on experimenting with the margin parameter.
 
-The size of the margin has a significant impact on the training effect and final performance of the model. Generally speaking: increasing the margin makes the decision boundaries between different classes more distinct, forcing the model to separate the feature vectors of different classes more widely in the feature space, thereby improving the separability between classes. However, an overly large margin may increase the optimization difficulty during training, slow down the convergence speed, or even prevent convergence. Additionally, in cases where the training data is insufficient or the data noise is high, an overly large margin may cause the model to overfit the training data, reducing its generalization ability on unseen data.
+The size of the margin has a significant impact on the training effect and final performance of the model. Generally
+speaking: increasing the margin makes the decision boundaries between different classes more distinct, forcing the model
+to separate the feature vectors of different classes more widely in the feature space, thereby improving the
+separability between classes. However, an overly large margin may increase the optimization difficulty during training,
+slow down the convergence speed, or even prevent convergence. Additionally, in cases where the training data is
+insufficient or the data noise is high, an overly large margin may cause the model to overfit the training data,
+reducing its generalization ability on unseen data.
 
-A smaller margin can reduce the training difficulty of the model and make it easier to converge. For training sets with small data volume or low data quality, reducing the margin can lower the risk of overfitting and improve the model's generalization ability. However, an overly small margin may not be sufficient to separate the features of different classes widely enough, and the model may fail to learn discriminative features, affecting recognition accuracy.
+A smaller margin can reduce the training difficulty of the model and make it easier to converge. For training sets with
+small data volume or low data quality, reducing the margin can lower the risk of overfitting and improve the model's
+generalization ability. However, an overly small margin may not be sufficient to separate the features of different
+classes widely enough, and the model may fail to learn discriminative features, affecting recognition accuracy.
 
-In the data validation phase, we can see that the cartoon face recognition dataset we used has 77,934 training samples. Compared to general face recognition datasets (MS1Mv2 with 5.8 million, Glint360K with 17 million), it is a relatively small dataset. Therefore, when training the face feature model using this dataset, we recommend reducing the margin parameter to lower the risk of overfitting and improve the model's generalization ability. In PaddleX, you can specify the value of the margin parameter during face feature model training by adding the command-line parameter `-o Train.arcmargin_m=xx`. Example training command:
+In the data validation phase, we can see that the cartoon face recognition dataset we used has 77,934 training samples.
+Compared to general face recognition datasets (MS1Mv2 with 5.8 million, Glint360K with 17 million), it is a relatively
+small dataset. Therefore, when training the face feature model using this dataset, we recommend reducing the margin
+parameter to lower the risk of overfitting and improve the model's generalization ability. In PaddleX, you can specify
+the value of the margin parameter during face feature model training by adding the command-line parameter
+`-o Train.arcmargin_m=xx`. Example training command:
 
 ```bash
 python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
@@ -663,6 +794,7 @@ python main.py -c paddlex/configs/modules/face_feature/ResNet50_face.yaml \
 ```
 
 When debugging parameters, follow the control variable method:
+
 1. Fix the training iteration to 20 and the learning rate to 4e-4.
 2. Launch two experiments based on the ResNet50_face model with margins of 0.5 and 0.3, respectively.
 
@@ -702,19 +834,24 @@ Margin exploration experiment results:
 </table>
 </center>
 
-Note: This tutorial is designed for a 4-GPU setup. If you only have 1 GPU, you can adjust the number of training GPUs to complete the experiment. However, the final metrics may not align with the above metrics, which is a normal situation.
+Note: This tutorial is designed for a 4-GPU setup. If you only have 1 GPU, you can adjust the number of training GPUs to
+complete the experiment. However, the final metrics may not align with the above metrics, which is a normal situation.
 
 ## 7. pipeline Integration
 
-After fine-tuning the face detection model and face feature model with cartoon scene data, you can select the high-precision model weights to integrate into the PaddleX face recognition pipeline.
+After fine-tuning the face detection model and face feature model with cartoon scene data, you can select the
+high-precision model weights to integrate into the PaddleX face recognition pipeline.
 
-First, obtain the face_recognition pipeline configuration file and load the configuration file for prediction. You can execute the following command to save the results in `my_path`:
+First, obtain the face_recognition pipeline configuration file and load the configuration file for prediction. You can
+execute the following command to save the results in `my_path`:
 
 ```bash
 paddlex --get_pipeline_config face_recognition --save_path ./my_path
 ```
 
-Modify `SubModules.Detection.model_dir` and `SubModules.Recognition.model_dir` in the configuration file to the paths of your fine-tuned face detection model and face feature model, respectively. If you need to directly integrate the face recognition pipeline into your Python project, you can refer to the following example:
+Modify `SubModules.Detection.model_dir` and `SubModules.Recognition.model_dir` in the configuration file to the paths of
+your fine-tuned face detection model and face feature model, respectively. If you need to directly integrate the face
+recognition pipeline into your Python project, you can refer to the following example:
 
 ```yaml
 pipeline_name: face_recognition
@@ -752,16 +889,32 @@ for res in output:
     res.save_to_img("./output/") # Save the result to an image
 ```
 
-If there is a case where a cartoon face can be detected but is recognized as "Unknown0.00", you can modify the `rec_thresholds` in the configuration file and try again after lowering the retrieval threshold. If there are cases of face recognition errors, please replace the optimal weights with the weights from the last training round, or replace the recognition model weights trained with different hyperparameters and try again.
+If there is a case where a cartoon face can be detected but is recognized as "Unknown0.00", you can modify the
+`rec_thresholds` in the configuration file and try again after lowering the retrieval threshold. If there are cases of
+face recognition errors, please replace the optimal weights with the weights from the last training round, or replace
+the recognition model weights trained with different hyperparameters and try again.
 
 ## 8. pipeline Service Deployment
 
-In addition to the Python API integration development method mentioned earlier, PaddleX also provides high-performance deployment and serving deployment capabilities, which are detailed as follows:
-* High-performance deployment: In actual production environments, many applications have strict standards for the performance metrics of deployment strategies (especially response speed) to ensure the efficient operation of the system and the smoothness of user experience. To this end, PaddleX provides a high-performance inference plugin, which aims to deeply optimize the performance of model inference and pre- and post-processing, achieving significant acceleration of the end-to-end process. For detailed high-performance deployment procedures, please refer to the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.md).
-* Serving Deployment: Serving Deployment is a common form of deployment in actual production environments. By encapsulating the inference function as a service, clients can access these services through network requests to obtain inference results. PaddleX supports users in achieving serving deployment of the pipeline at a low cost. For detailed serving deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../pipeline_deploy/serving.md).
+In addition to the Python API integration development method mentioned earlier, PaddleX also provides high-performance
+deployment and serving deployment capabilities, which are detailed as follows:
 
-You can choose the appropriate method to deploy the pipeline according to your needs, and then proceed with subsequent AI application integration.
-This section takes serving deployment as an example and guides you through the serving deployment of the pipeline and API calls, which can be completed in just 5 simple steps:
+* High-performance deployment: In actual production environments, many applications have strict standards for the
+  performance metrics of deployment strategies (especially response speed) to ensure the efficient operation of the
+  system and the smoothness of user experience. To this end, PaddleX provides a high-performance inference plugin, which
+  aims to deeply optimize the performance of model inference and pre- and post-processing, achieving significant
+  acceleration of the end-to-end process. For detailed high-performance deployment procedures, please refer to
+  the [PaddleX High-Performance Inference Guide](../pipeline_deploy/high_performance_inference.md).
+* Serving Deployment: Serving Deployment is a common form of deployment in actual production environments. By
+  encapsulating the inference function as a service, clients can access these services through network requests to
+  obtain inference results. PaddleX supports users in achieving serving deployment of the pipeline at a low cost. For
+  detailed serving deployment procedures, please refer to
+  the [PaddleX Serving Deployment Guide](../pipeline_deploy/serving.md).
+
+You can choose the appropriate method to deploy the pipeline according to your needs, and then proceed with subsequent
+AI application integration.
+This section takes serving deployment as an example and guides you through the serving deployment of the pipeline and
+API calls, which can be completed in just 5 simple steps:
 
 (1) Execute the following Python script to save the feature database of the cartoon face demonstration data.
 
@@ -818,7 +971,9 @@ paddlex --serve --pipeline face_recognition.yaml
 
 #### Client Invocation
 
-PaddleX provides simple and convenient invocation interfaces and example code. Here, we use a simple image inference as an example. For more detailed invocation interface support, please refer to the [Face Recognition Pipeline Usage Tutorial](../pipeline_usage/tutorials/cv_pipelines/face_recognition.md#3-Development-Integration-Deployment).
+PaddleX provides simple and convenient invocation interfaces and example code. Here, we use a simple image inference as
+an example. For more detailed invocation interface support, please refer to
+the [Face Recognition Pipeline Usage Tutorial](../pipeline_usage/tutorials/cv_pipelines/face_recognition.md#3-Development-Integration-Deployment).
 
 Client invocation example code:
 
@@ -853,4 +1008,5 @@ print("\nDetected faces:")
 pprint.pp(result_infer["faces"])
 ```
 
-After executing the example code, you can view the inference results of the service deployment in the output log and the saved inference images respectively.
+After executing the example code, you can view the inference results of the service deployment in the output log and the
+saved inference images respectively.

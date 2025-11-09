@@ -17,9 +17,9 @@ import numbers
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...common.reader.det_3d_reader import Sample
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -30,7 +30,7 @@ class LoadPointsFromFile:
     """Load points from a file and process them according to specified parameters."""
 
     def __init__(
-        self, load_dim=6, use_dim=[0, 1, 2], shift_height=False, use_color=False
+            self, load_dim=6, use_dim=[0, 1, 2], shift_height=False, use_color=False
     ):
         """Initializes the LoadPointsFromFile object.
 
@@ -46,7 +46,7 @@ class LoadPointsFromFile:
         if isinstance(use_dim, int):
             use_dim = list(range(use_dim))
         assert (
-            max(use_dim) < load_dim
+                max(use_dim) < load_dim
         ), f"Expect all used dimensions < {load_dim}, got {use_dim}"
 
         self.load_dim = load_dim
@@ -111,14 +111,14 @@ class LoadPointsFromMultiSweeps(object):
     """Load points from multiple sweeps.This is usually used for nuScenes dataset to utilize previous sweeps."""
 
     def __init__(
-        self,
-        sweeps_num=10,
-        load_dim=5,
-        use_dim=[0, 1, 2, 4],
-        pad_empty_sweeps=False,
-        remove_close=False,
-        test_mode=False,
-        point_cloud_angle_range=None,
+            self,
+            sweeps_num=10,
+            load_dim=5,
+            use_dim=[0, 1, 2, 4],
+            pad_empty_sweeps=False,
+            remove_close=False,
+            test_mode=False,
+            point_cloud_angle_range=None,
     ):
         """Initializes the LoadPointsFromMultiSweeps object
         Args:
@@ -198,10 +198,10 @@ class LoadPointsFromMultiSweeps(object):
         else:
             raise NotImplementedError
         pts_phi = (
-            np.arctan(points_numpy[:, 0] / points_numpy[:, 1])
-            + (points_numpy[:, 1] < 0) * np.pi
-            + np.pi * 2
-        ) % (np.pi * 2)
+                          np.arctan(points_numpy[:, 0] / points_numpy[:, 1])
+                          + (points_numpy[:, 1] < 0) * np.pi
+                          + np.pi * 2
+                  ) % (np.pi * 2)
 
         pts_phi[pts_phi > np.pi] -= np.pi * 2
         pts_phi = pts_phi / np.pi * 180
@@ -254,7 +254,7 @@ class LoadPointsFromMultiSweeps(object):
                     points_sweep = self._remove_close(points_sweep)
                 sweep_ts = sweep["timestamp"] / 1e6
                 points_sweep[:, :3] = (
-                    points_sweep[:, :3] @ sweep["sensor2lidar_rotation"].T
+                        points_sweep[:, :3] @ sweep["sensor2lidar_rotation"].T
                 )
                 points_sweep[:, :3] += sweep["sensor2lidar_translation"]
                 points_sweep[:, 4] = ts - sweep_ts
@@ -276,12 +276,12 @@ class LoadMultiViewImageFromFiles:
     """Load multi-view images from files."""
 
     def __init__(
-        self,
-        to_float32=False,
-        project_pts_to_img_depth=False,
-        cam_depth_range=[4.0, 45.0, 1.0],
-        constant_std=0.5,
-        imread_flag=-1,
+            self,
+            to_float32=False,
+            project_pts_to_img_depth=False,
+            cam_depth_range=[4.0, 45.0, 1.0],
+            constant_std=0.5,
+            imread_flag=-1,
     ):
         """
         Initializes the LoadMultiViewImageFromFiles object.
@@ -344,14 +344,14 @@ class ResizeImage:
     """Resize images & bbox & mask."""
 
     def __init__(
-        self,
-        img_scale=None,
-        multiscale_mode="range",
-        ratio_range=None,
-        keep_ratio=True,
-        bbox_clip_border=True,
-        backend="cv2",
-        override=False,
+            self,
+            img_scale=None,
+            multiscale_mode="range",
+            ratio_range=None,
+            keep_ratio=True,
+            bbox_clip_border=True,
+            backend="cv2",
+            override=False,
     ):
         """Initializes the ResizeImage object.
 
@@ -547,7 +547,7 @@ class ResizeImage:
             return new_size
 
     def imrescale(
-        self, img, scale, return_scale=False, interpolation="bilinear", backend=None
+            self, img, scale, return_scale=False, interpolation="bilinear", backend=None
     ):
         """Resize image while keeping the aspect ratio.
 
@@ -572,13 +572,13 @@ class ResizeImage:
             return rescaled_img
 
     def imresize(
-        self,
-        img,
-        size,
-        return_scale=False,
-        interpolation="bilinear",
-        out=None,
-        backend=None,
+            self,
+            img,
+            size,
+            return_scale=False,
+            interpolation="bilinear",
+            out=None,
+            backend=None,
     ):
         """Resize an image to a given size.
 
@@ -664,7 +664,7 @@ class ResizeImage:
         else:
             if not self.override:
                 assert (
-                    "scale_factor" not in results
+                        "scale_factor" not in results
                 ), "scale and scale_factor cannot be both set."
             else:
                 results.pop("scale")
@@ -751,7 +751,7 @@ class PadImage(object):
         assert size is None or size_divisor is None
 
     def impad(
-        self, img, *, shape=None, padding=None, pad_val=0, padding_mode="constant"
+            self, img, *, shape=None, padding=None, pad_val=0, padding_mode="constant"
     ):
         """Pad the given image to a certain shape or pad on all sides
 
@@ -874,29 +874,29 @@ class SampleFilterByKey:
     """Collect data from the loader relevant to the specific task."""
 
     def __init__(
-        self,
-        keys,
-        meta_keys=(
-            "filename",
-            "ori_shape",
-            "img_shape",
-            "lidar2img",
-            "depth2img",
-            "cam2img",
-            "pad_shape",
-            "scale_factor",
-            "flip",
-            "pcd_horizontal_flip",
-            "pcd_vertical_flip",
-            "box_type_3d",
-            "img_norm_cfg",
-            "pcd_trans",
-            "sample_idx",
-            "pcd_scale_factor",
-            "pcd_rotation",
-            "pts_filename",
-            "transformation_3d_flow",
-        ),
+            self,
+            keys,
+            meta_keys=(
+                    "filename",
+                    "ori_shape",
+                    "img_shape",
+                    "lidar2img",
+                    "depth2img",
+                    "cam2img",
+                    "pad_shape",
+                    "scale_factor",
+                    "flip",
+                    "pcd_horizontal_flip",
+                    "pcd_vertical_flip",
+                    "box_type_3d",
+                    "img_norm_cfg",
+                    "pcd_trans",
+                    "sample_idx",
+                    "pcd_scale_factor",
+                    "pcd_rotation",
+                    "pts_filename",
+                    "transformation_3d_flow",
+            ),
     ):
         self.keys = keys
         self.meta_keys = meta_keys

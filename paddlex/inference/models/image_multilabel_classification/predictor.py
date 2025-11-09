@@ -16,10 +16,10 @@ from typing import Any, Dict, List, Union
 
 import numpy as np
 
-from ....modules.multilabel_classification.model_list import MODELS
-from ..image_classification import ClasPredictor
 from .processors import MultiLabelThreshOutput
 from .result import MLClassResult
+from ..image_classification import ClasPredictor
+from ....modules.multilabel_classification.model_list import MODELS
 
 
 class MLClasPredictor(ClasPredictor):
@@ -28,10 +28,10 @@ class MLClasPredictor(ClasPredictor):
     entities = MODELS
 
     def __init__(
-        self,
-        threshold: Union[float, dict, list, None] = None,
-        *args: List,
-        **kwargs: Dict
+            self,
+            threshold: Union[float, dict, list, None] = None,
+            *args: List,
+            **kwargs: Dict
     ) -> None:
         """Initializes MLClasPredictor.
 
@@ -53,9 +53,9 @@ class MLClasPredictor(ClasPredictor):
         return MLClassResult
 
     def process(
-        self,
-        batch_data: List[Union[str, np.ndarray]],
-        threshold: Union[int, dict, None] = None,
+            self,
+            batch_data: List[Union[str, np.ndarray]],
+            threshold: Union[int, dict, None] = None,
     ) -> Dict[str, Any]:
         """
         Process a batch of data through the preprocessing, inference, and postprocessing.

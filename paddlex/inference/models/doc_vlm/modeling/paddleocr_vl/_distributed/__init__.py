@@ -55,14 +55,14 @@ __all__ = [
 
 
 def parallel_matmul(
-    x,
-    y,
-    bias=None,
-    transpose_y=False,
-    tensor_parallel_degree=1,
-    tensor_parallel_output=True,
-    fuse_linear=False,
-    training=None,
+        x,
+        y,
+        bias=None,
+        transpose_y=False,
+        tensor_parallel_degree=1,
+        tensor_parallel_output=True,
+        fuse_linear=False,
+        training=None,
 ):
     """
     Parallel matmul wrapper.

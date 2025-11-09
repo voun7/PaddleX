@@ -17,16 +17,15 @@ from typing import Final, List, Tuple, Union
 import numpy as np
 from typing_extensions import Literal
 
-from ......utils.deps import function_requires_deps, is_dep_available
+from ..._app import AppContext
 from ....infra import utils as serving_utils
 from ....infra.models import ImageInfo, PDFInfo
 from ....infra.storage import SupportsGetURL, create_storage
 from ....schemas.shared.ocr import BaseInferRequest
-from ..._app import AppContext
+from ......utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import HTTPException
-
 
 DEFAULT_MAX_NUM_INPUT_IMGS: Final[int] = 10
 DEFAULT_MAX_OUTPUT_IMG_SIZE: Final[Tuple[int, int]] = (2000, 2000)
@@ -62,7 +61,7 @@ def get_file_type(request: BaseInferRequest) -> Literal["PDF", "IMAGE"]:
         if serving_utils.is_url(request.file):
             maybe_file_type = serving_utils.infer_file_type(request.file)
             if maybe_file_type is None or not (
-                maybe_file_type == "PDF" or maybe_file_type == "IMAGE"
+                    maybe_file_type == "PDF" or maybe_file_type == "IMAGE"
             ):
                 raise HTTPException(status_code=422, detail="Unsupported file type")
             file_type = maybe_file_type
@@ -76,7 +75,7 @@ def get_file_type(request: BaseInferRequest) -> Literal["PDF", "IMAGE"]:
 
 
 async def get_images(
-    request: BaseInferRequest, app_context: AppContext
+        request: BaseInferRequest, app_context: AppContext
 ) -> Tuple[List[np.ndarray], Union[ImageInfo, PDFInfo]]:
     file_type = get_file_type(request)
     # XXX: Should we return 422?

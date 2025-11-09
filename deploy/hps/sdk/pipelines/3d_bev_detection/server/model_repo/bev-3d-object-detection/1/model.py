@@ -43,7 +43,7 @@ class TritonPythonModel(BaseTritonPythonModel):
 
         objects: List[Dict[str, Any]] = []
         for box, label, score in zip(
-            result["boxes_3d"], result["labels_3d"], result["scores_3d"]
+                result["boxes_3d"], result["labels_3d"], result["scores_3d"]
         ):
             objects.append(
                 dict(

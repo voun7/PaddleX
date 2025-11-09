@@ -26,10 +26,10 @@ from .....utils.logging import info
 def split_dataset(root_dir, train_rate, val_rate, group_id="group_id"):
     """split dataset"""
     assert (
-        train_rate + val_rate == 100
+            train_rate + val_rate == 100
     ), f"The sum of train_rate({train_rate}) and val_rate({val_rate}) should equal 100!"
     assert (
-        train_rate > 0 and val_rate > 0
+            train_rate > 0 and val_rate > 0
     ), f"The train_rate({train_rate}) and val_rate({val_rate}) should be greater than 0!"
 
     tags = ["train.csv", "val.csv"]
@@ -40,7 +40,7 @@ def split_dataset(root_dir, train_rate, val_rate, group_id="group_id"):
             df_one = pd.read_csv(osp.join(root_dir, tag))
             cols = df_one.columns.values.tolist()
             assert (
-                group_id in cols
+                    group_id in cols
             ), f"The default group_id '{group_id}' is not found in the df columns."
         if df.empty:
             df = df_one
@@ -66,7 +66,7 @@ def split_dataset(root_dir, train_rate, val_rate, group_id="group_id"):
 
     assert point_train > 0, f"The train_len is 0, the train_percent should be greater ."
     assert (
-        point_val - point_train > 0
+            point_val - point_train > 0
     ), f"The train_len is 0, the val_percent should be greater ."
 
     train_df = pd.concat(dfs[:point_train], axis=0)

@@ -17,8 +17,8 @@ from typing import Any, Dict, List
 import numpy as np
 import pandas as pd
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("joblib"):
     import joblib
@@ -83,7 +83,7 @@ class ArraytoTS:
         self.info_params = info_params
 
     def __call__(
-        self, ori_ts_list: List[Dict[str, Any]], pred_list: List[np.ndarray]
+            self, ori_ts_list: List[Dict[str, Any]], pred_list: List[np.ndarray]
     ) -> List[pd.DataFrame]:
         """
         Converts a list of arrays to a list of time series DataFrames.

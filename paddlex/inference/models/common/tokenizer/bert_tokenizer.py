@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+
 import unicodedata
 
 from .tokenizer_utils import (
@@ -51,11 +52,11 @@ class BasicTokenizer(object):
     """
 
     def __init__(
-        self,
-        do_lower_case=True,
-        never_split=None,
-        tokenize_chinese_chars=True,
-        strip_accents=None,
+            self,
+            do_lower_case=True,
+            never_split=None,
+            tokenize_chinese_chars=True,
+            strip_accents=None,
     ):
         """Constructs a BasicTokenizer."""
         if never_split is None:
@@ -177,14 +178,14 @@ class BasicTokenizer(object):
         # space-separated words, so they are not treated specially and handled
         # like the all the other languages.
         if (
-            (cp >= 0x4E00 and cp <= 0x9FFF)
-            or (cp >= 0x3400 and cp <= 0x4DBF)  #
-            or (cp >= 0x20000 and cp <= 0x2A6DF)  #
-            or (cp >= 0x2A700 and cp <= 0x2B73F)  #
-            or (cp >= 0x2B740 and cp <= 0x2B81F)  #
-            or (cp >= 0x2B820 and cp <= 0x2CEAF)  #
-            or (cp >= 0xF900 and cp <= 0xFAFF)
-            or (cp >= 0x2F800 and cp <= 0x2FA1F)  #
+                (cp >= 0x4E00 and cp <= 0x9FFF)
+                or (cp >= 0x3400 and cp <= 0x4DBF)  #
+                or (cp >= 0x20000 and cp <= 0x2A6DF)  #
+                or (cp >= 0x2A700 and cp <= 0x2B73F)  #
+                or (cp >= 0x2B740 and cp <= 0x2B81F)  #
+                or (cp >= 0x2B820 and cp <= 0x2CEAF)  #
+                or (cp >= 0xF900 and cp <= 0xFAFF)
+                or (cp >= 0x2F800 and cp <= 0x2FA1F)  #
         ):  #
             return True
 
@@ -414,19 +415,19 @@ class BertTokenizer(PretrainedTokenizer):
     padding_side = "right"
 
     def __init__(
-        self,
-        vocab_file,
-        do_lower_case=True,
-        do_basic_tokenize=True,
-        never_split=None,
-        unk_token="[UNK]",
-        sep_token="[SEP]",
-        pad_token="[PAD]",
-        cls_token="[CLS]",
-        mask_token="[MASK]",
-        tokenize_chinese_chars=True,
-        strip_accents=None,
-        **kwargs
+            self,
+            vocab_file,
+            do_lower_case=True,
+            do_basic_tokenize=True,
+            never_split=None,
+            unk_token="[UNK]",
+            sep_token="[SEP]",
+            pad_token="[PAD]",
+            cls_token="[CLS]",
+            mask_token="[MASK]",
+            tokenize_chinese_chars=True,
+            strip_accents=None,
+            **kwargs
     ):
 
         if not os.path.isfile(vocab_file):
@@ -478,7 +479,7 @@ class BertTokenizer(PretrainedTokenizer):
         split_tokens = []
         if self.do_basic_tokenize:
             for token in self.basic_tokenizer.tokenize(
-                text, never_split=self.all_special_tokens
+                    text, never_split=self.all_special_tokens
             ):
                 # If the token is part of the never_split set
                 if token in self.basic_tokenizer.never_split:
@@ -566,7 +567,7 @@ class BertTokenizer(PretrainedTokenizer):
         return _cls + token_ids_0 + _sep + token_ids_1 + _sep
 
     def build_offset_mapping_with_special_tokens(
-        self, offset_mapping_0, offset_mapping_1=None
+            self, offset_mapping_0, offset_mapping_1=None
     ):
         """
         Build offset map from a pair of offset map by concatenating and adding offsets of special tokens.
@@ -618,7 +619,7 @@ class BertTokenizer(PretrainedTokenizer):
         return len(_cls + token_ids_0 + _sep) * [0] + len(token_ids_1 + _sep) * [1]
 
     def get_special_tokens_mask(
-        self, token_ids_0, token_ids_1=None, already_has_special_tokens=False
+            self, token_ids_0, token_ids_1=None, already_has_special_tokens=False
     ):
         """
         Retrieves sequence ids from a token list that has no special tokens added. This method is called when adding

@@ -14,15 +14,14 @@
 
 from __future__ import absolute_import
 
-import logging
 from dataclasses import dataclass
 from typing import List
 
 import numpy as np
 
+from ...common import ProcessorManager
 from .... import UltraInferModel, ModelFormat
 from .... import c_lib_wrap as C
-from ...common import ProcessorManager
 from ....py_only import PyOnlyProcessorChain
 from ....py_only.vision import PyOnlyVisionModel, processors as P
 from ....utils.misc import load_config
@@ -30,12 +29,12 @@ from ....utils.misc import load_config
 
 class PaddleSegModel(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         """Load a image segmentation model exported by PaddleSeg.
 
@@ -197,12 +196,12 @@ class PaddleSegPostprocessor:
 
 class PyOnlyAnomalyDetectionModel(PyOnlyVisionModel):
     def __init__(
-        self,
-        model_file,
-        params_file,
-        config_file,
-        runtime_option=None,
-        model_format=ModelFormat.PADDLE,
+            self,
+            model_file,
+            params_file,
+            config_file,
+            runtime_option=None,
+            model_format=ModelFormat.PADDLE,
     ):
         self._model_file = model_file
         self._params_file = params_file

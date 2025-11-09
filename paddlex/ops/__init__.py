@@ -21,7 +21,6 @@ from types import ModuleType
 import filelock
 
 from ..utils import logging
-from ..utils.deps import class_requires_deps
 
 
 def get_user_home() -> str:

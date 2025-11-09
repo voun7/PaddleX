@@ -22,12 +22,11 @@ import pandas as pd
 import yaml
 from PIL import Image
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from .tablepyxl import document_to_xl
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
-
 
 __all__ = [
     "WriterType",

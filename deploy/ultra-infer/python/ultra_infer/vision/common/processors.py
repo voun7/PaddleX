@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 from ... import c_lib_wrap as C
 
 
@@ -126,7 +127,7 @@ class PadToSize(Processor):
 
 class Resize(Processor):
     def __init__(
-        self, width, height, scale_w=-1.0, scale_h=-1.0, interp=1, use_scale=False
+            self, width, height, scale_w=-1.0, scale_h=-1.0, interp=1, use_scale=False
     ):
         """Create a Resize operation with the given parameters.
 

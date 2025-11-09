@@ -15,9 +15,9 @@
 import os
 from pathlib import Path
 
-from ...utils.misc import abspath
-from ..image_classification import ClsTrainer
 from .model_list import MODELS
+from ..image_classification import ClsTrainer
+from ...utils.misc import abspath
 
 
 class FaceRecTrainer(ClsTrainer):

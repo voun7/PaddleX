@@ -1,4 +1,3 @@
-
 pipeline_name: instance_segmentation
 
 SubModules:

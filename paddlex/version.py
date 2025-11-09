@@ -21,7 +21,7 @@ __all__ = ["get_pdx_version", "get_version_dict", "show_versions"]
 def get_pdx_version():
     """get_pdx_version"""
     with open(
-        os.path.join(os.path.dirname(__file__), ".version"), "r", encoding="ascii"
+            os.path.join(os.path.dirname(__file__), ".version"), "r", encoding="ascii"
     ) as fv:
         ver = fv.read().rstrip()
     return ver

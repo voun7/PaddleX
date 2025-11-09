@@ -15,8 +15,8 @@
 import inspect
 from typing import Dict
 
-from ....utils.io import ImageReader, ImageWriter
 from ..utils.mixin import ImgMixin, JsonMixin, StrMixin
+from ....utils.io import ImageReader, ImageWriter
 
 
 class BaseResult(dict, StrMixin, JsonMixin):

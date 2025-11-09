@@ -129,14 +129,14 @@ def split_anno_list(root_dir, anno_map):
         src_anno = f.readlines()
     random.shuffle(src_anno)
     train_anno_list = src_anno[: int(len(src_anno) * 0.8)]
-    val_anno_list = src_anno[int(len(src_anno) * 0.8) :]
+    val_anno_list = src_anno[int(len(src_anno) * 0.8):]
     with custom_open(os.path.join(root_dir, "train_anno_list.txt"), "w") as f:
         f.writelines(train_anno_list)
     with custom_open(os.path.join(root_dir, "val_anno_list.txt"), "w") as f:
         f.writelines(val_anno_list)
     anno_map["instance_train.json"] = os.path.join(root_dir, "train_anno_list.txt")
     anno_map["instance_val.json"] = os.path.join(root_dir, "val_anno_list.txt")
-    msg = f"{os.path.join(root_dir,'val_anno_list.txt')}不存在，数据集已默认按照80%训练集，20%验证集划分,\
+    msg = f"{os.path.join(root_dir, 'val_anno_list.txt')}不存在，数据集已默认按照80%训练集，20%验证集划分,\
         且将原始'train_anno_list.txt'重命名为'train_anno_list.txt.bak'."
 
     warning(msg)
@@ -363,7 +363,7 @@ def voc_get_coco_annotation(obj, label_indexer):
 
 @function_requires_deps("tqdm")
 def voc_xmls_to_cocojson(
-    root_dir, annotation_paths, label_indexer, img_indexer, output, output_file
+        root_dir, annotation_paths, label_indexer, img_indexer, output, output_file
 ):
     """
     Convert VOC format data to COCO format.

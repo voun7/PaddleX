@@ -15,13 +15,13 @@
 
 import copy
 
-import numpy as np
 import PIL
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.fonts import PINGFANG_FONT
 from ...common.result import BaseCVResult, JsonMixin
 from ...utils.color_map import get_colormap
+from ....utils.fonts import PINGFANG_FONT
 
 
 class TopkResult(BaseCVResult):

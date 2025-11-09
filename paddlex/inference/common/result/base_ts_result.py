@@ -32,7 +32,7 @@ class BaseTSResult(BaseResult, CSVMixin, ImgMixin):
             AssertionError: If the required key (`BaseTSResult.INPUT_TS_KEY`) are not found in the data.
         """
         assert (
-            BaseTSResult.INPUT_TS_KEY in data
+                BaseTSResult.INPUT_TS_KEY in data
         ), f"`{BaseTSResult.INPUT_TS_KEY}` is needed, but not found in `{list(data.keys())}`!"
         data.pop("input_ts", None)
 

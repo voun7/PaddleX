@@ -18,9 +18,9 @@ from typing import List, Tuple
 import numpy as np
 from numpy.linalg import norm
 
-from .....utils.deps import class_requires_deps, is_dep_available
 from .base_operator import BaseOperator
 from .seal_det_warp import AutoRectifier
+from .....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -192,7 +192,7 @@ class CropByPolys(BaseOperator):
         return dst_img
 
     def reorder_poly_edge(
-        self, points: np.ndarray
+            self, points: np.ndarray
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """Get the respective points composing head edge, tail edge, top
         sideline and bottom sideline.
@@ -223,8 +223,8 @@ class CropByPolys(BaseOperator):
         pad_points = np.vstack([points, points])
         if tail_inds[1] < 1:
             tail_inds[1] = len(points)
-        sideline1 = pad_points[head_inds[1] : tail_inds[1]]
-        sideline2 = pad_points[tail_inds[1] : (head_inds[1] + len(points))]
+        sideline1 = pad_points[head_inds[1]: tail_inds[1]]
+        sideline2 = pad_points[tail_inds[1]: (head_inds[1] + len(points))]
         return head_edge, tail_edge, sideline1, sideline2
 
     def vector_slope(self, vec: list) -> float:
@@ -244,7 +244,7 @@ class CropByPolys(BaseOperator):
         return abs(vec[1] / (vec[0] + 1e-8))
 
     def find_head_tail(
-        self, points: np.ndarray, orientation_thr: float
+            self, points: np.ndarray, orientation_thr: float
     ) -> Tuple[list, list]:
         """Find the head edge and tail edge of a text polygon.
 
@@ -298,15 +298,15 @@ class CropByPolys(BaseOperator):
             score_matrix = np.zeros((len(score), len(score) - 3))
             x = np.arange(len(score) - 3) / float(len(score) - 4)
             gaussian = (
-                1.0
-                / (np.sqrt(2.0 * np.pi) * 0.5)
-                * np.exp(-np.power((x - 0.5) / 0.5, 2.0) / 2)
+                    1.0
+                    / (np.sqrt(2.0 * np.pi) * 0.5)
+                    * np.exp(-np.power((x - 0.5) / 0.5, 2.0) / 2)
             )
             gaussian = gaussian / np.max(gaussian)
             for i in range(len(score)):
                 score_matrix[i, :] = (
-                    score[i]
-                    + pad_score[(i + 2) : (i + len(score) - 1)] * gaussian * 0.3
+                        score[i]
+                        + pad_score[(i + 2): (i + len(score) - 1)] * gaussian * 0.3
                 )
 
             head_start, tail_increment = np.unravel_index(
@@ -323,7 +323,7 @@ class CropByPolys(BaseOperator):
             tail_inds = [tail_start, tail_end]
         else:
             if self.vector_slope(points[1] - points[0]) + self.vector_slope(
-                points[3] - points[2]
+                    points[3] - points[2]
             ) < self.vector_slope(points[2] - points[1]) + self.vector_slope(
                 points[0] - points[3]
             ):
@@ -375,7 +375,7 @@ class CropByPolys(BaseOperator):
         return np.arccos(np.clip(np.sum(unit_vec1 * unit_vec2, axis=-1), -1.0, 1.0))
 
     def get_minarea_rect(
-        self, img: np.ndarray, points: np.ndarray
+            self, img: np.ndarray, points: np.ndarray
     ) -> Tuple[np.ndarray, list]:
         """
         Get the minimum area rectangle for the given points and crop the image accordingly.
@@ -438,8 +438,8 @@ class CropByPolys(BaseOperator):
         for i in range(1, n):
             current_line_len = i * delta_length
             while (
-                current_edge_ind + 1 < len(length_cumsum)
-                and current_line_len >= length_cumsum[current_edge_ind + 1]
+                    current_edge_ind + 1 < len(length_cumsum)
+                    and current_line_len >= length_cumsum[current_edge_ind + 1]
             ):
                 current_edge_ind += 1
             current_edge_end_shift = current_line_len - length_cumsum[current_edge_ind]
@@ -447,9 +447,9 @@ class CropByPolys(BaseOperator):
                 break
             end_shift_ratio = current_edge_end_shift / length_list[current_edge_ind]
             current_point = (
-                line[current_edge_ind]
-                + (line[current_edge_ind + 1] - line[current_edge_ind])
-                * end_shift_ratio
+                    line[current_edge_ind]
+                    + (line[current_edge_ind + 1] - line[current_edge_ind])
+                    * end_shift_ratio
             )
             resampled_line.append(current_point)
         resampled_line.append(line[-1])

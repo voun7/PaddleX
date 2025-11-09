@@ -11,13 +11,13 @@ Global:
   print_batch_step: 20
   use_visualdl: False
   eval_mode: face_recognition
-  retrieval_feature_from: backbone 
+  retrieval_feature_from: backbone
   flip_test: True
   feature_normalize: False
   re_ranking: False
   use_dali: False
   # used for static mode and model export
-  image_shape: [3, 112, 112]
+  image_shape: [ 3, 112, 112 ]
   save_inference_dir: ./inference
 
 AMP:
@@ -38,7 +38,7 @@ Arch:
   Backbone:
     name: ResNet50
     max_pool: False
-    stride_list: [1, 2, 2, 2, 2]
+    stride_list: [ 1, 2, 2, 2, 2 ]
     class_num: 512
   Head:
     name: ArcMargin
@@ -82,14 +82,14 @@ DataLoader:
         - RandFlipImage:
             flip_code: 1
         - ResizeImage:
-            size: [112, 112]
+            size: [ 112, 112 ]
             return_numpy: False
             interpolation: bilinear
             backend: cv2
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.5, 0.5, 0.5]
-            std: [0.5, 0.5, 0.5]
+            mean: [ 0.5, 0.5, 0.5 ]
+            std: [ 0.5, 0.5, 0.5 ]
             order: hwc
     sampler:
       name: DistributedBatchSampler
@@ -109,14 +109,14 @@ DataLoader:
             channel_first: False
             backend: cv2
         - ResizeImage:
-            size: [112, 112]
+            size: [ 112, 112 ]
             return_numpy: False
             interpolation: bilinear
             backend: cv2
         - NormalizeImage:
             scale: 1.0/255.0
-            mean: [0.5, 0.5, 0.5]
-            std: [0.5, 0.5, 0.5]
+            mean: [ 0.5, 0.5, 0.5 ]
+            std: [ 0.5, 0.5, 0.5 ]
             order: hwc
     sampler:
       name: DistributedBatchSampler
@@ -129,4 +129,4 @@ DataLoader:
 
 Metric:
   Eval:
-    - FaceAccuracy: {}
+    - FaceAccuracy: { }

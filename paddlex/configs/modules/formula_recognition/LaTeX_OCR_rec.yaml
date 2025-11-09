@@ -6,10 +6,10 @@ Global:
   output: "output"
 
 CheckDataset:
-  convert: 
+  convert:
     enable: True
     src_dataset_type: FormulaRecDataset
-  split: 
+  split:
     enable: False
     train_percent: null
     val_percent: null

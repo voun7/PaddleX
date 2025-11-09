@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import copy
 import collections
+import copy
 import math
 
 
 def eval_detection(
-    model,
-    data_dir,
-    ann_file,
-    conf_threshold=None,
-    nms_iou_threshold=None,
-    plot=False,
-    batch_size=1,
+        model,
+        data_dir,
+        ann_file,
+        conf_threshold=None,
+        nms_iou_threshold=None,
+        plot=False,
+        batch_size=1,
 ):
     from .utils import CocoDetection
     from .utils import COCOMetric
@@ -34,7 +34,7 @@ def eval_detection(
 
     if conf_threshold is not None or nms_iou_threshold is not None:
         assert (
-            conf_threshold is not None and nms_iou_threshold is not None
+                conf_threshold is not None and nms_iou_threshold is not None
         ), "The conf_threshold and nms_iou_threshold should be set at the same time"
         assert isinstance(
             conf_threshold, (float, int)
@@ -64,7 +64,7 @@ def eval_detection(
     im_list = list()
     im_id_list = list()
     for image_info, i in zip(
-        all_image_info, trange(image_num, desc="Inference Progress")
+            all_image_info, trange(image_num, desc="Inference Progress")
     ):
         if i == twenty_percent_image_num:
             start_time = time.time()

@@ -33,17 +33,17 @@ GENERATION_CONFIG_NAME = "generation_config.json"
 
 
 def resolve_file_path(
-    pretrained_model_name_or_path: str = None,
-    filenames: Union[str, list] = None,
-    subfolder: Optional[str] = None,
-    **kwargs,
+        pretrained_model_name_or_path: str = None,
+        filenames: Union[str, list] = None,
+        subfolder: Optional[str] = None,
+        **kwargs,
 ):
     """
     This is a load function, mainly called by the from_pretrained function.
     Adapt for PaddleX inference.
     """
     assert (
-        pretrained_model_name_or_path is not None
+            pretrained_model_name_or_path is not None
     ), "pretrained_model_name_or_path cannot be None"
     assert filenames is not None, "filenames cannot be None"
     subfolder = subfolder if subfolder is not None else ""
@@ -57,10 +57,10 @@ def resolve_file_path(
     elif os.path.isdir(pretrained_model_name_or_path):
         for index, filename in enumerate(filenames):
             if os.path.exists(
-                os.path.join(pretrained_model_name_or_path, subfolder, filename)
+                    os.path.join(pretrained_model_name_or_path, subfolder, filename)
             ):
                 if not os.path.isfile(
-                    os.path.join(pretrained_model_name_or_path, subfolder, filename)
+                        os.path.join(pretrained_model_name_or_path, subfolder, filename)
                 ):
                     raise EnvironmentError(
                         f"{pretrained_model_name_or_path} does not appear to have file named {filename}."

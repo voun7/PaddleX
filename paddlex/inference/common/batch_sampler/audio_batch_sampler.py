@@ -14,10 +14,10 @@
 
 from pathlib import Path
 
+from .base_batch_sampler import BaseBatchSampler
 from ....utils import logging
 from ....utils.cache import CACHE_DIR
 from ....utils.download import download
-from .base_batch_sampler import BaseBatchSampler
 
 
 class AudioBatchSampler(BaseBatchSampler):

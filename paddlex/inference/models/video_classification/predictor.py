@@ -14,11 +14,6 @@
 
 from typing import Union
 
-from ....modules.video_classification.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import VideoBatchSampler
-from ...common.reader import ReadVideo
-from ..base import BasePredictor
 from .processors import (
     CenterCrop,
     Image2Array,
@@ -28,10 +23,14 @@ from .processors import (
     VideoClasTopk,
 )
 from .result import TopkVideoResult
+from ..base import BasePredictor
+from ...common.batch_sampler import VideoBatchSampler
+from ...common.reader import ReadVideo
+from ....modules.video_classification.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class VideoClasPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
@@ -92,11 +91,11 @@ class VideoClasPredictor(BasePredictor):
 
     @register("ReadVideo")
     def build_readvideo(
-        self,
-        num_seg=8,
-        target_size=224,
-        seg_len=1,
-        sample_type=None,
+            self,
+            num_seg=8,
+            target_size=224,
+            seg_len=1,
+            sample_type=None,
     ):
         return "ReadVideo", ReadVideo(
             backend="decord",
@@ -124,9 +123,9 @@ class VideoClasPredictor(BasePredictor):
 
     @register("NormalizeVideo")
     def build_normalize(
-        self,
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
+            self,
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
     ):
         return "NormalizeVideo", NormalizeVideo(mean=mean, std=std)
 

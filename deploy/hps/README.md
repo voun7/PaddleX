@@ -4,7 +4,9 @@ comments: true
 
 # PaddleX 高稳定性服务化部署
 
-本项目提供一套高稳定性服务化部署方案，它由 `server_env` 与 `sdk` 两个目录组成。`server_env` 部分用于构建包含 Triton Inference Server 的多种镜像，为后续模型产线 server 提供运行环境；`sdk` 部分用于打包产线 SDK，提供各模型产线的 server 和 client 代码。如下图所示：
+本项目提供一套高稳定性服务化部署方案，它由 `server_env` 与 `sdk` 两个目录组成。`server_env` 部分用于构建包含 Triton
+Inference Server 的多种镜像，为后续模型产线 server 提供运行环境；`sdk` 部分用于打包产线 SDK，提供各模型产线的 server 和
+client 代码。如下图所示：
 
 <img src="https://github.com/boomercat/PaddleX_doc_images/blob/main/images/hps/hps_workflow.png?raw=true" />
 
@@ -19,7 +21,8 @@ comments: true
 1. 镜像构建：构建包含 Triton Inference Server 的镜像。在这一阶段中，依赖版本被锁定以提升部署镜像构建的可重现性。
 2. 产线物料打包：将各模型产线的客户端和服务端代码进行打包，便于后续部署与集成使用。
 
-如需了解如何使用构建好的镜像与打包好的 SDK 启动服务器和调用服务，可参考 [PaddleX 服务化部署指南](https://paddlepaddle.github.io/PaddleX/latest/pipeline_deploy/serving.html)。
+如需了解如何使用构建好的镜像与打包好的 SDK
+启动服务器和调用服务，可参考 [PaddleX 服务化部署指南](https://paddlepaddle.github.io/PaddleX/latest/pipeline_deploy/serving.html)。
 
 ## 1. 镜像构建
 
@@ -41,7 +44,12 @@ comments: true
 ./scripts/prepare_rc_image.sh
 ```
 
-该脚本会为每种设备类型构建一个用于依赖收集的镜像，镜像包含 Python 3.10 以及 [pip-tools](https://github.com/jazzband/pip-tools) 工具。[1.2 锁定依赖版本（可选）](./README.md#12-锁定依赖版本可选) 将基于该镜像完成。构建完成后，将分别生成 `paddlex-hps-rc:gpu` 和 `paddlex-hps-rc:cpu` 两个镜像。如果遇到网络问题，可以通过 `-p` 参数指定其他 pip 源；如果不指定，则默认使用 `https://pypi.org/simple`。若在构建过程中遇到基础镜像无法拉取的问题，请参考 [FAQ](./README.md#3faq) 中的相关解决方案。
+该脚本会为每种设备类型构建一个用于依赖收集的镜像，镜像包含 Python 3.10
+以及 [pip-tools](https://github.com/jazzband/pip-tools) 工具。[1.2 锁定依赖版本（可选）](./README.md#12-锁定依赖版本可选)
+将基于该镜像完成。构建完成后，将分别生成 `paddlex-hps-rc:gpu` 和 `paddlex-hps-rc:cpu` 两个镜像。如果遇到网络问题，可以通过
+`-p` 参数指定其他 pip
+源；如果不指定，则默认使用 `https://pypi.org/simple`。若在构建过程中遇到基础镜像无法拉取的问题，请参考 [FAQ](./README.md#3faq)
+中的相关解决方案。
 
 ### 1.2 锁定依赖版本（可选）
 
@@ -51,7 +59,8 @@ comments: true
 ./scripts/freeze_requirements.sh
 ```
 
-该脚本调用 `pip-tools compile` 解析依赖源文件，并最终生成一系列 `.txt` 文件（如 `requirements/gpu.txt`、`requirements/cpu.txt` 等），这些文件将为 [1.3 镜像构建](./README.md#13-镜像构建) 提供依赖版本约束。
+该脚本调用 `pip-tools compile` 解析依赖源文件，并最终生成一系列 `.txt` 文件（如 `requirements/gpu.txt`、
+`requirements/cpu.txt` 等），这些文件将为 [1.3 镜像构建](./README.md#13-镜像构建) 提供依赖版本约束。
 
 ### 1.3 镜像构建
 
@@ -82,7 +91,8 @@ comments: true
   </tbody>
 </table>
 
-对于 Triton Server，项目使用预先编译好的版本，将在构建镜像时自动下载，无需手动下载。以构建 GPU 镜像为例，在 `server_env` 目录下执行以下命令：
+对于 Triton Server，项目使用预先编译好的版本，将在构建镜像时自动下载，无需手动下载。以构建 GPU 镜像为例，在 `server_env`
+目录下执行以下命令：
 
 ```bash
 ./scripts/build_deployment_image.sh -k gpu -t latest-gpu
@@ -178,12 +188,13 @@ comments: true
 
 **1. 构建镜像时无法拉取 Docker 基础镜像**
 
-由于网络连接问题或镜像源访问限制，可能会导致从 Docker Hub 拉取基础镜像失败。可尝试在本地 Docker 配置文件 `/etc/docker/daemon.json` 中添加国内可信镜像仓库地址，以提升镜像下载速度和稳定性。如果上述方法仍无法解决，可尝试从官方或可信第三方渠道手动下载镜像文件。
-
+由于网络连接问题或镜像源访问限制，可能会导致从 Docker Hub 拉取基础镜像失败。可尝试在本地 Docker 配置文件
+`/etc/docker/daemon.json` 中添加国内可信镜像仓库地址，以提升镜像下载速度和稳定性。如果上述方法仍无法解决，可尝试从官方或可信第三方渠道手动下载镜像文件。
 
 **2. 镜像构建过程中出现安装 Python 依赖时超时？**
 
-可能由于网络问题，pip 从官方源下载依赖速度过慢或连接失败。在执行构建镜像脚本时，使用 `-p` 参数指定国内 Python 包索引 URL，以构建依赖收集镜像脚本使用清华镜像源为例：
+可能由于网络问题，pip 从官方源下载依赖速度过慢或连接失败。在执行构建镜像脚本时，使用 `-p` 参数指定国内 Python 包索引
+URL，以构建依赖收集镜像脚本使用清华镜像源为例：
 
 ```bash
 ./scripts/prepare_rc_image.sh -p https://pypi.tuna.tsinghua.edu.cn/simple

@@ -17,8 +17,8 @@ from typing import Final, List, Literal, Optional, Union
 
 from pydantic import BaseModel, HttpUrl
 
-from ....utils.deps import is_dep_available
 from ..infra.models import PrimaryOperations
+from ....utils.deps import is_dep_available
 
 if is_dep_available("openai"):
     from openai.types.chat import ChatCompletion

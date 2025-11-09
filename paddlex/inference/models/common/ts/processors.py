@@ -17,9 +17,9 @@ from typing import Any, Dict, List
 import numpy as np
 import pandas as pd
 
-from .....utils.deps import class_requires_deps, is_dep_available
-from ....utils.benchmark import benchmark
 from .funcs import load_from_dataframe, time_feature
+from ....utils.benchmark import benchmark
+from .....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("joblib"):
     import joblib
@@ -89,7 +89,7 @@ class TSCutOff:
             raise ValueError(
                 f"The length of the input data is {len(ts)}, but it should be at least {self.size['in_chunk_len'] + self.size['skip_chunk_len']} for training."
             )
-        ts_data = ts[-(self.size["in_chunk_len"] + skip_len) :]
+        ts_data = ts[-(self.size["in_chunk_len"] + skip_len):]
         return ts_data
 
 
@@ -193,7 +193,7 @@ class TimeFeature:
     """Extracts time features from time series data for forecasting."""
 
     def __init__(
-        self, params_info: Dict[str, Any], size: Dict[str, int], holiday: bool = False
+            self, params_info: Dict[str, Any], size: Dict[str, int], holiday: bool = False
     ):
         """Initializes the TimeFeature extractor.
 

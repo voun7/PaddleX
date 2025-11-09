@@ -55,16 +55,16 @@ class Vocab(object):
     """
 
     def __init__(
-        self,
-        counter=None,
-        max_size=None,
-        min_freq=1,
-        token_to_idx=None,
-        unk_token=None,
-        pad_token=None,
-        bos_token=None,
-        eos_token=None,
-        **kwargs
+            self,
+            counter=None,
+            max_size=None,
+            min_freq=1,
+            token_to_idx=None,
+            unk_token=None,
+            pad_token=None,
+            bos_token=None,
+            eos_token=None,
+            **kwargs
     ):
         # Handle special tokens
         combs = (
@@ -97,7 +97,7 @@ class Vocab(object):
             assert token_to_idx, "token_to_idx should not be None when counter is None"
             for special_token in special_tokens:
                 assert (
-                    special_token in token_to_idx
+                        special_token in token_to_idx
                 ), "{} is not in token_to_idx".format(special_token)
             self._token_to_idx = token_to_idx
             self._idx_to_token = {idx: token for token, idx in token_to_idx.items()}
@@ -166,7 +166,7 @@ class Vocab(object):
         if len(set(token_to_idx.values())) != len(token_to_idx):
             raise ValueError("User-specified indices must not contain duplicates.")
         if min(token_to_idx.values()) < 0 or max(token_to_idx.values()) >= len(
-            self.token_to_idx
+                self.token_to_idx
         ):
             raise ValueError(
                 "User-specified indices must not be < 0 or >= the number of tokens "
@@ -408,13 +408,13 @@ class Vocab(object):
 
     @classmethod
     def from_dict(
-        cls,
-        token_to_idx,
-        unk_token=None,
-        pad_token=None,
-        bos_token=None,
-        eos_token=None,
-        **kwargs
+            cls,
+            token_to_idx,
+            unk_token=None,
+            pad_token=None,
+            bos_token=None,
+            eos_token=None,
+            **kwargs
     ):
         """
         Builds the :class:`Vocab` from a dict.
@@ -469,15 +469,15 @@ class Vocab(object):
 
     @staticmethod
     def build_vocab(
-        iterator,
-        max_size=None,
-        min_freq=1,
-        token_to_idx=None,
-        unk_token=None,
-        pad_token=None,
-        bos_token=None,
-        eos_token=None,
-        **kwargs
+            iterator,
+            max_size=None,
+            min_freq=1,
+            token_to_idx=None,
+            unk_token=None,
+            pad_token=None,
+            bos_token=None,
+            eos_token=None,
+            **kwargs
     ):
         """
         Builds the :class:`Vocab` according to given iterator and other
@@ -547,12 +547,12 @@ class Vocab(object):
 
     @staticmethod
     def load_vocabulary(
-        filepath,
-        unk_token=None,
-        pad_token=None,
-        bos_token=None,
-        eos_token=None,
-        **kwargs
+            filepath,
+            unk_token=None,
+            pad_token=None,
+            bos_token=None,
+            eos_token=None,
+            **kwargs
     ):
         """
         Builds the :class:`Vocab` from a file reserving all tokens by calling

@@ -15,11 +15,11 @@
 import os
 from pathlib import Path
 
+from .base_batch_sampler import BaseBatchSampler, Batch
+from ...utils.io import MarkDownReader
 from ....utils import logging
 from ....utils.cache import CACHE_DIR
 from ....utils.download import download
-from ...utils.io import MarkDownReader
-from .base_batch_sampler import BaseBatchSampler, Batch
 
 
 class MarkDownBatchSampler(BaseBatchSampler):

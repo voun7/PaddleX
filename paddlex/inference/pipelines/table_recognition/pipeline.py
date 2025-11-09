@@ -17,22 +17,22 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils import logging
-from ....utils.deps import pipeline_requires_extra
+from .result import SingleTableRecognitionResult, TableRecognitionResult
+from .table_recognition_post_processing import get_table_recognition_res
+from .utils import get_neighbor_boxes_idx
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
+from ..components import CropByBoxes
+from ..doc_preprocessor.result import DocPreprocessorResult
+from ..ocr.result import OCRResult
 from ...common.batch_sampler import ImageBatchSampler
 from ...common.reader import ReadImage
 from ...models.object_detection.result import DetResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
-from ..components import CropByBoxes
-from ..doc_preprocessor.result import DocPreprocessorResult
-from ..ocr.result import OCRResult
-from .result import SingleTableRecognitionResult, TableRecognitionResult
-from .table_recognition_post_processing import get_table_recognition_res
-from .utils import get_neighbor_boxes_idx
+from ....utils import logging
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -40,12 +40,12 @@ class _TableRecognitionPipeline(BasePipeline):
     """Table Recognition Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """Initializes the layout parsing pipeline.
 
@@ -108,11 +108,11 @@ class _TableRecognitionPipeline(BasePipeline):
         self.img_reader = ReadImage(format="BGR")
 
     def get_model_settings(
-        self,
-        use_doc_orientation_classify: Optional[bool],
-        use_doc_unwarping: Optional[bool],
-        use_layout_detection: Optional[bool],
-        use_ocr_model: Optional[bool],
+            self,
+            use_doc_orientation_classify: Optional[bool],
+            use_doc_unwarping: Optional[bool],
+            use_layout_detection: Optional[bool],
+            use_ocr_model: Optional[bool],
     ) -> dict:
         """
         Get the model settings based on the provided parameters or default values.
@@ -147,10 +147,10 @@ class _TableRecognitionPipeline(BasePipeline):
         )
 
     def check_model_settings_valid(
-        self,
-        model_settings: Dict,
-        overall_ocr_res: OCRResult,
-        layout_det_res: DetResult,
+            self,
+            model_settings: Dict,
+            overall_ocr_res: OCRResult,
+            layout_det_res: DetResult,
     ) -> bool:
         """
         Check if the input parameters are valid based on the initialized models.
@@ -202,7 +202,7 @@ class _TableRecognitionPipeline(BasePipeline):
         return True
 
     def predict_doc_preprocessor_res(
-        self, image_array: np.ndarray, input_params: dict
+            self, image_array: np.ndarray, input_params: dict
     ) -> Tuple[DocPreprocessorResult, np.ndarray]:
         """
         Preprocess the document image based on input parameters.
@@ -286,13 +286,13 @@ class _TableRecognitionPipeline(BasePipeline):
         return texts_list
 
     def predict_single_table_recognition_res(
-        self,
-        image_array: np.ndarray,
-        overall_ocr_res: OCRResult,
-        table_box: list,
-        use_ocr_results_with_table_cells: bool = False,
-        flag_find_nei_text: bool = True,
-        cell_sort_by_y_projection: bool = False,
+            self,
+            image_array: np.ndarray,
+            overall_ocr_res: OCRResult,
+            table_box: list,
+            use_ocr_results_with_table_cells: bool = False,
+            flag_find_nei_text: bool = True,
+            cell_sort_by_y_projection: bool = False,
     ) -> SingleTableRecognitionResult:
         """
         Predict table recognition results from an image array, layout detection results, and OCR results.
@@ -339,23 +339,23 @@ class _TableRecognitionPipeline(BasePipeline):
         return single_table_recognition_res
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        use_doc_orientation_classify: Optional[bool] = None,
-        use_doc_unwarping: Optional[bool] = None,
-        use_layout_detection: Optional[bool] = None,
-        use_ocr_model: Optional[bool] = None,
-        overall_ocr_res: Optional[OCRResult] = None,
-        layout_det_res: Optional[DetResult] = None,
-        text_det_limit_side_len: Optional[int] = None,
-        text_det_limit_type: Optional[str] = None,
-        text_det_thresh: Optional[float] = None,
-        text_det_box_thresh: Optional[float] = None,
-        text_det_unclip_ratio: Optional[float] = None,
-        text_rec_score_thresh: Optional[float] = None,
-        use_ocr_results_with_table_cells: bool = False,
-        cell_sort_by_y_projection: Optional[bool] = None,
-        **kwargs,
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            use_doc_orientation_classify: Optional[bool] = None,
+            use_doc_unwarping: Optional[bool] = None,
+            use_layout_detection: Optional[bool] = None,
+            use_ocr_model: Optional[bool] = None,
+            overall_ocr_res: Optional[OCRResult] = None,
+            layout_det_res: Optional[DetResult] = None,
+            text_det_limit_side_len: Optional[int] = None,
+            text_det_limit_type: Optional[str] = None,
+            text_det_thresh: Optional[float] = None,
+            text_det_box_thresh: Optional[float] = None,
+            text_det_unclip_ratio: Optional[float] = None,
+            text_rec_score_thresh: Optional[float] = None,
+            use_ocr_results_with_table_cells: bool = False,
+            cell_sort_by_y_projection: Optional[bool] = None,
+            **kwargs,
     ) -> TableRecognitionResult:
         """
         This function predicts the layout parsing result for the given input.
@@ -387,7 +387,7 @@ class _TableRecognitionPipeline(BasePipeline):
             cell_sort_by_y_projection = False
 
         if not self.check_model_settings_valid(
-            model_settings, overall_ocr_res, layout_det_res
+                model_settings, overall_ocr_res, layout_det_res
         ):
             yield {"error": "the input params for model settings are invalid!"}
 

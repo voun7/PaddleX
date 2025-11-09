@@ -196,8 +196,8 @@ def args_cfg():
     pipeline_args = []
 
     if (
-        not (args.install is not None or args.serve or args.paddle2onnx)
-        and pipeline is not None
+            not (args.install is not None or args.serve or args.paddle2onnx)
+            and pipeline is not None
     ):
         if os.path.isfile(pipeline):
             pipeline_name = load_pipeline_config(pipeline)["pipeline_name"]
@@ -441,7 +441,7 @@ def install(args):
         if plugins:
             logging.error("`genai-xxx` cannot be used together with other plugins.")
             sys.exit(2)
-        genai_plugin_types = [p[len("genai-") :] for p in genai_plugins]
+        genai_plugin_types = [p[len("genai-"):] for p in genai_plugins]
         _install_genai_deps(genai_plugin_types)
         return
 
@@ -469,13 +469,13 @@ def install(args):
 
 
 def pipeline_predict(
-    pipeline,
-    input,
-    device,
-    save_path,
-    use_hpip,
-    hpi_config,
-    **pipeline_args,
+        pipeline,
+        input,
+        device,
+        save_path,
+        use_hpip,
+        hpi_config,
+        **pipeline_args,
 ):
     """pipeline predict"""
     pipeline = create_pipeline(

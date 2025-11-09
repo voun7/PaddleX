@@ -14,12 +14,12 @@
 
 import os
 
+from ..text_rec.model import TextRecModel
+from ...base.utils.arg import CLIArgument
+from ...base.utils.subprocess import CompletedProcess
 from ....utils import logging
 from ....utils.device import parse_device
 from ....utils.misc import abspath
-from ...base.utils.arg import CLIArgument
-from ...base.utils.subprocess import CompletedProcess
-from ..text_rec.model import TextRecModel
 
 
 class TableRecModel(TextRecModel):
@@ -28,12 +28,12 @@ class TableRecModel(TextRecModel):
     METRICS = ["acc"]
 
     def predict(
-        self,
-        weight_path: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs
+            self,
+            weight_path: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs
     ) -> CompletedProcess:
         """predict using specified weight
 
@@ -69,12 +69,12 @@ class TableRecModel(TextRecModel):
             return self.runner.predict(config_path, [], device)
 
     def infer(
-        self,
-        model_dir: str,
-        input_path: str,
-        device: str = "gpu",
-        save_dir: str = None,
-        **kwargs
+            self,
+            model_dir: str,
+            input_path: str,
+            device: str = "gpu",
+            save_dir: str = None,
+            **kwargs
     ) -> CompletedProcess:
         """predict image using infernece model
 

@@ -16,8 +16,8 @@ from urllib.parse import urlparse
 
 import yaml
 
-from ...utils.misc import abspath
 from ..base import BaseConfig
+from ...utils.misc import abspath
 
 
 class BaseSegConfig(BaseConfig):

@@ -13,12 +13,9 @@
 # limitations under the License.
 
 
-import os
-import os.path as osp
-
-from ...base import BaseDatasetChecker
-from ..model_list import MODELS
 from .dataset_src import anaylse_dataset, check_dataset, convert_dataset, split_dataset
+from ..model_list import MODELS
+from ...base import BaseDatasetChecker
 
 
 class UadDatasetChecker(BaseDatasetChecker):

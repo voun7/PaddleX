@@ -21,9 +21,9 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+from .utils.visualizer import draw_bbox
 from .....utils.deps import function_requires_deps, is_dep_available
 from .....utils.errors import DatasetFileNotFoundError
-from .utils.visualizer import draw_bbox
 
 if is_dep_available("pycocotools"):
     from pycocotools.coco import COCO

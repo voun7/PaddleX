@@ -15,8 +15,8 @@
 import uuid
 from typing import Final
 
-from ....infra.storage import create_storage
 from ..._app import AppContext
+from ....infra.storage import create_storage
 
 DEFAULT_INDEX_DIR: Final[str] = ".index"
 

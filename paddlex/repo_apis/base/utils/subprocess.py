@@ -22,17 +22,17 @@ __all__ = ["run_cmd", "CompletedProcess"]
 
 
 def run_cmd(
-    cmd,
-    env=None,
-    silent=True,
-    cwd=None,
-    timeout=None,
-    echo=False,
-    pipe_stdout=False,
-    pipe_stderr=False,
-    blocking=True,
-    async_run=False,
-    text=True,
+        cmd,
+        env=None,
+        silent=True,
+        cwd=None,
+        timeout=None,
+        echo=False,
+        pipe_stdout=False,
+        pipe_stderr=False,
+        blocking=True,
+        async_run=False,
+        text=True,
 ):
     """Wrap around `subprocess.Popen` to execute a shell command."""
     # TODO: Limit argument length

@@ -26,12 +26,12 @@ if is_dep_available("opencv-contrib-python"):
 @class_requires_deps("opencv-contrib-python")
 class LetterResize(object):
     def __init__(
-        self,
-        scale=[640, 640],
-        pad_val=144,
-        use_mini_pad=False,
-        stretch_only=False,
-        allow_scale_up=False,
+            self,
+            scale=[640, 640],
+            pad_val=144,
+            use_mini_pad=False,
+            stretch_only=False,
+            allow_scale_up=False,
     ):
         super(LetterResize, self).__init__()
         self.scale = scale
@@ -84,10 +84,10 @@ class LetterResize(object):
 
         padding_list = [top_padding, bottom_padding, left_padding, right_padding]
         if (
-            top_padding != 0
-            or bottom_padding != 0
-            or left_padding != 0
-            or right_padding != 0
+                top_padding != 0
+                or bottom_padding != 0
+                or left_padding != 0
+                or right_padding != 0
         ):
             pad_val = self.pad_val
             if isinstance(pad_val, int) and image.ndim == 3:

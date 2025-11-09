@@ -15,13 +15,10 @@
 import contextlib
 import importlib
 from pathlib import Path
-from typing import Any, Dict, Optional, Type
 
-from pydantic import BaseModel
-
-from ....utils import logging
-from ...utils.official_models import official_models
 from ..utils import check_backend, model_name_to_module_name
+from ...utils.official_models import official_models
+from ....utils import logging
 
 NETWORK_CLASS_GETTER_KEY = "get_network_class"
 PROCESSOR_CLASS_GETTER_KEY = "get_processor_class"
@@ -105,13 +102,13 @@ def get_chat_template_path(model_name, backend, model_dir):
     _check_model_name_and_backend(model_name, backend)
 
     with importlib.resources.path(
-        "paddlex.inference.genai.chat_templates", f"{model_name}.jinja"
+            "paddlex.inference.genai.chat_templates", f"{model_name}.jinja"
     ) as chat_template_path:
         if not chat_template_path.exists():
             default_chat_template_path = Path(model_dir, DEFAULT_CHAT_TEMPLATE_FILENAME)
             if (
-                default_chat_template_path.exists()
-                and default_chat_template_path.is_file()
+                    default_chat_template_path.exists()
+                    and default_chat_template_path.is_file()
             ):
                 # TODO: Support symbolic links
                 yield default_chat_template_path

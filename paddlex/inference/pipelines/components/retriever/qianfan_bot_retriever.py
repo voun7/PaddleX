@@ -18,9 +18,8 @@ from typing import Dict, List
 import requests
 
 from paddlex.utils import logging
-
-from .....utils.deps import is_dep_available
 from .base import BaseRetriever
+from .....utils.deps import is_dep_available
 
 
 class QianFanBotRetriever(BaseRetriever):
@@ -83,15 +82,16 @@ class QianFanBotRetriever(BaseRetriever):
 if is_dep_available("langchain-core"):
     from langchain_core.embeddings import Embeddings
 
+
     class QianfanEmbeddings(Embeddings):
         """`Baidu Qianfan Embeddings` embedding models."""
 
         def __init__(
-            self,
-            api_key: str,
-            base_url: str = "https://qianfan.baidubce.com/v2",
-            model: str = "embedding-v1",
-            **kwargs,
+                self,
+                api_key: str,
+                base_url: str = "https://qianfan.baidubce.com/v2",
+                model: str = "embedding-v1",
+                **kwargs,
         ):
             """
             Initialize the Baidu Qianfan Embeddings class.

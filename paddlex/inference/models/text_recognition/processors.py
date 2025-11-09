@@ -19,8 +19,8 @@ from typing import List
 
 import numpy as np
 
-from ....utils.deps import class_requires_deps, is_dep_available
 from ...utils.benchmark import benchmark
+from ....utils.deps import class_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2
@@ -161,10 +161,10 @@ class BaseRecLabelDecode:
                 c_state = "symbol"
 
             if (
-                char == "."
-                and state == "en&num"
-                and c_i + 1 < len(text)
-                and bool(re.search("[0-9]", text[c_i + 1]))
+                    char == "."
+                    and state == "en&num"
+                    and c_i + 1 < len(text)
+                    and bool(re.search("[0-9]", text[c_i + 1]))
             ):
                 c_state = "en&num"
             if char == "-" and state == "en&num":
@@ -193,11 +193,11 @@ class BaseRecLabelDecode:
         return word_list, word_col_list, state_list
 
     def decode(
-        self,
-        text_index,
-        text_prob=None,
-        is_remove_duplicate=False,
-        return_word_box=False,
+            self,
+            text_index,
+            text_prob=None,
+            is_remove_duplicate=False,
+            return_word_box=False,
     ):
         """convert text-index into text-label."""
         result_list = []

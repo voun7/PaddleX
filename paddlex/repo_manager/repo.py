@@ -20,14 +20,6 @@ import tempfile
 
 from packaging.requirements import Requirement
 
-from ..utils import logging
-from ..utils.download import download_and_extract
-from ..utils.file_interface import custom_open
-from ..utils.install import (
-    install_packages,
-    install_packages_from_requirements_file,
-    uninstall_packages,
-)
 from .meta import REPO_DIST_NAMES, REPO_DOWNLOAD_BASE, get_repo_meta
 from .utils import (
     fetch_repo_using_git,
@@ -35,6 +27,14 @@ from .utils import (
     remove_repo_using_rm,
     reset_repo_using_git,
     switch_working_dir,
+)
+from ..utils import logging
+from ..utils.download import download_and_extract
+from ..utils.file_interface import custom_open
+from ..utils.install import (
+    install_packages,
+    install_packages_from_requirements_file,
+    uninstall_packages,
 )
 
 __all__ = ["build_repo_instance", "build_repo_group_installer"]
@@ -75,7 +75,7 @@ class PPRepository(object):
         self.dist_name = self.meta.get("dist_name", None)
         self.import_name = self.meta.get("import_name", None)
         self.pdx_mod_name = (
-            pdx_collection_mod.__name__ + "." + self.meta["pdx_pkg_name"]
+                pdx_collection_mod.__name__ + "." + self.meta["pdx_pkg_name"]
         )
         self.main_req_file = self.meta.get("main_req_file", "requirements.txt")
 
@@ -256,11 +256,11 @@ class RepositoryGroupInstaller(object):
         self.repos = repos
 
     def install(
-        self,
-        force_reinstall=False,
-        no_deps=False,
-        constraints=None,
-        deps_to_replace=None,
+            self,
+            force_reinstall=False,
+            no_deps=False,
+            constraints=None,
+            deps_to_replace=None,
     ):
         """install"""
         # Rollback on failure is not yet supported. A failed installation
@@ -381,10 +381,10 @@ class RepositoryGroupInstaller(object):
                 # Skip repo packages
                 continue
             elif req.name.replace("_", "-") in (
-                "opencv-python",
-                "opencv-contrib-python",
-                "opencv-python-headless",
-                "opencv-contrib-python-headless",
+                    "opencv-python",
+                    "opencv-contrib-python",
+                    "opencv-python-headless",
+                    "opencv-contrib-python-headless",
             ):
                 # FIXME: The original version specifiers are ignored. It would be better to check them here.
                 # The resolver will get the version info from the constraints file.

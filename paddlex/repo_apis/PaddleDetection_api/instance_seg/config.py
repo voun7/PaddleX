@@ -14,8 +14,8 @@
 
 from typing import List
 
-from ....utils.misc import abspath
 from ..object_det.config import DetConfig
+from ....utils.misc import abspath
 
 
 class InstanceSegConfig(DetConfig):
@@ -47,15 +47,15 @@ class InstanceSegConfig(DetConfig):
         self.update_from_dict(dict_like_obj, self._dict)
 
     def update_dataset(
-        self,
-        dataset_path: str,
-        dataset_type: str = None,
-        *,
-        data_fields: List[str] = None,
-        image_dir: str = "images",
-        train_anno_path: str = "annotations/instance_train.json",
-        val_anno_path: str = "annotations/instance_val.json",
-        test_anno_path: str = "annotations/instance_val.json",
+            self,
+            dataset_path: str,
+            dataset_type: str = None,
+            *,
+            data_fields: List[str] = None,
+            image_dir: str = "images",
+            train_anno_path: str = "annotations/instance_train.json",
+            val_anno_path: str = "annotations/instance_val.json",
+            test_anno_path: str = "annotations/instance_val.json",
     ):
         """update dataset settings
 
@@ -93,13 +93,13 @@ class InstanceSegConfig(DetConfig):
         self.update(ds_cfg)
 
     def _make_dataset_config(
-        self,
-        dataset_root_path: str,
-        data_fields: List[str,] = None,
-        image_dir: str = "images",
-        train_anno_path: str = "annotations/instance_train.json",
-        val_anno_path: str = "annotations/instance_val.json",
-        test_anno_path: str = "annotations/instance_val.json",
+            self,
+            dataset_root_path: str,
+            data_fields: List[str,] = None,
+            image_dir: str = "images",
+            train_anno_path: str = "annotations/instance_train.json",
+            val_anno_path: str = "annotations/instance_val.json",
+            test_anno_path: str = "annotations/instance_val.json",
     ) -> dict:
         """construct the dataset config that meets the format requirements
 
@@ -142,11 +142,11 @@ class InstanceSegConfig(DetConfig):
         }
 
     def update_ema(
-        self,
-        use_ema: bool,
-        ema_decay: float = 0.9999,
-        ema_decay_type: str = "exponential",
-        ema_filter_no_grad: bool = True,
+            self,
+            use_ema: bool,
+            ema_decay: float = 0.9999,
+            ema_decay_type: str = "exponential",
+            ema_filter_no_grad: bool = True,
     ):
         """update EMA setting
 
@@ -333,7 +333,7 @@ class InstanceSegConfig(DetConfig):
             pretrained_model (str): the local path or url of pretrained weight file to set.
         """
         if not pretrain_weights.startswith(
-            "http://"
+                "http://"
         ) and not pretrain_weights.startswith("https://"):
             pretrain_weights = abspath(pretrain_weights)
         self["pretrain_weights"] = pretrain_weights

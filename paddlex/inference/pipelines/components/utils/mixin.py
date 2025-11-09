@@ -20,7 +20,6 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-from .....utils import logging
 from ....utils.io import (
     CSVWriter,
     HtmlWriter,
@@ -29,6 +28,8 @@ from ....utils.io import (
     TextWriter,
     XlsxWriter,
 )
+from .....utils import logging
+
 
 #### [TODO] need tingquan to add explanatory notes
 
@@ -41,7 +42,7 @@ def _save_list_data(save_func, save_path, data, *args, **kwargs):
         for idx, single in enumerate(data):
             save_func(
                 (
-                    save_path.parent / f"{save_path.stem}_{idx}{save_path.suffix}"
+                        save_path.parent / f"{save_path.stem}_{idx}{save_path.suffix}"
                 ).as_posix(),
                 single,
                 *args,

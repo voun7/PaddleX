@@ -38,8 +38,8 @@ from typing import List
 
 import paddle
 
-from .....utils.benchmark import benchmark
 from ..common import BatchFeature, fetch_image
+from .....utils.benchmark import benchmark
 
 
 class PaddleOCRVLProcessor(object):
@@ -53,9 +53,9 @@ class PaddleOCRVLProcessor(object):
     }
 
     def __init__(
-        self,
-        image_processor=None,
-        tokenizer=None,
+            self,
+            image_processor=None,
+            tokenizer=None,
     ):
         self.image_token = (
             "<|IMAGE_PLACEHOLDER|>"
@@ -72,8 +72,8 @@ class PaddleOCRVLProcessor(object):
 
     @benchmark.timeit
     def preprocess(
-        self,
-        input_dicts,
+            self,
+            input_dicts,
     ):
         images = [fetch_image(input_dict["image"]) for input_dict in input_dicts]
 
@@ -117,8 +117,8 @@ class PaddleOCRVLProcessor(object):
             fps = output_kwargs["videos_kwargs"].pop("fps", 2.0)
             if isinstance(fps, (int, float)):
                 second_per_grid_ts = [
-                    self.image_processor.temporal_patch_size / fps
-                ] * len(video_grid_thw)
+                                         self.image_processor.temporal_patch_size / fps
+                                     ] * len(video_grid_thw)
             elif hasattr(fps, "__len__") and len(fps) == len(video_grid_thw):
                 second_per_grid_ts = [
                     self.image_processor.temporal_patch_size / tmp for tmp in fps
@@ -163,9 +163,9 @@ class PaddleOCRVLProcessor(object):
                         self.video_token,
                         "<|placeholder|>"
                         * (
-                            video_grid_thw[index].prod()
-                            // self.image_processor.merge_size
-                            // self.image_processor.merge_size
+                                video_grid_thw[index].prod()
+                                // self.image_processor.merge_size
+                                // self.image_processor.merge_size
                         ),
                         1,
                     )

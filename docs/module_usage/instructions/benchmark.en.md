@@ -4,26 +4,33 @@
 
 - [1. Instructions](#1.-Instructions)
 - [2. Usage Examples](#2.-Usage-Examples)
-  - [2.1 Command Line Method](#2.1-Command-Line-Method)
-  - [2.2 Python Script Method](#2.2-Python-Script-Method)
+    - [2.1 Command Line Method](#2.1-Command-Line-Method)
+    - [2.2 Python Script Method](#2.2-Python-Script-Method)
 - [3. Explanation of Results](#3.-Explanation-of-Results)
 
 ## 1. Instructions
 
-The benchmark feature collects the average execution time per iteration for each operation in the end-to-end model inference process as well as the average execution time per instance, and provides summary information. The time measurements are in milliseconds.
+The benchmark feature collects the average execution time per iteration for each operation in the end-to-end model
+inference process as well as the average execution time per instance, and provides summary information. The time
+measurements are in milliseconds.
 
 To enable the benchmark feature, you must set the following environment variables:
 
 * `PADDLE_PDX_INFER_BENCHMARK`: When set to `True`, the benchmark feature is enabled (default is `False`).
 * `PADDLE_PDX_INFER_BENCHMARK_WARMUP`: The number of warm-up iterations before testing (default is `0`).
 * `PADDLE_PDX_INFER_BENCHMARK_ITERS`: The number of iterations for testing (default is `0`).
-* `PADDLE_PDX_INFER_BENCHMARK_OUTPUT_DIR`: The directory where the metrics are saved (e.g., `./benchmark`). The default is `None`, meaning the benchmark metrics will not be saved.
-* `PADDLE_PDX_INFER_BENCHMARK_USE_CACHE_FOR_READ`: When set to `True`, the caching mechanism is applied to the operation of reading input data to avoid repetitive I/O overhead, and the time consumed by data read and cache is not recorded in the core time (default is `False`).
+* `PADDLE_PDX_INFER_BENCHMARK_OUTPUT_DIR`: The directory where the metrics are saved (e.g., `./benchmark`). The default
+  is `None`, meaning the benchmark metrics will not be saved.
+* `PADDLE_PDX_INFER_BENCHMARK_USE_CACHE_FOR_READ`: When set to `True`, the caching mechanism is applied to the operation
+  of reading input data to avoid repetitive I/O overhead, and the time consumed by data read and cache is not recorded
+  in the core time (default is `False`).
 
 **Note**:
 
-* At least one of `PADDLE_PDX_INFER_BENCHMARK_WARMUP` or `PADDLE_PDX_INFER_BENCHMARK_ITERS` must be set to a value greater than zero; otherwise, the benchmark feature cannot be used.
-* For the pipeline inference benchmark feature, refer to [Pipeline Benchmark](../../pipeline_usage/instructions/benchmark.en.md).
+* At least one of `PADDLE_PDX_INFER_BENCHMARK_WARMUP` or `PADDLE_PDX_INFER_BENCHMARK_ITERS` must be set to a value
+  greater than zero; otherwise, the benchmark feature cannot be used.
+* For the pipeline inference benchmark feature, refer
+  to [Pipeline Benchmark](../../pipeline_usage/instructions/benchmark.en.md).
 
 ## 2. Usage Examples
 
@@ -33,8 +40,10 @@ You can use the benchmark feature by either the command line method or the Pytho
 
 **Note**:
 
-- For a description of the input parameters, please refer to the [PaddleX Common Model Configuration File Parameter Explanation](./config_parameters_common.en.md).
-- If `batch_size` is greater than 1, the input data will be duplicated `batch_size` times to match the size of `batch_size`.
+- For a description of the input parameters, please refer to
+  the [PaddleX Common Model Configuration File Parameter Explanation](./config_parameters_common.en.md).
+- If `batch_size` is greater than 1, the input data will be duplicated `batch_size` times to match the size of
+  `batch_size`.
 
 Execute the command:
 
@@ -55,8 +64,10 @@ python main.py \
 
 **Note**:
 
-- For a description of the input parameters, please refer to the [PaddleX Single Model Python Usage Instructions](./model_python_API.en.md).
-- If `batch_size` is greater than 1, the input data will be duplicated `batch_size` times to match the size of `batch_size`.
+- For a description of the input parameters, please refer to
+  the [PaddleX Single Model Python Usage Instructions](./model_python_API.en.md).
+- If `batch_size` is greater than 1, the input data will be duplicated `batch_size` times to match the size of
+  `batch_size`.
 
 Create the script `test_infer.py`:
 
@@ -184,7 +195,8 @@ Below is an example of the benchmark results obtained by running the example pro
 +-------+------------+-----------+----------------+------------------------+----------------------------+
 ```
 
-Additionally, since `PADDLE_PDX_INFER_BENCHMARK_OUTPUT_DIR=./benchmark` is set, the above results will be saved locally in `./benchmark/detail.csv` and `./benchmark/summary.csv`.
+Additionally, since `PADDLE_PDX_INFER_BENCHMARK_OUTPUT_DIR=./benchmark` is set, the above results will be saved locally
+in `./benchmark/detail.csv` and `./benchmark/summary.csv`.
 
 The contents of `detail.csv` are as follows:
 

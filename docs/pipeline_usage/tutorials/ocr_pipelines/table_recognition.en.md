@@ -5,14 +5,25 @@ comments: true
 # General Table Recognition Pipeline Tutorial
 
 ## 1. Introduction to General Table Recognition Pipeline
-Table recognition is a technology that automatically identifies and extracts table content and structure from documents or images. It is widely used in data entry, information retrieval, and document analysis. By using computer vision and machine learning algorithms, table recognition can convert complex table information into editable formats, facilitating further processing and analysis of data.
 
-The General Table Recognition Pipeline is designed to solve table recognition tasks by identifying tables in images and outputting them in HTML format. This pipeline integrates the well-known SLANet and SLANet_plus table structure recognition models. Based on this pipeline, precise predictions of tables can be achieved, covering a wide range of applications in general, manufacturing, finance, transportation, and other fields. The pipeline also provides flexible service deployment options, supporting various hardware and programming languages for integration. Moreover, it offers custom development capabilities, allowing you to train and optimize models on your own dataset, which can then be seamlessly integrated.
+Table recognition is a technology that automatically identifies and extracts table content and structure from documents
+or images. It is widely used in data entry, information retrieval, and document analysis. By using computer vision and
+machine learning algorithms, table recognition can convert complex table information into editable formats, facilitating
+further processing and analysis of data.
+
+The General Table Recognition Pipeline is designed to solve table recognition tasks by identifying tables in images and
+outputting them in HTML format. This pipeline integrates the well-known SLANet and SLANet_plus table structure
+recognition models. Based on this pipeline, precise predictions of tables can be achieved, covering a wide range of
+applications in general, manufacturing, finance, transportation, and other fields. The pipeline also provides flexible
+service deployment options, supporting various hardware and programming languages for integration. Moreover, it offers
+custom development capabilities, allowing you to train and optimize models on your own dataset, which can then be
+seamlessly integrated.
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/table_recognition/01.png"/>
 <b>The General Table Recognition Pipeline includes essential modules for table structure recognition, text detection, and text recognition, as well as optional modules for layout area detection, document image orientation classification, and text image correction.</b>
 
-<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize inference speed, choose a faster model; if you care about model size, choose a smaller model.</b>
+<b>If you prioritize model accuracy, choose a high-accuracy model; if you prioritize inference speed, choose a faster
+model; if you care about model size, choose a smaller model.</b>
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
@@ -400,11 +411,13 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </tr>
 </table>
 
-> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this module supports <b>18 models</b>. The complete list of models is as follows:
+> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this
+> module supports <b>18 models</b>. The complete list of models is as follows:
 
 <details><summary> 👉Model List Details</summary>
 
 * <b>Chinese Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -495,6 +508,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -525,6 +539,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -693,20 +708,37 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </details>
 
 ## 2. Quick Start
-The pre-trained models provided by PaddleX can be quickly experienced. You can experience the effect of the general table recognition pipeline online on the Baidu AIStudio Community, or you can experience it locally using the command line or Python.
+
+The pre-trained models provided by PaddleX can be quickly experienced. You can experience the effect of the general
+table recognition pipeline online on the Baidu AIStudio Community, or you can experience it locally using the command
+line or Python.
 
 ### 2.1 Online Experience
-You can [experience online](https://aistudio.baidu.com/community/app/91661/webUI) the effect of the general table recognition pipeline using the official demo images, for example:
+
+You can [experience online](https://aistudio.baidu.com/community/app/91661/webUI) the effect of the general table
+recognition pipeline using the official demo images, for example:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/table_recognition/02.png"/>
 
-If you are satisfied with the performance of the pipeline, you can directly integrate and deploy it. You can choose to download the deployment package from the cloud, or refer to the method in [Section 2.2 Local Experience](#22-local-experience) for local deployment. If you are not satisfied with the effect, you can <b>fine-tune the models in the pipeline using private data</b>. If you have local training hardware resources, you can start training directly on your local machine; if not, the Baidu AI Studio provides a one-click training service. No code is required; simply upload your data to start the training task.
+If you are satisfied with the performance of the pipeline, you can directly integrate and deploy it. You can choose to
+download the deployment package from the cloud, or refer to the method
+in [Section 2.2 Local Experience](#22-local-experience) for local deployment. If you are not satisfied with the effect,
+you can <b>fine-tune the models in the pipeline using private data</b>. If you have local training hardware resources,
+you can start training directly on your local machine; if not, the Baidu AI Studio provides a one-click training
+service. No code is required; simply upload your data to start the training task.
 
 ### 2.2 Local Experience
-Before using the General Table Recognition pipeline locally, ensure you have installed the PaddleX wheel package following the [PaddleX Local Installation Guide](../../../installation/installation.en.md). If you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency group corresponding to this pipeline is `ocr`.
+
+Before using the General Table Recognition pipeline locally, ensure you have installed the PaddleX wheel package
+following the [PaddleX Local Installation Guide](../../../installation/installation.en.md). If you wish to selectively
+install dependencies, please refer to the relevant instructions in the installation guide. The dependency group
+corresponding to this pipeline is `ocr`.
 
 ### 2.1 Command Line Experience
-You can quickly experience the table recognition pipeline with a single command. Use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg), and replace `--input` with your local path for prediction.
+
+You can quickly experience the table recognition pipeline with a single command. Use
+the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg), and replace
+`--input` with your local path for prediction.
 
 ```bash
 paddlex --pipeline table_recognition \
@@ -717,9 +749,13 @@ paddlex --pipeline table_recognition \
         --device gpu:0
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
-The content of the parameters can refer to the parameter description in [2.2 Python Script Method](#22-python-script-method-integration). Supports specifying multiple devices simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
+The content of the parameters can refer to the parameter description
+in [2.2 Python Script Method](#22-python-script-method-integration). Supports specifying multiple devices simultaneously
+for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
 
 After running, the result will be printed to the terminal, as follows:
 
@@ -757,13 +793,18 @@ After running, the result will be printed to the terminal, as follows:
        [448, ..., 121]], dtype=int16)}}]}}
 ```
 
-The running result parameters can be referred to the result explanation in [2.2 Python Script Integration](#22-python-script-integration).
+The running result parameters can be referred to the result explanation
+in [2.2 Python Script Integration](#22-python-script-integration).
 
-The visualization results are saved under `save_path`, where the visualization result of table recognition is as follows:
+The visualization results are saved under `save_path`, where the visualization result of table recognition is as
+follows:
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/table_recognition/03.png" />
 
 ### 2.2 Python Script Integration
-* The above command line is for a quick experience to view the results. Generally, in a project, it is often necessary to integrate through code. You can complete the fast inference of the pipeline with just a few lines of code. The inference code is as follows:
+
+* The above command line is for a quick experience to view the results. Generally, in a project, it is often necessary
+  to integrate through code. You can complete the fast inference of the pipeline with just a few lines of code. The
+  inference code is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -786,7 +827,8 @@ for res in output:
 
 In the above Python script, the following steps are executed:
 
-(1) The `create_pipeline()` function is used to instantiate a general table recognition pipeline object, with the specific parameters described as follows:
+(1) The `create_pipeline()` function is used to instantiate a general table recognition pipeline object, with the
+specific parameters described as follows:
 
 <table>
 <thead>
@@ -833,7 +875,8 @@ In the above Python script, the following steps are executed:
 </tbody>
 </table>
 
-(2) The `predict()` method of the general table recognition pipeline object is called to perform inference prediction. This method returns a `generator`. Below are the parameters and their descriptions for the `predict()` method:
+(2) The `predict()` method of the general table recognition pipeline object is called to perform inference prediction.
+This method returns a `generator`. Below are the parameters and their descriptions for the `predict()` method:
 
 <table>
 <thead>
@@ -969,7 +1012,9 @@ In the above Python script, the following steps are executed:
 <td><code>False</code></td>
 </table>
 
-(3) Process the prediction results. Each sample's prediction result is represented as a corresponding Result object, and supports operations such as printing, saving as an image, saving as an `xlsx` file, saving as an `HTML` file, and saving as a `json` file.
+(3) Process the prediction results. Each sample's prediction result is represented as a corresponding Result object, and
+supports operations such as printing, saving as an image, saving as an `xlsx` file, saving as an `HTML` file, and saving
+as a `json` file.
 
 <table>
 <thead>
@@ -1048,25 +1093,29 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-
-
-- Calling the `print()` method will print the result to the terminal, and the content printed to the terminal is explained as follows:
+- Calling the `print()` method will print the result to the terminal, and the content printed to the terminal is
+  explained as follows:
 
     - `input_path`: `(str)` The input path of the image to be predicted
 
-    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates which page of the PDF is currently being processed; otherwise, it is `None`
+    - `page_index`: `(Union[int, None])` If the input is a PDF file, it indicates which page of the PDF is currently
+      being processed; otherwise, it is `None`
 
     - `model_settings`: `(Dict[str, bool])` Model parameters required for the pipeline configuration
 
         - `use_doc_preprocessor`: `(bool)` Controls whether to enable the document preprocessor sub-line
-    - `doc_preprocessor_res`: `(Dict[str, Union[str, Dict[str, bool], int]])` Output result of the document preprocessor sub-line. It exists only when `use_doc_preprocessor=True`
-        - `input_path`: `(Union[str, None])` The image path accepted by the image preprocessor sub-line. When the input is `numpy.ndarray`, it is saved as `None`
+    - `doc_preprocessor_res`: `(Dict[str, Union[str, Dict[str, bool], int]])` Output result of the document preprocessor
+      sub-line. It exists only when `use_doc_preprocessor=True`
+        - `input_path`: `(Union[str, None])` The image path accepted by the image preprocessor sub-line. When the input
+          is `numpy.ndarray`, it is saved as `None`
         - `model_settings`: `(Dict)` Model configuration parameters for the preprocessor sub-line
             - `use_doc_orientation_classify`: `(bool)` Controls whether to enable document orientation classification
             - `use_doc_unwarping`: `(bool)` Controls whether to enable document warping correction
-        - `angle`: `(int)` The prediction result of document orientation classification. When enabled, the values are [0,1,2,3], corresponding to [0°,90°,180°,270°]; when not enabled, it is -1
+        - `angle`: `(int)` The prediction result of document orientation classification. When enabled, the values
+          are [0,1,2,3], corresponding to [0°,90°,180°,270°]; when not enabled, it is -1
 
-    - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented by a numpy array of four vertex coordinates, with a shape of (4, 2) and a data type of int16
+    - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for text detection. Each detection box is represented
+      by a numpy array of four vertex coordinates, with a shape of (4, 2) and a data type of int16
 
     - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes
 
@@ -1080,20 +1129,38 @@ In the above Python script, the following steps are executed:
 
     - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results
 
-    - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores exceeding `text_rec_score_thresh`
+    - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores
+      exceeding `text_rec_score_thresh`
 
-    - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by `text_rec_score_thresh`
+    - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by
+      `text_rec_score_thresh`
 
-    - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes after confidence filtering, in the same format as `dt_polys`
+    - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes after confidence filtering, in the same format
+      as `dt_polys`
 
-    - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4) and a dtype of int16. Each row represents the coordinates [x_min, y_min, x_max, y_max] of a rectangular box, where (x_min, y_min) is the top-left corner and (x_max, y_max) is the bottom-right corner
+    - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes, with a shape of (n, 4)
+      and a dtype of int16. Each row represents the coordinates [x_min, y_min, x_max, y_max] of a rectangular box,
+      where (x_min, y_min) is the top-left corner and (x_max, y_max) is the bottom-right corner
 
-- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If it is a directory, the saved path will be `save_path/{your_img_basename}.json`; if it is a file, it will be saved directly to that file. Since JSON files do not support saving numpy arrays, the `numpy.array` type will be converted to a list format.
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If it is a directory, the saved path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`; if it is a file, it will be saved directly to that file. (The pipeline usually contains many result images, so it is not recommended to specify a specific file path directly, otherwise multiple images will be overwritten and only the last one will be retained)
-- Calling the `save_to_html()` method will save the above content to the specified `save_path`. If it is a directory, the saved path will be `save_path/{your_img_basename}.html`; if it is a file, it will be saved directly to that file. In the general table recognition pipeline, the HTML form of the table in the image will be written to the specified HTML file.
-- Calling the `save_to_xlsx()` method will save the above content to the specified `save_path`. If it is a directory, the saved path will be `save_path/{your_img_basename}.xlsx`; if it is a file, it will be saved directly to that file. In the general table recognition pipeline, the Excel table form of the table in the image will be written to the specified xlsx file.
+- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If it is a directory,
+  the saved path will be `save_path/{your_img_basename}.json`; if it is a file, it will be saved directly to that file.
+  Since JSON files do not support saving numpy arrays, the `numpy.array` type will be converted to a list format.
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If it is a
+  directory, the saved path will be `save_path/{your_img_basename}_ocr_res_img.{your_img_extension}`; if it is a file,
+  it will be saved directly to that file. (The pipeline usually contains many result images, so it is not recommended to
+  specify a specific file path directly, otherwise multiple images will be overwritten and only the last one will be
+  retained)
+- Calling the `save_to_html()` method will save the above content to the specified `save_path`. If it is a directory,
+  the saved path will be `save_path/{your_img_basename}.html`; if it is a file, it will be saved directly to that file.
+  In the general table recognition pipeline, the HTML form of the table in the image will be written to the specified
+  HTML file.
+- Calling the `save_to_xlsx()` method will save the above content to the specified `save_path`. If it is a directory,
+  the saved path will be `save_path/{your_img_basename}.xlsx`; if it is a file, it will be saved directly to that file.
+  In the general table recognition pipeline, the Excel table form of the table in the image will be written to the
+  specified xlsx file.
 
-* In addition, it also supports obtaining visualized images with results and prediction results through attributes, as follows:
+* In addition, it also supports obtaining visualized images with results and prediction results through attributes, as
+  follows:
 
 <table>
 <thead>
@@ -1112,16 +1179,24 @@ In the above Python script, the following steps are executed:
 </tr>
 </table>
 
-- The prediction result obtained through the `json` attribute is data of the dict type, and its content is consistent with the content saved by calling the `save_to_json()` method.
-- The prediction result returned by the `img` attribute is data of the dictionary type. The keys are `table_res_img`, `ocr_res_img`, `layout_res_img`, and `preprocessed_img`, and the corresponding values are four `Image.Image` objects, in order: the visualized image of table recognition results, the visualized image of OCR results, the visualized image of layout area detection results, and the visualized image of image preprocessing. If a sub-module is not used, the corresponding result image will not be included in the dictionary.
+- The prediction result obtained through the `json` attribute is data of the dict type, and its content is consistent
+  with the content saved by calling the `save_to_json()` method.
+- The prediction result returned by the `img` attribute is data of the dictionary type. The keys are `table_res_img`,
+  `ocr_res_img`, `layout_res_img`, and `preprocessed_img`, and the corresponding values are four `Image.Image` objects,
+  in order: the visualized image of table recognition results, the visualized image of OCR results, the visualized image
+  of layout area detection results, and the visualized image of image preprocessing. If a sub-module is not used, the
+  corresponding result image will not be included in the dictionary.
 
-In addition, you can obtain the configuration file for the general table recognition pipeline and load the configuration file for prediction. You can execute the following command to save the result in `my_path`:
+In addition, you can obtain the configuration file for the general table recognition pipeline and load the configuration
+file for prediction. You can execute the following command to save the result in `my_path`:
 
 ```
 paddlex --get_pipeline_config table_recognition --save_path ./my_path
 ```
 
-If you have obtained the configuration file, you can customize the settings for the general table recognition pipeline. You just need to modify the value of the `pipeline` parameter in the `create_pipeline` method to the path of the pipeline configuration file. The example is as follows:
+If you have obtained the configuration file, you can customize the settings for the general table recognition pipeline.
+You just need to modify the value of the `pipeline` parameter in the `create_pipeline` method to the path of the
+pipeline configuration file. The example is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -1143,18 +1218,32 @@ for res in output:
 
 ```
 
-<b>Note:</b> The parameters in the configuration file are the initialization parameters for the pipeline. If you want to change the general table recognition pipeline initialization parameters, you can directly modify the parameters in the configuration file and load the configuration file for prediction. At the same time, CLI prediction also supports passing in a configuration file, and you can specify the path of the configuration file with `--pipeline`.
+<b>Note:</b> The parameters in the configuration file are the initialization parameters for the pipeline. If you want to
+change the general table recognition pipeline initialization parameters, you can directly modify the parameters in the
+configuration file and load the configuration file for prediction. At the same time, CLI prediction also supports
+passing in a configuration file, and you can specify the path of the configuration file with `--pipeline`.
 
 ## 3. Development Integration/Deployment
-If the pipeline meets your requirements for inference speed and accuracy, you can directly proceed with development integration/deployment.
 
-If you need to apply the pipeline directly in your Python project, you can refer to the example code in [2.2 Python Script Method](#22-python-script-method).
+If the pipeline meets your requirements for inference speed and accuracy, you can directly proceed with development
+integration/deployment.
+
+If you need to apply the pipeline directly in your Python project, you can refer to the example code
+in [2.2 Python Script Method](#22-python-script-method).
 
 In addition, PaddleX also provides three other deployment methods, which are detailed as follows:
 
-🚀 <b>High-Performance Inference</b>: In actual production environments, many applications have strict performance requirements (especially response speed) for deployment strategies to ensure efficient system operation and smooth user experience. To this end, PaddleX provides a high-performance inference plugin, which aims to deeply optimize the performance of model inference and pre/post-processing to significantly speed up the end-to-end process. For detailed high-performance inference procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+🚀 <b>High-Performance Inference</b>: In actual production environments, many applications have strict performance
+requirements (especially response speed) for deployment strategies to ensure efficient system operation and smooth user
+experience. To this end, PaddleX provides a high-performance inference plugin, which aims to deeply optimize the
+performance of model inference and pre/post-processing to significantly speed up the end-to-end process. For detailed
+high-performance inference procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
 
-☁️ <b>Serving Deployment</b>: Serving Deployment is a common form of deployment in actual production environments. By encapsulating inference functions as services, clients can access these services through network requests to obtain inference results. PaddleX supports multiple pipeline serving deployment solutions. For detailed pipeline serving deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
+☁️ <b>Serving Deployment</b>: Serving Deployment is a common form of deployment in actual production environments. By
+encapsulating inference functions as services, clients can access these services through network requests to obtain
+inference results. PaddleX supports multiple pipeline serving deployment solutions. For detailed pipeline serving
+deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
 
 Below are the API references for basic serving deployment and multi-language service invocation examples:
 
@@ -1862,14 +1951,26 @@ foreach ($results as $i => $item) {
 </details>
 <br/>
 
-📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities on the user's device itself, allowing the device to process data directly without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
-You can choose the appropriate deployment method for your model pipeline according to your needs, and then proceed with the subsequent AI application integration.
+📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities on the
+user's device itself, allowing the device to process data directly without relying on remote servers. PaddleX supports
+deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to
+the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
+You can choose the appropriate deployment method for your model pipeline according to your needs, and then proceed with
+the subsequent AI application integration.
 
 ## 4. Custom Development
-If the default model weights provided by the general table recognition pipeline are not satisfactory in terms of accuracy or speed in your scenario, you can try to further <b>fine-tune</b> the existing model using <b>your own specific domain or application scenario data</b> to improve the recognition performance of the general table recognition pipeline in your scenario.
+
+If the default model weights provided by the general table recognition pipeline are not satisfactory in terms of
+accuracy or speed in your scenario, you can try to further <b>fine-tune</b> the existing model using <b>your own
+specific domain or application scenario data</b> to improve the recognition performance of the general table recognition
+pipeline in your scenario.
 
 ### 4.1 Model Fine-tuning
-Since the general table recognition pipeline consists of several modules, if the performance of the model pipeline does not meet expectations, the issue may originate from any one of these modules. You can analyze the images with poor recognition results to determine which module is problematic, and then refer to the corresponding fine-tuning tutorial links in the table below for model fine-tuning.
+
+Since the general table recognition pipeline consists of several modules, if the performance of the model pipeline does
+not meet expectations, the issue may originate from any one of these modules. You can analyze the images with poor
+recognition results to determine which module is problematic, and then refer to the corresponding fine-tuning tutorial
+links in the table below for model fine-tuning.
 
 <table>
 <thead>
@@ -1914,9 +2015,11 @@ Since the general table recognition pipeline consists of several modules, if the
 </table>
 
 ### 4.2 Model Application
+
 After you complete fine-tuning with your private dataset, you will obtain a local model weight file.
 
-If you need to use the fine-tuned model weights, simply modify the production configuration file by replacing the local path of the fine-tuned model weights to the corresponding position in the production configuration file.
+If you need to use the fine-tuned model weights, simply modify the production configuration file by replacing the local
+path of the fine-tuned model weights to the corresponding position in the production configuration file.
 
 ```yaml
 SubModules:
@@ -1970,10 +2073,13 @@ SubPipelines:
         score_thresh: 0
 ```
 
-Subsequently, refer to the command line method or Python script method in [2.2 Local Experience](#22-local-experience) to load the modified production configuration file.
+Subsequently, refer to the command line method or Python script method in [2.2 Local Experience](#22-local-experience)
+to load the modified production configuration file.
 
 ## 5. Multi-Hardware Support
-PaddleX supports a variety of mainstream hardware devices such as NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambricon MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware.
+
+PaddleX supports a variety of mainstream hardware devices such as NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambricon
+MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware.
 
 For example, if you use Ascend NPU for table recognition production inference, the CLI command is:
 
@@ -1986,6 +2092,8 @@ paddlex --pipeline table_recognition \
         --device npu:0
 ```
 
-Of course, you can also specify the hardware device when calling `create_pipeline()` or `predict()` in the Python script.
+Of course, you can also specify the hardware device when calling `create_pipeline()` or `predict()` in the Python
+script.
 
-If you want to use the universal table recognition pipeline on a wider range of hardware, please refer to the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
+If you want to use the universal table recognition pipeline on a wider range of hardware, please refer to
+the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).

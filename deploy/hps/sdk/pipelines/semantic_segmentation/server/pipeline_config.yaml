@@ -1,4 +1,3 @@
-
 pipeline_name: semantic_segmentation
 
 SubModules:

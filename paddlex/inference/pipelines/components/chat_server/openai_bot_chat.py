@@ -17,9 +17,9 @@ import json
 import re
 from typing import Dict
 
+from .base import BaseChat
 from .....utils import logging
 from .....utils.deps import class_requires_deps
-from .base import BaseChat
 
 
 @class_requires_deps("openai")
@@ -74,11 +74,11 @@ class OpenAIBotChat(BaseChat):
         self.config = config
 
     def generate_chat_results(
-        self,
-        prompt: str,
-        image: base64 = None,
-        temperature: float = 0.001,
-        max_retries: int = 1,
+            self,
+            prompt: str,
+            image: base64 = None,
+            temperature: float = 0.001,
+            max_retries: int = 1,
     ) -> Dict:
         """
         Generate chat results using the specified model and configuration.

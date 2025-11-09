@@ -5,22 +5,37 @@ comments: true
 # Seal Text Recognition Pipeline Tutorial
 
 ## 1. Introduction to Seal Text Recognition Pipeline
-Seal text recognition is a technology that automatically extracts and recognizes the content of seals from documents or images. The recognition of seal text is part of document processing and has many applications in various scenarios, such as contract comparison, warehouse entry and exit review, and invoice reimbursement review.
 
-The seal text recognition pipeline is used to recognize the text content of seals, extracting the text information from seal images and outputting it in text form. This pipeline integrates the industry-renowned end-to-end OCR system PP-OCRv4, supporting the detection and recognition of curved seal text. Additionally, this pipeline integrates an optional layout region localization module, which can accurately locate the layout position of the seal within the entire document. It also includes optional document image orientation correction and distortion correction functions. Based on this pipeline, millisecond-level accurate text content prediction can be achieved on a CPU. This pipeline also provides flexible service deployment methods, supporting the use of multiple programming languages on various hardware. Moreover, it offers custom development capabilities, allowing you to train and fine-tune on your own dataset based on this pipeline, and the trained model can be seamlessly integrated.
+Seal text recognition is a technology that automatically extracts and recognizes the content of seals from documents or
+images. The recognition of seal text is part of document processing and has many applications in various scenarios, such
+as contract comparison, warehouse entry and exit review, and invoice reimbursement review.
+
+The seal text recognition pipeline is used to recognize the text content of seals, extracting the text information from
+seal images and outputting it in text form. This pipeline integrates the industry-renowned end-to-end OCR system
+PP-OCRv4, supporting the detection and recognition of curved seal text. Additionally, this pipeline integrates an
+optional layout region localization module, which can accurately locate the layout position of the seal within the
+entire document. It also includes optional document image orientation correction and distortion correction functions.
+Based on this pipeline, millisecond-level accurate text content prediction can be achieved on a CPU. This pipeline also
+provides flexible service deployment methods, supporting the use of multiple programming languages on various hardware.
+Moreover, it offers custom development capabilities, allowing you to train and fine-tune on your own dataset based on
+this pipeline, and the trained model can be seamlessly integrated.
 
 <img src="https://paddle-model-ecology.bj.bcebos.com/paddlex/PaddleX3.0/doc_images/practical_tutorial/PP-ChatOCRv3_doc_seal/01.png" style="width: 70%"/>
 <b>The seal text recognition</b> pipeline includes a seal text detection module and a text recognition module, as well as optional layout detection module, document image orientation classification module, and text image correction module. Each module contains multiple models, and you can choose the model based on the benchmark test data below.
 
 ### 1.1 Model benchmark data
 
-<b>If you prioritize model accuracy, choose a model with higher accuracy. If you prioritize inference speed, choose a model with faster inference speed. If you prioritize model storage size, choose a model with smaller storage size.</b>
+<b>If you prioritize model accuracy, choose a model with higher accuracy. If you prioritize inference speed, choose a
+model with faster inference speed. If you prioritize model storage size, choose a model with smaller storage size.</b>
 
 > The inference time only includes the model inference time and does not include the time for pre- or post-processing.
 
 <p><b>Layout Region Detection Module (Optional):</b></p>
 
-* <b>Layout detection model, including 23 common categories: document title, paragraph title, text, page number, abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, chart title, table, table title, seal, chart title, chart, header image, footer image, sidebar text</b>
+* <b>Layout detection model, including 23 common categories: document title, paragraph title, text, page number,
+  abstract, table of contents, references, footnotes, header, footer, algorithm, formula, formula number, image, chart
+  title, table, table title, seal, chart title, chart, header image, footer image, sidebar text</b>
+
 <table>
 <thead>
 <tr>
@@ -64,11 +79,14 @@ The seal text recognition pipeline is used to recognize the text content of seal
 </table>
 
 
-> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The complete model list is as follows:
+> ❗ The above list includes the <b>3 core models</b> that are key supported by the text recognition module. The module
+> actually supports a total of <b>11 full models</b>, including several predefined models with different categories. The
+> complete model list is as follows:
 
 <details><summary> 👉Details of the Model List</summary>
 
 * <b>3-class layout detection model, including table, image, seal</b>
+
 <table>
 <thead>
 <tr>
@@ -110,7 +128,10 @@ The seal text recognition pipeline is used to recognize the text content of seal
 </tr>
 </tbody></table>
 
-* <b>17-class region detection model, including 17 common layout categories: paragraph title, image, text, number, abstract, content, chart title, formula, table, table title, references, document title, footnote, header, algorithm, footer, seal</b>
+* <b>17-class region detection model, including 17 common layout categories: paragraph title, image, text, number,
+  abstract, content, chart title, formula, table, table title, references, document title, footnote, header, algorithm,
+  footer, seal</b>
+
 <table>
 <thead>
 <tr>
@@ -305,7 +326,8 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </tr>
 </table>
 
-> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this module supports <b>18 models</b>. The complete list of models is as follows:
+> ❗ The above list features the <b>4 core models</b> that the text recognition module primarily supports. In total, this
+> module supports <b>18 models</b>. The complete list of models is as follows:
 
 <details><summary> 👉Model List Details</summary>
 
@@ -349,6 +371,7 @@ The lightweight recognition model of PP-OCRv4 has high inference efficiency and 
 </table>
 
 * <b>Chinese Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -439,6 +462,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>English Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -469,6 +493,7 @@ SVTRv2 is a server text recognition model developed by the OpenOCR team of Fudan
 </table>
 
 * <b>Multilingual Recognition Model</b>
+
 <table>
 <tr>
 <th>Model</th><th>Model Download Link</th>
@@ -1330,7 +1355,6 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 </table>
 </details>
 
-
 * Test environment:
     * PaddlePaddle 3.1.0、CUDA 11.8、cuDNN 8.9
     * PaddleX @ develop (f1eb28e23cfa54ce3e9234d2e61fcb87c93cf407)
@@ -1340,23 +1364,43 @@ The ultra-lightweight cyrillic alphabet recognition model trained based on the P
 * Test strategy:
     * Warm up with 20 samples, then repeat the full dataset once for performance testing.
 * Note:
-    * Since we did not collect device memory data for NPU and XPU, the corresponding entries in the table are marked as N/A.
+    * Since we did not collect device memory data for NPU and XPU, the corresponding entries in the table are marked as
+      N/A.
 
 ## 2. Quick Start
-All model pipelines provided by PaddleX can be quickly experienced. You can experience the effect of the seal text recognition pipeline on the community platform, or you can use the command line or Python locally to experience the effect of the seal text recognition pipeline.
+
+All model pipelines provided by PaddleX can be quickly experienced. You can experience the effect of the seal text
+recognition pipeline on the community platform, or you can use the command line or Python locally to experience the
+effect of the seal text recognition pipeline.
 
 ### 2.1 Online Experience
-You can [experience the seal text recognition pipeline online](https://aistudio.baidu.com/community/app/387977/webUI?source=appCenter) by recognizing the demo images provided by the official platform, for example:
+
+You
+can [experience the seal text recognition pipeline online](https://aistudio.baidu.com/community/app/387977/webUI?source=appCenter)
+by recognizing the demo images provided by the official platform, for example:
 
 <img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/main/images/pipelines/seal_recognition/seal_aistudio.png"/>
 
-If you are satisfied with the performance of the pipeline, you can directly integrate and deploy it. You can choose to download the deployment package from the cloud, or refer to the methods in [Section 2.2 Local Experience](#22-local-experience) for local deployment. If you are not satisfied with the effect, you can <b>fine-tune the models in the pipeline using your private data</b>. If you have local hardware resources for training, you can start training directly on your local machine; if not, the Star River Zero-Code platform provides a one-click training service. You don't need to write any code—just upload your data and start the training task with one click.
+If you are satisfied with the performance of the pipeline, you can directly integrate and deploy it. You can choose to
+download the deployment package from the cloud, or refer to the methods
+in [Section 2.2 Local Experience](#22-local-experience) for local deployment. If you are not satisfied with the effect,
+you can <b>fine-tune the models in the pipeline using your private data</b>. If you have local hardware resources for
+training, you can start training directly on your local machine; if not, the Star River Zero-Code platform provides a
+one-click training service. You don't need to write any code—just upload your data and start the training task with one
+click.
 
 ### 2.2 Local Experience
-> ❗ Before using the seal text recognition pipeline locally, please ensure that you have completed the installation of the PaddleX wheel package according to the [PaddleX Installation Guide](../../../installation/installation.en.md). If you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The dependency group corresponding to this pipeline is `ocr`.
+
+> ❗ Before using the seal text recognition pipeline locally, please ensure that you have completed the installation of
+> the PaddleX wheel package according to the [PaddleX Installation Guide](../../../installation/installation.en.md). If
+> you wish to selectively install dependencies, please refer to the relevant instructions in the installation guide. The
+> dependency group corresponding to this pipeline is `ocr`.
 
 #### 2.2.1 Command Line Experience
-You can quickly experience the seal text recognition pipeline with a single command. Use the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png), and replace `--input` with the local path for prediction.
+
+You can quickly experience the seal text recognition pipeline with a single command. Use
+the [test file](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/seal_text_det.png), and replace
+`--input` with the local path for prediction.
 
 ```bash
 paddlex --pipeline seal_recognition \
@@ -1367,9 +1411,13 @@ paddlex --pipeline seal_recognition \
     --save_path ./output
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
-The relevant parameter descriptions can be referred to in the parameter explanations of [2.1.2 Integration via Python Script](#212-integration-via-python-script). Supports specifying multiple devices simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
+The relevant parameter descriptions can be referred to in the parameter explanations
+of [2.1.2 Integration via Python Script](#212-integration-via-python-script). Supports specifying multiple devices
+simultaneously for parallel inference. For details, please refer to the documentation on pipeline parallel inference.
 
 After running, the results will be printed to the terminal, as follows:
 
@@ -1397,7 +1445,8 @@ After running, the results will be printed to the terminal, as follows:
 
 </details>
 
-The explanation of the result parameters can be found in [2.1.2 Python Script Integration](#212-python-script-integration).
+The explanation of the result parameters can be found
+in [2.1.2 Python Script Integration](#212-python-script-integration).
 
 The visualized results are saved under `save_path`, and the visualized result of seal OCR is as follows:
 
@@ -1405,7 +1454,9 @@ The visualized results are saved under `save_path`, and the visualized result of
 
 #### 2.2.2 Python Script Integration
 
-* The above command line is for quickly experiencing and viewing the effect. Generally, in a project, you often need to integrate through code. You can complete the quick inference of the pipeline with just a few lines of code. The inference code is as follows:
+* The above command line is for quickly experiencing and viewing the effect. Generally, in a project, you often need to
+  integrate through code. You can complete the quick inference of the pipeline with just a few lines of code. The
+  inference code is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -1425,7 +1476,8 @@ for res in output:
 
 In the above Python script, the following steps were executed:
 
-(1) The seal recognition pipeline object was instantiated via `create_pipeline()`, with the specific parameters described as follows:
+(1) The seal recognition pipeline object was instantiated via `create_pipeline()`, with the specific parameters
+described as follows:
 
 <table>
 <thead>
@@ -1472,7 +1524,8 @@ In the above Python script, the following steps were executed:
 </tbody>
 </table>
 
-(2) Call the `predict()` method of the Seal Text Recognition pipeline object for inference prediction. This method will return a `generator`. Below are the parameters and their descriptions for the `predict()` method:
+(2) Call the `predict()` method of the Seal Text Recognition pipeline object for inference prediction. This method will
+return a `generator`. Below are the parameters and their descriptions for the `predict()` method:
 
 <table>
 <thead>
@@ -1610,7 +1663,8 @@ In the above Python script, the following steps were executed:
 </tr>
 </table>
 
-(3) Process the prediction results. The prediction result for each sample is of `dict` type and supports operations such as printing, saving as an image, and saving as a `json` file:
+(3) Process the prediction results. The prediction result for each sample is of `dict` type and supports operations such
+as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -1673,7 +1727,8 @@ In the above Python script, the following steps were executed:
 </tr>
 </table>
 
-- Calling the `print()` method will print the results to the terminal, and the explanations of the printed content are as follows:
+- Calling the `print()` method will print the results to the terminal, and the explanations of the printed content are
+  as follows:
 
     - `input_path`: `(str)` The input path of the image to be predicted.
 
@@ -1682,32 +1737,47 @@ In the above Python script, the following steps were executed:
         - `use_doc_preprocessor`: `(bool)` Controls whether to enable the document preprocessing sub-pipeline.
         - `use_layout_detection`: `(bool)` Controls whether to enable the layout detection sub-module.
 
-    - `layout_det_res`: `(Dict[str, Union[List[numpy.ndarray], List[float]]])` The output result of the layout detection sub-module. Only exists when `use_layout_detection=True`.
+    - `layout_det_res`: `(Dict[str, Union[List[numpy.ndarray], List[float]]])` The output result of the layout detection
+      sub-module. Only exists when `use_layout_detection=True`.
 
-        - `input_path`: `(Union[str, None])` The image path accepted by the layout detection module. Saved as `None` when the input is a `numpy.ndarray`.
-        - `page_index`: `(Union[int, None])` Indicates the current page number of the PDF if the input is a PDF file; otherwise, it is `None`.
-        - `boxes`: `(List[Dict])` A list of detected layout seal regions, with each element containing the following fields:
+        - `input_path`: `(Union[str, None])` The image path accepted by the layout detection module. Saved as `None`
+          when the input is a `numpy.ndarray`.
+        - `page_index`: `(Union[int, None])` Indicates the current page number of the PDF if the input is a PDF file;
+          otherwise, it is `None`.
+        - `boxes`: `(List[Dict])` A list of detected layout seal regions, with each element containing the following
+          fields:
             - `cls_id`: `(int)` The class ID of the detected seal region.
             - `score`: `(float)` The confidence score of the detected region.
-            - `coordinate`: `(List[float])` The coordinates of the four corners of the detection box, in the order of x1, y1, x2, y2, representing the x-coordinate of the top-left corner, the y-coordinate of the top-left corner, the x-coordinate of the bottom-right corner, and the y-coordinate of the bottom-right corner.
+            - `coordinate`: `(List[float])` The coordinates of the four corners of the detection box, in the order of
+              x1, y1, x2, y2, representing the x-coordinate of the top-left corner, the y-coordinate of the top-left
+              corner, the x-coordinate of the bottom-right corner, and the y-coordinate of the bottom-right corner.
 
-    - `seal_res_list`: `List[Dict]` A list of seal text recognition results, with each element containing the following fields:
+    - `seal_res_list`: `List[Dict]` A list of seal text recognition results, with each element containing the following
+      fields:
 
-        - `input_path`: `(Union[str, None])` The image path accepted by the seal text recognition pipeline. Saved as `None` when the input is a `numpy.ndarray`.
-        - `page_index`: `(Union[int, None])` Indicates the current page number of the PDF if the input is a PDF file; otherwise, it is `None`.
-        - `model_settings`: `(Dict[str, bool])` The model configuration parameters for the seal text recognition pipeline.
-          - `use_doc_preprocessor`: `(bool)` Controls whether to enable the document preprocessing sub-pipeline.
-          - `use_textline_orientation`: `(bool)` Controls whether to enable the text line orientation classification sub-module.
+        - `input_path`: `(Union[str, None])` The image path accepted by the seal text recognition pipeline. Saved as
+          `None` when the input is a `numpy.ndarray`.
+        - `page_index`: `(Union[int, None])` Indicates the current page number of the PDF if the input is a PDF file;
+          otherwise, it is `None`.
+        - `model_settings`: `(Dict[str, bool])` The model configuration parameters for the seal text recognition
+          pipeline.
+            - `use_doc_preprocessor`: `(bool)` Controls whether to enable the document preprocessing sub-pipeline.
+            - `use_textline_orientation`: `(bool)` Controls whether to enable the text line orientation classification
+              sub-module.
 
-    - `doc_preprocessor_res`: `(Dict[str, Union[str, Dict[str, bool], int]])` The output result of the document preprocessing sub-pipeline. Only exists when `use_doc_preprocessor=True`.
+    - `doc_preprocessor_res`: `(Dict[str, Union[str, Dict[str, bool], int]])` The output result of the document
+      preprocessing sub-pipeline. Only exists when `use_doc_preprocessor=True`.
 
-        - `input_path`: `(Union[str, None])` The image path accepted by the document preprocessing sub-pipeline. Saved as `None` when the input is a `numpy.ndarray`.
+        - `input_path`: `(Union[str, None])` The image path accepted by the document preprocessing sub-pipeline. Saved
+          as `None` when the input is a `numpy.ndarray`.
         - `model_settings`: `(Dict)` The model configuration parameters for the preprocessing sub-pipeline.
             - `use_doc_orientation_classify`: `(bool)` Controls whether to enable document orientation classification.
             - `use_doc_unwarping`: `(bool)` Controls whether to enable document unwarping.
-        - `angle`: `(int)` The predicted result of document orientation classification. When enabled, it takes values [0, 1, 2, 3], corresponding to [0°, 90°, 180°, 270°]; when disabled, it is -1.
+        - `angle`: `(int)` The predicted result of document orientation classification. When enabled, it takes
+          values [0, 1, 2, 3], corresponding to [0°, 90°, 180°, 270°]; when disabled, it is -1.
 
-    - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for seal text detection. Each detection box is represented by a numpy array of multiple vertex coordinates, with the array shape being (n, 2).
+    - `dt_polys`: `(List[numpy.ndarray])` A list of polygon boxes for seal text detection. Each detection box is
+      represented by a numpy array of multiple vertex coordinates, with the array shape being (n, 2).
 
     - `dt_scores`: `(List[float])` A list of confidence scores for text detection boxes.
 
@@ -1721,17 +1791,28 @@ In the above Python script, the following steps were executed:
 
     - `text_rec_score_thresh`: `(float)` The filtering threshold for text recognition results.
 
-    - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores above `text_rec_score_thresh`.
+    - `rec_texts`: `(List[str])` A list of text recognition results, containing only texts with confidence scores above
+      `text_rec_score_thresh`.
 
-    - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by `text_rec_score_thresh`.
+    - `rec_scores`: `(List[float])` A list of confidence scores for text recognition, filtered by
+      `text_rec_score_thresh`.
 
-    - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes filtered by confidence score, in the same format as `dt_polys`.
+    - `rec_polys`: `(List[numpy.ndarray])` A list of text detection boxes filtered by confidence score, in the same
+      format as `dt_polys`.
 
-    - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes; the seal recognition pipeline returns an empty array.
+    - `rec_boxes`: `(numpy.ndarray)` An array of rectangular bounding boxes for detection boxes; the seal recognition
+      pipeline returns an empty array.
 
-- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved directly to that file. Since JSON files do not support saving numpy arrays, `numpy.array` types will be converted to list format.
+- Calling the `save_to_json()` method will save the above content to the specified `save_path`. If a directory is
+  specified, the saved path will be `save_path/{your_img_basename}_res.json`. If a file is specified, it will be saved
+  directly to that file. Since JSON files do not support saving numpy arrays, `numpy.array` types will be converted to
+  list format.
 
-- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is specified, the saved path will be `save_path/{your_img_basename}_seal_res_region1.{your_img_extension}`. If a file is specified, it will be saved directly to that file. (The pipeline usually contains multiple result images, so it is not recommended to specify a specific file path directly, as multiple images will be overwritten, and only the last image will be retained.)
+- Calling the `save_to_img()` method will save the visualization results to the specified `save_path`. If a directory is
+  specified, the saved path will be `save_path/{your_img_basename}_seal_res_region1.{your_img_extension}`. If a file is
+  specified, it will be saved directly to that file. (The pipeline usually contains multiple result images, so it is not
+  recommended to specify a specific file path directly, as multiple images will be overwritten, and only the last image
+  will be retained.)
 
 * Additionally, you can obtain visualized images with results and prediction results through attributes, as follows:
 
@@ -1752,16 +1833,24 @@ In the above Python script, the following steps were executed:
 </tr>
 </table>
 
-- The prediction results obtained through the `json` attribute are of dict type, with content consistent with what is saved by calling the `save_to_json()` method.
-- The prediction results returned by the `img` attribute are of dict type. The keys are `layout_det_res`, `seal_res_region1`, and `preprocessed_img`, corresponding to three `Image.Image` objects: one for visualizing layout detection, one for visualizing seal text recognition results, and one for visualizing image preprocessing. If the image preprocessing sub-module is not used, `preprocessed_img` will not be included in the dictionary. If the layout region detection module is not used, `layout_det_res` will not be included.
+- The prediction results obtained through the `json` attribute are of dict type, with content consistent with what is
+  saved by calling the `save_to_json()` method.
+- The prediction results returned by the `img` attribute are of dict type. The keys are `layout_det_res`,
+  `seal_res_region1`, and `preprocessed_img`, corresponding to three `Image.Image` objects: one for visualizing layout
+  detection, one for visualizing seal text recognition results, and one for visualizing image preprocessing. If the
+  image preprocessing sub-module is not used, `preprocessed_img` will not be included in the dictionary. If the layout
+  region detection module is not used, `layout_det_res` will not be included.
 
-Additionally, you can obtain the configuration file for the seal text recognition pipeline and load the configuration file for prediction. You can execute the following command to save the results in `my_path`:
+Additionally, you can obtain the configuration file for the seal text recognition pipeline and load the configuration
+file for prediction. You can execute the following command to save the results in `my_path`:
 
 ```
 paddlex --get_pipeline_config seal_recognition --save_path ./my_path
 ```
 
-If you have obtained the configuration file, you can customize the settings for the seal text recognition pipeline by simply modifying the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline configuration file. The example is as follows:
+If you have obtained the configuration file, you can customize the settings for the seal text recognition pipeline by
+simply modifying the `pipeline` parameter value in the `create_pipeline` method to the path of the pipeline
+configuration file. The example is as follows:
 
 ```python
 from paddlex import create_pipeline
@@ -1773,18 +1862,32 @@ for res in output:
     res.save_to_json("./output/") ## 保存预测结果的json文件
 ```
 
-<b>Note:</b> The parameters in the configuration file are the pipeline initialization parameters. If you wish to change the initialization parameters of the seal text recognition pipeline, you can directly modify the parameters in the configuration file and load the configuration file for prediction. Additionally, CLI prediction also supports passing in a configuration file. Simply specify the path of the configuration file with `--pipeline`.
+<b>Note:</b> The parameters in the configuration file are the pipeline initialization parameters. If you wish to change
+the initialization parameters of the seal text recognition pipeline, you can directly modify the parameters in the
+configuration file and load the configuration file for prediction. Additionally, CLI prediction also supports passing in
+a configuration file. Simply specify the path of the configuration file with `--pipeline`.
 
 ## 3. Development Integration/Deployment
-If the pipeline meets your requirements for inference speed and accuracy, you can proceed directly with development integration/deployment.
 
-If you need to integrate the pipeline into your Python project, you can refer to the example code in [2.2.2 Python Script Method](#222-python脚本方式集成).
+If the pipeline meets your requirements for inference speed and accuracy, you can proceed directly with development
+integration/deployment.
+
+If you need to integrate the pipeline into your Python project, you can refer to the example code
+in [2.2.2 Python Script Method](#222-python脚本方式集成).
 
 In addition, PaddleX also provides three other deployment methods, which are detailed as follows:
 
-🚀 <b>High-Performance Deployment</b>: In practical production environments, many applications have strict performance requirements (especially response speed) for deployment strategies to ensure efficient system operation and smooth user experience. To this end, PaddleX provides a high-performance inference plugin that aims to deeply optimize the performance of model inference and pre/post-processing, significantly speeding up the end-to-end process. For detailed high-performance deployment procedures, please refer to the [PaddleX High-Performance Deployment Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+🚀 <b>High-Performance Deployment</b>: In practical production environments, many applications have strict performance
+requirements (especially response speed) for deployment strategies to ensure efficient system operation and smooth user
+experience. To this end, PaddleX provides a high-performance inference plugin that aims to deeply optimize the
+performance of model inference and pre/post-processing, significantly speeding up the end-to-end process. For detailed
+high-performance deployment procedures, please refer to
+the [PaddleX High-Performance Deployment Guide](../../../pipeline_deploy/high_performance_inference.en.md).
 
-☁️ <b>Serving Deployment</b>: Serving Deployment is a common form of deployment in practical production environments. By encapsulating inference capabilities as services, clients can access these services via network requests to obtain inference results. PaddleX supports various pipeline serving deployment solutions. For detailed pipeline serving deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
+☁️ <b>Serving Deployment</b>: Serving Deployment is a common form of deployment in practical production environments. By
+encapsulating inference capabilities as services, clients can access these services via network requests to obtain
+inference results. PaddleX supports various pipeline serving deployment solutions. For detailed pipeline serving
+deployment procedures, please refer to the [PaddleX Serving Deployment Guide](../../../pipeline_deploy/serving.en.md).
 
 Below are the API references for basic serving deployment and multi-language service invocation examples:
 
@@ -2475,14 +2578,25 @@ foreach ($result as $i => $item) {
 </details>
 <br/>
 
-📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities directly on user devices, allowing devices to process data without relying on remote servers. PaddleX supports deploying models on edge devices such as Android. For detailed edge deployment procedures, please refer to the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
-You can choose the appropriate deployment method based on your needs to integrate the model pipeline into subsequent AI applications.
+📱 <b>On-Device Deployment</b>: Edge deployment is a method of placing computing and data processing capabilities
+directly on user devices, allowing devices to process data without relying on remote servers. PaddleX supports deploying
+models on edge devices such as Android. For detailed edge deployment procedures, please refer to
+the [PaddleX On-Device Deployment Guide](../../../pipeline_deploy/on_device_deployment.en.md).
+You can choose the appropriate deployment method based on your needs to integrate the model pipeline into subsequent AI
+applications.
 
 ## 4. Custom Development
-If the default model weights provided by the seal text recognition pipeline do not meet your requirements in terms of accuracy or speed, you can try to <b>fine-tune</b> the existing models using <b>your own domain-specific or application data</b> to improve the recognition performance of the seal text recognition pipeline in your scenario.
+
+If the default model weights provided by the seal text recognition pipeline do not meet your requirements in terms of
+accuracy or speed, you can try to <b>fine-tune</b> the existing models using <b>your own domain-specific or application
+data</b> to improve the recognition performance of the seal text recognition pipeline in your scenario.
 
 ### 4.1 Model Fine-Tuning
-Since the seal text recognition pipeline consists of several modules, if the pipeline's performance does not meet expectations, the issue may arise from any one of these modules. You can analyze images with poor recognition results to identify which module is problematic and refer to the corresponding fine-tuning tutorial links in the table below for model fine-tuning.
+
+Since the seal text recognition pipeline consists of several modules, if the pipeline's performance does not meet
+expectations, the issue may arise from any one of these modules. You can analyze images with poor recognition results to
+identify which module is problematic and refer to the corresponding fine-tuning tutorial links in the table below for
+model fine-tuning.
 
 <table>
 <thead>
@@ -2522,9 +2636,11 @@ Since the seal text recognition pipeline consists of several modules, if the pip
 </table>
 
 ### 4.2 Model Application
+
 After fine-tuning with your private dataset, you will obtain the local model weight files.
 
-If you need to use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local path of the fine-tuned model weights in the corresponding position of the pipeline configuration file:
+If you need to use the fine-tuned model weights, simply modify the pipeline configuration file by replacing the local
+path of the fine-tuned model weights in the corresponding position of the pipeline configuration file:
 
 ```python
 ......
@@ -2557,11 +2673,13 @@ SubPipelines:
         ...
 ```
 
-Then, refer to the command-line or Python script methods in [2.2 Local Experience](#2-quick-start) to load the modified pipeline configuration file.
+Then, refer to the command-line or Python script methods in [2.2 Local Experience](#2-quick-start) to load the modified
+pipeline configuration file.
 
 ## 5. Multi-Hardware Support
 
-PaddleX supports a variety of mainstream hardware devices, including NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and Cambricon MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware devices.
+PaddleX supports a variety of mainstream hardware devices, including NVIDIA GPU, Kunlunxin XPU, Ascend NPU, and
+Cambricon MLU. <b>Simply modify the `--device` parameter</b> to seamlessly switch between different hardware devices.
 
 For example, if you use Ascend NPU for inference on the seal text recognition pipeline, the Python command would be:
 
@@ -2574,4 +2692,5 @@ paddlex --pipeline seal_recognition \
     --save_path ./output
 ```
 
-If you wish to use the seal text recognition pipeline on a wider variety of hardware, please refer to the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).
+If you wish to use the seal text recognition pipeline on a wider variety of hardware, please refer to
+the [PaddleX Multi-Device Usage Guide](../../../other_devices_support/multi_devices_use_guide.en.md).

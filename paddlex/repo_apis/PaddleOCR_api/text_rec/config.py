@@ -17,9 +17,9 @@ from typing import Union
 
 import yaml
 
-from ....utils.misc import abspath
-from ...base import BaseConfig
 from ..config_utils import load_config, merge_config
+from ...base import BaseConfig
+from ....utils.misc import abspath
 
 
 class TextRecConfig(BaseConfig):
@@ -58,11 +58,11 @@ class TextRecConfig(BaseConfig):
             yaml.dump(self.dict, f, default_flow_style=False, sort_keys=False)
 
     def update_dataset(
-        self,
-        dataset_path: str,
-        dataset_type: str = None,
-        *,
-        train_list_path: str = None,
+            self,
+            dataset_path: str,
+            dataset_type: str = None,
+            *,
+            train_list_path: str = None,
     ):
         """update dataset settings
 
@@ -147,7 +147,7 @@ class TextRecConfig(BaseConfig):
         self.update(_cfg)
 
     def update_batch_size_pair(
-        self, batch_size_train: int, batch_size_val: int, mode: str = "train"
+            self, batch_size_train: int, batch_size_val: int, mode: str = "train"
     ):
         """update batch size setting
         Args:
@@ -204,7 +204,7 @@ class TextRecConfig(BaseConfig):
         """
         if pretrained_model:
             if not pretrained_model.startswith(
-                "http://"
+                    "http://"
             ) and not pretrained_model.startswith("https://"):
                 pretrained_model = abspath(pretrained_model)
         self.update(
@@ -443,7 +443,7 @@ class TextRecConfig(BaseConfig):
         self.update({"Global.save_res_path": abspath(save_res_path)})
 
     def update_num_workers(
-        self, num_workers: int, modes: Union[str, list] = ["train", "eval"]
+            self, num_workers: int, modes: Union[str, list] = ["train", "eval"]
     ):
         """update workers number of train or eval dataloader
 

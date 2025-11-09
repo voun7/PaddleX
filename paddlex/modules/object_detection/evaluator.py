@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from ..base import BaseEvaluator
 from .model_list import MODELS
+from ..base import BaseEvaluator
 
 
 class DetEvaluator(BaseEvaluator):

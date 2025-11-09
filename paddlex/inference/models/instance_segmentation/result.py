@@ -17,10 +17,10 @@ import copy
 import numpy as np
 from PIL import Image
 
-from ....utils.deps import function_requires_deps, is_dep_available
+from ..object_detection.result import draw_box
 from ...common.result import BaseCVResult, JsonMixin
 from ...utils.color_map import get_colormap
-from ..object_detection.result import draw_box
+from ....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("opencv-contrib-python"):
     import cv2

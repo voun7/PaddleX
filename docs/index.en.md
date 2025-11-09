@@ -17,10 +17,12 @@ hide:
     <a href=""><img src="https://img.shields.io/badge/Hardware-CPU%2C%20GPU%2C%20XPU%2C%20NPU%2C%20MLU%2C%20DCU-yellow.svg"></a>
 </p>
 
-
 ## 🔍 Introduction
 
-PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePaddle framework. It integrates numerous<b>ready-to-use pre-trained models</b>, enabling<b>full-process development</b>from model training to inference, supporting<b>a variety of mainstream hardware</b> both domestic and international, and aiding AI developers in industrial practice.
+PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePaddle framework. It integrates numerous<b>
+ready-to-use pre-trained models</b>, enabling<b>full-process development</b>from model training to inference,
+supporting<b>a variety of mainstream hardware</b> both domestic and international, and aiding AI developers in
+industrial practice.
 
 <style>
         .centered-table {
@@ -62,27 +64,29 @@ PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePadd
 ## 🛠️ Installation
 
 !!! warning
-    Before installing PaddleX, please ensure that you have a basic <b>Python runtime environment</b> (Note: Currently supports <b>Python 3.8 to Python 3.12</b>). The PaddleX 3.0-rc1 version depends on PaddlePaddle version <b>3.0.0</b> and above.
+Before installing PaddleX, please ensure that you have a basic <b>Python runtime environment</b> (Note: Currently
+supports <b>Python 3.8 to Python 3.12</b>). The PaddleX 3.0-rc1 version depends on PaddlePaddle version <b>3.0.0</b> and
+above.
 
 ### Installing PaddlePaddle
 
 === "CPU version"
-    ```bash
-    python -m pip install paddlepaddle==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cpu/
-    ```
+```bash
+python -m pip install paddlepaddle==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cpu/
+```
 === "GPU version, requiring a GPU driver version ≥450.80.02 (Linux) or ≥452.39 (Windows)."
-    ```bash
-    python -m pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
-    ```
+```bash
+python -m pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+```
 === "GPU version, requiring a GPU driver version ≥550.54.14 (Linux) or ≥550.54.14 (Windows)."
-    ```bash
-    python -m pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
-    ```
-
+```bash
+python -m pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+```
 
 !!! tip
-    There is no need to pay attention to the CUDA version on the physical machine; just focus on the GPU driver version. For more information on PaddlePaddle Wheel versions, please refer to the [PaddlePaddle Official Website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation./docs/zh/install/pip/linux-pip.html).
-
+There is no need to pay attention to the CUDA version on the physical machine; just focus on the GPU driver version. For
+more information on PaddlePaddle Wheel versions, please refer to
+the [PaddlePaddle Official Website](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation./docs/zh/install/pip/linux-pip.html).
 
 ### Installing PaddleX
 
@@ -90,7 +94,8 @@ PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePadd
 pip install "paddlex[base]"
 ```
 
-> ❗ For more installation methods, please refer to the [PaddleX Installation Guide](https://paddlepaddle.github.io/PaddleX/latest/installation/installation.html)
+> ❗ For more installation methods, please refer to
+> the [PaddleX Installation Guide](https://paddlepaddle.github.io/PaddleX/latest/installation/installation.html)
 
 ## 💻 Command Line Usage
 
@@ -100,12 +105,13 @@ A single command can quickly experience the pipeline effect, with a unified comm
 paddlex --pipeline [pipeline name] --input [input image] --device [running device]
 ```
 
-Each pipeline in PaddleX corresponds to specific parameters. You can find detailed parameter descriptions in the respective pipeline documentation. Each pipeline requires three essential parameters:
+Each pipeline in PaddleX corresponds to specific parameters. You can find detailed parameter descriptions in the
+respective pipeline documentation. Each pipeline requires three essential parameters:
 
 * `pipeline`: The name of the pipeline or the path to the pipeline configuration file.
 * `input`: The local path, directory, or URL of the input file to be processed (e.g., an image).
-* `device`: The hardware device and its index to be used (e.g., `gpu:0` indicates using the first GPU). You can also choose to use NPU (`npu:0`), XPU (`xpu:0`), CPU (`cpu`), etc.
-
+* `device`: The hardware device and its index to be used (e.g., `gpu:0` indicates using the first GPU). You can also
+  choose to use NPU (`npu:0`), XPU (`xpu:0`), CPU (`cpu`), etc.
 
 !!! example "OCR-related Pipelines CLI"
 
@@ -1086,7 +1092,6 @@ Each pipeline in PaddleX corresponds to specific parameters. You can find detail
                 {'input_path': 'zh.wav', 'result': {'text': '我认为跑步最重要的就是给我带来了身体健康', 'segments': [{'id': 0, 'seek': 0, 'start': 0.0, 'end': 2.0, 'text': '我认为跑步最重要的就是', 'tokens': [50364, 1654, 7422, 97, 13992, 32585, 31429, 8661, 24928, 1546, 5620, 50464, 50464, 49076, 4845, 99, 34912, 19847, 29485, 44201, 6346, 115, 50564], 'temperature': 0, 'avg_logprob': -0.22779104113578796, 'compression_ratio': 0.28169014084507044, 'no_speech_prob': 0.026114309206604958}, {'id': 1, 'seek': 200, 'start': 2.0, 'end': 31.0, 'text': '给我带来了身体健康', 'tokens': [50364, 49076, 4845, 99, 34912, 19847, 29485, 44201, 6346, 115, 51814], 'temperature': 0, 'avg_logprob': -0.21976988017559052, 'compression_ratio': 0.23684210526315788, 'no_speech_prob': 0.009023111313581467}], 'language': 'zh'}}
             ```
 
-
 !!! example "Video-related Pipelines CLI"
 
     === "Video Classification"
@@ -1137,12 +1142,12 @@ for res in output:
     res.save_to_img("./output/")
     res.save_to_json("./output/")
 ```
+
 The following steps were executed:
 
 * `create_pipeline()` instantiates the pipeline object
 * Pass in the image and call the `predict` method of the pipeline object for inference prediction
 * Process the prediction results
-
 
 !!! example "OCR-related Python Usage"
 
@@ -1594,7 +1599,6 @@ The following steps were executed:
             res.save_to_json("./output/") ## Save the structured prediction output
         ```
 
-
 ## 🚀 Detailed Tutorials
 
 <div class="grid cards" markdown>
@@ -1603,55 +1607,70 @@ The following steps were executed:
 
     ---
 
-    Document Scene Information Extraction v4 (PP-ChatOCRv4-doc) is a PaddlePaddle-based intelligent document and image analysis solution that integrates LLM (Large Language Model), MLLM (Multimodal Large Language Model), and OCR (Optical Character Recognition) technologies. It provides a one-stop solution for common challenges in complex document information extraction, such as layout analysis, rare character recognition, multi-page PDFs, table extraction, and seal detection.
+  Document Scene Information Extraction v4 (PP-ChatOCRv4-doc) is a PaddlePaddle-based intelligent document and image
+  analysis solution that integrates LLM (Large Language Model), MLLM (Multimodal Large Language Model), and OCR (Optical
+  Character Recognition) technologies. It provides a one-stop solution for common challenges in complex document
+  information extraction, such as layout analysis, rare character recognition, multi-page PDFs, table extraction, and
+  seal detection.
 
-    [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v4.en.md)
+  [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v4.en.md)
 
 - **OCR**
 
     ---
 
-    The general OCR pipeline is used to solve text recognition tasks, extract text information from images, and output it in text form. Based on the end-to-end OCR system, it can achieve millisecond-level precise text content prediction on CPUs and reach open-source SOTA in general scenarios.
+  The general OCR pipeline is used to solve text recognition tasks, extract text information from images, and output it
+  in text form. Based on the end-to-end OCR system, it can achieve millisecond-level precise text content prediction on
+  CPUs and reach open-source SOTA in general scenarios.
 
-    [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/ocr_pipelines/OCR.en.md)
+  [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/ocr_pipelines/OCR.en.md)
 
 - **PP-StructureV3**
 
     ---
 
-    The PP-StructureV3 pipeline enhances the capabilities of layout area detection, table recognition, and formula recognition based on the General Layout Parsing v1 pipeline. It also adds the ability to restore multi-column reading order and convert results to Markdown files. It performs well on various document datasets and can handle more complex document data.
+  The PP-StructureV3 pipeline enhances the capabilities of layout area detection, table recognition, and formula
+  recognition based on the General Layout Parsing v1 pipeline. It also adds the ability to restore multi-column reading
+  order and convert results to Markdown files. It performs well on various document datasets and can handle more complex
+  document data.
 
-    [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/ocr_pipelines/PP-StructureV3.en.md)
+  [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/ocr_pipelines/PP-StructureV3.en.md)
 
 - **General Table Recognition Pipeline v2**
 
     ---
 
-    General Table Recognition Pipeline v2 is designed to solve table recognition tasks by identifying tables in images and outputting them in HTML format. This pipeline enables precise table prediction and is applicable across various fields, including general, manufacturing, finance, and transportation.
+  General Table Recognition Pipeline v2 is designed to solve table recognition tasks by identifying tables in images and
+  outputting them in HTML format. This pipeline enables precise table prediction and is applicable across various
+  fields, including general, manufacturing, finance, and transportation.
 
-    [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/cv_pipelines/table_recognition_v2.en.md)
+  [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/cv_pipelines/table_recognition_v2.en.md)
 
 - **Small Object Detection**
 
     ---
 
-    Small object detection is a technology specifically designed to recognize smaller objects in images, widely used in surveillance, unmanned driving, and satellite image analysis fields. It can accurately locate and classify small-sized objects such as pedestrians, traffic signs, or small animals from complex scenes.
+  Small object detection is a technology specifically designed to recognize smaller objects in images, widely used in
+  surveillance, unmanned driving, and satellite image analysis fields. It can accurately locate and classify small-sized
+  objects such as pedestrians, traffic signs, or small animals from complex scenes.
 
-    [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/cv_pipelines/small_object_detection.en.md)
+  [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/cv_pipelines/small_object_detection.en.md)
 
 - **Time Series Forecasting**
 
     ---
 
-    Time series forecasting is a technique that uses historical data to predict future trends by analyzing the patterns of change in time series data. It is widely used in financial markets, weather forecasting, and sales forecasting fields.
+  Time series forecasting is a technique that uses historical data to predict future trends by analyzing the patterns of
+  change in time series data. It is widely used in financial markets, weather forecasting, and sales forecasting fields.
 
-    [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/time_series_pipelines/time_series_forecasting.en.md)
+  [:octicons-arrow-right-24: Tutorial](pipeline_usage/tutorials/time_series_pipelines/time_series_forecasting.en.md)
 
 </div>
 
 [:octicons-arrow-right-24: More](pipeline_usage/pipeline_develop_guide.en.md)
 
-
 ## 💬 Discussion
 
-We warmly welcome and encourage community members to raise questions, share ideas, and feedback in the [Discussions](https://github.com/PaddlePaddle/PaddleX/discussions) section. Whether you want to report a bug, discuss a feature request, seek help, or just want to keep up with the latest project news, this is a great platform.
+We warmly welcome and encourage community members to raise questions, share ideas, and feedback in
+the [Discussions](https://github.com/PaddlePaddle/PaddleX/discussions) section. Whether you want to report a bug,
+discuss a feature request, seek help, or just want to keep up with the latest project news, this is a great platform.

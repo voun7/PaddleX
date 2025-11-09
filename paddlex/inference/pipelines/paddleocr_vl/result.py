@@ -19,14 +19,6 @@ from functools import partial
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from ....utils.fonts import PINGFANG_FONT
-from ...common.result import (
-    BaseCVResult,
-    HtmlMixin,
-    JsonMixin,
-    MarkdownMixin,
-    XlsxMixin,
-)
 from ..layout_parsing.result_v2 import (
     format_centered_by_html,
     format_first_line_func,
@@ -36,6 +28,14 @@ from ..layout_parsing.result_v2 import (
     format_title_func,
     simplify_table_func,
 )
+from ...common.result import (
+    BaseCVResult,
+    HtmlMixin,
+    JsonMixin,
+    MarkdownMixin,
+    XlsxMixin,
+)
+from ....utils.fonts import PINGFANG_FONT
 
 VISUALIZE_INDEX_LABELS = [
     "text",
@@ -110,20 +110,20 @@ def format_chart2table_func(block):
     # 构造HTML表格
     html = "<table border=1 style='margin: auto; width: max-content;'>\n"
     html += (
-        "  <thead><tr>"
-        + "".join(
-            f"<th style='text-align: center;'>{cell.strip()}</th>" for cell in header
-        )
-        + "</tr></thead>\n"
+            "  <thead><tr>"
+            + "".join(
+        f"<th style='text-align: center;'>{cell.strip()}</th>" for cell in header
+    )
+            + "</tr></thead>\n"
     )
     html += "  <tbody>\n"
     for row in rows:
         html += (
-            "    <tr>"
-            + "".join(
-                f"<td style='text-align: center;'>{cell.strip()}</td>" for cell in row
-            )
-            + "</tr>\n"
+                "    <tr>"
+                + "".join(
+            f"<td style='text-align: center;'>{cell.strip()}</td>" for cell in row
+        )
+                + "</tr>\n"
         )
     html += "  </tbody>\n"
     html += "</table>"
@@ -141,13 +141,13 @@ def format_table_center_func(block):
 
 
 def build_handle_funcs_dict(
-    *,
-    text_func,
-    image_func,
-    chart_func,
-    table_func,
-    formula_func,
-    seal_func,
+        *,
+        text_func,
+        image_func,
+        chart_func,
+        table_func,
+        formula_func,
+        seal_func,
 ):
     """
     Build a dictionary mapping block labels to their formatting functions.
@@ -477,9 +477,9 @@ class PaddleOCRVLResult(BaseCVResult, HtmlMixin, XlsxMixin, MarkdownMixin):
                 ]
             handle_func = handle_funcs_dict.get(label, None)
             if (
-                show_formula_number
-                and (label == "display_formula" or label == "formula")
-                and idx != len(self["parsing_res_list"]) - 1
+                    show_formula_number
+                    and (label == "display_formula" or label == "formula")
+                    and idx != len(self["parsing_res_list"]) - 1
             ):
                 next_block = self["parsing_res_list"][idx + 1]
                 next_block_label = next_block.label

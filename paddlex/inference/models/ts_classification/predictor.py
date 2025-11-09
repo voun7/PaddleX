@@ -18,13 +18,13 @@ from typing import Any, Dict, List, Tuple, Union
 
 import pandas as pd
 
-from ....modules.ts_classification.model_list import MODELS
-from ...common.batch_sampler import TSBatchSampler
-from ...common.reader import ReadTS
-from ..base import BasePredictor
-from ..common import BuildTSDataset, TSCutOff, TSNormalize, TStoArray, TStoBatch
 from .processors import BuildPadMask, GetCls
 from .result import TSClsResult
+from ..base import BasePredictor
+from ..common import BuildTSDataset, TSCutOff, TSNormalize, TStoArray, TStoBatch
+from ...common.batch_sampler import TSBatchSampler
+from ...common.reader import ReadTS
+from ....modules.ts_classification.model_list import MODELS
 
 
 class TSClsPredictor(BasePredictor):

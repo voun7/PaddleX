@@ -19,14 +19,14 @@ num_classes: 80
 worker_num: 4
 eval_height: &eval_height 640
 eval_width: &eval_width 640
-eval_size: &eval_size [*eval_height, *eval_width]
+eval_size: &eval_size [ *eval_height, *eval_width ]
 
 TrainDataset:
   name: COCODetDataset
   image_dir: images
   anno_path: annotations/instance_train.json
   dataset_dir: datasets/COCO
-  data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd']
+  data_fields: [ 'image', 'gt_bbox', 'gt_class', 'is_crowd' ]
 
 EvalDataset:
   name: COCODetDataset
@@ -42,16 +42,16 @@ TestDataset:
 
 TrainReader:
   sample_transforms:
-    - Decode: {}
-    - RandomDistort: {}
-    - RandomExpand: {fill_value: [123.675, 116.28, 103.53]}
-    - RandomCrop: {}
-    - RandomFlip: {}
+    - Decode: { }
+    - RandomDistort: { }
+    - RandomExpand: { fill_value: [ 123.675, 116.28, 103.53 ] }
+    - RandomCrop: { }
+    - RandomFlip: { }
   batch_transforms:
-    - BatchRandomResize: {target_size: [320, 352, 384, 416, 448, 480, 512, 544, 576, 608, 640, 672, 704, 736, 768], random_size: True, random_interp: True, keep_ratio: False}
-    - NormalizeImage: {mean: [0., 0., 0.], std: [1., 1., 1.], norm_type: none}
-    - Permute: {}
-    - PadGT: {}
+    - BatchRandomResize: { target_size: [ 320, 352, 384, 416, 448, 480, 512, 544, 576, 608, 640, 672, 704, 736, 768 ], random_size: True, random_interp: True, keep_ratio: False }
+    - NormalizeImage: { mean: [ 0., 0., 0. ], std: [ 1., 1., 1. ], norm_type: none }
+    - Permute: { }
+    - PadGT: { }
   batch_size: 8
   shuffle: true
   drop_last: true
@@ -60,20 +60,20 @@ TrainReader:
 
 EvalReader:
   sample_transforms:
-    - Decode: {}
-    - Resize: {target_size: *eval_size, keep_ratio: False, interp: 2}
-    - NormalizeImage: {mean: [0., 0., 0.], std: [1., 1., 1.], norm_type: none}
-    - Permute: {}
+    - Decode: { }
+    - Resize: { target_size: *eval_size, keep_ratio: False, interp: 2 }
+    - NormalizeImage: { mean: [ 0., 0., 0. ], std: [ 1., 1., 1. ], norm_type: none }
+    - Permute: { }
   batch_size: 2
 
 TestReader:
   inputs_def:
-    image_shape: [3, *eval_height, *eval_width]
+    image_shape: [ 3, *eval_height, *eval_width ]
   sample_transforms:
-    - Decode: {}
-    - Resize: {target_size: *eval_size, keep_ratio: False, interp: 2}
-    - NormalizeImage: {mean: [0., 0., 0.], std: [1., 1., 1.], norm_type: none}
-    - Permute: {}
+    - Decode: { }
+    - Resize: { target_size: *eval_size, keep_ratio: False, interp: 2 }
+    - NormalizeImage: { mean: [ 0., 0., 0. ], std: [ 1., 1., 1. ], norm_type: none }
+    - Permute: { }
   batch_size: 1
 
 # Model
@@ -82,8 +82,8 @@ pretrain_weights: https://bj.bcebos.com/v1/paddledet/models/pretrained/ppyoloe_c
 
 norm_type: sync_bn
 ema_decay: 0.9998
-ema_black_list: ['proj_conv.weight']
-custom_black_list: ['reduce_mean']
+ema_black_list: [ 'proj_conv.weight' ]
+custom_black_list: [ 'reduce_mean' ]
 depth_mult: 0.67
 width_mult: 0.75
 
@@ -94,26 +94,26 @@ YOLOv3:
   post_process: ~
 
 CSPResNet:
-  layers: [3, 6, 6, 3]
-  channels: [64, 128, 256, 512, 1024]
-  return_idx: [1, 2, 3]
+  layers: [ 3, 6, 6, 3 ]
+  channels: [ 64, 128, 256, 512, 1024 ]
+  return_idx: [ 1, 2, 3 ]
   use_large_stem: true
   use_alpha: True
 
 CustomCSPPAN:
-  out_channels: [768, 384, 192]
+  out_channels: [ 768, 384, 192 ]
   stage_num: 1
   block_num: 3
   act: 'swish'
   spp: true
 
 PPYOLOEHead:
-  fpn_strides: [32, 16, 8]
+  fpn_strides: [ 32, 16, 8 ]
   grid_cell_scale: 5.0
   grid_cell_offset: 0.5
   static_assigner_epoch: 30
   use_varifocal_loss: true
-  loss_weight: {class: 1.0, iou: 2.5, dfl: 0.5}
+  loss_weight: { class: 1.0, iou: 2.5, dfl: 0.5 }
   static_assigner:
     name: ATSSAssigner
     topk: 9

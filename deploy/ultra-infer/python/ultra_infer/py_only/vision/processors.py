@@ -14,8 +14,8 @@
 
 import math
 
-import numpy as np
 import cv2
+import numpy as np
 
 from ..base import PyOnlyProcessor
 
@@ -74,10 +74,10 @@ def _pad(im, pad, val):
 
 def _check_image_size(input_):
     if not (
-        isinstance(input_, (list, tuple))
-        and len(input_) == 2
-        and isinstance(input_[0], int)
-        and isinstance(input_[1], int)
+            isinstance(input_, (list, tuple))
+            and len(input_) == 2
+            and isinstance(input_[0], int)
+            and isinstance(input_[1], int)
     ):
         raise TypeError(f"{input_} cannot represent a valid image size.")
 
@@ -177,7 +177,7 @@ class _BaseResize(PyOnlyProcessor):
 
 class Resize(_BaseResize):
     def __init__(
-        self, target_size, keep_ratio=False, size_divisor=None, interp="LINEAR"
+            self, target_size, keep_ratio=False, size_divisor=None, interp="LINEAR"
     ):
         super().__init__(size_divisor=size_divisor, interp=interp)
 
@@ -392,7 +392,7 @@ class LaTeXOCRReisizeNormImg(PyOnlyProcessor):
 
         coords = cv2.findNonZero(gray)  # Find all non-zero points (text)
         a, b, w, h = cv2.boundingRect(coords)  # Find minimum spanning bounding box
-        rect = data[b : b + h, a : a + w]
+        rect = data[b: b + h, a: a + w]
         im = Image.fromarray(rect).convert("L")
         dims = []
         for x in [w, h]:
@@ -403,10 +403,10 @@ class LaTeXOCRReisizeNormImg(PyOnlyProcessor):
         return padded
 
     def minmax_size_(
-        self,
-        img,
-        max_dimensions,
-        min_dimensions,
+            self,
+            img,
+            max_dimensions,
+            min_dimensions,
     ):
         from PIL import Image
 
@@ -442,8 +442,8 @@ class LaTeXOCRReisizeNormImg(PyOnlyProcessor):
 
         im_h, im_w = img.shape[:2]
         if (
-            min_dimensions[0] <= im_w <= max_dimensions[0]
-            and min_dimensions[1] <= im_h <= max_dimensions[1]
+                min_dimensions[0] <= im_w <= max_dimensions[0]
+                and min_dimensions[1] <= im_h <= max_dimensions[1]
         ):
             pass
         else:

@@ -16,34 +16,33 @@ from typing import List, Union
 
 import numpy as np
 
-from ....modules.text_detection.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
-from ..common import ToBatch, ToCHWImage
 from .processors import DBPostProcess, DetResizeForTest, NormalizeImage
 from .result import TextDetResult
+from ..base import BasePredictor
+from ..common import ToBatch, ToCHWImage
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.text_detection.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class TextDetPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
     register = FuncRegister(_FUNC_MAP)
 
     def __init__(
-        self,
-        limit_side_len: Union[int, None] = None,
-        limit_type: Union[str, None] = None,
-        thresh: Union[float, None] = None,
-        box_thresh: Union[float, None] = None,
-        unclip_ratio: Union[float, None] = None,
-        input_shape=None,
-        max_side_limit: int = 4000,
-        *args,
-        **kwargs
+            self,
+            limit_side_len: Union[int, None] = None,
+            limit_type: Union[str, None] = None,
+            thresh: Union[float, None] = None,
+            box_thresh: Union[float, None] = None,
+            unclip_ratio: Union[float, None] = None,
+            input_shape=None,
+            max_side_limit: int = 4000,
+            *args,
+            **kwargs
     ):
         super().__init__(*args, **kwargs)
 
@@ -80,14 +79,14 @@ class TextDetPredictor(BasePredictor):
         return pre_tfs, infer, post_op
 
     def process(
-        self,
-        batch_data: List[Union[str, np.ndarray]],
-        limit_side_len: Union[int, None] = None,
-        limit_type: Union[str, None] = None,
-        thresh: Union[float, None] = None,
-        box_thresh: Union[float, None] = None,
-        unclip_ratio: Union[float, None] = None,
-        max_side_limit: Union[int, None] = None,
+            self,
+            batch_data: List[Union[str, np.ndarray]],
+            limit_side_len: Union[int, None] = None,
+            limit_type: Union[str, None] = None,
+            thresh: Union[float, None] = None,
+            box_thresh: Union[float, None] = None,
+            unclip_ratio: Union[float, None] = None,
+            max_side_limit: Union[int, None] = None,
     ):
 
         batch_raw_imgs = self.pre_tfs["Read"](imgs=batch_data.instances)
@@ -125,20 +124,20 @@ class TextDetPredictor(BasePredictor):
 
     @register("DetResizeForTest")
     def build_resize(
-        self,
-        limit_side_len: Union[int, None] = None,
-        limit_type: Union[str, None] = None,
-        **kwargs
+            self,
+            limit_side_len: Union[int, None] = None,
+            limit_type: Union[str, None] = None,
+            **kwargs
     ):
         # TODO: align to PaddleOCR
 
         if self.model_name in (
-            "PP-OCRv5_server_det",
-            "PP-OCRv5_mobile_det",
-            "PP-OCRv4_server_det",
-            "PP-OCRv4_mobile_det",
-            "PP-OCRv3_server_det",
-            "PP-OCRv3_mobile_det",
+                "PP-OCRv5_server_det",
+                "PP-OCRv5_mobile_det",
+                "PP-OCRv4_server_det",
+                "PP-OCRv4_mobile_det",
+                "PP-OCRv3_server_det",
+                "PP-OCRv3_mobile_det",
         ):
             limit_side_len = self.limit_side_len or kwargs.get("resize_long", 960)
             limit_type = self.limit_type or kwargs.get("limit_type", "max")
@@ -155,11 +154,11 @@ class TextDetPredictor(BasePredictor):
 
     @register("NormalizeImage")
     def build_normalize(
-        self,
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225],
-        scale=1 / 255,
-        order="",
+            self,
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+            scale=1 / 255,
+            order="",
     ):
         return "Normalize", NormalizeImage(mean=mean, std=std, scale=scale, order=order)
 

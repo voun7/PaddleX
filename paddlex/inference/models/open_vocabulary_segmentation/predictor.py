@@ -15,17 +15,16 @@
 
 from typing import Any, Dict, List
 
-from ....modules.open_vocabulary_segmentation.model_list import MODELS
-from ....utils.func_register import FuncRegister
-from ...common.batch_sampler import ImageBatchSampler
-from ...common.reader import ReadImage
-from ..base import BasePredictor
 from .processors import SAMProcessor
 from .results import SAMSegResult
+from ..base import BasePredictor
+from ...common.batch_sampler import ImageBatchSampler
+from ...common.reader import ReadImage
+from ....modules.open_vocabulary_segmentation.model_list import MODELS
+from ....utils.func_register import FuncRegister
 
 
 class OVSegPredictor(BasePredictor):
-
     entities = MODELS
 
     _FUNC_MAP = {}
@@ -108,6 +107,6 @@ class OVSegPredictor(BasePredictor):
 
     @register("SAMProcessor")
     def build_sam_preprocessor(
-        self, size=1024, mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]
+            self, size=1024, mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]
     ):
         return SAMProcessor(size=size, img_mean=mean, img_std=std)

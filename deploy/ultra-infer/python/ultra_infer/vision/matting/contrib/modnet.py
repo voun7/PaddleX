@@ -20,11 +20,11 @@ from .... import c_lib_wrap as C
 
 class MODNet(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a MODNet model exported by MODNet.
 
@@ -87,7 +87,7 @@ class MODNet(UltraInferModel):
             wh, (list, tuple)
         ), "The value to set `size` must be type of tuple or list."
         assert (
-            len(wh) == 2
+                len(wh) == 2
         ), "The value to set `size` must contains 2 elements means [width, height], but now it contains {} elements.".format(
             len(wh)
         )
@@ -99,7 +99,7 @@ class MODNet(UltraInferModel):
             value, (list, tuple)
         ), "The value to set `alpha` must be type of tuple or list."
         assert (
-            len(value) == 3
+                len(value) == 3
         ), "The value to set `alpha` must contains 3 elements for each channels, but now it contains {} elements.".format(
             len(value)
         )
@@ -111,7 +111,7 @@ class MODNet(UltraInferModel):
             value, (list, tuple)
         ), "The value to set `beta` must be type of tuple or list."
         assert (
-            len(value) == 3
+                len(value) == 3
         ), "The value to set `beta` must contains 3 elements for each channels, but now it contains {} elements.".format(
             len(value)
         )

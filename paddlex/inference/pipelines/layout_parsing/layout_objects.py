@@ -132,14 +132,14 @@ class TextLine(object):
         return [x_min, y_min, x_max, y_max]
 
     def get_texts(
-        self,
-        block_label: str,
-        block_text_width: int,
-        block_start_coordinate: int,
-        block_stop_coordinate: int,
-        ori_image,
-        text_rec_model=None,
-        text_rec_score_thresh=None,
+            self,
+            block_label: str,
+            block_text_width: int,
+            block_start_coordinate: int,
+            block_stop_coordinate: int,
+            ori_image,
+            text_rec_model=None,
+            text_rec_score_thresh=None,
     ):
         """
         Get the text of the text line.
@@ -178,8 +178,8 @@ class TextLine(object):
                     bbox = span.box
                     if span.label == "text":
                         crop_img = ori_image[
-                            int(bbox[1]) : int(bbox[3]),
-                            int(bbox[0]) : int(bbox[2]),
+                            int(bbox[1]): int(bbox[3]),
+                            int(bbox[0]): int(bbox[2]),
                         ]
                         crop_img_rec_res = list(text_rec_model([crop_img]))[0]
                         crop_img_rec_score = crop_img_rec_res["rec_score"]
@@ -226,20 +226,20 @@ class TextLine(object):
                 box_b = self.spans[j].box
                 box_a, text, label = span.box, span.text, span.label
                 if self.is_projection_contained(
-                    box_a, box_b, projection_start_index, projection_end_index
+                        box_a, box_b, projection_start_index, projection_end_index
                 ):
                     is_split = True
                     # Split box_a based on the x-coordinates of box_b
                     if box_a[projection_start_index] < box_b[projection_start_index]:
                         w = (
-                            box_b[projection_start_index]
-                            - offset
-                            - box_a[projection_start_index]
+                                box_b[projection_start_index]
+                                - offset
+                                - box_a[projection_start_index]
                         )
                         if w > 1:
                             new_bbox = box_a.copy()
                             new_bbox[projection_end_index] = (
-                                box_b[projection_start_index] - offset
+                                    box_b[projection_start_index] - offset
                             )
                             new_spans.append(
                                 TextSpan(
@@ -250,13 +250,13 @@ class TextLine(object):
                             )
                     if box_a[projection_end_index] > box_b[projection_end_index]:
                         w = (
-                            box_a[projection_end_index]
-                            - box_b[projection_end_index]
-                            + offset
+                                box_a[projection_end_index]
+                                - box_b[projection_end_index]
+                                + offset
                         )
                         if w > 1:
                             box_a[projection_start_index] = (
-                                box_b[projection_end_index] + offset
+                                    box_b[projection_end_index] + offset
                             )
                             span = TextSpan(
                                 box=np.array(box_a),
@@ -271,12 +271,12 @@ class TextLine(object):
         return new_spans
 
     def format_line(
-        self,
-        block_text_width: int,
-        block_start_coordinate: int,
-        block_stop_coordinate: int,
-        line_gap_limit: int = 10,
-        block_label: str = "text",
+            self,
+            block_text_width: int,
+            block_start_coordinate: int,
+            block_stop_coordinate: int,
+            line_gap_limit: int = 10,
+            block_label: str = "text",
     ) -> str:
         """
         Format a line of text spans based on layout constraints.
@@ -304,9 +304,9 @@ class TextLine(object):
                         span.text = f"\n${span.text}$"
             line_text += span.text
             if (
-                len(span.text) > 0
-                and is_english_letter(line_text[-1])
-                or span.label == "formula"
+                    len(span.text) > 0
+                    and is_english_letter(line_text[-1])
+                    or span.label == "formula"
             ):
                 line_text += " "
 
@@ -324,24 +324,24 @@ class TextLine(object):
         last_char = line_text[-1]
 
         if (
-            not is_english_letter(last_char)
-            and not is_non_breaking_punctuation(last_char)
-            and not is_numeric(last_char)
+                not is_english_letter(last_char)
+                and not is_non_breaking_punctuation(last_char)
+                and not is_numeric(last_char)
         ) or (
-            block_stop_coordinate - last_span_box[text_stop_index]
-            > block_text_width * 0.3
+                block_stop_coordinate - last_span_box[text_stop_index]
+                > block_text_width * 0.3
         ):
             if (
-                self.direction == "horizontal"
-                and block_stop_coordinate - last_span_box[text_stop_index]
-                > line_gap_limit
-            ) or (
-                self.direction == "vertical"
-                and (
-                    block_stop_coordinate - last_span_box[text_stop_index]
+                    self.direction == "horizontal"
+                    and block_stop_coordinate - last_span_box[text_stop_index]
                     > line_gap_limit
-                    or first_span_box[1] - block_start_coordinate > line_gap_limit
-                )
+            ) or (
+                    self.direction == "vertical"
+                    and (
+                            block_stop_coordinate - last_span_box[text_stop_index]
+                            > line_gap_limit
+                            or first_span_box[1] - block_start_coordinate > line_gap_limit
+                    )
             ):
                 self.need_new_line = True
 
@@ -350,25 +350,25 @@ class TextLine(object):
             return line_text
 
         if (len(line_text) > 0 and is_english_letter(last_char)) or line_text.endswith(
-            "$"
+                "$"
         ):
             line_text += " "
         if (
-            len(line_text) > 0
-            and not is_english_letter(last_char)
-            and not is_numeric(last_char)
+                len(line_text) > 0
+                and not is_english_letter(last_char)
+                and not is_numeric(last_char)
         ) or self.direction == "vertical":
             if (
-                block_stop_coordinate - last_span_box[text_stop_index]
-                > block_text_width * 0.3
-                and len(line_text) > 0
-                and not is_non_breaking_punctuation(last_char)
+                    block_stop_coordinate - last_span_box[text_stop_index]
+                    > block_text_width * 0.3
+                    and len(line_text) > 0
+                    and not is_non_breaking_punctuation(last_char)
             ):
                 line_text += "\n"
                 self.need_new_line = True
         elif (
-            block_stop_coordinate - last_span_box[text_stop_index]
-            > (block_stop_coordinate - block_start_coordinate) * 0.5
+                block_stop_coordinate - last_span_box[text_stop_index]
+                > (block_stop_coordinate - block_start_coordinate) * 0.5
         ):
             line_text += "\n"
             self.need_new_line = True
@@ -502,7 +502,7 @@ class LayoutBlock(object):
         )
 
     def calculate_text_line_direction(
-        self, bboxes: List[List[int]], direction_ratio: float = 1.5
+            self, bboxes: List[List[int]], direction_ratio: float = 1.5
     ) -> bool:
         """
         Calculate the direction of the text based on the bounding boxes.
@@ -529,7 +529,7 @@ class LayoutBlock(object):
         return "horizontal" if horizontal_box_num >= len(bboxes) * 0.5 else "vertical"
 
     def group_boxes_into_lines(
-        self, ocr_rec_res, line_height_iou_threshold
+            self, ocr_rec_res, line_height_iou_threshold
     ) -> List[TextLine]:
         """
         Group the bounding boxes into lines based on their direction.
@@ -612,11 +612,11 @@ class LayoutBlock(object):
         return lines
 
     def update_text_content(
-        self,
-        image: list,
-        ocr_rec_res: dict,
-        text_rec_model: Any,
-        text_rec_score_thresh: Union[float, None] = None,
+            self,
+            image: list,
+            ocr_rec_res: dict,
+            text_rec_model: Any,
+            text_rec_score_thresh: Union[float, None] = None,
     ) -> None:
         """
         Update the text content of the block based on the OCR result.
@@ -695,12 +695,12 @@ class LayoutBlock(object):
                 if pre_line_end:
                     start_gep_len = line.region_box[coord_start_idx] - block_start
                     if (
-                        (
-                            start_gep_len > line.height * 1.5
-                            and not is_english_letter(last_char)
-                            and not is_numeric(last_char)
-                        )
-                        or start_gep_len > (block_stop - block_start) * 0.4
+                            (
+                                    start_gep_len > line.height * 1.5
+                                    and not is_english_letter(last_char)
+                                    and not is_numeric(last_char)
+                            )
+                            or start_gep_len > (block_stop - block_start) * 0.4
                     ) and not content.endswith("\n"):
                         line_text = "\n" + line_text
                 content += f"{line_text}"
@@ -710,17 +710,17 @@ class LayoutBlock(object):
                 else:
                     last_char = line_text[-1]
                 if (
-                    len(line_text) > 0
-                    and not line_text.endswith("\n")
-                    and not is_english_letter(last_char)
-                    and not is_non_breaking_punctuation(last_char)
-                    and not is_numeric(last_char)
-                    and need_new_line_num > len(text_lines) * 0.5
+                        len(line_text) > 0
+                        and not line_text.endswith("\n")
+                        and not is_english_letter(last_char)
+                        and not is_non_breaking_punctuation(last_char)
+                        and not is_numeric(last_char)
+                        and need_new_line_num > len(text_lines) * 0.5
                 ) or need_new_line_num > len(text_lines) * 0.6:
                     content += f"\n"
                 if (
-                    block_stop - line.region_box[coord_end_idx]
-                    > (block_stop - block_start) * 0.3
+                        block_stop - line.region_box[coord_end_idx]
+                        > (block_stop - block_start) * 0.3
                 ):
                     pre_line_end = True
         else:
@@ -734,9 +734,9 @@ class LayoutRegion(LayoutBlock):
     """LayoutRegion class"""
 
     def __init__(
-        self,
-        bbox,
-        blocks: List[LayoutBlock] = [],
+            self,
+            bbox,
+            blocks: List[LayoutBlock] = [],
     ) -> None:
         """
         Initialize a LayoutRegion object.
@@ -801,7 +801,7 @@ class LayoutRegion(LayoutBlock):
         direction = (
             "horizontal"
             if horizontal_normal_text_block_num
-            >= len(self.normal_text_block_idxes) * 0.5
+               >= len(self.normal_text_block_idxes) * 0.5
             else "vertical"
         )
         self.update_direction(direction)
@@ -851,9 +851,10 @@ class LayoutRegion(LayoutBlock):
             self.secondary_direction = "horizontal"
 
         self.direction_center_coordinate = (
-            self.bbox[self.direction_start_index] + self.bbox[self.direction_end_index]
-        ) / 2
+                                                   self.bbox[self.direction_start_index] + self.bbox[
+                                               self.direction_end_index]
+                                           ) / 2
         self.secondary_direction_center_coordinate = (
-            self.bbox[self.secondary_direction_start_index]
-            + self.bbox[self.secondary_direction_end_index]
-        ) / 2
+                                                             self.bbox[self.secondary_direction_start_index]
+                                                             + self.bbox[self.secondary_direction_end_index]
+                                                     ) / 2

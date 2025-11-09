@@ -5,7 +5,11 @@ comments: true
 # Table Cell Detection Module Usage Guide
 
 ## I. Overview
-The table cell detection module is a key component of table recognition tasks, responsible for locating and marking each cell area in table images. The performance of this module directly affects the accuracy and efficiency of the entire table recognition process. The table cell detection module typically outputs bounding boxes for each cell area, which will be passed as input to the table recognition pipeline for subsequent processing.
+
+The table cell detection module is a key component of table recognition tasks, responsible for locating and marking each
+cell area in table images. The performance of this module directly affects the accuracy and efficiency of the entire
+table recognition process. The table cell detection module typically outputs bounding boxes for each cell area, which
+will be passed as input to the table recognition pipeline for subsequent processing.
 
 ## II. List of Supported Models
 
@@ -86,9 +90,15 @@ The table cell detection module is a key component of table recognition tasks, r
 </table>
 
 ## III. Quick Integration
-> ❗ Before quick integration, please install the PaddleX wheel package first. For details, refer to the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
 
-After installing the wheel package, you can complete the inference of the table cell detection module with just a few lines of code. You can switch between the models under this module at will, and you can also integrate the model inference of the table cell detection module into your project. Before running the following code, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine.
+> ❗ Before quick integration, please install the PaddleX wheel package first. For details, refer to
+> the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
+
+After installing the wheel package, you can complete the inference of the table cell detection module with just a few
+lines of code. You can switch between the models under this module at will, and you can also integrate the model
+inference of the table cell detection module into your project. Before running the following code, please download
+the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your
+local machine.
 
 ```python
 from paddlex import create_model
@@ -100,7 +110,9 @@ for res in output:
     res.save_to_json("./output/res.json")
 ```
 
-<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`, `aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
+<b>Note: </b>The official models would be download from HuggingFace by first. PaddleX also support to specify the
+preferred source by setting the environment variable `PADDLE_PDX_MODEL_SOURCE`. The supported values are `huggingface`,
+`aistudio`, `bos`, and `modelscope`. For example, to prioritize using `bos`, set: `PADDLE_PDX_MODEL_SOURCE="bos"`.
 
 <details><summary>👉 <b>After running, the result is: (Click to expand)</b></summary>
 
@@ -109,13 +121,16 @@ for res in output:
 ```
 
 The meanings of the parameters are as follows:
+
 - `input_path`: The path of the input image to be predicted
 - `page_index`：If the input is a PDF file, this indicates the current page number of the PDF. Otherwise, it is `None`
-- `boxes`: Information of the predicted bounding boxes, a list of dictionaries. Each dictionary represents a detected target, containing the following information:
-  - `cls_id`: Class ID, an integer.
-  - `label`: Class label, a string.
-  - `score`: Confidence of the bounding box, a floating-point number.
-  - `coordinate`: Coordinates of the bounding box, a list of floating-point numbers, in the format <code>[xmin, ymin, xmax, ymax]</code>
+- `boxes`: Information of the predicted bounding boxes, a list of dictionaries. Each dictionary represents a detected
+  target, containing the following information:
+    - `cls_id`: Class ID, an integer.
+    - `label`: Class label, a string.
+    - `score`: Confidence of the bounding box, a floating-point number.
+    - `coordinate`: Coordinates of the bounding box, a list of floating-point numbers, in the
+      format <code>[xmin, ymin, xmax, ymax]</code>
 
 The visualized image is as follows:
 
@@ -123,11 +138,15 @@ The visualized image is as follows:
 
 </details>
 
-Note: Due to network issues, the above URL may not be successfully parsed. If you need the content from this link, please check the validity of the URL and try again. If you do not need the content from this link, please let me know, and I will proceed with answering your question.
+Note: Due to network issues, the above URL may not be successfully parsed. If you need the content from this link,
+please check the validity of the URL and try again. If you do not need the content from this link, please let me know,
+and I will proceed with answering your question.
 
 The following is the explanation of the methods, parameters, etc.:
 
-* The `create_model` method instantiates a table cell detection model (here, `RT-DETR-L_wired_table_cell_det` is used as an example), with the following details:
+* The `create_model` method instantiates a table cell detection model (here, `RT-DETR-L_wired_table_cell_det` is used as
+  an example), with the following details:
+
 <table>
 <thead>
 <tr>
@@ -199,9 +218,11 @@ The following is the explanation of the methods, parameters, etc.:
 </tr>
 </table>
 
-* The `model_name` must be specified. Once `model_name` is specified, the default model parameters from PaddleX will be used. If `model_dir` is specified, the user-defined model will be used instead.
+* The `model_name` must be specified. Once `model_name` is specified, the default model parameters from PaddleX will be
+  used. If `model_dir` is specified, the user-defined model will be used instead.
 
-* The `predict()` method of the table cell detection model is called to perform inference and prediction. The parameters of the `predict()` method include `input`, `batch_size`, and `threshold`, with the following details:
+* The `predict()` method of the table cell detection model is called to perform inference and prediction. The parameters
+  of the `predict()` method include `input`, `batch_size`, and `threshold`, with the following details:
 
 <table>
 <thead>
@@ -249,7 +270,8 @@ The following is the explanation of the methods, parameters, etc.:
 </tr>
 </table>
 
-* Process the prediction results, where the prediction result of each sample is a corresponding Result object, and supports operations such as printing, saving as an image, and saving as a `json` file:
+* Process the prediction results, where the prediction result of each sample is a corresponding Result object, and
+  supports operations such as printing, saving as an image, and saving as a `json` file:
 
 <table>
 <thead>
@@ -312,7 +334,8 @@ The following is the explanation of the methods, parameters, etc.:
 </tr>
 </table>
 
-* Additionally, it also supports obtaining visualized images with results and prediction results through attributes, as follows:
+* Additionally, it also supports obtaining visualized images with results and prediction results through attributes, as
+  follows:
 
 <table>
 <thead>
@@ -331,15 +354,26 @@ The following is the explanation of the methods, parameters, etc.:
 </tr>
 </table>
 
-For more information on the usage of PaddleX single-model inference APIs, please refer to [PaddleX Single-Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
+For more information on the usage of PaddleX single-model inference APIs, please refer
+to [PaddleX Single-Model Python Script Usage Instructions](../../instructions/model_python_API.en.md).
 
 ## IV. Secondary Development
-If you aim to improve the accuracy of existing models, you can leverage PaddleX's secondary development capabilities to develop a better table cell detection model. Before using PaddleX to develop a table cell detection model, please ensure that the PaddleX table cell detection model training plugin is installed. The installation process can be found in the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
+
+If you aim to improve the accuracy of existing models, you can leverage PaddleX's secondary development capabilities to
+develop a better table cell detection model. Before using PaddleX to develop a table cell detection model, please ensure
+that the PaddleX table cell detection model training plugin is installed. The installation process can be found in
+the [PaddleX Local Installation Guide](../../../installation/installation.en.md).
 
 ### 4.1 Data Preparation
-Before training the model, you need to prepare the dataset for the corresponding task module. PaddleX provides a data validation feature for each module, and <b>only data that passes the validation can be used for model training</b>. Additionally, PaddleX offers demo datasets for each module, which you can use to complete subsequent development based on the official demo data. If you wish to use your private dataset for model training, please refer to the [PaddleX Object Detection Task Module Data Annotation Guide](../../../data_annotations/cv_modules/object_detection.en.md).
+
+Before training the model, you need to prepare the dataset for the corresponding task module. PaddleX provides a data
+validation feature for each module, and <b>only data that passes the validation can be used for model training</b>.
+Additionally, PaddleX offers demo datasets for each module, which you can use to complete subsequent development based
+on the official demo data. If you wish to use your private dataset for model training, please refer to
+the [PaddleX Object Detection Task Module Data Annotation Guide](../../../data_annotations/cv_modules/object_detection.en.md).
 
 #### 4.1.1 Demo Data Download
+
 You can use the following command to download the demo dataset to the specified folder:
 
 ```bash
@@ -348,6 +382,7 @@ tar -xf ./dataset/cells_det_coco_examples.tar -C ./dataset/
 ```
 
 #### 4.1.2 Data Validation
+
 Data validation can be completed with a single command:
 
 ```bash
@@ -356,7 +391,11 @@ python main.py -c paddlex/configs/modules/table_cells_detection/RT-DETR-L_wired_
     -o Global.dataset_dir=./dataset/cells_det_coco_examples
 ```
 
-After executing the above command, PaddleX will verify the dataset and collect basic information about the dataset. If the command runs successfully, it will print `Check dataset passed !` in the log. The verification result file is saved in `./output/check_dataset_result.json`, and the related outputs will be saved in the `./output/check_dataset` directory under the current directory. The output directory includes visualized example sample images and sample distribution histograms.
+After executing the above command, PaddleX will verify the dataset and collect basic information about the dataset. If
+the command runs successfully, it will print `Check dataset passed !` in the log. The verification result file is saved
+in `./output/check_dataset_result.json`, and the related outputs will be saved in the `./output/check_dataset` directory
+under the current directory. The output directory includes visualized example sample images and sample distribution
+histograms.
 
 <details><summary>👉 <b>Verification Result Details (Click to Expand)</b></summary>
 
@@ -414,7 +453,9 @@ After executing the above command, PaddleX will verify the dataset and collect b
 <p><img src="https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/refs/heads/main/images/modules/table_cells_detection/02.png"></p></details>
 
 #### 4.1.3 Dataset Format Conversion/Dataset Splitting (Optional)
-After you complete the data verification, you can convert the dataset format by <b>modifying the configuration file</b> or <b>adding hyperparameters</b>. You can also re-split the training/validation ratio of the dataset.
+
+After you complete the data verification, you can convert the dataset format by <b>modifying the configuration file</b>
+or <b>adding hyperparameters</b>. You can also re-split the training/validation ratio of the dataset.
 
 <details><summary>👉 <b>Details of Format Conversion/Dataset Splitting (Click to Expand)</b></summary>
 
@@ -485,7 +526,9 @@ CheckDataset:
 </code></pre></details>
 
 ### 4.2 Model Training
-A single command can complete the model training. Taking the table cell detection model `RT-DETR-L_wired_table_cell_det` as an example:
+
+A single command can complete the model training. Taking the table cell detection model `RT-DETR-L_wired_table_cell_det`
+as an example:
 
 ```bash
 python main.py -c paddlex/configs/modules/table_cells_detection/RT-DETR-L_wired_table_cell_det.yaml \
@@ -495,11 +538,19 @@ python main.py -c paddlex/configs/modules/table_cells_detection/RT-DETR-L_wired_
 
 The following steps are required:
 
-* Specify the path to the model's `.yaml` configuration file (here it is `RT-DETR-L_wired_table_cell_det.yaml`). When training other models, the corresponding configuration file must be specified. The correspondence between models and configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
+* Specify the path to the model's `.yaml` configuration file (here it is `RT-DETR-L_wired_table_cell_det.yaml`). When
+  training other models, the corresponding configuration file must be specified. The correspondence between models and
+  configuration files can be found in the [PaddleX Model List (CPU/GPU)](../../../support_list/models_list.en.md)).
 * Specify the mode as model training: `-o Global.mode=train`
 * Specify the path to the training dataset: `-o Global.dataset_dir`
-* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration file, or by adding parameters in the command line. For example, to train on the first two GPUs: `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more modifiable parameters and their detailed explanations, refer to the configuration file instructions for the corresponding model task module in [PaddleX Common Model Configuration Parameters](../../instructions/config_parameters_common.en.md).
-* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when using GPU device. Please specify `-o Train.dy2st=True` to enable it.
+* Other related parameters can be set by modifying the fields under `Global` and `Train` in the `.yaml` configuration
+  file, or by adding parameters in the command line. For example, to train on the first two GPUs:
+  `-o Global.device=gpu:0,1`; to set the number of training epochs to 10: `-o Train.epochs_iters=10`. For more
+  modifiable parameters and their detailed explanations, refer to the configuration file instructions for the
+  corresponding model task module
+  in [PaddleX Common Model Configuration Parameters](../../instructions/config_parameters_common.en.md).
+* New Feature: Paddle 3.0 support CINN (Compiler Infrastructure for Neural Networks) to accelerate training speed when
+  using GPU device. Please specify `-o Train.dy2st=True` to enable it.
 
 <details><summary>👉 <b>More Information (Click to Expand)</b></summary>
 
@@ -519,7 +570,9 @@ The following steps are required:
 </ul></details>
 
 ## <b>4.3 Model Evaluation</b>
-After completing model training, you can evaluate the specified model weight file on the validation set to verify the model's accuracy. Using PaddleX for model evaluation can be done with a single command:
+
+After completing model training, you can evaluate the specified model weight file on the validation set to verify the
+model's accuracy. Using PaddleX for model evaluation can be done with a single command:
 
 ```bash
 python main.py -c paddlex/configs/modules/table_cells_detection/RT-DETR-L_wired_table_cell_det.yaml \
@@ -532,7 +585,9 @@ Similar to model training, the following steps are required:
 * Specify the path of the model's `.yaml` configuration file (here it is `RT-DETR-L_wired_table_cell_det.yaml`).
 * Set the mode to model evaluation: `-o Global.mode=evaluate`.
 * Specify the validation dataset path: `-o Global.dataset_dir`.
-Other related parameters can be set by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration file. For details, please refer to [PaddleX General Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+  Other related parameters can be set by modifying the fields under `Global` and `Evaluate` in the `.yaml` configuration
+  file. For details, please refer
+  to [PaddleX General Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 <details><summary>👉 <b>More Information (Click to Expand)</b></summary>
 
@@ -540,11 +595,17 @@ Other related parameters can be set by modifying the fields under `Global` and `
 <p>After the model evaluation is completed, an <code>evaluate_result.json</code> file will be generated, which records the evaluation results. Specifically, it records whether the evaluation task was completed normally and the model's evaluation metrics, including AP.</p></details>
 
 ### <b>4.4 Model Inference and Model Integration</b>
-After completing the training and evaluation of the model, you can use the trained model weights for inference prediction or integrate them into Python.
+
+After completing the training and evaluation of the model, you can use the trained model weights for inference
+prediction or integrate them into Python.
 
 #### 4.4.1 Model Inference
 
-* To perform inference prediction via the command line, you only need the following command. Before running the code below, please download the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine. Note: The link may not work due to network issues. If you encounter problems, please check the validity of the link and try again.
+* To perform inference prediction via the command line, you only need the following command. Before running the code
+  below, please download
+  the [example image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your
+  local machine. Note: The link may not work due to network issues. If you encounter problems, please check the validity
+  of the link and try again.
 
 Similar to model training and evaluation, the following steps are required:
 
@@ -553,17 +614,27 @@ Similar to model training and evaluation, the following steps are required:
 * Specify the model weight path: `-o Predict.model_dir="./output/best_model/inference"`
 * Specify the input data path: `-o Predict.input="..."`
 
-Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration file. For details, please refer to [PaddleX General Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
+Other related parameters can be set by modifying the fields under `Global` and `Predict` in the `.yaml` configuration
+file. For details, please refer
+to [PaddleX General Model Configuration File Parameter Description](../../instructions/config_parameters_common.en.md).
 
 #### 4.4.2 Model Integration
+
 The model can be directly integrated into the PaddleX pipeline or into your own project.
 
 1.<b>pipeline Integration</b>
 
-The table cell detection module can be integrated into the PaddleX pipeline [General Table Recognition pipeline v2](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.en.md). Simply replacing the model path will complete the model update for the table cell detection module in the relevant pipeline. In pipeline integration, you can deploy your model using high-performance deployment and serving deployment.
+The table cell detection module can be integrated into the PaddleX
+pipeline [General Table Recognition pipeline v2](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.en.md).
+Simply replacing the model path will complete the model update for the table cell detection module in the relevant
+pipeline. In pipeline integration, you can deploy your model using high-performance deployment and serving deployment.
 
 2.<b>Module Integration</b>
 
-The weights you generate can be directly integrated into the table cell detection module. You can refer to the Python example code in [Quick Integration](#3-Quick-Integration). Simply replace the model with the path of the model you have trained.
+The weights you generate can be directly integrated into the table cell detection module. You can refer to the Python
+example code in [Quick Integration](#3-Quick-Integration). Simply replace the model with the path of the model you have
+trained.
 
-You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and further improve efficiency. For detailed procedures, please refer to the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).
+You can also use the PaddleX high-performance inference plugin to optimize the inference process of your model and
+further improve efficiency. For detailed procedures, please refer to
+the [PaddleX High-Performance Inference Guide](../../../pipeline_deploy/high_performance_inference.en.md).

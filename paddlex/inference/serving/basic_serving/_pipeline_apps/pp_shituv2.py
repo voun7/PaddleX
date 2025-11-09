@@ -16,14 +16,14 @@ import asyncio
 from operator import attrgetter
 from typing import Any, Dict, List
 
-from .....utils.deps import function_requires_deps, is_dep_available
-from ....pipelines.components import IndexData
+from ._common import image_recognition as ir_common
+from .._app import create_app, primary_operation
 from ...infra import utils as serving_utils
 from ...infra.config import AppConfig
 from ...infra.models import AIStudioResultResponse
 from ...schemas import pp_shituv2 as schema
-from .._app import create_app, primary_operation
-from ._common import image_recognition as ir_common
+from ....pipelines.components import IndexData
+from .....utils.deps import function_requires_deps, is_dep_available
 
 if is_dep_available("fastapi"):
     from fastapi import FastAPI
@@ -43,7 +43,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "buildIndex",
     )
     async def _build_index(
-        request: schema.BuildIndexRequest,
+            request: schema.BuildIndexRequest,
     ) -> AIStudioResultResponse[schema.BuildIndexResult]:
         pipeline = ctx.pipeline
         aiohttp_session = ctx.aiohttp_session
@@ -85,7 +85,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "addImagesToIndex",
     )
     async def _add_images_to_index(
-        request: schema.AddImagesToIndexRequest,
+            request: schema.AddImagesToIndexRequest,
     ) -> AIStudioResultResponse[schema.AddImagesToIndexResult]:
         pipeline = ctx.pipeline
         aiohttp_session = ctx.aiohttp_session
@@ -125,7 +125,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "removeImagesFromIndex",
     )
     async def _remove_images_from_index(
-        request: schema.RemoveImagesFromIndexRequest,
+            request: schema.RemoveImagesFromIndexRequest,
     ) -> AIStudioResultResponse[schema.RemoveImagesFromIndexResult]:
         pipeline = ctx.pipeline
 
@@ -157,7 +157,7 @@ def create_pipeline_app(pipeline: Any, app_config: AppConfig) -> "FastAPI":
         "infer",
     )
     async def _infer(
-        request: schema.InferRequest,
+            request: schema.InferRequest,
     ) -> AIStudioResultResponse[schema.InferResult]:
         pipeline = ctx.pipeline
         aiohttp_session = ctx.aiohttp_session

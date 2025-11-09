@@ -17,7 +17,6 @@ from abc import ABC, abstractmethod
 from typing import List
 
 from paddlex.utils import logging
-
 from .....utils.deps import class_requires_deps, is_dep_available
 from .....utils.subclass_register import AutoRegisterABCMetaClass
 
@@ -108,13 +107,13 @@ class BaseRetriever(ABC, metaclass=AutoRegisterABCMetaClass):
         Returns:
             bytes: The decoded vector store data.
         """
-        return base64.b64decode(vector_store_str[len(self.VECTOR_STORE_PREFIX) :])
+        return base64.b64decode(vector_store_str[len(self.VECTOR_STORE_PREFIX):])
 
     def generate_vector_database(
-        self,
-        text_list: List[str],
-        block_size: int = 300,
-        separators: List[str] = ["\t", "\n", "。", "\n\n", ""],
+            self,
+            text_list: List[str],
+            block_size: int = 300,
+            separators: List[str] = ["\t", "\n", "。", "\n\n", ""],
     ) -> "FAISS":
         """
         Generates a vector database from a list of texts.
@@ -192,12 +191,12 @@ class BaseRetriever(ABC, metaclass=AutoRegisterABCMetaClass):
         return vector
 
     def similarity_retrieval(
-        self,
-        query_text_list: List[str],
-        vectorstore: "FAISS",
-        sleep_time: float = 0.5,
-        topk: int = 2,
-        min_characters: int = 3500,
+            self,
+            query_text_list: List[str],
+            vectorstore: "FAISS",
+            sleep_time: float = 0.5,
+            topk: int = 2,
+            min_characters: int = 3500,
     ) -> str:
         """
         Retrieve similar contexts based on a list of query texts.

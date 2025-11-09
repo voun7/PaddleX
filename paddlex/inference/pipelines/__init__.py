@@ -15,10 +15,6 @@
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
-from ...utils import logging
-from ...utils.config import parse_config
-from ..utils.hpi import HPIConfig
-from ..utils.pp_option import PaddlePredictorOption
 from .anomaly_detection import AnomalyDetectionPipeline
 from .attribute_recognition import (
     PedestrianAttributeRecPipeline,
@@ -55,6 +51,10 @@ from .ts_classification import TSClsPipeline
 from .ts_forecasting import TSFcPipeline
 from .video_classification import VideoClassificationPipeline
 from .video_detection import VideoDetectionPipeline
+from ..utils.hpi import HPIConfig
+from ..utils.pp_option import PaddlePredictorOption
+from ...utils import logging
+from ...utils.config import parse_config
 
 
 def get_pipeline_path(pipeline_name: str) -> str:
@@ -68,9 +68,9 @@ def get_pipeline_path(pipeline_name: str) -> str:
         str: The full path to the pipeline configuration file or None if not found.
     """
     pipeline_path = (
-        Path(__file__).parent.parent.parent
-        / "configs/pipelines"
-        / f"{pipeline_name}.yaml"
+            Path(__file__).parent.parent.parent
+            / "configs/pipelines"
+            / f"{pipeline_name}.yaml"
     ).resolve()
     if not Path(pipeline_path).exists():
         return None
@@ -103,14 +103,14 @@ def load_pipeline_config(pipeline: str) -> Dict[str, Any]:
 
 
 def create_pipeline(
-    pipeline: Optional[str] = None,
-    config: Optional[Dict[str, Any]] = None,
-    device: Optional[str] = None,
-    pp_option: Optional[PaddlePredictorOption] = None,
-    use_hpip: Optional[bool] = None,
-    hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
-    *args: Any,
-    **kwargs: Any,
+        pipeline: Optional[str] = None,
+        config: Optional[Dict[str, Any]] = None,
+        device: Optional[str] = None,
+        pp_option: Optional[PaddlePredictorOption] = None,
+        use_hpip: Optional[bool] = None,
+        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+        *args: Any,
+        **kwargs: Any,
 ) -> BasePipeline:
     """
     Create a pipeline instance based on the provided parameters.
@@ -196,9 +196,9 @@ def create_chat_bot(config: Dict, *args, **kwargs) -> BaseChat:
 
 
 def create_retriever(
-    config: Dict,
-    *args,
-    **kwargs,
+        config: Dict,
+        *args,
+        **kwargs,
 ) -> BaseRetriever:
     """
     Creates a retriever instance based on the provided configuration.
@@ -219,9 +219,9 @@ def create_retriever(
 
 
 def create_prompt_engineering(
-    config: Dict,
-    *args,
-    **kwargs,
+        config: Dict,
+        *args,
+        **kwargs,
 ) -> BaseGeneratePrompt:
     """
     Creates a prompt engineering instance based on the provided configuration.

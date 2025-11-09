@@ -16,13 +16,13 @@ from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 
 import numpy as np
 
-from ....utils.deps import pipeline_requires_extra
+from .._parallel import AutoParallelImageSimpleInferencePipeline
+from ..base import BasePipeline
 from ...models.semantic_segmentation.result import SegResult
 from ...utils.benchmark import benchmark
 from ...utils.hpi import HPIConfig
 from ...utils.pp_option import PaddlePredictorOption
-from .._parallel import AutoParallelImageSimpleInferencePipeline
-from ..base import BasePipeline
+from ....utils.deps import pipeline_requires_extra
 
 
 @benchmark.time_methods
@@ -30,12 +30,12 @@ class _SemanticSegmentationPipeline(BasePipeline):
     """Semantic Segmentation Pipeline"""
 
     def __init__(
-        self,
-        config: Dict,
-        device: str = None,
-        pp_option: PaddlePredictorOption = None,
-        use_hpip: bool = False,
-        hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
+            self,
+            config: Dict,
+            device: str = None,
+            pp_option: PaddlePredictorOption = None,
+            use_hpip: bool = False,
+            hpi_config: Optional[Union[Dict[str, Any], HPIConfig]] = None,
     ) -> None:
         """
         Initializes the class with given configurations and options.
@@ -63,10 +63,10 @@ class _SemanticSegmentationPipeline(BasePipeline):
         self.target_size = semantic_segmentation_model_config["target_size"]
 
     def predict(
-        self,
-        input: Union[str, List[str], np.ndarray, List[np.ndarray]],
-        target_size: Union[Literal[-1], None, int, Tuple[int]] = None,
-        **kwargs
+            self,
+            input: Union[str, List[str], np.ndarray, List[np.ndarray]],
+            target_size: Union[Literal[-1], None, int, Tuple[int]] = None,
+            **kwargs
     ) -> SegResult:
         """Predicts semantic segmentation results for the given input.
 

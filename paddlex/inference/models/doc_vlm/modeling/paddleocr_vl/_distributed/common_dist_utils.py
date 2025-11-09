@@ -73,13 +73,13 @@ def get_hcg():
 
 
 def _parallel_matmul(
-    x,
-    y,
-    bias=None,
-    transpose_y=False,
-    tensor_parallel_degree=1,
-    tensor_parallel_output=True,
-    fuse_linear=False,
+        x,
+        y,
+        bias=None,
+        transpose_y=False,
+        tensor_parallel_degree=1,
+        tensor_parallel_output=True,
+        fuse_linear=False,
 ):
     """
     Performs parallel matrix multiplication with tensor model parallelism support.
@@ -312,16 +312,16 @@ class RRColumnSequenceParallelLinear(ColumnSequenceParallelLinear):
     """
 
     def __init__(
-        self,
-        in_features,
-        out_features,
-        weight_attr=None,
-        has_bias=None,
-        gather_output=True,
-        fuse_matmul_bias=False,
-        mp_group=None,
-        use_rr=False,
-        name=None,
+            self,
+            in_features,
+            out_features,
+            weight_attr=None,
+            has_bias=None,
+            gather_output=True,
+            fuse_matmul_bias=False,
+            mp_group=None,
+            use_rr=False,
+            name=None,
     ):
         """
         Initializes a ColumnSequenceParallelLinear module.
@@ -383,7 +383,7 @@ class RRColumnSequenceParallelLinear(ColumnSequenceParallelLinear):
             input_parallel = x
 
         if (
-            self._rr_column_ln is not None and self.training
+                self._rr_column_ln is not None and self.training
         ):  # in eval mode, do not use refined recompute
             output = self._rr_column_ln(
                 self.linear,
@@ -404,16 +404,16 @@ class RRRowSequenceParallelLinear(RowSequenceParallelLinear):
     """
 
     def __init__(
-        self,
-        in_features,
-        out_features,
-        weight_attr=None,
-        has_bias=True,
-        input_is_parallel=False,
-        fuse_matmul_bias=False,
-        mp_group=None,
-        use_rr=False,
-        name=None,
+            self,
+            in_features,
+            out_features,
+            weight_attr=None,
+            has_bias=True,
+            input_is_parallel=False,
+            fuse_matmul_bias=False,
+            mp_group=None,
+            use_rr=False,
+            name=None,
     ):
         """
         Args:
@@ -467,7 +467,7 @@ class RRRowSequenceParallelLinear(RowSequenceParallelLinear):
                 return ReduceScatterOp.apply(output)
 
             if (
-                self._rr_row_ln is not None and self.training
+                    self._rr_row_ln is not None and self.training
             ):  # in eval mode, do not use refined recompute
                 output_ = self._rr_row_ln(
                     linear_reduce_scatter,
@@ -703,7 +703,7 @@ def reduce_scatter_group(input, group=None):
         return input.clone()
     output_shape = input.shape
     assert (
-        input.shape[0] % parallelism == 0
+            input.shape[0] % parallelism == 0
     ), f"Input sequence length {input.shape[0]} can't be divided exactly by sequence parallelism {parallelism}"
     output_shape[0] = output_shape[0] // parallelism
     output = paddle.empty(shape=output_shape, dtype=input.dtype)

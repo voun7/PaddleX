@@ -16,11 +16,11 @@
 import json
 import os
 import shutil
-import unicodedata
 from functools import lru_cache
 from typing import List, Optional
 
-from .....utils import logging
+import unicodedata
+
 from .tokenizer_utils import (
     PretrainedTokenizer,
     _is_control,
@@ -28,6 +28,7 @@ from .tokenizer_utils import (
     _is_whitespace,
 )
 from .tokenizer_utils_base import AddedToken
+from .....utils import logging
 
 __all__ = ["CLIPTokenizer"]
 
@@ -44,16 +45,16 @@ def bytes_to_unicode():
     tables between utf-8 bytes and unicode strings.
     """
     bs = (
-        list(range(ord("!"), ord("~") + 1))
-        + list(range(ord("¡"), ord("¬") + 1))
-        + list(range(ord("®"), ord("ÿ") + 1))
+            list(range(ord("!"), ord("~") + 1))
+            + list(range(ord("¡"), ord("¬") + 1))
+            + list(range(ord("®"), ord("ÿ") + 1))
     )
     cs = bs[:]
     n = 0
-    for b in range(2**8):
+    for b in range(2 ** 8):
         if b not in bs:
             bs.append(b)
-            cs.append(2**8 + n)
+            cs.append(2 ** 8 + n)
             n += 1
     cs = [chr(n) for n in cs]
     return dict(zip(bs, cs))
@@ -113,12 +114,12 @@ class BasicTokenizer(object):
     """
 
     def __init__(
-        self,
-        do_lower_case=True,
-        never_split=None,
-        tokenize_chinese_chars=True,
-        strip_accents=None,
-        do_split_on_punc=True,
+            self,
+            do_lower_case=True,
+            never_split=None,
+            tokenize_chinese_chars=True,
+            strip_accents=None,
+            do_split_on_punc=True,
     ):
         if never_split is None:
             never_split = []
@@ -184,7 +185,7 @@ class BasicTokenizer(object):
     def _run_split_on_punc(self, text, never_split=None):
         """Splits punctuation on a piece of text."""
         if not self.do_split_on_punc or (
-            never_split is not None and text in never_split
+                never_split is not None and text in never_split
         ):
             return [text]
         chars = list(text)
@@ -229,14 +230,14 @@ class BasicTokenizer(object):
         # space-separated words, so they are not treated specially and handled
         # like the all of the other languages.
         if (
-            (cp >= 0x4E00 and cp <= 0x9FFF)
-            or (cp >= 0x3400 and cp <= 0x4DBF)  #
-            or (cp >= 0x20000 and cp <= 0x2A6DF)  #
-            or (cp >= 0x2A700 and cp <= 0x2B73F)  #
-            or (cp >= 0x2B740 and cp <= 0x2B81F)  #
-            or (cp >= 0x2B820 and cp <= 0x2CEAF)  #
-            or (cp >= 0xF900 and cp <= 0xFAFF)
-            or (cp >= 0x2F800 and cp <= 0x2FA1F)  #
+                (cp >= 0x4E00 and cp <= 0x9FFF)
+                or (cp >= 0x3400 and cp <= 0x4DBF)  #
+                or (cp >= 0x20000 and cp <= 0x2A6DF)  #
+                or (cp >= 0x2A700 and cp <= 0x2B73F)  #
+                or (cp >= 0x2B740 and cp <= 0x2B81F)  #
+                or (cp >= 0x2B820 and cp <= 0x2CEAF)  #
+                or (cp >= 0xF900 and cp <= 0xFAFF)
+                or (cp >= 0x2F800 and cp <= 0x2FA1F)  #
         ):  #
             return True
 
@@ -316,16 +317,16 @@ class CLIPTokenizer(PretrainedTokenizer):
     ]
 
     def __init__(
-        self,
-        vocab_file,
-        merges_file,
-        errors="replace",
-        max_len=77,
-        bos_token="<|startoftext|>",
-        eos_token="<|endoftext|>",
-        unk_token="<|endoftext|>",
-        pad_token="<|endoftext|>",
-        **kwargs
+            self,
+            vocab_file,
+            merges_file,
+            errors="replace",
+            max_len=77,
+            bos_token="<|startoftext|>",
+            eos_token="<|endoftext|>",
+            unk_token="<|endoftext|>",
+            pad_token="<|endoftext|>",
+            **kwargs
     ):
         from paddle.utils import try_import
 
@@ -383,7 +384,7 @@ class CLIPTokenizer(PretrainedTokenizer):
         self.byte_decoder = {v: k for k, v in self.byte_encoder.items()}
         with open(merges_file, encoding="utf-8") as merges_handle:
             bpe_merges = (
-                merges_handle.read().strip().split("\n")[1 : 49152 - 256 - 2 + 1]
+                merges_handle.read().strip().split("\n")[1: 49152 - 256 - 2 + 1]
             )
         bpe_merges = [tuple(merge.split()) for merge in bpe_merges]
         self.bpe_ranks = dict(zip(bpe_merges, range(len(bpe_merges))))
@@ -412,7 +413,7 @@ class CLIPTokenizer(PretrainedTokenizer):
         return dict(self.encoder, **self.added_tokens_encoder)
 
     def build_inputs_with_special_tokens(
-        self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
+            self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
     ) -> List[int]:
         """
         Build model inputs from a sequence or a pair of sequence for sequence classification tasks by concatenating and
@@ -439,7 +440,7 @@ class CLIPTokenizer(PretrainedTokenizer):
         return bos_token + token_ids_0 + eos_token + eos_token + token_ids_1 + eos_token
 
     def build_offset_mapping_with_special_tokens(
-        self, offset_mapping_0, offset_mapping_1=None
+            self, offset_mapping_0, offset_mapping_1=None
     ):
         """
         Build offset map from a pair of offset map by concatenating and adding offsets of special tokens.
@@ -459,11 +460,11 @@ class CLIPTokenizer(PretrainedTokenizer):
             return [(0, 0)] + offset_mapping_0 + [(0, 0)]
 
         return (
-            [(0, 0)] + offset_mapping_0 + [(0, 0), (0, 0)] + offset_mapping_1 + [(0, 0)]
+                [(0, 0)] + offset_mapping_0 + [(0, 0), (0, 0)] + offset_mapping_1 + [(0, 0)]
         )
 
     def get_special_tokens_mask(
-        self, token_ids_0, token_ids_1=None, already_has_special_tokens=False
+            self, token_ids_0, token_ids_1=None, already_has_special_tokens=False
     ):
         """
         Retrieve sequence ids from a token list that has no special tokens added. This method is called when adding
@@ -491,11 +492,11 @@ class CLIPTokenizer(PretrainedTokenizer):
         if token_ids_1 is None:
             return [1] + ([0] * len(token_ids_0)) + [1]
         return (
-            [1] + ([0] * len(token_ids_0)) + [1] + [1] + ([0] * len(token_ids_1)) + [1]
+                [1] + ([0] * len(token_ids_0)) + [1] + [1] + ([0] * len(token_ids_1)) + [1]
         )
 
     def create_token_type_ids_from_sequences(
-        self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
+            self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
     ) -> List[int]:
         """
         Create a mask from the two sequences passed. CLIP does not make use of token type ids, therefore a list of

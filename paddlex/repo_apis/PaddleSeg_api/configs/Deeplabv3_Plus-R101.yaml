@@ -10,7 +10,7 @@ train_dataset:
       max_scale_factor: 2.0
       scale_step_size: 0.25
     - type: RandomPaddingCrop
-      crop_size: [1024, 512]
+      crop_size: [ 1024, 512 ]
     - type: RandomHorizontalFlip
     - type: RandomDistort
       brightness_range: 0.4
@@ -41,18 +41,18 @@ lr_scheduler:
 loss:
   types:
     - type: CrossEntropyLoss
-  coef: [1]
+  coef: [ 1 ]
 
 model:
   type: DeepLabV3P
   backbone:
     type: ResNet101_vd
     output_stride: 8
-    multi_grid: [1, 2, 4]
+    multi_grid: [ 1, 2, 4 ]
     pretrained: https://bj.bcebos.com/paddleseg/dygraph/resnet101_vd_ssld.tar.gz
   num_classes: 19
-  backbone_indices: [0, 3]
-  aspp_ratios: [1, 12, 24, 36]
+  backbone_indices: [ 0, 3 ]
+  aspp_ratios: [ 1, 12, 24, 36 ]
   aspp_out_channels: 256
   align_corners: False
   pretrained: null

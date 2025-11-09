@@ -20,11 +20,11 @@ from .... import c_lib_wrap as C
 
 class FSANet(UltraInferModel):
     def __init__(
-        self,
-        model_file,
-        params_file="",
-        runtime_option=None,
-        model_format=ModelFormat.ONNX,
+            self,
+            model_file,
+            params_file="",
+            runtime_option=None,
+            model_format=ModelFormat.ONNX,
     ):
         """Load a headpose model exported by FSANet.
 
@@ -37,7 +37,7 @@ class FSANet(UltraInferModel):
         super(FSANet, self).__init__(runtime_option)
 
         assert (
-            model_format == ModelFormat.ONNX
+                model_format == ModelFormat.ONNX
         ), "FSANet only support model format of ModelFormat.ONNX now."
         self._model = C.vision.headpose.FSANet(
             model_file, params_file, self._runtime_option, model_format
@@ -69,7 +69,7 @@ class FSANet(UltraInferModel):
             wh, (list, tuple)
         ), "The value to set `size` must be type of tuple or list."
         assert (
-            len(wh) == 2
+                len(wh) == 2
         ), "The value to set `size` must contains 2 elements means [width, height], but now it contains {} elements.".format(
             len(wh)
         )
